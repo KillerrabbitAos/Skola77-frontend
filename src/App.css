@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+.box {
+  background-color: #cccccc; 
+  border: 1px solid #999999; 
+  padding: 10px; 
+  margin: 5px; 
+}
+.gridInstallning{
+  padding: 10px;
+}
+label{
+  padding: 5px;
+}

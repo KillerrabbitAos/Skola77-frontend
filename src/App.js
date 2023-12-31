@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Grid from './Grid'; // Importera Grid-komponenten om den finns i en annan fil
-import './App.css'; // Importera CSS-filen för stilar om du har någon
+import './App.css';
+import Grid from './Grid'; // Se till att importera Grid-komponenten om den finns i en annan fil
 
 const App = () => {
   const [rows, setRows] = useState(3);
@@ -19,35 +19,24 @@ const App = () => {
   const handleMixNames = () => {
     if (names.length === 0 || boxes.length === 0) return;
 
-    const shuffledNames = [...names];
-    for (let i = shuffledNames.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledNames[i], shuffledNames[j]] = [shuffledNames[j], shuffledNames[i]];
-    }
-
-    const updatedBoxes = boxes.map((box, index) => ({
-      ...box,
-      name: shuffledNames[index % shuffledNames.length],
-    }));
-
-    setBoxes(updatedBoxes);
+    // Implementera logiken för att blanda och placera namn slumpmässigt på lådorna
   };
 
   return (
     <div className="App">
-      <div>
-        <label>Rows:</label>
+      <div class='gridInstallning'>
+        <label>Rader:</label>
         <input type="number" value={rows} onChange={(e) => setRows(e.target.value)} />
-        <label>Columns:</label>
+        <label>Kolumner:</label>
         <input type="number" value={columns} onChange={(e) => setColumns(e.target.value)} />
       </div>
-      <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} />
-      <div>
+      <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} />
+      <div class='gridInstallning'>
         <input type="text" value={nameInput} onChange={(e) => setNameInput(e.target.value)} />
-        <button onClick={handleAddName}>Add Name</button>
+        <button onClick={handleAddName}>Lägg till namn</button>
       </div>
       <div>
-        <button onClick={handleMixNames}>Mix Names</button>
+        <button onClick={handleMixNames}>Slumpa</button>
       </div>
       <div>
         <ul>
