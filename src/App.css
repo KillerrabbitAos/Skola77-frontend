@@ -38,10 +38,21 @@
 }
 
 .box {
-  background-color: #cccccc; 
-  border: 1px solid #999999; 
-  padding: 10px; 
-  margin: 5px; 
+  /* Anpassa storlek för att fylla varje ruta i griden */
+  width: 100%; /* Fyller horisontellt */
+  height: 100%; /* Fyller vertikalt */
+}
+.box.filled {
+  background-color: #f00; /* Färg för den ifyllda delen */
+  height: 50%; /* Hälften av boxens höjd för att fylla uppifrån */
+}
+.box.filled span {
+  position: relative;
+  left: 0%;
+  bottom: -100%;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  color: black;
 }
 .gridInstallning{
   padding: 10px;

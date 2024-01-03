@@ -1,28 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Box = ({ id, position, boxes, setBoxes, name }) => {
-  const handleDragStart = (e) => {
-    // Implementera hanteringen för dragstart-händelsen för att flytta lådor
-  };
+const Box = ({ position, boxes, setBoxes }) => {
+  const [isFilled, setIsFilled] = useState(false);
+  const [assignedName, setAssignedName] = useState('');
 
-  const handleDragOver = (e) => {
-    // Implementera hanteringen för dragover-händelsen för att tillåta släpp på lådor
-  };
+  const handleBoxClick = () => {
+  if (!isFilled) {
+    const newName = prompt('Enter a name:');
+    if (newName) {
+      setIsFilled(true);
+      setAssignedName(newName);
+    }
+  } else {
+    setIsFilled(false);
+    setAssignedName('');
+  }
+};
 
-  const handleDrop = (e) => {
-    // Implementera hanteringen för drop-händelsen för att placera lådor på nya positioner
+
+  const handleContextMenu = (e) => {
+    e.preventDefault();
+    setIsFilled(false);
+    setAssignedName('');
   };
 
   return (
     <div
-      className="box"
-      draggable
-      onDragStart={handleDragStart}
-      onDragOver={handleDragOver}
-      onDrop={handleDrop}
+      className={`box ${isFilled ? 'filled' : ''}`}
+      onMouseDown={handleBoxClick}
+      onContextMenu={handleContextMenu}
       style={{ gridArea: position }}
     >
-      {name}
+      {isFilled && (
+        <span className="name">
+        </span>
+      )}
+      <span className="name">
+          {assignedName}
+        </span>
     </div>
   );
 };

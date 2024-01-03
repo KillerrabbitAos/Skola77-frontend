@@ -3,26 +3,37 @@ import Box from './Box';
 
 const Grid = ({ rows, columns, boxes, setBoxes, names }) => {
   const generateGrid = () => {
-    const gridItems = [];
-    const cellSize = 50; // Ange önskad storlek för varje ruta
+  const gridItems = [];
+  const cellSize = 50;
 
-    for (let i = 0; i < rows * columns; i++) {
-      gridItems.push(
-        <div
-          key={`grid-item-${i}`}
-          className="grid-item"
-          style={{
-            width: `${cellSize}px`, // Bredden för varje ruta
-            height: `${cellSize}px`, // Höjden för varje ruta (samma som bredden för att göra dem kvadrater)
-            outline: '1px solid black', // Outline runt varje ruta
-            boxSizing: 'border-box', // Så att outline inkluderas i cellens storlek
-          }}
+  for (let i = 0; i < rows * columns; i++) {
+    const box = boxes[i] || { position: `${i + 1}`, name: '' }; // Lägg till en dummy box om ingen box finns för positionen
+    gridItems.push(
+      <div
+        key={`grid-item-${i}`}
+        className="grid-item"
+        style={{
+          width: `${cellSize}px`,
+          height: `${cellSize}px`,
+          outline: '1px solid black',
+          boxSizing: 'border-box',
+        }}
+      >
+        <Box
+          key={`box-${i}`}
+          id={`box-${i}`}
+          position={box.position}
+          boxes={boxes}
+          setBoxes={setBoxes}
+          name={box.name}
         />
-      );
-    }
+      </div>
+    );
+  }
 
-    return gridItems;
-  };
+  return gridItems;
+};
+
 
   const generateBoxes = () => {
     return boxes.map((box, index) => (
