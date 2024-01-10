@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 function findValueByKey(list, key) {
-  list = list.sort(() => Math.random() - 0.5);
   if (list == 'tom'){
     return("tom")
   }
