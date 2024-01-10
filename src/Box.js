@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
-
-const Box = ({ position, boxes, setBoxes }) => {
+function findValueByKey(list, key) {
+  list = list.sort(() => Math.random() - 0.5);
+  if (list == 'tom'){
+    return("tom")
+  }
+  else{
+  const foundItem = list.find(item => item.key === key);
+  return foundItem ? foundItem.value : null;
+}
+}
+const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, filledBoxes }) => {
   const [isFilled, setIsFilled] = useState(false);
-  const [assignedName, setAssignedName] = useState('');
 
   const handleBoxClick = () => {
   if (!isFilled) {
-    const newName = prompt('Enter a name:');
+    const newName = 'tom';
+    console.log(boxNames[id])
     if (newName) {
       setIsFilled(true);
-      setAssignedName(newName);
+      filledBoxes.push(id)
     }
   } else {
     setIsFilled(false);
-    setAssignedName('');
   }
 };
 
@@ -21,7 +29,6 @@ const Box = ({ position, boxes, setBoxes }) => {
   const handleContextMenu = (e) => {
     e.preventDefault();
     setIsFilled(false);
-    setAssignedName('');
   };
 
   return (
@@ -33,11 +40,9 @@ const Box = ({ position, boxes, setBoxes }) => {
     >
       {isFilled && (
         <span className="name">
+          {findValueByKey(boxNames, id)}
         </span>
       )}
-      <span className="name">
-          {assignedName}
-        </span>
     </div>
   );
 };

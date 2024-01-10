@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
-import Grid from './Grid'; // Se till att importera Grid-komponenten om den finns i en annan fil
+import Grid from './Grid'; 
+import Box from './Box';
 
 const App = () => {
   const [rows, setRows] = useState(3);
@@ -8,7 +9,8 @@ const App = () => {
   const [boxes, setBoxes] = useState([]);
   const [nameInput, setNameInput] = useState('');
   const [names, setNames] = useState([]);
-
+  const [boxNames, setBoxNames] = useState('tom')
+  const [filledBoxes, setFilledBoxes] = useState([])
   const handleAddName = () => {
     if (nameInput.trim() !== '') {
       setNames([...names, nameInput]);
@@ -17,35 +19,17 @@ const App = () => {
   };
 
   const handleMixNames = () => {
-    console.log("Names:", names);
-    console.log("Boxes:", boxes);
-    
-    
-    const unfilledBoxes = boxes.filter(box => !box.filled);
-    const filledBoxes = boxes.filter(box => box.filled && box.assignedName === '');
-  
-    if (filledBoxes.length === 0) return;
-  
-    const availableNames = names.slice();
-    const usedNames = new Set();
-  
-    filledBoxes.forEach(box => {
-      const randomIndex = Math.floor(Math.random() * availableNames.length);
-      const randomName = availableNames[randomIndex];
-  
-      box.assignedName = randomName;
-      usedNames.add(randomName);
-  
-      availableNames.splice(randomIndex, 1);
+    var mixedList = names.sort(() => Math.random() - 0.5);
+    setFilledBoxes(filledBoxes.sort(() => Math.random() - 0.5));
+    var newBoxNames = []
+    setBoxNames([])
+    filledBoxes.forEach(function (item, index){
+      newBoxNames.push({
+        key: item,
+        value: mixedList[index]
     });
-  
-    unfilledBoxes.forEach(box => {
-      box.assignedName = '';
     });
-  
-    setBoxes([...boxes]);
-    const updatedBoxes = [...unfilledBoxes, ...filledBoxes];
-    setBoxes(updatedBoxes);
+    setBoxNames(newBoxNames); 
   };
 
   return (
@@ -56,7 +40,7 @@ const App = () => {
         <label>Kolumner:</label>
         <input type="number" value={columns} onChange={(e) => setColumns(e.target.value)} />
       </div>
-      <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} />
+      <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} boxNames={boxNames} setBoxNames={setBoxNames} filledBoxes={filledBoxes} />
       <div className='gridInstallning'>
         <input type="text" value={nameInput} onChange={(e) => setNameInput(e.target.value)} />
         <button onClick={handleAddName}>Lägg till namn</button>
