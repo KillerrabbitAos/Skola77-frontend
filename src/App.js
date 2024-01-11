@@ -35,10 +35,10 @@ const App = () => {
   return (
     <div className="App">
       <div className='gridInstallning'>
-        <label>Rader:</label>
-        <input type="number" value={rows} onChange={(e) => setRows(e.target.value)} />
-        <label>Kolumner:</label>
-        <input type="number" value={columns} onChange={(e) => setColumns(e.target.value)} />
+      <label>Rader:</label>
+        <input type="number" max="50" value={rows} onChange={(e) => setRows(Math.min(e.target.value, 30))} />
+      <label>Kolumner:</label>
+        <input type="number" max="50" value={columns} onChange={(e) => setColumns(Math.min(e.target.value, 50))} />
       </div>
       <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} boxNames={boxNames} setBoxNames={setBoxNames} filledBoxes={filledBoxes} />
       <div className='gridInstallning'>
