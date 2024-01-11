@@ -48,7 +48,7 @@ const App = () => {
     });
     setBoxNames(newBoxNames);
   };
-//att implementera när vi fått till centering rätt för alla cellsizes: <input type="number" label="Rutstorkek: " value={cellSize} max="300" onChange={(e) => setCellSize(e.target.value, 300)} />
+
   return (
     <div className="App">
       <div className='gridInstallning'>
@@ -57,8 +57,9 @@ const App = () => {
         <label>Kolumner:</label>
         <input type="number" max="50" value={columns} onChange={(e) => setColumns(Math.max(0, Math.min(e.target.value, 50)))} />
       </div>
-      <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} boxNames={boxNames} setBoxNames={setBoxNames} filledBoxes={filledBoxes} cellSize={cellSize} setCellSize={setCellSize} />
-        <button onClick={handleMixNames}>Slumpa</button>
+  <input type="number" label="Rutstorkek: " value={cellSize} max="300" onChange={(e) => setCellSize(e.target.value, 300)} />    
+  <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} boxNames={boxNames} setBoxNames={setBoxNames} filledBoxes={filledBoxes} cellSize={cellSize} setCellSize={setCellSize} />
+      <button onClick={handleMixNames}>Slumpa</button>
       <div className='gridInstallning' id='kebaben'>
         
         <textarea id="namesInput" rows="10" cols="30" placeholder="Ett namn per rad"></textarea>
