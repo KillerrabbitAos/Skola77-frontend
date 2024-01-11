@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 function findValueByKey(list, key) {
-  if (list == 'tom'){
+  if (list === 'tom'){
     return("tom")
   }
   else{
