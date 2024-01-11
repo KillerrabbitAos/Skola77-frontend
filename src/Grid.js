@@ -3,38 +3,37 @@ import Box from './Box';
 
 const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, filledBoxes, cellSize, setCellSize }) => {
   const generateGrid = () => {
-  const gridItems = [];
-  
-  for (let i = 0; i < rows * columns; i++) {
-    const box = boxes[i] || { position: `${i + 1}`, name: '' }; // Lägg till en dummy box om ingen box finns för positionen
-    gridItems.push(
-      <div
-        key={`grid-item-${i}`}
-        className="grid-item"
-        style={{
-          width: `${cellSize}px`,
-          height: `${cellSize}px`,
-          outline: '1px solid black',
-          boxSizing: 'border-box',
-        }}
-      >
-        <Box
-          key={`box-${i}`}
-          id={`box-${i}`}
-          position={box.position}
-          boxes={boxes}
-          setBoxes={setBoxes}
-          name={box.name}
-          boxNames={boxNames}
-          filledBoxes={filledBoxes}
-        />
-      </div>
-    );
-  }
+    const gridItems = [];
+    
+    for (let i = 0; i < rows * columns; i++) {
+      const box = boxes[i] || { position: `${i + 1}`, name: '' };
+      gridItems.push(
+        <div
+          key={`grid-item-${i}`}
+          className="grid-item"
+          style={{
+            width: `${cellSize}px`,
+            height: `${cellSize}px`,
+            outline: '1px solid black',
+            boxSizing: 'border-box',
+          }}
+        >
+          <Box
+            key={`box-${i}`}
+            id={`box-${i}`}
+            position={box.position}
+            boxes={boxes}
+            setBoxes={setBoxes}
+            name={box.name}
+            boxNames={boxNames}
+            filledBoxes={filledBoxes}
+          />
+        </div>
+      );
+    }
 
-  return gridItems;
-};
-
+    return gridItems;
+  };
 
   const generateBoxes = () => {
     return boxes.map((box, index) => (
@@ -50,8 +49,8 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
   };
 
   return (
-    <div className="grid-outer-container" style={{ display: 'flex', justifyContent: 'center', padding: "50px"}}>
-      <div className="grid-container" style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, gap: '10px', width: `${columns * 50 + (columns - 1) * 5}px`, }}>
+    <div className="grid-outer-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: "50px"}}>
+      <div className="grid-container" style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, gap: '10px', width: `${columns * cellSize + (columns - 1) * 10}px`, }}>
         {generateGrid()}
         {generateBoxes()}
       </div>

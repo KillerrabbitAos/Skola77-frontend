@@ -32,7 +32,7 @@ const App = () => {
     }
 
     setNames([...names, ...newNames]);
-    textarea.value = ''; // Nollställer värdet i <textarea>
+    textarea.value = '';
   };
 
   const handleMixNames = () => {
