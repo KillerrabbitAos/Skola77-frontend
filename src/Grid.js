@@ -1,10 +1,9 @@
 import React from 'react';
 import Box from './Box';
 
-const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, filledBoxes }) => {
+const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, filledBoxes, cellSize, setCellSize }) => {
   const generateGrid = () => {
   const gridItems = [];
-  const cellSize = 50;
   
   for (let i = 0; i < rows * columns; i++) {
     const box = boxes[i] || { position: `${i + 1}`, name: '' }; // Lägg till en dummy box om ingen box finns för positionen

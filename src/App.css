@@ -39,14 +39,12 @@
 }
 
 .box {
-  /* Anpassa storlek för att fylla varje ruta i griden */
-  width: 100%; /* Fyller horisontellt */
-  height: 100%; /* Fyller vertikalt */
-
+  width: 100%; 
+  height: 100%;
 }
 .box.filled {
-  background-color: gray; /* Färg för den ifyllda delen */
-  height: 50%; /* Hälften av boxens höjd för att fylla uppifrån */
+  background-color: gray;
+  height: 50%; 
 }
 .box.filled span {
   position: relative;
@@ -70,7 +68,7 @@ label{
 }
 
 #namesInput {
-  margin-top: 10px; /* Justera toppmarginalen efter behov */
+  margin-top: 10px;
 }
 
 #namnSingel{
@@ -87,4 +85,8 @@ label{
 
 #namesInput{
   margin-bottom: 30px;
+}
+.name{
+  font-size: 100%;
+  font-weight: bold;
 }
