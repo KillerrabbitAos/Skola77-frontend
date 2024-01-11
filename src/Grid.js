@@ -51,8 +51,8 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
   };
 
   return (
-    <div className="grid-outer-container" style={{ display: 'flex', justifyContent: 'center' }}>
-      <div className="grid-container" style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, gap: '5px', width: `${columns * 50 + (columns - 1) * 5}px`, }}>
+    <div className="grid-outer-container" style={{ display: 'flex', justifyContent: 'center', padding: "50px"}}>
+      <div className="grid-container" style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, gap: '10px', width: `${columns * 50 + (columns - 1) * 5}px`, }}>
         {generateGrid()}
         {generateBoxes()}
       </div>
