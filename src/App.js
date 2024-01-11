@@ -27,7 +27,7 @@ const App = () => {
       newBoxNames.push({
         key: item,
         value: mixedList[index]
-    });
+      });
     });
     setBoxNames(newBoxNames); 
   };
