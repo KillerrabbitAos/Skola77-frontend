@@ -36,9 +36,9 @@ const App = () => {
     <div className="App">
       <div className='gridInstallning'>
       <label>Rader:</label>
-        <input type="number" max="50" value={rows} onChange={(e) => setRows(Math.min(e.target.value, 30))} />
+      <input type="number" max="50" value={rows} onChange={(e) => setRows(Math.max(0, Math.min(e.target.value, 50)))} />
       <label>Kolumner:</label>
-        <input type="number" max="50" value={columns} onChange={(e) => setColumns(Math.min(e.target.value, 50))} />
+      <input type="number" max="50" value={columns} onChange={(e) => setColumns(Math.max(0, Math.min(e.target.value, 50)))} />
       </div>
       <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} boxNames={boxNames} setBoxNames={setBoxNames} filledBoxes={filledBoxes} />
       <div className='gridInstallning'>
