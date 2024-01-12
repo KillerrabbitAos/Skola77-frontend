@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './App.css';
 import Grid from './Grid';
 import Box from './Box';
-//kebaben
 const App = () => {
   const [rows, setRows] = useState(3);
   const [columns, setColumns] = useState(3);
