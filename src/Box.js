@@ -9,7 +9,7 @@ function findValueByKey(list, key) {
   }
 }
 
-const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, filledBoxes }) => {
+const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
   const [isFilled, setIsFilled] = useState(false);
 
   const handleBoxClick = () => {
@@ -21,14 +21,16 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
         filledBoxes.push(id);
       }
     } else {
-      setIsFilled(false);
+      //setIsFilled(false);
+      //var elements = [filledBoxes];
+      //for(var i = elements.length - 1; i >= 0; i--){
+          //if(elements[i] == id){
+          //    elements.splice(i, 1);
+        //  }
+      //    setFilledBoxes(elements)
+      
+      }
     }
-  };
-
-  const handleContextMenu = e => {
-    e.preventDefault();
-    setIsFilled(false);
-  };
 
   const nameValue = findValueByKey(boxNames, id);
   const isNameTooLong = nameValue && nameValue.length > 7;
@@ -37,7 +39,6 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
     <div
       className={`box ${isFilled ? 'filled' : ''}`}
       onMouseDown={handleBoxClick}
-      onContextMenu={handleContextMenu}
       style={{ gridArea: position }}
     >
       {isFilled && (

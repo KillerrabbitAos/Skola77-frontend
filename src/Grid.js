@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from './Box';
 
-const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, filledBoxes, cellSize, setCellSize }) => {
+const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize }) => {
   const generateGrid = () => {
     const gridItems = [];
     
@@ -27,6 +27,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
             name={box.name}
             boxNames={boxNames}
             filledBoxes={filledBoxes}
+            setFilledBoxes={setFilledBoxes}
           />
         </div>
       );
