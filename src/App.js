@@ -51,13 +51,13 @@ const App = () => {
     var positionInfo = name[i].getBoundingClientRect();
     var width = positionInfo.width;
     while(width > cellSize){
-        name[i].style.fontSize -= 5%
+        name[i].style.fontSize -= 5%;
       }
     while(width < cellSize){
-       name[i].style.fontSize += 5%
+       name[i].style.fontSize += 5%;
       }
     while(width > cellSize){
-        name[i].style.fontSize -= 5%
+        name[i].style.fontSize -= 5%;
       }
   }
   };
