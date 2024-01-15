@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import './App.css';
 import Grid from './Grid';
 import Box from './Box';
+function calculateFontSize = (containerId, textId, baseFontSize = 16) {
+  const containerWidth = document.getElementById(containerId).offsetWidth;
+  const elementWidth = document.getElementById(textId).offsetWidth;
+  const ratio = containerWidth / elementWidth;
+  return baseFontSize * ratio;
+}
 
 const App = () => {
   const [rows, setRows] = useState(3);
@@ -36,12 +42,6 @@ const App = () => {
   };
 
   const handleMixNames = () => {
-    const calculateFontSize = (containerId, textId, baseFontSize = 16) => {
-  const containerWidth = document.getElementById(containerId).offsetWidth;
-  const elementWidth = document.getElementById(textId).offsetWidth;
-  const ratio = containerWidth / elementWidth;
-  return baseFontSize * ratio;
-}
     
     const mixedList = names.sort(() => Math.random() - 0.5);
     setFilledBoxes(filledBoxes.sort(() => Math.random() - 0.5));
@@ -73,7 +73,7 @@ const App = () => {
       </div>
       
   <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} boxNames={boxNames} setBoxNames={setBoxNames} filledBoxes={filledBoxes} cellSize={cellSize} setCellSize={setCellSize} />
-      <button onClick={handleMixNames}>Slumpa</button>
+      <button onClick={handleMixNames; }>Slumpa</button>
       <div className='gridInstallning' id='kebaben'>
         
         <textarea id="namesInput" rows="10" cols="30" placeholder="Ett namn per rad"></textarea>
