@@ -52,12 +52,18 @@ const App = () => {
     var width = positionInfo.width;
     while(width > cellSize){
         name[i].style.fontSize -= 5%;
+        var positionInfo = name[i].getBoundingClientRect();
+        var width = positionInfo.width;
       }
     while(width < cellSize){
        name[i].style.fontSize += 5%;
+       var positionInfo = name[i].getBoundingClientRect();
+       var width = positionInfo.width;
       }
     while(width > cellSize){
         name[i].style.fontSize -= 5%;
+        var positionInfo = name[i].getBoundingClientRect();
+        var width = positionInfo.width;
       }
   }
   };
