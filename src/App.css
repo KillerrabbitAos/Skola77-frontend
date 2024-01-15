@@ -101,3 +101,10 @@ label{
 .small-text {
   font-size: 75%;
 }
+
+ul {
+  position: relative;
+  display: table;
+  margin: 0 auto;
+  text-align: left;
+}
