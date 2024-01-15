@@ -2,14 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Grid from './Grid';
 import Box from './Box';
-function calculateFontSize(container, text) {
-  baseFontSize = 16;
-  var containerWidth = container.offsetWidth;
-  var elementWidth = container.offsetWidth;
-  var ratio = containerWidth / elementWidth;
-  alert(baseFontSize * ratio);
-  return baseFontSize * ratio;
-}
+
 
 const App = () => {
   const [rows, setRows] = useState(3);
@@ -55,11 +48,19 @@ const App = () => {
         value: mixedList[index],
       });
     });
+    document.getElementsByClassName('name')[1]
+    var containerWidth = document.getElementByClassName('filled')[1].offsetWidth;
+    var element = 
     for (let i = 0; i < document.getElementsByClassName('name'); i++) {
     alert('kebab')
-    var element = document.getElementsByClassName('name')[i]
-    newFontSize = calculateFontSize(element.parentElement, element)
-    element.style.fontSize = newFontSize
+    element = document.getElementsByClassName('name')[i]
+    baseFontSize = 16;
+    var elementWidth = element.offsetWidth;
+    var ratio = containerWidth / elementWidth;
+    alert(baseFontSize * ratio);
+    element.style.fontSize = baseFontSize;
+}
+      
     }
     setBoxNames(newBoxNames);
     
