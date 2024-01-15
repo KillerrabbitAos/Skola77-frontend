@@ -28,7 +28,6 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
             boxNames={boxNames}
             filledBoxes={filledBoxes}
             setFilledBoxes={setFilledBoxes}
-            cellSize={cellSize}
           />
         </div>
       );

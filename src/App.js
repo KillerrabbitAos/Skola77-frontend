@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import './App.css';
 import Grid from './Grid';
 import Box from './Box';
-
-
 const App = () => {
   const [rows, setRows] = useState(3);
   const [columns, setColumns] = useState(3);
@@ -37,7 +35,6 @@ const App = () => {
   };
 
   const handleMixNames = () => {
-    
     const mixedList = names.sort(() => Math.random() - 0.5);
     setFilledBoxes(filledBoxes.sort(() => Math.random() - 0.5));
     const newBoxNames = [];
@@ -48,20 +45,9 @@ const App = () => {
         value: mixedList[index],
       });
     });
-    document.getElementsByClassName('name')[1]
-    var containerWidth = document.getElementByClassName('filled')[1].offsetWidth;
-    var element = document.getElementsByClassName('name')[0]
-    for (let i = 0; i < document.getElementsByClassName('name').length; i++) {
-        element = document.getElementsByClassName('name')[i];
-        baseFontSize = 16;
-        var elementWidth = element.offsetWidth;
-        var ratio = containerWidth / elementWidth;
-        element.style.fontSize = baseFontSize;
-}
     setBoxNames(newBoxNames);
-    
-  
   };
+
   return (
     <div className="App">
       <div className='gridInstallning'>

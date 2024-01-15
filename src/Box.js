@@ -1,10 +1,4 @@
-
-import React, { useEffect, useState } from 'react';
-
-
-// Example u
-
-// Now `newFontSize` contains the calculated font size.
+import React, { useState } from 'react';
 
 function findValueByKey(list, key) {
   if (list === 'tom') {
@@ -40,7 +34,6 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
 
   const nameValue = findValueByKey(boxNames, id);
   const isNameTooLong = nameValue && nameValue.length > 7;
-  
 
   return (
     <div
@@ -49,10 +42,9 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
       style={{ gridArea: position }}
     >
       {isFilled && (
-        <span className={'name'}>
+        <span className={`name ${isNameTooLong ? 'small-text' : ''}`}>
           {nameValue}
         </span>
-
       )}
     </div>
   );
