@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Grid from './Grid';
 import Box from './Box';
+import html2pdf from 'html2pdf.js';
+
 
 function fitTextToContainer(container, element) {
   const containerWidth = container.clientWidth;
@@ -51,6 +53,14 @@ const App = () => {
       fitTextToContainer(container, element);
     }
   }
+  const handleExportToPDF = () => {
+    const gridContainer = document.getElementById('gridPdfSak');
+  
+    if (gridContainer) {
+      html2pdf(gridContainer);
+    }
+  };
+  
 
   const handleRemoveName = (index) => {
     const updatedNames = [...names];
@@ -102,7 +112,7 @@ const App = () => {
         <label>Storlek:</label>
         <input type="number" label="Rutstorkek: " value={cellSize} max="300" onChange={(e) => setCellSize(e.target.value, 300)} />
       </div>
-
+      <button onClick={handleExportToPDF}>Exportera till PDF</button>
       <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} boxNames={boxNames} setBoxNames={setBoxNames} filledBoxes={filledBoxes} cellSize={cellSize} setCellSize={setCellSize} />
       <button onClick={handleMixNames}>Slumpa</button>
       <div className='gridInstallning' id='kebaben'>
