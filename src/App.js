@@ -58,7 +58,7 @@ const App = () => {
       while (width > cellSize) {
         var style = window.getComputedStyle(nameElements[i], null).getPropertyValue('font-size');
         var fontSize = parseFloat(style);
-        nameElements[i].style.fontSize = (fontSize - 1) + 'px';
+        nameElements[i].style.fontSize = (fontSize - 10) + 'px';
         positionInfo = nameElements[i].getBoundingClientRect();
         width = positionInfo.width;
       }
@@ -66,7 +66,7 @@ const App = () => {
       while (width < cellSize) {
         var style = window.getComputedStyle(nameElements[i], null).getPropertyValue('font-size');
         var fontSize = parseFloat(style);
-        nameElements[i].style.fontSize = (fontSize + 1) + 'px';
+        nameElements[i].style.fontSize = (fontSize + 10) + 'px';
         positionInfo = nameElements[i].getBoundingClientRect();
         width = positionInfo.width;
       }
@@ -74,7 +74,7 @@ const App = () => {
       while (width > cellSize) {
         var style = window.getComputedStyle(nameElements[i], null).getPropertyValue('font-size');
         var fontSize = parseFloat(style);
-        nameElements[i].style.fontSize = (fontSize - 1) + 'px';
+        nameElements[i].style.fontSize = (fontSize - 10) + 'px';
         positionInfo = nameElements[i].getBoundingClientRect();
         width = positionInfo.width;
       }
