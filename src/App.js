@@ -11,7 +11,8 @@ const App = () => {
   const [boxNames, setBoxNames] = useState('tom');
   const [filledBoxes, setFilledBoxes] = useState([]);
   const [cellSize, setCellSize] = useState(70) 
-const calculateFontSize = (containerId, textId, baseFontSize = 16) => {
+
+  const calculateFontSize = (containerId, textId, baseFontSize = 16) => {
   const containerWidth = document.getElementById(containerId).offsetWidth;
   const elementWidth = document.getElementById(textId).offsetWidth;
   const ratio = containerWidth / elementWidth;
@@ -90,6 +91,7 @@ const calculateFontSize = (containerId, textId, baseFontSize = 16) => {
       </div>
     </div>
   );
+};
 };
 
 export default App;
