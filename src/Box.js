@@ -49,7 +49,7 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
       style={{ gridArea: position }}
     >
       {isFilled && (
-        <span className={`name`}>
+        <span className={'name'}>
           {nameValue}
         </span>
 
