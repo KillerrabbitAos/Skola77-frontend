@@ -24,25 +24,6 @@ function fitTextToContainer(container, element) {
   element.style.fontSize = newFontSize + 'px';
 }
 
-// Example Usage:
-// Assuming you have HTML like this:
-// <div id="container" style="width: 300px; height: 200px;">
-//   <p id="textElement">This is some text.</p>
-// </div>
-
-// Get container and element references
-const container = document.getElementById('container');
-const element = document.getElementById('textElement');
-
-// Call the function
-
-
-
-// Function to apply new font sizes to elements with a specific class
-
-
-// Replace 'your-class-name' with the actual class name you want to target
-
 
 const App = () => {
   const [rows, setRows] = useState(3);
@@ -54,12 +35,6 @@ const App = () => {
   const [filledBoxes, setFilledBoxes] = useState([]);
   const [cellSize, setCellSize] = useState(70) 
 
-  const handleAddName = () => {
-    if (nameInput.trim() !== '') {
-      setNames([...names, nameInput]);
-      setNameInput('');
-    }
-  };
   function applyFontSizesToClass(className) {
     const elements = document.getElementsByClassName(className);
   
