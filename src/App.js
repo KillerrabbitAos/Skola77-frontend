@@ -46,7 +46,7 @@ const App = () => {
       });
     });
     setBoxNames(newBoxNames);
-    for(let i = 0; i < getElementsByClassName(name){
+    for(let i = 0; i < getElementsByClassName(name); i++{
     var name = getElementsByClassName(name)
 
     while(name[i].style.width > 70px){
