@@ -6,7 +6,7 @@ function calculateFontSize = (container, text, baseFontSize = 16) {
   const containerWidth = container.offsetWidth;
   const elementWidth = container.offsetWidth;
   const ratio = containerWidth / elementWidth;
-  alert(baseFontSize * ratio)
+  alert(baseFontSize * ratio);
   return baseFontSize * ratio;
 }
 
