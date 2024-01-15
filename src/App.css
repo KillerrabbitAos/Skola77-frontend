@@ -107,4 +107,19 @@ ul {
   display: table;
   margin: 0 auto;
   text-align: left;
+  margin-bottom: 40px;
+}
+
+.namelist {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 20px;
+}
+
+.namelist button{
+  margin-left: 20px;
+}
+
+#nameHeader{
+  font-weight: bold;
 }
