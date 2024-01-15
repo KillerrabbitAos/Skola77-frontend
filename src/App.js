@@ -13,8 +13,6 @@ const App = () => {
   const [filledBoxes, setFilledBoxes] = useState([]);
   const [cellSize, setCellSize] = useState(70) 
 
-  
-};
   const handleAddName = () => {
     if (nameInput.trim() !== '') {
       setNames([...names, nameInput]);
