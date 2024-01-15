@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import './App.css';
 import Grid from './Grid';
 import Box from './Box';
-function calculateFontSize = (containerId, textId, baseFontSize = 16) {
-  const containerWidth = document.getElementById(containerId).offsetWidth;
-  const elementWidth = document.getElementById(textId).offsetWidth;
+function calculateFontSize = (container, text, baseFontSize = 16) {
+  const containerWidth = container.offsetWidth;
+  const elementWidth = container.offsetWidth;
   const ratio = containerWidth / elementWidth;
   return baseFontSize * ratio;
 }
@@ -55,7 +55,7 @@ const App = () => {
     });
     for (let i = 0; i < document.getElementsByClassName('name'); i++) {
     var element = document.getElementsByClassName('name')[i]
-    element.style.fontSize = calculateFontSize(element.parentElement.id, element.id)
+    element.style.fontSize = calculateFontSize(element.parentElement, element)
   }
     setBoxNames(newBoxNames);
     
