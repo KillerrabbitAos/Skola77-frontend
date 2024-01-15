@@ -2,13 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Grid from './Grid';
 import Box from './Box';
-function calculateFontSize = (container, text, baseFontSize = 16) {
-  var containerWidth = container.offsetWidth;
-  var elementWidth = container.offsetWidth;
-  var ratio = containerWidth / elementWidth;
-  alert(baseFontSize * ratio);
-  return baseFontSize * ratio;
-}
+
 
 const App = () => {
   const [rows, setRows] = useState(3);
@@ -26,7 +20,13 @@ const App = () => {
       setNameInput('');
     }
   };
-
+function calculateFontSize = (container, text, baseFontSize = 16) {
+  var containerWidth = container.offsetWidth;
+  var elementWidth = container.offsetWidth;
+  var ratio = containerWidth / elementWidth;
+  alert(baseFontSize * ratio);
+  return baseFontSize * ratio;
+}
   const handleMassImportNames = () => {
     const newNames = [];
     const textarea = document.getElementById('namesInput');
