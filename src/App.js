@@ -3,9 +3,9 @@ import './App.css';
 import Grid from './Grid';
 import Box from './Box';
 function calculateFontSize = (container, text, baseFontSize = 16) {
-  const containerWidth = container.offsetWidth;
-  const elementWidth = container.offsetWidth;
-  const ratio = containerWidth / elementWidth;
+  var containerWidth = container.offsetWidth;
+  var elementWidth = container.offsetWidth;
+  var ratio = containerWidth / elementWidth;
   alert(baseFontSize * ratio);
   return baseFontSize * ratio;
 }
@@ -54,7 +54,11 @@ const App = () => {
         value: mixedList[index],
       });
     });
-    
+    for (let i = 0; i < document.getElementsByClassName('name'); i++) {
+    var element = document.getElementsByClassName('name')[i]
+    newFontSize = calculateFontSize(element.parentElement, element)
+    element.style.fontSize = newFontSize
+    }
     setBoxNames(newBoxNames);
     
   
@@ -71,11 +75,7 @@ const App = () => {
       </div>
       
   <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} boxNames={boxNames} setBoxNames={setBoxNames} filledBoxes={filledBoxes} cellSize={cellSize} setCellSize={setCellSize} />
-      <button onClick={handleMixNames}; 'for (let i = 0; i < document.getElementsByClassName('name'); i++) {
-    var element = document.getElementsByClassName('name')[i]
-    newFontSize = calculateFontSize(element.parentElement, element)
-    element.style.fontSize = newFontSize
-  ';>Slumpa</button>
+      <button onClick={handleMixNames}>Slumpa</button>
       <div className='gridInstallning' id='kebaben'>
         
         <textarea id="namesInput" rows="10" cols="30" placeholder="Ett namn per rad"></textarea>
