@@ -53,13 +53,19 @@ const App = () => {
       fitTextToContainer(container, element);
     }
   }
+
   const handleExportToPDF = () => {
     const gridContainer = document.getElementById('gridPdfSak');
   
     if (gridContainer) {
-      html2pdf(gridContainer);
+      const pdfConfig = {
+        filename: 'skola77-placering.pdf',
+      };
+  
+      html2pdf(gridContainer, pdfConfig);
     }
   };
+  
   
 
   const handleRemoveName = (index) => {
