@@ -1,4 +1,17 @@
-import React, { useState } from 'react';
+
+import React, { useEffect, useState } from 'react';
+
+const calculateFontSize = (containerId, textId, baseFontSize = 16) => {
+  const containerWidth = document.getElementById(containerId).offsetWidth;
+  const elementWidth = document.getElementById(textId).offsetWidth;
+  const ratio = containerWidth / elementWidth;
+  return baseFontSize * ratio;
+};
+
+// Example usage
+const newFontSize = calculateFontSize('container', 'text');
+
+// Now `newFontSize` contains the calculated font size.
 
 function findValueByKey(list, key) {
   if (list === 'tom') {
