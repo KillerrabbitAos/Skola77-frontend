@@ -97,11 +97,6 @@ label{
   text-overflow: ellipsis;
 }
 
-
-.small-text {
-  font-size: 75%;
-}
-
 ul {
   position: relative;
   display: table;
