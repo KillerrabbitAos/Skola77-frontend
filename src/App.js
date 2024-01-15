@@ -11,7 +11,12 @@ const App = () => {
   const [boxNames, setBoxNames] = useState('tom');
   const [filledBoxes, setFilledBoxes] = useState([]);
   const [cellSize, setCellSize] = useState(70) 
-
+const calculateFontSize = (containerId, textId, baseFontSize = 16) => {
+  const containerWidth = document.getElementById(containerId).offsetWidth;
+  const elementWidth = document.getElementById(textId).offsetWidth;
+  const ratio = containerWidth / elementWidth;
+  return baseFontSize * ratio;
+};
   const handleAddName = () => {
     if (nameInput.trim() !== '') {
       setNames([...names, nameInput]);
@@ -47,6 +52,9 @@ const App = () => {
     });
     setBoxNames(newBoxNames);
   };
+  for (let i=0; i < document.getElementsByClassName(filled); i++;) {
+    var element = document.getElementsByClassName(filled)[i]
+    element.style.fontSize = calculateFontSize(element.parentElement, element)
 
   return (
     <div className="App">
