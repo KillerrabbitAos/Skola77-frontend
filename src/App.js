@@ -51,11 +51,12 @@ const calculateFontSize = (containerId, textId, baseFontSize = 16) => {
       });
     });
     setBoxNames(newBoxNames);
-  };
-  for (let i=0; i < document.getElementsByClassName(filled); i++;) {
-    var element = document.getElementsByClassName(filled)[i]
+  
+  for (let i=0; i < document.getElementsByClassName(name); i++;) {
+    var element = document.getElementsByClassName(name)[i]
     element.style.fontSize = calculateFontSize(element.parentElement, element)
-
+  }
+  };
   return (
     <div className="App">
       <div className='gridInstallning'>
