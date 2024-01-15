@@ -51,17 +51,26 @@ const App = () => {
     var positionInfo = name[i].getBoundingClientRect();
     var width = positionInfo.width;
     while(width > cellSize){
-        name[i].style.fontSize -= 5%;
+        var style = window.getComputedStyle(name[i], null).getPropertyValue('font-size');
+        var fontSize = parseFloat(style); 
+// now you have a proper float for the font size (yes, it can be a float, not just an integer)
+        name[i].style.fontSize = (fontSize - 1) + 'px';
         var positionInfo = name[i].getBoundingClientRect();
         var width = positionInfo.width;
       }
     while(width < cellSize){
-       name[i].style.fontSize += 5%;
-       var positionInfo = name[i].getBoundingClientRect();
-       var width = positionInfo.width;
+       var style = window.getComputedStyle(name[i], null).getPropertyValue('font-size');
+        var fontSize = parseFloat(style); 
+// now you have a proper float for the font size (yes, it can be a float, not just an integer)
+        name[i].style.fontSize = (fontSize + 1) + 'px';
+        var positionInfo = name[i].getBoundingClientRect();
+        var width = positionInfo.width;
       }
     while(width > cellSize){
-        name[i].style.fontSize -= 5%;
+        var style = window.getComputedStyle(name[i], null).getPropertyValue('font-size');
+        var fontSize = parseFloat(style); 
+// now you have a proper float for the font size (yes, it can be a float, not just an integer)
+        name[i].style.fontSize = (fontSize - 1) + 'px';
         var positionInfo = name[i].getBoundingClientRect();
         var width = positionInfo.width;
       }
