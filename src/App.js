@@ -52,13 +52,11 @@ const App = () => {
     var containerWidth = document.getElementByClassName('filled')[1].offsetWidth;
     var element = document.getElementsByClassName('name')[0]
     for (let i = 0; i < document.getElementsByClassName('name'); i++) {
-    alert('kebab');
-    element = document.getElementsByClassName('name')[i];
-    baseFontSize = 16;
-    var elementWidth = element.offsetWidth;
-    var ratio = containerWidth / elementWidth;
-    alert(baseFontSize * ratio);
-    element.style.fontSize = baseFontSize;
+        element = document.getElementsByClassName('name')[i];
+        baseFontSize = 16;
+        var elementWidth = element.offsetWidth;
+        var ratio = containerWidth / elementWidth;
+        element.style.fontSize = baseFontSize;
 }
     setBoxNames(newBoxNames);
     
