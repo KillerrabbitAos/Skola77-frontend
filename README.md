@@ -1,19 +1,3 @@
-const calculateFontSize = (containerId, textId, baseFontSize = 16) => {
-  const containerWidth = document.getElementById(containerId).offsetWidth;
-  const elementWidth = document.getElementById(textId).offsetWidth;
-  const ratio = containerWidth / elementWidth;
-  return baseFontSize * ratio;
-};
-
-// Example usage
-const newFontSize = calculateFontSize('container', 'text');
-
-// Now `newFontSize` contains the calculated font size.
-
-
-
-
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
