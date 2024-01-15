@@ -60,8 +60,6 @@ const App = () => {
     alert(baseFontSize * ratio);
     element.style.fontSize = baseFontSize;
 }
-      
-    }
     setBoxNames(newBoxNames);
     
   
