@@ -52,31 +52,19 @@ const App = () => {
     setBoxNames(newBoxNames);
 
     for (let i = 0; i < nameElements.length; i++) {
-      var positionInfo = nameElements[i].getBoundingClientRect();
-      var width = positionInfo.width;
+      let fontSize = 16; // Start with a base font size
 
-      while (width > cellSize) {
-        var style = window.getComputedStyle(nameElements[i], null).getPropertyValue('font-size');
-        var fontSize = parseFloat(style);
-        nameElements[i].style.fontSize = (fontSize - 10) + 'px';
-        positionInfo = nameElements[i].getBoundingClientRect();
-        width = positionInfo.width;
-      }
+      nameElements[i].style.fontSize = fontSize + 'px';
 
-      while (width < cellSize) {
-        var style = window.getComputedStyle(nameElements[i], null).getPropertyValue('font-size');
-        var fontSize = parseFloat(style);
-        nameElements[i].style.fontSize = (fontSize + 10) + 'px';
-        positionInfo = nameElements[i].getBoundingClientRect();
-        width = positionInfo.width;
-      }
+      // Continue adjusting font size while the width is outside the desired range
+      while (nameElements[i].getBoundingClientRect().width !== cellSize) {
+        if (nameElements[i].getBoundingClientRect().width < cellSize && fontSize < 50) {
+          fontSize += 1;
+        } else if (nameElements[i].getBoundingClientRect().width > cellSize && fontSize > 10) {
+          fontSize -= 1;
+        }
 
-      while (width > cellSize) {
-        var style = window.getComputedStyle(nameElements[i], null).getPropertyValue('font-size');
-        var fontSize = parseFloat(style);
-        nameElements[i].style.fontSize = (fontSize - 10) + 'px';
-        positionInfo = nameElements[i].getBoundingClientRect();
-        width = positionInfo.width;
+        nameElements[i].style.fontSize = fontSize + 'px';
       }
     }
   };
@@ -108,7 +96,7 @@ const App = () => {
       <div>
         <ul>
           {names.map((name, index) => (
-            <li key={index}>{name}</li>
+            <li key={index} className="name">{name}</li>
           ))}
         </ul>
       </div>
