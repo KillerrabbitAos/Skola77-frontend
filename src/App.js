@@ -48,14 +48,15 @@ const App = () => {
     setBoxNames(newBoxNames);
     for (let i = 0; i < getElementsByClassName('name').length; i++) {
     var name = getElementsByClassName('name')
-
-    while(name[i].style.width > 70px){
+    var positionInfo = name[i].getBoundingClientRect();
+    var width = positionInfo.width;
+    while(width > cellSize){
         name[i].style.fontSize -= 5%
       }
-    while(name[i].style.width < 70px){
+    while(width < cellSize){
        name[i].style.fontSize += 5%
       }
-    while(name[i].style.width > 70px){
+    while(width > cellSize){
         name[i].style.fontSize -= 5%
       }
   }
