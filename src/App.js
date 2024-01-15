@@ -53,10 +53,7 @@ const App = () => {
     });
     setBoxNames(newBoxNames);
   
-  for (let i = 0; i < document.getElementsByClassName('name'); i++) {
-    var element = document.getElementsByClassName('name')[i]
-    element.style.fontSize = calculateFontSize(element.parentElement, element)
-  }
+  
   };
   return (
     <div className="App">
