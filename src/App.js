@@ -20,7 +20,8 @@ const App = () => {
       setNameInput('');
     }
   };
-function calculateFontSize = (container, text, baseFontSize = 16) {
+function calculateFontSize(container, text) {
+  baseFontSize = 16;
   var containerWidth = container.offsetWidth;
   var elementWidth = container.offsetWidth;
   var ratio = containerWidth / elementWidth;
