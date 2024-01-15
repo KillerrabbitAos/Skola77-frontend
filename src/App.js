@@ -46,8 +46,8 @@ const App = () => {
       });
     });
     setBoxNames(newBoxNames);
-    for (let i = 0; i < getElementsByClassName('name').length; i++) {
-    var name = getElementsByClassName('name')
+    for (let i = 0; i < document.getElementsByClassName('name').length; i++) {
+    var name = document.getElementsByClassName('name')
     var positionInfo = name[i].getBoundingClientRect();
     var width = positionInfo.width;
     while(width > cellSize){
