@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './App.css';
 import Grid from './Grid';
 import Box from './Box';
-
 const App = () => {
   const [rows, setRows] = useState(3);
   const [columns, setColumns] = useState(3);
@@ -11,7 +10,7 @@ const App = () => {
   const [names, setNames] = useState([]);
   const [boxNames, setBoxNames] = useState('tom');
   const [filledBoxes, setFilledBoxes] = useState([]);
-  const [cellSize, setCellSize] = useState(70);
+  const [cellSize, setCellSize] = useState(70) 
 
   const handleAddName = () => {
     if (nameInput.trim() !== '') {
@@ -40,9 +39,6 @@ const App = () => {
     setFilledBoxes(filledBoxes.sort(() => Math.random() - 0.5));
     const newBoxNames = [];
     setBoxNames([]);
-
-    const nameElements = document.getElementsByClassName('name');
-
     filledBoxes.forEach(function (item, index) {
       newBoxNames.push({
         key: item,
@@ -50,58 +46,32 @@ const App = () => {
       });
     });
     setBoxNames(newBoxNames);
-
-    for (let i = 0; i < nameElements.length; i++) {
-      let fontSize = 16; // Start with a base font size
-
-      nameElements[i].style.fontSize = fontSize + 'px';
-
-      // Continue adjusting font size while the width is outside the desired range
-      while (nameElements[i].getBoundingClientRect().width !== cellSize) {
-        if (nameElements[i].getBoundingClientRect().width < cellSize && fontSize < 50) {
-          fontSize += 1;
-        } else if (nameElements[i].getBoundingClientRect().width > cellSize && fontSize > 10) {
-          fontSize -= 1;
-        }
-
-        nameElements[i].style.fontSize = fontSize + 'px';
+    for (let i = 0; i < document.getElementsByClassName('name').length; i++) {
+    var name = document.getElementsByClassName('name')
+    var positionInfo = name[i].getBoundingClientRect();
+    var width = positionInfo.width;
+    while(width > cellSize){
+        var style = window.getComputedStyle(name[i], null).getPropertyValue('font-size');
+        var fontSize = parseFloat(style); 
+// now you have a proper float for the font size (yes, it can be a float, not just an integer)
+        name[i].style.fontSize = (fontSize - 1) + 'px';
+        var positionInfo = name[i].getBoundingClientRect();
+        var width = positionInfo.width;
       }
-    }
-  };
-
-  return (
-    <div className="App">
-      <div className='gridInstallning'>
-        <label>Rader:</label>
-        <input type="number" max="50" value={rows} onChange={(e) => setRows(Math.max(0, Math.min(e.target.value, 50)))} />
-        <label>Kolumner:</label>
-        <input type="number" max="50" value={columns} onChange={(e) => setColumns(Math.max(0, Math.min(e.target.value, 50)))} />
-        <label>Storlek:</label>
-        <input type="number" label="Rutstorkek: " value={cellSize} max="300" onChange={(e) => setCellSize(e.target.value, 300)} />
-      </div>
-
-      <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} boxNames={boxNames} setBoxNames={setBoxNames} filledBoxes={filledBoxes} cellSize={cellSize} setCellSize={setCellSize} />
-      <button onClick={handleMixNames}>Slumpa</button>
-      <div className='gridInstallning' id='kebaben'>
-
-        <textarea id="namesInput" rows="10" cols="30" placeholder="Ett namn per rad"></textarea>
-
-        <button onClick={handleMassImportNames}>Massimportera namn</button>
-
-        <p>Eller....</p>
-        <input type="text" id='namnSingel' placeholder='Ett namn i taget' value={nameInput} onChange={(e) => setNameInput(e.target.value)} />
-
-        <button onClick={handleAddName}>LÃ¤gg till namn</button>
-      </div>
-      <div>
-        <ul>
-          {names.map((name, index) => (
-            <li key={index} className="name">{name}</li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-export default App;
+    while(width < cellSize){
+       var style = window.getComputedStyle(name[i], null).getPropertyValue('font-size');
+        var fontSize = parseFloat(style); 
+// now you have a proper float for the font size (yes, it can be a float, not just an integer)
+        name[i].style.fontSize = (fontSize + 1) + 'px';
+        var positionInfo = name[i].getBoundingClientRect();
+        var width = positionInfo.width;
+      }
+    while(width > cellSize){
+        var style = window.getComputedStyle(name[i], null).getPropertyValue('font-size');
+        var fontSize = parseFloat(style); 
+// now you have a proper float for the font size (yes, it can be a float, not just an integer)
+        name[i].style.fontSize = (fontSize - 1) + 'px';
+        var positionInfo = name[i].getBoundingClientRect();
+        var width = positionInfo.width;
+      }
+  }
