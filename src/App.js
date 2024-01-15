@@ -46,6 +46,19 @@ const App = () => {
       });
     });
     setBoxNames(newBoxNames);
+    for(let i = 0; i < getElementsByClassName(name){
+    var name = getElementsByClassName(name)
+
+    while(name[i].style.width > 70px){
+        name[i].style.fontSize -= 5%
+      }
+    while(name[i].style.width < 70px){
+       name[i].style.fontSize += 5%
+      }
+    while(name[i].style.width > 70px){
+        name[i].style.fontSize -= 5%
+      }
+  }
   };
 
   return (
