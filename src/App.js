@@ -55,6 +55,7 @@ function calculateFontSize = (container, text, baseFontSize = 16) {
       });
     });
     for (let i = 0; i < document.getElementsByClassName('name'); i++) {
+    alert('kebab')
     var element = document.getElementsByClassName('name')[i]
     newFontSize = calculateFontSize(element.parentElement, element)
     element.style.fontSize = newFontSize
