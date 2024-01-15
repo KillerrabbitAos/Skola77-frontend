@@ -1,29 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Grid from './Grid';
 import Box from './Box';
+
 function fitTextToContainer(container, element) {
-  // Get the container and element dimensions
   const containerWidth = container.clientWidth;
   const containerHeight = container.clientHeight;
   const elementWidth = element.offsetWidth;
   const elementHeight = element.offsetHeight;
 
-  // Calculate the scaling factor for both width and height
   const widthScale = containerWidth / elementWidth;
   const heightScale = containerHeight / elementHeight;
 
-  // Determine the minimum scaling factor to fit the element within the container
   const minScale = Math.min(widthScale, heightScale);
 
-  // Calculate the new font size
   const currentFontSize = window.getComputedStyle(element).fontSize;
   const newFontSize = parseFloat(currentFontSize) * minScale;
 
-  // Apply the new font size to the element
   element.style.fontSize = newFontSize + 'px';
 }
-
 
 const App = () => {
   const [rows, setRows] = useState(3);
@@ -33,25 +28,35 @@ const App = () => {
   const [names, setNames] = useState([]);
   const [boxNames, setBoxNames] = useState('tom');
   const [filledBoxes, setFilledBoxes] = useState([]);
-  const [cellSize, setCellSize] = useState(70) 
+  const [cellSize, setCellSize] = useState(70);
+  const [fixaCounter, setFixaCounter] = useState(0);
+
+  useEffect(() => {
+    if (fixaCounter > 0) {
+      // The change was caused by fixa, reset the counter
+      setFixaCounter(0);
+    } else {
+      // The change was not caused by fixa, run fixa
+      fixa();
+    }
+  }, [rows, columns, boxes, names, boxNames, filledBoxes, cellSize, fixaCounter]);
 
   function applyFontSizesToClass(className) {
     const elements = document.getElementsByClassName(className);
-  
+
     for (let i = 0; i < elements.length; i++) {
-        const element = elements[i];
-        const container = element.parentElement;
-  
-        fitTextToContainer(container, element);
+      const element = elements[i];
+      const container = element.parentElement;
+
+      fitTextToContainer(container, element);
     }
   }
-  
+
   const handleRemoveName = (index) => {
     const updatedNames = [...names];
     updatedNames.splice(index, 1);
     setNames(updatedNames);
   };
-
 
   const handleMassImportNames = () => {
     const newNames = [];
@@ -70,7 +75,9 @@ const App = () => {
 
   const fixa = () => {
     applyFontSizesToClass('name');
-  }
+    setFixaCounter((prevCounter) => prevCounter + 1);
+  };
+
   const handleMixNames = () => {
     const mixedList = names.sort(() => Math.random() - 0.5);
     setFilledBoxes(filledBoxes.sort(() => Math.random() - 0.5));
@@ -95,21 +102,16 @@ const App = () => {
         <label>Storlek:</label>
         <input type="number" label="Rutstorkek: " value={cellSize} max="300" onChange={(e) => setCellSize(e.target.value, 300)} />
       </div>
-      
-  <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} boxNames={boxNames} setBoxNames={setBoxNames} filledBoxes={filledBoxes} cellSize={cellSize} setCellSize={setCellSize} />
+
+      <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} boxNames={boxNames} setBoxNames={setBoxNames} filledBoxes={filledBoxes} cellSize={cellSize} setCellSize={setCellSize} />
       <button onClick={handleMixNames}>Slumpa</button>
-      <button onClick={fixa}></button>
       <div className='gridInstallning' id='kebaben'>
         <p>Namnimport</p>
         <textarea id="namesInput" rows="10" cols="30" placeholder="Ett namn per rad"></textarea>
-
         <button onClick={handleMassImportNames}>Importera namn</button>
-
       </div>
       <div>
-
-      <p id='nameHeader'>Namn:</p>
-
+        <p id='nameHeader'>Namn:</p>
         <ul>
           {names.map((name, index) => (
             <li key={index} className="namelist">
