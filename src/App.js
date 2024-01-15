@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Grid from './Grid';
 import Box from './Box';
+
 const App = () => {
   const [rows, setRows] = useState(3);
   const [columns, setColumns] = useState(3);
@@ -10,7 +11,7 @@ const App = () => {
   const [names, setNames] = useState([]);
   const [boxNames, setBoxNames] = useState('tom');
   const [filledBoxes, setFilledBoxes] = useState([]);
-  const [cellSize, setCellSize] = useState(70) 
+  const [cellSize, setCellSize] = useState(70);
 
   const handleAddName = () => {
     if (nameInput.trim() !== '') {
@@ -39,6 +40,9 @@ const App = () => {
     setFilledBoxes(filledBoxes.sort(() => Math.random() - 0.5));
     const newBoxNames = [];
     setBoxNames([]);
+
+    const nameElements = document.getElementsByClassName('name');
+
     filledBoxes.forEach(function (item, index) {
       newBoxNames.push({
         key: item,
@@ -46,35 +50,35 @@ const App = () => {
       });
     });
     setBoxNames(newBoxNames);
-    for (let i = 0; i < document.getElementsByClassName('name').length; i++) {
-    var name = document.getElementsByClassName('name')
-    var positionInfo = name[i].getBoundingClientRect();
-    var width = positionInfo.width;
-    while(width > cellSize){
-        var style = window.getComputedStyle(name[i], null).getPropertyValue('font-size');
-        var fontSize = parseFloat(style); 
-// now you have a proper float for the font size (yes, it can be a float, not just an integer)
-        name[i].style.fontSize = (fontSize - 1) + 'px';
-        var positionInfo = name[i].getBoundingClientRect();
-        var width = positionInfo.width;
+
+    for (let i = 0; i < nameElements.length; i++) {
+      var positionInfo = nameElements[i].getBoundingClientRect();
+      var width = positionInfo.width;
+
+      while (width > cellSize) {
+        var style = window.getComputedStyle(nameElements[i], null).getPropertyValue('font-size');
+        var fontSize = parseFloat(style);
+        nameElements[i].style.fontSize = (fontSize - 1) + 'px';
+        positionInfo = nameElements[i].getBoundingClientRect();
+        width = positionInfo.width;
       }
-    while(width < cellSize){
-       var style = window.getComputedStyle(name[i], null).getPropertyValue('font-size');
-        var fontSize = parseFloat(style); 
-// now you have a proper float for the font size (yes, it can be a float, not just an integer)
-        name[i].style.fontSize = (fontSize + 1) + 'px';
-        var positionInfo = name[i].getBoundingClientRect();
-        var width = positionInfo.width;
+
+      while (width < cellSize) {
+        var style = window.getComputedStyle(nameElements[i], null).getPropertyValue('font-size');
+        var fontSize = parseFloat(style);
+        nameElements[i].style.fontSize = (fontSize + 1) + 'px';
+        positionInfo = nameElements[i].getBoundingClientRect();
+        width = positionInfo.width;
       }
-    while(width > cellSize){
-        var style = window.getComputedStyle(name[i], null).getPropertyValue('font-size');
-        var fontSize = parseFloat(style); 
-// now you have a proper float for the font size (yes, it can be a float, not just an integer)
-        name[i].style.fontSize = (fontSize - 1) + 'px';
-        var positionInfo = name[i].getBoundingClientRect();
-        var width = positionInfo.width;
+
+      while (width > cellSize) {
+        var style = window.getComputedStyle(nameElements[i], null).getPropertyValue('font-size');
+        var fontSize = parseFloat(style);
+        nameElements[i].style.fontSize = (fontSize - 1) + 'px';
+        positionInfo = nameElements[i].getBoundingClientRect();
+        width = positionInfo.width;
       }
-  }
+    }
   };
 
   return (
@@ -87,19 +91,19 @@ const App = () => {
         <label>Storlek:</label>
         <input type="number" label="Rutstorkek: " value={cellSize} max="300" onChange={(e) => setCellSize(e.target.value, 300)} />
       </div>
-      
-  <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} boxNames={boxNames} setBoxNames={setBoxNames} filledBoxes={filledBoxes} cellSize={cellSize} setCellSize={setCellSize} />
+
+      <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} boxNames={boxNames} setBoxNames={setBoxNames} filledBoxes={filledBoxes} cellSize={cellSize} setCellSize={setCellSize} />
       <button onClick={handleMixNames}>Slumpa</button>
       <div className='gridInstallning' id='kebaben'>
-        
+
         <textarea id="namesInput" rows="10" cols="30" placeholder="Ett namn per rad"></textarea>
 
         <button onClick={handleMassImportNames}>Massimportera namn</button>
 
         <p>Eller....</p>
         <input type="text" id='namnSingel' placeholder='Ett namn i taget' value={nameInput} onChange={(e) => setNameInput(e.target.value)} />
-        
-        <button onClick={handleAddName}>Lägg till namn</button>
+
+        <button onClick={handleAddName}>LÃ¤gg till namn</button>
       </div>
       <div>
         <ul>
