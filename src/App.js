@@ -19,12 +19,7 @@ const App = () => {
       setNameInput('');
     }
   };
-const calculateFontSize = (containerId, textId, baseFontSize = 16) => {
-  const containerWidth = document.getElementById(containerId).offsetWidth;
-  const elementWidth = document.getElementById(textId).offsetWidth;
-  const ratio = containerWidth / elementWidth;
-  return baseFontSize * ratio;
-}
+
   const handleMassImportNames = () => {
     const newNames = [];
     const textarea = document.getElementById('namesInput');
@@ -41,6 +36,13 @@ const calculateFontSize = (containerId, textId, baseFontSize = 16) => {
   };
 
   const handleMixNames = () => {
+    const calculateFontSize = (containerId, textId, baseFontSize = 16) => {
+  const containerWidth = document.getElementById(containerId).offsetWidth;
+  const elementWidth = document.getElementById(textId).offsetWidth;
+  const ratio = containerWidth / elementWidth;
+  return baseFontSize * ratio;
+}
+    
     const mixedList = names.sort(() => Math.random() - 0.5);
     setFilledBoxes(filledBoxes.sort(() => Math.random() - 0.5));
     const newBoxNames = [];
@@ -51,11 +53,12 @@ const calculateFontSize = (containerId, textId, baseFontSize = 16) => {
         value: mixedList[index],
       });
     });
-    setBoxNames(newBoxNames);
     for (let i = 0; i < document.getElementsByClassName('name'); i++) {
     var element = document.getElementsByClassName('name')[i]
     element.style.fontSize = calculateFontSize(element.parentElement.id, element.id)
   }
+    setBoxNames(newBoxNames);
+    
   
   };
   return (
