@@ -86,13 +86,40 @@ label{
 #namesInput{
   margin-bottom: 30px;
 }
-.name{
+
+.name {
   font-size: 100%;
   font-weight: bold;
+  width: fit-content;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+
+.small-text {
+  font-size: 75%;
+}
+
 ul {
   position: relative;
   display: table;
   margin: 0 auto;
   text-align: left;
+  margin-bottom: 40px;
+}
+
+.namelist {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 20px;
+}
+
+.namelist button{
+  margin-left: 20px;
+}
+
+#nameHeader{
+  font-weight: bold;
 }

@@ -71,6 +71,13 @@ const App = () => {
     }
   }
   
+  const handleRemoveName = (index) => {
+    const updatedNames = [...names];
+    updatedNames.splice(index, 1);
+    setNames(updatedNames);
+  };
+
+
   const handleMassImportNames = () => {
     const newNames = [];
     const textarea = document.getElementById('namesInput');
@@ -114,23 +121,26 @@ const App = () => {
         <input type="number" label="Rutstorkek: " value={cellSize} max="300" onChange={(e) => setCellSize(e.target.value, 300)} />
       </div>
       
-  <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} boxNames={boxNames} setBoxNames={setBoxNames} filledBoxes={filledBoxes} cellSize={cellSize} setCellSize={setCellSize} setFilledBoxes={setFilledBoxes} />
+  <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} boxNames={boxNames} setBoxNames={setBoxNames} filledBoxes={filledBoxes} cellSize={cellSize} setCellSize={setCellSize} />
       <button onClick={handleMixNames}>Slumpa</button>
       <button onClick={fixa}></button>
       <div className='gridInstallning' id='kebaben'>
-        
+        <p>Namnimport</p>
         <textarea id="namesInput" rows="10" cols="30" placeholder="Ett namn per rad"></textarea>
 
-        <button onClick={handleMassImportNames}>Massimportera namn</button>
-        <p>Eller....</p>
-        <input type="text" id='namnSingel' placeholder='Ett namn i taget' value={nameInput} onChange={(e) => setNameInput(e.target.value)} />
-        
-        <button onClick={handleAddName}>Lägg till namn</button>
+        <button onClick={handleMassImportNames}>Importera namn</button>
+
       </div>
       <div>
+
+      <p id='nameHeader'>Namn:</p>
+
         <ul>
           {names.map((name, index) => (
-            <li key={index}>{name}</li>
+            <li key={index} className="namelist">
+              {name}
+              <button onClick={() => handleRemoveName(index)}>Ta bort</button>
+            </li>
           ))}
         </ul>
       </div>
