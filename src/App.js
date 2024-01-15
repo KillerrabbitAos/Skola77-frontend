@@ -46,38 +46,9 @@ const App = () => {
       });
     });
     setBoxNames(newBoxNames);
-    for (let i = 0; i < document.getElementsByClassName('name').length; i++) {
-    var name = document.getElementsByClassName('name')
-    var positionInfo = name[i].getBoundingClientRect();
-    var width = positionInfo.width;
-    while(width > cellSize){
-        var style = window.getComputedStyle(name[i], null).getPropertyValue('font-size');
-        var fontSize = parseFloat(style); 
-// now you have a proper float for the font size (yes, it can be a float, not just an integer)
-        name[i].style.fontSize = (fontSize - 1) + 'px';
-        var positionInfo = name[i].getBoundingClientRect();
-        var width = positionInfo.width;
-      }
-    while(width < cellSize){
-       var style = window.getComputedStyle(name[i], null).getPropertyValue('font-size');
-        var fontSize = parseFloat(style); 
-// now you have a proper float for the font size (yes, it can be a float, not just an integer)
-        name[i].style.fontSize = (fontSize + 1) + 'px';
-        var positionInfo = name[i].getBoundingClientRect();
-        var width = positionInfo.width;
-      }
-    while(width > cellSize){
-        var style = window.getComputedStyle(name[i], null).getPropertyValue('font-size');
-        var fontSize = parseFloat(style); 
-// now you have a proper float for the font size (yes, it can be a float, not just an integer)
-        name[i].style.fontSize = (fontSize - 1) + 'px';
-        var positionInfo = name[i].getBoundingClientRect();
-        var width = positionInfo.width;
-      }
-  }
+  };
 
-
-    return (
+  return (
     <div className="App">
       <div className='gridInstallning'>
         <label>Rader:</label>
