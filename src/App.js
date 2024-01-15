@@ -26,6 +26,7 @@ const calculateFontSize = (containerId, textId, baseFontSize = 16) => {
   const elementWidth = document.getElementById(textId).offsetWidth;
   const ratio = containerWidth / elementWidth;
   return baseFontSize * ratio;
+}
   const handleMassImportNames = () => {
     const newNames = [];
     const textarea = document.getElementById('namesInput');
