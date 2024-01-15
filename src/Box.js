@@ -34,6 +34,18 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
 
   const nameValue = findValueByKey(boxNames, id);
   const isNameTooLong = nameValue && nameValue.length > 7;
+  function changeFontSize(id){
+    name = id
+    while(document.getElementById(id).style.width > 70px){
+        document.getElementById('name').style.fontSize -= 5%
+      }
+    while(document.getElementById(id).style.width < 70px){
+       document.getElementById(id).style.fontSize += 5%
+      }
+    while(document.getElementById(id).style.width > 70px){
+        document.getElementById('name').style.fontSize -= 5%
+      }
+  }
 
   return (
     <div
@@ -42,9 +54,10 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
       style={{ gridArea: position }}
     >
       {isFilled && (
-        <span className={`name ${isNameTooLong ? 'small-text' : ''}`}>
+        <span id=('name' + id) className={`name ${isNameTooLong ? 'small-text' : ''}`}>
           {nameValue}
         </span>
+
       )}
     </div>
   );
