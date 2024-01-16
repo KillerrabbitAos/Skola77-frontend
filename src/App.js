@@ -137,6 +137,9 @@ const App = () => {
           ))}
         </ul>
       </div>
+
+          <p><a id="mailTag" href="mailto:feedback@skola77.com">Feedback</a></p> 
+          
     </div>
   );
 };
