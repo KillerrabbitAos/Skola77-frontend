@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Grid from './Grid';
-import Box from './Box';
 import html2pdf from 'html2pdf.js';
-
 
 function fitTextToContainer(container, element) {
   const containerWidth = container.clientWidth;
@@ -26,7 +24,6 @@ const App = () => {
   const [rows, setRows] = useState(3);
   const [columns, setColumns] = useState(3);
   const [boxes, setBoxes] = useState([]);
-  const [nameInput, setNameInput] = useState('');
   const [names, setNames] = useState([]);
   const [boxNames, setBoxNames] = useState('tom');
   const [filledBoxes, setFilledBoxes] = useState([]);
@@ -35,10 +32,8 @@ const App = () => {
 
   useEffect(() => {
     if (fixaCounter > 0) {
-      // The change was caused by fixa, reset the counter
       setFixaCounter(0);
     } else {
-      // The change was not caused by fixa, run fixa
       fixa();
     }
   }, [rows, columns, boxes, names, boxNames, filledBoxes, cellSize, fixaCounter]);
@@ -56,17 +51,15 @@ const App = () => {
 
   const handleExportToPDF = () => {
     const gridContainer = document.getElementById('gridPdfSak');
-  
+
     if (gridContainer) {
       const pdfConfig = {
         filename: 'skola77-placering.pdf',
       };
-  
+
       html2pdf(gridContainer, pdfConfig);
     }
   };
-  
-  
 
   const handleRemoveName = (index) => {
     const updatedNames = [...names];
@@ -75,17 +68,10 @@ const App = () => {
   };
 
   const handleMassImportNames = () => {
-    const newNames = [];
     const textarea = document.getElementById('namesInput');
-    const textareaContent = textarea.value.split('\n');
+    const textareaContent = textarea.value.split('\n').map((name) => name.trim()).filter(Boolean);
 
-    for (const name of textareaContent) {
-      if (name.trim() !== '') {
-        newNames.push(name);
-      }
-    }
-
-    setNames([...names, ...newNames]);
+    setNames((prevNames) => [...prevNames, ...textareaContent]);
     textarea.value = '';
   };
 
@@ -95,16 +81,14 @@ const App = () => {
   };
 
   const handleMixNames = () => {
-    const mixedList = names.sort(() => Math.random() - 0.5);
-    setFilledBoxes(filledBoxes.sort(() => Math.random() - 0.5));
-    const newBoxNames = [];
-    setBoxNames([]);
-    filledBoxes.forEach(function (item, index) {
-      newBoxNames.push({
-        key: item,
-        value: mixedList[index],
-      });
-    });
+    const mixedList = [...names].sort(() => Math.random() - 0.5);
+    setFilledBoxes([...filledBoxes].sort(() => Math.random() - 0.5));
+
+    const newBoxNames = filledBoxes.map((item, index) => ({
+      key: item,
+      value: mixedList[index],
+    }));
+
     setBoxNames(newBoxNames);
   };
 
@@ -116,10 +100,22 @@ const App = () => {
         <label>Kolumner:</label>
         <input type="number" max="50" value={columns} onChange={(e) => setColumns(Math.max(0, Math.min(e.target.value, 50)))} />
         <label>Storlek:</label>
-        <input type="number" label="Rutstorkek: " value={cellSize} max="300" onChange={(e) => setCellSize(e.target.value, 300)} />
+        <input type="number" label="Rutstorlek: " value={cellSize} max="300" onChange={(e) => setCellSize(Math.max(0, Math.min(e.target.value, 300)))} />
       </div>
       <button onClick={handleExportToPDF}>Exportera till PDF</button>
-      <Grid rows={rows} columns={columns} boxes={boxes} setBoxes={setBoxes} names={names} boxNames={boxNames} setBoxNames={setBoxNames} filledBoxes={filledBoxes} cellSize={cellSize} setCellSize={setCellSize} />
+      <Grid
+        rows={rows}
+        columns={columns}
+        boxes={boxes}
+        setBoxes={setBoxes}
+        names={names}
+        boxNames={boxNames}
+        setBoxNames={setBoxNames}
+        filledBoxes={filledBoxes}
+        setFilledBoxes={setFilledBoxes}
+        cellSize={cellSize}
+        setCellSize={setCellSize}
+      />
       <button onClick={handleMixNames}>Slumpa</button>
       <div className='gridInstallning' id='kebaben'>
         <p>Namnimport</p>
@@ -137,9 +133,7 @@ const App = () => {
           ))}
         </ul>
       </div>
-
-          <p><a id="mailTag" href="mailto:feedback@skola77.com">Feedback</a></p> 
-          
+      <p><a id="mailTag" href="mailto:feedback@skola77.com">Feedback</a></p>
     </div>
   );
 };

@@ -18,19 +18,13 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
       console.log(boxNames[id]);
       if (newName) {
         setIsFilled(true);
-        filledBoxes.push(id);
+        setFilledBoxes([...filledBoxes, id]);
       }
     } else {
-      //setIsFilled(false);
-      //var elements = [filledBoxes];
-      //for(var i = elements.length - 1; i >= 0; i--){
-          //if(elements[i] == id){
-          //    elements.splice(i, 1);
-        //  }
-      //    setFilledBoxes(elements)
-      
-      }
+      setIsFilled(false);
+      setFilledBoxes((prevFilledBoxes) => prevFilledBoxes.filter((boxId) => boxId !== id));
     }
+  };
 
   const nameValue = findValueByKey(boxNames, id);
   const isNameTooLong = nameValue && nameValue.length > 7;
@@ -42,7 +36,7 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
       style={{ gridArea: position }}
     >
       {isFilled && (
-        <span id={id}className={'name'}>
+        <span id={id} className={'name'}>
           {nameValue}
         </span>
       )}
