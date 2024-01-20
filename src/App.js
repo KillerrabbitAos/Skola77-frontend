@@ -55,6 +55,7 @@ const App = () => {
     if (gridContainer) {
       const pdfConfig = {
         filename: 'skola77-placering.pdf',
+        jsPDF: { unit: 'in', format: 'A4', orientation: 'landscape' }
       };
 
       html2pdf(gridContainer, pdfConfig);
