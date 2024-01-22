@@ -18,7 +18,12 @@ function fitTextToContainer(container, element) {
   const newFontSize = parseFloat(currentFontSize) * minScale;
 
   element.style.fontSize = newFontSize + 'px';
+
+  const offsetX = (containerWidth - elementWidth * minScale) / 2;
+  const offsetY = (containerHeight - elementHeight * minScale) / 2;
+  element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
 }
+
 
 const App = () => {
   const [rows, setRows] = useState(3);
@@ -40,14 +45,15 @@ const App = () => {
 
   function applyFontSizesToClass(className) {
     const elements = document.getElementsByClassName(className);
-
+  
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i];
       const container = element.parentElement;
-
+  
       fitTextToContainer(container, element);
     }
   }
+  
 
   const handleExportToPDF = () => {
     const gridContainer = document.getElementById('gridPdfSak');
