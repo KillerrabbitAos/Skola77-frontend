@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import Grid from './Grid';
 import html2pdf from 'html2pdf.js';
+import Cookies from 'js-cookie';
 
 function fitTextToContainer(container, element) {
   const containerWidth = container.clientWidth;
@@ -23,9 +24,17 @@ function fitTextToContainer(container, element) {
   const offsetY = (containerHeight - elementHeight * minScale) / 2;
   element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
 }
-
+function findValueByKey(list, key) {
+  if (list === 'tom') {
+    return "tom";
+  } else {
+    const foundItem = list.find(item => item.key === key);
+    return foundItem ? foundItem.value : null;
+  }
+}
 
 const App = () => {
+  const [groupName, setGroupName] = useState('ny...');
   const [rows, setRows] = useState(3);
   const [columns, setColumns] = useState(3);
   const [boxes, setBoxes] = useState([]);
@@ -35,13 +44,29 @@ const App = () => {
   const [cellSize, setCellSize] = useState(70);
   const [fixaCounter, setFixaCounter] = useState(0);
 
-  useEffect(() => {
-    if (fixaCounter > 0) {
-      setFixaCounter(0);
-    } else {
-      fixa();
+  const defaultGroup = 'default';
+
+  const handleSaveButtonClick = () => {
+    const name = prompt('Enter a name for the group:');
+    if (name) {
+      setGroupName(name);
+
+      // Sparar värden i cookie
+      Cookies.set(`${name}_values`, JSON.stringify({
+        rows: rows,
+        columns: columns,
+        boxes: boxes,
+        names: names,
+        boxNames: boxNames,
+        filledBoxes: filledBoxes,
+        cellSize: cellSize,
+        fixaCounter: fixaCounter,
+      }));
     }
-  }, [rows, columns, boxes, names, boxNames, filledBoxes, cellSize, fixaCounter]);
+  }
+  
+  
+  
 
   function applyFontSizesToClass(className) {
     const elements = document.getElementsByClassName(className);
@@ -54,7 +79,30 @@ const App = () => {
     }
   }
   
-
+  const readCookieValues = (group) => {
+    // Läser värden från cookie
+    const cookieName = `${group}`;
+    console.log('Attempting to get cookie:', cookieName);
+  
+    if (!Cookies.get(cookieName)) {
+      console.log(`${cookieName} cookie does not exist.`);
+      return {};
+    }
+  
+    const valuesString = Cookies.get(cookieName);
+    console.log('Cookie values string:', valuesString);
+  
+    try {
+      const values = JSON.parse(valuesString);
+      return values || {};
+    } catch (error) {
+      console.error('Error parsing cookie values:', error);
+      return {};
+    }
+  };
+  
+  
+  
   const handleExportToPDF = () => {
     const gridContainer = document.getElementById('gridPdfSak');
 
@@ -67,7 +115,23 @@ const App = () => {
       html2pdf(gridContainer, pdfConfig);
     }
   };
-
+  const setNamesFromBoxNames = () => {
+    const nameElements = document.getElementsByClassName('name');
+    console.log("orm")
+    for (const nameElement of nameElements) {
+      
+      const elementId = nameElement.id;
+      console.log(elementId)
+      const value = findValueByKey(boxNames, elementId);
+  
+      if (value) {
+        nameElement.innerHTML = value;
+      }
+      else{
+        nameElement.innerHTML = "tom";
+      }
+    }
+  }
   const handleRemoveName = (index) => {
     const updatedNames = [...names];
     updatedNames.splice(index, 1);
@@ -82,15 +146,16 @@ const App = () => {
     textarea.value = '';
   };
 
-  const fixa = () => {
+  const fixa = useCallback(() => {
     applyFontSizesToClass('name');
+
     setFixaCounter((prevCounter) => prevCounter + 1);
-  };
+  }, []);
+
 
   const handleMixNames = () => {
     const mixedList = [...names].sort(() => Math.random() - 0.5);
     setFilledBoxes([...filledBoxes].sort(() => Math.random() - 0.5));
-
     const newBoxNames = filledBoxes.map((item, index) => ({
       key: item,
       value: mixedList[index],
@@ -99,9 +164,65 @@ const App = () => {
     setBoxNames(newBoxNames);
   };
 
+  const handleGroupChange = (event) => {
+    const selectedGroup = event.target.value;
+
+    // Om den valda gruppen är standardgruppen, sätt standardvärden
+    if (selectedGroup === defaultGroup) {
+      setRows(3);
+      setColumns(3);
+      setBoxNames('tom');
+      setBoxes([]);
+      setNames([]);
+      setFilledBoxes([]);
+      setCellSize(70);
+      setFixaCounter(0);
+    } else {
+    const values = readCookieValues(selectedGroup);
+    if (values) {
+      setRows(values.rows || 0);
+      setColumns(values.columns || 0);
+      setBoxNames(values.boxNames || []);
+      setBoxes(values.boxes || []);
+      setNames(values.names || []);
+      setFilledBoxes(values.filledBoxes || []);
+      setCellSize(values.cellSize || 0);
+      setFixaCounter(values.fixaCounter || 0);
+      // Uppdatera groupName när en grupp väljs
+      setGroupName(selectedGroup.replace('_values', ''));
+    } else {
+      // Handle the case when values are not available
+      console.error(`No values found for group: ${selectedGroup}`);
+    }
+  };
+}
+
+  useEffect(() => {
+    if (fixaCounter > 0) {
+      setFixaCounter(0);
+    } else {
+      fixa();
+    }
+  }, [rows, columns, boxes, names, boxNames, filledBoxes, cellSize]);
+
   return (
     <div className="App">
       <div className='gridInstallning'>
+        <button onClick={handleSaveButtonClick}>Spara klass</button>
+        <div>
+        <label>Select Group:</label>
+  <select value={groupName} onChange={handleGroupChange}>
+  <option key={defaultGroup} value={defaultGroup}>ny...</option>
+  {/* Lista alla grupper som finns sparade i cookies */}
+      
+  {Object.keys(Cookies.get()).length > 0 &&
+              Object.keys(Cookies.get()).map((cookieName) => (
+                <option key={cookieName} value={cookieName}>
+                  {cookieName.replace('_values', '')}
+                </option>
+              ))}
+      </select>
+      </div>
         <label>Rader:</label>
         <input type="number" max="50" value={rows} onChange={(e) => setRows(Math.max(0, Math.min(e.target.value, 50)))} />
         <label>Kolumner:</label>
@@ -109,6 +230,7 @@ const App = () => {
         <label>Storlek:</label>
         <input type="number" label="Rutstorlek: " value={cellSize} max="300" onChange={(e) => setCellSize(Math.max(0, Math.min(e.target.value, 300)))} />
       </div>
+      <button label="fixa 2.0" onClick={setNamesFromBoxNames}></button>
       <button onClick={handleExportToPDF}>Exportera till PDF</button>
       <Grid
         rows={rows}
@@ -143,6 +265,6 @@ const App = () => {
       <p><a id="mailTag" href="mailto:feedback@skola77.com">Feedback</a></p>
     </div>
   );
-};
+          };
 
 export default App;

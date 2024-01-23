@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function findValueByKey(list, key) {
   if (list === 'tom') {
@@ -8,6 +8,7 @@ function findValueByKey(list, key) {
     return foundItem ? foundItem.value : null;
   }
 }
+
 
 const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
   const [isFilled, setIsFilled] = useState(false);
@@ -25,13 +26,11 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
       setFilledBoxes((prevFilledBoxes) => prevFilledBoxes.filter((boxId) => boxId !== id));
     }
   };
-
-  const nameValue = findValueByKey(boxNames, id);
-  const isNameTooLong = nameValue && nameValue.length > 7;
-
+  
+  const nameValue = findValueByKey(boxNames, id)
   return (
     <div
-      className={`box ${isFilled ? 'filled' : ''}`}
+      className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''}`}
       onMouseDown={handleBoxClick}
       style={{ gridArea: position }}
     >
