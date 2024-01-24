@@ -127,3 +127,13 @@ ul {
 #mailTag{
   color: black;
 }
+
+#perspektiv{
+  border-bottom: solid;
+  font-size: 20px;
+}
+
+#perspektiv2{
+  border-top: solid;
+  font-size: 20px;
+}
