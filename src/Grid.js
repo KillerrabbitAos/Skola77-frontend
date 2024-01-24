@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from './Box';
 
 const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize }) => {
+  const [showBorders, setShowBorders] = useState(true);
+  const [editingMode, setEditingMode] = useState(true);
+
+  const toggleBorders = () => {
+    setShowBorders(!showBorders);
+    setEditingMode(!editingMode);
+
+  };
+
+
   const generateGrid = () => {
     const gridItems = [];
 
@@ -14,7 +24,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
           style={{
             width: `${cellSize}px`,
             height: `${cellSize}px`,
-            outline: '1px solid black',
+            outline: showBorders ? '1px solid black' : 'none',
             boxSizing: 'border-box',
           }}
         >
@@ -37,10 +47,11 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
   };
 
   return (
-    <div className="grid-outer-container" id='gridPdfSak' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: "50px"}}>
+    <div className="grid-outer-container" id='gridPdfSak' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: "50px"}}>
       <div className="grid-container" style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, gap: '10px', width: `${columns * cellSize + (columns - 1) * 10}px`, }}>
         {generateGrid()}
       </div>
+      <button onClick={toggleBorders} style={{ marginTop: '10px' }}>{editingMode ? 'Klar' : 'Fortsätt redigera'}</button>
     </div>
   );
 };
