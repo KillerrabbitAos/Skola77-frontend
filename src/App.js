@@ -108,6 +108,7 @@ const App = () => {
   
   
   const handleExportToPDF = () => {
+    document.getElementById("klar").style.visibility = "hidden";
     const gridContainer = document.getElementById('gridPdfSak');
 
     if (gridContainer) {

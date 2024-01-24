@@ -56,7 +56,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
       <p id='perspektiv2'>Bak</p>
 
       
-      <button onClick={toggleBorders} style={{ marginTop: '10px' }}>{editingMode ? 'Klar' : 'Fortsätt redigera'}</button>
+      <button id="klar" onClick={toggleBorders} style={{ marginTop: '10px' }}>{editingMode ? 'Klar' : 'Fortsätt redigera'}</button>
     </div>
   );
 };
