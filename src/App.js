@@ -153,7 +153,7 @@ const App = () => {
 
   const handleGroupChange = (event) => {
     const selectedGroup = event.target.value;
-
+    setGroupName(selectedGroup)
     // Om den valda gruppen är standardgruppen, sätt standardvärden
     if (selectedGroup === defaultGroup) {
       setRows(3);
@@ -208,7 +208,7 @@ const App = () => {
         <button onClick={handleSaveButtonClick}>Spara klass</button>
         <div>
         <label>Select Group:</label>
-  <select value={groupName} onChange={handleGroupChange}>
+  <select defaultValue={groupName} onChange={handleGroupChange}>
   <option key={defaultGroup} value={defaultGroup}>ny...</option>
   {/* Lista alla grupper som finns sparade i cookies */}
       
@@ -259,8 +259,7 @@ const App = () => {
           ))}
         </ul>
       </div>
-      <p>Feedback:</p>
-      <p><a id="mailTag" href="mailto:feedback@skola77.com">feedback@skola77.com</a></p>
+      <p><a id="mailTag" href="mailto:feedback@skola77.com">Feedback</a></p>
     </div>
   );
           };
