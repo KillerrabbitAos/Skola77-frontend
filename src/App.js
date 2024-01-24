@@ -5,6 +5,7 @@ import html2pdf from 'html2pdf.js';
 import Cookies from 'js-cookie';
 
 function fitTextToContainer(container, element) {
+  for (let i = 0; i < 20; i++) {
   const containerWidth = container.clientWidth;
   const containerHeight = container.clientHeight;
   const elementWidth = element.offsetWidth;
@@ -24,6 +25,7 @@ function fitTextToContainer(container, element) {
   const offsetY = (containerHeight - elementHeight * minScale) / 2;
   element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
 }
+}
 function findValueByKey(list, key) {
   if (list === 'tom') {
     return "tom";
@@ -34,6 +36,7 @@ function findValueByKey(list, key) {
 }
 
 const App = () => {
+  const [componentLoaded, setComponentLoaded] = useState(false);
   const [groupName, setGroupName] = useState('ny...');
   const [rows, setRows] = useState(3);
   const [columns, setColumns] = useState(3);
@@ -115,23 +118,6 @@ const App = () => {
       html2pdf(gridContainer, pdfConfig);
     }
   };
-  const setNamesFromBoxNames = () => {
-    const nameElements = document.getElementsByClassName('name');
-    console.log("orm")
-    for (const nameElement of nameElements) {
-      
-      const elementId = nameElement.id;
-      console.log(elementId)
-      const value = findValueByKey(boxNames, elementId);
-  
-      if (value) {
-        nameElement.innerHTML = value;
-      }
-      else{
-        nameElement.innerHTML = "tom";
-      }
-    }
-  }
   const handleRemoveName = (index) => {
     const updatedNames = [...names];
     updatedNames.splice(index, 1);
@@ -146,13 +132,14 @@ const App = () => {
     textarea.value = '';
   };
 
-  const fixa = useCallback(() => {
-    applyFontSizesToClass('name');
-
-    setFixaCounter((prevCounter) => prevCounter + 1);
-  }, []);
-
-
+ // const fixa = useCallback(() => {
+   // setNamesFromBoxNames();
+    //console.log("kebab")
+    //setFixaCounter((prevCounter) => prevCounter + 1);
+  //}, []);
+  const fixa = () => {
+  applyFontSizesToClass('name');
+  }
   const handleMixNames = () => {
     const mixedList = [...names].sort(() => Math.random() - 0.5);
     setFilledBoxes([...filledBoxes].sort(() => Math.random() - 0.5));
@@ -197,14 +184,24 @@ const App = () => {
   };
 }
 
+
+ // useEffect(() => {
+   // if (fixaCounter > 0) {
+      //setFixaCounter(0);
+   // } else {
+      //fixa();
+   // }
+  //}, [rows, columns, boxes, names, boxNames, filledBoxes, cellSize, fixa, fixaCounter]);
   useEffect(() => {
-    if (fixaCounter > 0) {
-      setFixaCounter(0);
-    } else {
+    if (fixaCounter > 100){
+      setFixaCounter(0)
+      return;
+      }
+    else{
       fixa();
     }
-  }, [rows, columns, boxes, names, boxNames, filledBoxes, cellSize]);
-
+    }, [filledBoxes, boxNames, rows, columns, cellSize, fixa]);
+ 
   return (
     <div className="App">
       <div className='gridInstallning'>
@@ -230,7 +227,7 @@ const App = () => {
         <label>Storlek:</label>
         <input type="number" label="Rutstorlek: " value={cellSize} max="300" onChange={(e) => setCellSize(Math.max(0, Math.min(e.target.value, 300)))} />
       </div>
-      <button label="fixa 2.0" onClick={setNamesFromBoxNames}></button>
+      <button label="fixa 2.0" onClick={fixa}>Fixa!</button>
       <button onClick={handleExportToPDF}>Exportera till PDF</button>
       <Grid
         rows={rows}
