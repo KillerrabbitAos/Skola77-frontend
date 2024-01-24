@@ -140,7 +140,8 @@ const App = () => {
           ))}
         </ul>
       </div>
-      <p><a id="mailTag" href="mailto:feedback@skola77.com">Feedback</a></p>
+      <p>Feedback:</p>
+      <p><a id="mailTag" href="mailto:feedback@skola77.com">feedback@skola77.com</a></p>
     </div>
   );
 };
