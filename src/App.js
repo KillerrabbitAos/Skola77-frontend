@@ -50,7 +50,7 @@ const App = () => {
   const defaultGroup = 'default';
 
   const handleSaveButtonClick = () => {
-    const name = prompt('Enter a name for the group:');
+    const name = prompt('Döp din klass: ');
     if (name) {
       setGroupName(name);
 
@@ -207,7 +207,7 @@ const App = () => {
       <div className='gridInstallning'>
         <button onClick={handleSaveButtonClick}>Spara klass</button>
         <div>
-        <label>Select Group:</label>
+        <label>Sparade klasser:</label>
   <select defaultValue={groupName} onChange={handleGroupChange}>
   <option key={defaultGroup} value={defaultGroup}>ny...</option>
   {/* Lista alla grupper som finns sparade i cookies */}
