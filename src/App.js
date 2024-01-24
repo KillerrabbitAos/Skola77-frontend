@@ -3,6 +3,7 @@ import './App.css';
 import Grid from './Grid';
 import html2pdf from 'html2pdf.js';
 import Cookies from 'js-cookie';
+import ExcelToTextConverter from './ExcelToTextConverter';
 
 function fitTextToContainer(container, element) {
   for (let i = 0; i < 20; i++) {
@@ -246,7 +247,10 @@ const App = () => {
       <div className='gridInstallning' id='kebaben'>
         <p>Namnimport</p>
         <textarea id="namesInput" rows="10" cols="30" placeholder="Ett namn per rad"></textarea>
-        <button onClick={handleMassImportNames}>Importera namn</button>
+        <button onClick={handleMassImportNames}>Spara namn</button>
+        <ExcelToTextConverter
+        setNames={setNames}
+        />
       </div>
       <div>
         <p id='nameHeader'>Namn:</p>
