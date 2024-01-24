@@ -67,7 +67,7 @@ const App = () => {
       html2pdf(gridContainer, pdfConfig);
     }
   };
-//orm
+
   const handleRemoveName = (index) => {
     const updatedNames = [...names];
     updatedNames.splice(index, 1);
