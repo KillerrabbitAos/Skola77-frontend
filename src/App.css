@@ -4,8 +4,11 @@
 }
 .spara {
   background-image: url(./floppydisk.svg);
-  height: 200px;
-  width: 200px;
+  height: 50px;
+  width: 50px;
+  background-position: center;
+  background-size: contain;
+  border-style: none;
 }
 .App-logo {
   height: 40vmin;
@@ -140,4 +143,11 @@ ul {
 #perspektiv2{
   border-top: solid;
   font-size: 20px;
+}
+
+
+#sparaSettings{
+  
+  margin: auto;
+  margin: 50px;
 }

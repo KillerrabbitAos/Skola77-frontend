@@ -207,8 +207,19 @@ const App = () => {
   return (
     <div className="App">
       <div className='gridInstallning'>
-        <button onClick={handleSaveButtonClick} className='spara'></button>
-        <div>
+        
+        <label>Rader:</label>
+        <input type="number" max="50" value={rows} onChange={(e) => setRows(Math.max(0, Math.min(e.target.value, 50)))} />
+        <label>Kolumner:</label>
+        <input type="number" max="50" value={columns} onChange={(e) => setColumns(Math.max(0, Math.min(e.target.value, 50)))} />
+        <label>Storlek:</label>
+        <input type="number" label="Rutstorlek: " value={cellSize} max="300" onChange={(e) => setCellSize(Math.max(0, Math.min(e.target.value, 300)))} />
+      </div>
+
+      <div id='sparaSettings'>
+      <button onClick={handleSaveButtonClick} className='spara' id='sparaKnapp'></button>
+      <label for="sparaKnapp">Spara!</label>
+       
         <label>Sparade klasser:</label>
   <select defaultValue={groupName} onChange={handleGroupChange}>
   <option key={defaultGroup} value={defaultGroup}>ny...</option>
@@ -222,13 +233,8 @@ const App = () => {
               ))}
       </select>
       </div>
-        <label>Rader:</label>
-        <input type="number" max="50" value={rows} onChange={(e) => setRows(Math.max(0, Math.min(e.target.value, 50)))} />
-        <label>Kolumner:</label>
-        <input type="number" max="50" value={columns} onChange={(e) => setColumns(Math.max(0, Math.min(e.target.value, 50)))} />
-        <label>Storlek:</label>
-        <input type="number" label="Rutstorlek: " value={cellSize} max="300" onChange={(e) => setCellSize(Math.max(0, Math.min(e.target.value, 300)))} />
-      </div>
+
+
       <button label="fixa 2.0" onClick={fixa}>Fixa!</button>
       <button onClick={handleExportToPDF}>Exportera till PDF</button>
       <Grid
