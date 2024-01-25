@@ -207,7 +207,7 @@ const App = () => {
   return (
     <div className="App">
       <div className='gridInstallning'>
-        <button onClick={handleSaveButtonClick} className='spara'>Spara klass</button>
+        <button onClick={handleSaveButtonClick} className='spara'></button>
         <div>
         <label>Sparade klasser:</label>
   <select defaultValue={groupName} onChange={handleGroupChange}>
