@@ -25,6 +25,7 @@ function fitTextToContainer(container, element) {
   const offsetX = (containerWidth - elementWidth * minScale) / 2;
   const offsetY = (containerHeight - elementHeight * minScale) / 2;
   element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+
 }
 }
 function findValueByKey(list, key) {
@@ -53,6 +54,8 @@ const App = () => {
   const [rowsInput, setRowsInput] = useState('3');
   const [columnsInput, setColumnsInput] = useState('3');
 
+  const [visibleNames, setVisibleNames] = useState(names);
+
 
   const handleRowsInputChange = (e) => {
     const value = e.target.value;
@@ -65,6 +68,43 @@ const App = () => {
     setColumnsInput(value);
     setColumns(isNaN(value) || value === '' ? 0 : parseInt(value, 10));
   };
+  const [excludedNames, setExcludedNames] = useState([]);
+
+  const handleExcludeName = (name) => {
+    if (!excludedNames.includes(name)) {
+      setExcludedNames((prevNames) => [...prevNames, name]);
+      setVisibleNames((prevVisibleNames) => prevVisibleNames.filter((n) => n !== name));
+    }
+  };
+  
+  const handleIncludeName = (name) => {
+    setExcludedNames((prevNames) => prevNames.filter((n) => n !== name));
+    setVisibleNames((prevVisibleNames) => [...prevVisibleNames, name]);
+  };
+  
+  const handleTogglePlacement = (name) => {
+    const boxKey = boxNames.find(item => item.value === name)?.key;
+  
+    if (excludedNames.includes(name)) {
+      setExcludedNames((prevNames) => prevNames.filter((n) => n !== name));
+      setVisibleNames((prevVisibleNames) => [...prevVisibleNames, name]);
+    } else {
+      setExcludedNames((prevNames) => [...prevNames, name]);
+      setVisibleNames((prevVisibleNames) => prevVisibleNames.filter((n) => n !== name));
+    }
+  
+    setBoxNames((prevBoxNames) => {
+      const updatedBoxNames = [...prevBoxNames];
+      const boxIndex = updatedBoxNames.findIndex(item => item.key === boxKey);
+  
+      if (boxIndex !== -1) {
+        updatedBoxNames[boxIndex] = { key: boxKey, value: excludedNames.includes(name) ? '' : name };
+      }
+  
+      return updatedBoxNames;
+    });
+  };
+  
 
   const handleSaveButtonClick = () => {
     const name = prompt('Döp din klass: ');
@@ -275,15 +315,20 @@ const App = () => {
         setNames={setNames}
         />
       </div>
+
+
       <div>
         <p id='nameHeader'>Namn:</p>
         <ul>
-          {names.map((name, index) => (
-            <li key={index} className="namelist">
-              {name}
-              <button onClick={() => handleRemoveName(index)}>Ta bort</button>
-            </li>
-          ))}
+        {names.map((name, index) => (
+  <li key={index} className="namelist">
+    {name}
+    <button onClick={() => handleRemoveName(index)}>Ta bort</button>
+    <button onClick={() => handleTogglePlacement(name)}>
+      {excludedNames.includes(name) ? 'Lägg till i placering' : 'Ta bort från placering'}
+    </button>
+  </li>
+))}
         </ul>
       </div>
       <p><a id="mailTag" href="https://skola77.com">Startsida</a></p>
