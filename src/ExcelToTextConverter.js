@@ -1,7 +1,7 @@
 import React from 'react';
 import * as XLSX from 'xlsx';
 
-const ExcelToTextConverter = ({ excelFile, setNames }) => {
+const ExcelToTextConverter = ({ setNames }) => {
   const convertExcelToText = async (file) => {
     try {
       const fileReader = new FileReader();
@@ -11,19 +11,15 @@ const ExcelToTextConverter = ({ excelFile, setNames }) => {
           const arrayBuffer = e.target.result;
           const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
 
-    
           const sheetName = workbook.SheetNames[0];
           const sheet = workbook.Sheets[sheetName];
 
-      
           const cellAddresses = Object.keys(sheet);
-
 
           const textData = cellAddresses.map((cellAddress) => {
             const cellData = sheet[cellAddress];
             return cellData ? cellData.v : ''; 
           });
-
 
           setNames(textData.filter((text) => text !== undefined));
         } catch (error) {
@@ -37,12 +33,31 @@ const ExcelToTextConverter = ({ excelFile, setNames }) => {
     }
   };
 
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+
+    if (selectedFile) {
+      const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
+      if (fileExtension !== 'xlsx') {
+        const continueImport = window.confirm(
+          'Filformatet är inte ".xlsx". Detta kan vara för att du laddande ned kalkylarket i ett annat filformat. Om du tror att detta är fel och vill fortsätta importen ändå, klicka "ok" annars klicka "avbryt".'
+        );
+        if (!continueImport) {
+          e.target.value = null;
+          return;
+        }
+      }
+
+      convertExcelToText(selectedFile);
+    }
+  };
+
   return (
     <div>
       <div>
         <p>Importera namn från Excel (.xlsx):</p>
       </div>
-      <input type="file" onChange={(e) => convertExcelToText(e.target.files[0])} />
+      <input type="file" onChange={handleFileChange} />
     </div>
   );
 };
