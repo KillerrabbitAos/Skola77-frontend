@@ -50,6 +50,22 @@ const App = () => {
 
   const defaultGroup = 'default';
 
+  const [rowsInput, setRowsInput] = useState('3');
+  const [columnsInput, setColumnsInput] = useState('3');
+
+
+  const handleRowsInputChange = (e) => {
+    const value = e.target.value;
+    setRowsInput(value);
+    setRows(isNaN(value) || value === '' ? 0 : parseInt(value, 10));
+  };
+
+  const handleColumnsInputChange = (e) => {
+    const value = e.target.value;
+    setColumnsInput(value);
+    setColumns(isNaN(value) || value === '' ? 0 : parseInt(value, 10));
+  };
+
   const handleSaveButtonClick = () => {
     const name = prompt('Döp din klass: ');
     if (name) {
@@ -205,17 +221,16 @@ const App = () => {
     }
     }, [filledBoxes, boxNames, rows, columns, cellSize, fixa]);
  
-  return (
-    <div className="App">
-      <div className='gridInstallning'>
-        
-        <label>Rader:</label>
-        <input type="number" max="50" value={rows} onChange={(e) => setRows(Math.max(0, Math.min(e.target.value, 50)))} />
-        <label>Kolumner:</label>
-        <input type="number" max="50" value={columns} onChange={(e) => setColumns(Math.max(0, Math.min(e.target.value, 50)))} />
-        <label>Storlek:</label>
-        <input type="number" label="Rutstorlek: " value={cellSize} max="300" onChange={(e) => setCellSize(Math.max(0, Math.min(e.target.value, 300)))} />
-      </div>
+    return (
+      <div className="App">
+        <div className='gridInstallning'>
+          <label>Rader:</label>
+          <input type="number" max="50" value={rowsInput} onChange={handleRowsInputChange} />
+          <label>Kolumner:</label>
+          <input type="number" max="50" value={columnsInput} onChange={handleColumnsInputChange} />
+          <label>Storlek:</label>
+          <input type="number" label="Rutstorlek: " value={cellSize} max="300" onChange={(e) => setCellSize(Math.max(0, Math.min(e.target.value, 300)))} />
+        </div>
 
       <div id='sparaSettings'>
       <button onClick={handleSaveButtonClick} className='spara' id='sparaKnapp'></button>
