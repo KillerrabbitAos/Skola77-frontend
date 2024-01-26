@@ -57,15 +57,16 @@ const App = () => {
 
       // Sparar värden i cookie
       Cookies.set(`${name}_values`, JSON.stringify({
-        rows: rows,
-        columns: columns,
-        boxes: boxes,
-        names: names,
-        boxNames: boxNames,
-        filledBoxes: filledBoxes,
-        cellSize: cellSize,
-        fixaCounter: fixaCounter,
-      }));
+          rows: rows,
+          columns: columns,
+          boxes: boxes,
+          names: names,
+          boxNames: boxNames,
+          filledBoxes: filledBoxes,
+          cellSize: cellSize,
+          fixaCounter: fixaCounter,
+      }), { expires: 365 }); // Exempelvis 365 dagar
+
     }
   }
   
