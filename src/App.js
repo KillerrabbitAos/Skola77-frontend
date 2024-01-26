@@ -286,7 +286,7 @@ const App = () => {
           ))}
         </ul>
       </div>
-      <p><a id="mailTag" href="mailto:feedback@skola77.com">Feedback</a></p>
+      <p><a id="mailTag" href="https://skola77.com">Startsida</a></p>
     </div>
   );
           };
