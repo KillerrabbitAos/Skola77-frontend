@@ -238,7 +238,7 @@ const App = () => {
       <label for="sparaKnapp">Spara!</label>
        
         <label>Sparade klasser:</label>
-  <select defaultValue={groupName} onChange={handleGroupChange}>
+  <select id="sparadeKlasser"defaultValue={groupName} onChange={handleGroupChange}>
   <option key={defaultGroup} value={defaultGroup}>ny...</option>
   {/* Lista alla grupper som finns sparade i cookies */}
       
@@ -251,7 +251,7 @@ const App = () => {
       </select>
       </div>
 
-
+    <div id='gridMedAnnat'>
       <button label="fixa 2.0" onClick={fixa}>Fixa!</button>
       <button onClick={handleExportToPDF}>Exportera till PDF</button>
       <Grid
@@ -268,6 +268,7 @@ const App = () => {
         setCellSize={setCellSize}
       />
       <button onClick={handleMixNames}>Slumpa</button>
+      </div>
       <div className='gridInstallning' id='kebaben'>
         <p>Namnimport</p>
         <textarea id="namesInput" rows="10" cols="30" placeholder="Ett namn per rad"></textarea>

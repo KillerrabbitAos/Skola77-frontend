@@ -150,5 +150,13 @@ ul {
 #sparaSettings{
   
   margin: auto;
-  margin: 50px;
+  margin: 10px;
+}
+
+#sparadeKlasser{
+  padding: 5px;
+  font-size: large;
+}
+#gridMedAnnat{
+  margin-top: 70px;
 }
