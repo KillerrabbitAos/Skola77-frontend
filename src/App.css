@@ -6,6 +6,7 @@
   background-image: url(./floppydisk.svg);
   height: 50px;
   width: 50px;
+  background-color: white;
   background-position: center;
   background-size: contain;
   border-style: none;
