@@ -52,6 +52,8 @@ const App = () => {
   const defaultGroup = 'default';
   const [rowsInput, setRowsInput] = useState('3');
   const [columnsInput, setColumnsInput] = useState('3');
+  const [nere, setNere] = useState("Bak")
+  const [uppe, setUppe] = useState("Tavla")
 
 
   const handleRowsInputChange = (e) => {
@@ -68,6 +70,14 @@ const App = () => {
 
   const ändraPerspektiv = () => {
     setBaklänges(!baklänges)
+    if (baklänges){
+      setNere("Tavla")
+    setUppe("Bak")
+    }
+    else{
+      setNere("Bak")
+      setUppe("Tavla")
+    }
   }
 
   const handleSaveButtonClick = () => {
@@ -270,6 +280,8 @@ const App = () => {
         cellSize={cellSize}
         setCellSize={setCellSize}
         baklänges={baklänges}
+        uppe={uppe}
+        nere={nere}
       />
       <button onClick={ändraPerspektiv}>byt perspektiv</button>
       <button onClick={handleMixNames}>Slumpa</button>

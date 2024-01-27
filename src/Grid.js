@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Box from './Box';
 
-const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges }) => {
+const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
   const [showBorders, setShowBorders] = useState(true);
   const [editingMode, setEditingMode] = useState(true);
 
@@ -52,12 +52,12 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
 
   return (
     <div className="grid-outer-container" id='gridPdfSak' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: "0px"}}>
-      <p id='perspektiv'>Tavla</p>
+      <p id='uppe'>{uppe}</p>
       <div className="grid-container" style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, gap: '10px', width: `${columns * cellSize + (columns - 1) * 10}px`, }}>
         {generateGrid()}
       </div>
 
-      <p id='perspektiv2'>Bak</p>
+      <p id='nere'>{nere}</p>
 
       
       <button id="klar" onClick={toggleBorders} style={{ marginTop: '10px' }}>{editingMode ? 'Klar' : 'Fortsätt redigera'}</button>
