@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { ReactSVG } from 'react-svg'
 import './App.css';
 import Grid from './Grid';
 import html2pdf from 'html2pdf.js';
