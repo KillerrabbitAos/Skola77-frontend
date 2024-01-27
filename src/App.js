@@ -84,23 +84,25 @@ const App = () => {
   
   const handleTogglePlacement = (name) => {
     const boxKey = boxNames.find(item => item.value === name)?.key;
-  
-    if (excludedNames.includes(name)) {
-      setExcludedNames((prevNames) => prevNames.filter((n) => n !== name));
-      setVisibleNames((prevVisibleNames) => [...prevVisibleNames, name]);
-    } else {
+    
+    if (!excludedNames.includes(name)) {
+      // Om namnet inte är exkluderat, lägg till i placering
       setExcludedNames((prevNames) => [...prevNames, name]);
       setVisibleNames((prevVisibleNames) => prevVisibleNames.filter((n) => n !== name));
+    } else {
+      // Om namnet är exkluderat, ta bort från placering
+      setExcludedNames((prevNames) => prevNames.filter((n) => n !== name));
+      setVisibleNames((prevVisibleNames) => [...prevVisibleNames, name]);
     }
   
     setBoxNames((prevBoxNames) => {
       const updatedBoxNames = [...prevBoxNames];
       const boxIndex = updatedBoxNames.findIndex(item => item.key === boxKey);
-  
+    
       if (boxIndex !== -1) {
-        updatedBoxNames[boxIndex] = { key: boxKey, value: excludedNames.includes(name) ? '' : name };
+        updatedBoxNames[boxIndex] = { key: boxKey, value: !excludedNames.includes(name) ? '' : name };
       }
-  
+    
       return updatedBoxNames;
     });
   };
