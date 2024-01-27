@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Box from './Box';
 
-const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize }) => {
+const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges }) => {
   const [showBorders, setShowBorders] = useState(true);
   const [editingMode, setEditingMode] = useState(true);
 
@@ -14,9 +14,13 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
 
   const generateGrid = () => {
     const gridItems = [];
+    var x = baklänges;
+    const startIndex = x ? (rows * columns) - 1 : 0;
+  const endIndex = x ? -1 : rows * columns;
+  const step = x ? -1 : 1;
 
-    for (let i = 0; i < rows * columns; i++) {
-      const box = boxes[i] || { position: `${i + 1}`, name: '' };
+  for (let i = startIndex; i !== endIndex; i += step) {
+    const box = boxes[i] || { position: `${i + 1}`, name: '' };
       gridItems.push(
         <div
           key={`grid-item-${i}`}

@@ -48,9 +48,8 @@ const App = () => {
   const [filledBoxes, setFilledBoxes] = useState([]);
   const [cellSize, setCellSize] = useState(70);
   const [fixaCounter, setFixaCounter] = useState(0);
-
+  const [baklänges, setBaklänges] = useState(false)
   const defaultGroup = 'default';
-
   const [rowsInput, setRowsInput] = useState('3');
   const [columnsInput, setColumnsInput] = useState('3');
 
@@ -66,6 +65,10 @@ const App = () => {
     setColumnsInput(value);
     setColumns(isNaN(value) || value === '' ? 0 : parseInt(value, 10));
   };
+
+  const ändraPerspektiv = () => {
+    setBaklänges(!baklänges)
+  }
 
   const handleSaveButtonClick = () => {
     const name = prompt('Döp din klass: ');
@@ -266,7 +269,9 @@ const App = () => {
         setFilledBoxes={setFilledBoxes}
         cellSize={cellSize}
         setCellSize={setCellSize}
+        baklänges={baklänges}
       />
+      <button onClick={ändraPerspektiv}>byt perspektiv</button>
       <button onClick={handleMixNames}>Slumpa</button>
       </div>
       <div className='gridInstallning' id='kebaben'>
