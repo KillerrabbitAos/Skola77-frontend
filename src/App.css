@@ -6,6 +6,7 @@
   background-image: url(./floppydisk.svg);
   height: 50px;
   width: 50px;
+  background-color: white;
   background-position: center;
   background-size: contain;
   border-style: none;
@@ -135,12 +136,12 @@ ul {
   color: black;
 }
 
-#perspektiv{
+#uppe{
   border-bottom: solid;
   font-size: 20px;
 }
 
-#perspektiv2{
+#nere{
   border-top: solid;
   font-size: 20px;
 }
@@ -149,5 +150,13 @@ ul {
 #sparaSettings{
   
   margin: auto;
-  margin: 50px;
+  margin: 10px;
+}
+
+#sparadeKlasser{
+  padding: 5px;
+  font-size: large;
+}
+#gridMedAnnat{
+  margin-top: 70px;
 }

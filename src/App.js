@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { ReactSVG } from 'react-svg'
 import './App.css';
 import Grid from './Grid';
 import html2pdf from 'html2pdf.js';
@@ -25,7 +26,6 @@ function fitTextToContainer(container, element) {
   const offsetX = (containerWidth - elementWidth * minScale) / 2;
   const offsetY = (containerHeight - elementHeight * minScale) / 2;
   element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-
 }
 }
 function findValueByKey(list, key) {
@@ -48,13 +48,12 @@ const App = () => {
   const [filledBoxes, setFilledBoxes] = useState([]);
   const [cellSize, setCellSize] = useState(70);
   const [fixaCounter, setFixaCounter] = useState(0);
-
+  const [baklänges, setBaklänges] = useState(false)
   const defaultGroup = 'default';
-
   const [rowsInput, setRowsInput] = useState('3');
   const [columnsInput, setColumnsInput] = useState('3');
-
-  const [visibleNames, setVisibleNames] = useState(names);
+  const [nere, setNere] = useState("Bak")
+  const [uppe, setUppe] = useState("Tavla")
 
 
   const handleRowsInputChange = (e) => {
@@ -68,45 +67,18 @@ const App = () => {
     setColumnsInput(value);
     setColumns(isNaN(value) || value === '' ? 0 : parseInt(value, 10));
   };
-  const [excludedNames, setExcludedNames] = useState([]);
 
-  const handleExcludeName = (name) => {
-    if (!excludedNames.includes(name)) {
-      setExcludedNames((prevNames) => [...prevNames, name]);
-      setVisibleNames((prevVisibleNames) => prevVisibleNames.filter((n) => n !== name));
+  const ändraPerspektiv = () => {
+    setBaklänges(!baklänges)
+    if (baklänges){
+      setNere("Tavla")
+    setUppe("Bak")
     }
-  };
-  
-  const handleIncludeName = (name) => {
-    setExcludedNames((prevNames) => prevNames.filter((n) => n !== name));
-    setVisibleNames((prevVisibleNames) => [...prevVisibleNames, name]);
-  };
-  
-  const handleTogglePlacement = (name) => {
-    const boxKey = boxNames.find(item => item.value === name)?.key;
-    
-    if (!excludedNames.includes(name)) {
-      // Om namnet inte är exkluderat, lägg till i placering
-      setExcludedNames((prevNames) => [...prevNames, name]);
-      setVisibleNames((prevVisibleNames) => prevVisibleNames.filter((n) => n !== name));
-    } else {
-      // Om namnet är exkluderat, ta bort från placering
-      setExcludedNames((prevNames) => prevNames.filter((n) => n !== name));
-      setVisibleNames((prevVisibleNames) => [...prevVisibleNames, name]);
+    else{
+      setNere("Bak")
+      setUppe("Tavla")
     }
-  
-    setBoxNames((prevBoxNames) => {
-      const updatedBoxNames = [...prevBoxNames];
-      const boxIndex = updatedBoxNames.findIndex(item => item.key === boxKey);
-    
-      if (boxIndex !== -1) {
-        updatedBoxNames[boxIndex] = { key: boxKey, value: !excludedNames.includes(name) ? '' : name };
-      }
-    
-      return updatedBoxNames;
-    });
-  };
-  
+  }
 
   const handleSaveButtonClick = () => {
     const name = prompt('Döp din klass: ');
@@ -279,7 +251,7 @@ const App = () => {
       <label for="sparaKnapp">Spara!</label>
        
         <label>Sparade klasser:</label>
-  <select defaultValue={groupName} onChange={handleGroupChange}>
+  <select id="sparadeKlasser"defaultValue={groupName} onChange={handleGroupChange}>
   <option key={defaultGroup} value={defaultGroup}>ny...</option>
   {/* Lista alla grupper som finns sparade i cookies */}
       
@@ -292,7 +264,7 @@ const App = () => {
       </select>
       </div>
 
-
+    <div id='gridMedAnnat'>
       <button label="fixa 2.0" onClick={fixa}>Fixa!</button>
       <button onClick={handleExportToPDF}>Exportera till PDF</button>
       <Grid
@@ -307,8 +279,13 @@ const App = () => {
         setFilledBoxes={setFilledBoxes}
         cellSize={cellSize}
         setCellSize={setCellSize}
+        baklänges={baklänges}
+        uppe={uppe}
+        nere={nere}
       />
+      <button onClick={ändraPerspektiv}>byt perspektiv</button>
       <button onClick={handleMixNames}>Slumpa</button>
+      </div>
       <div className='gridInstallning' id='kebaben'>
         <p>Namnimport</p>
         <textarea id="namesInput" rows="10" cols="30" placeholder="Ett namn per rad"></textarea>
@@ -317,20 +294,15 @@ const App = () => {
         setNames={setNames}
         />
       </div>
-
-
       <div>
         <p id='nameHeader'>Namn:</p>
         <ul>
-        {names.map((name, index) => (
-  <li key={index} className="namelist">
-    {name}
-    <button onClick={() => handleRemoveName(index)}>Ta bort</button>
-    <button onClick={() => handleTogglePlacement(name)}>
-      {excludedNames.includes(name) ? 'Lägg till i placering' : 'Ta bort från placering'}
-    </button>
-  </li>
-))}
+          {names.map((name, index) => (
+            <li key={index} className="namelist">
+              {name}
+              <button onClick={() => handleRemoveName(index)}>Ta bort</button>
+            </li>
+          ))}
         </ul>
       </div>
       <p><a id="mailTag" href="https://skola77.com">Startsida</a></p>
