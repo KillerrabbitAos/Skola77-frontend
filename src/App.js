@@ -157,15 +157,6 @@ const App = () => {
     setNames(updatedNames);
   };
 
-
-  const handleRemoveNameFromGrid = (index) => {
-    const updatedBoxNames = [...boxNames];
-    const removedItem = updatedBoxNames.splice(index, 1)[0];
-    setBoxNames(updatedBoxNames);
-
-
-    console.log(`Namnet "${removedItem.value}" togs bort från griden.`);
-  };
   const handleMassImportNames = () => {
     const textarea = document.getElementById('namesInput');
     const textareaContent = textarea.value.split('\n').map((name) => name.trim()).filter(Boolean);
@@ -192,7 +183,31 @@ const App = () => {
 
     setBoxNames(newBoxNames);
   };
+  const sortedNames = [...names].sort();
 
+  const renderNamesColumns = () => {
+    const columnsArray = new Array(columns).fill(null);
+
+    return columnsArray.map((_, columnIndex) => {
+      const startIndex = columnIndex * Math.ceil(sortedNames.length / columns);
+      const endIndex = (columnIndex + 1) * Math.ceil(sortedNames.length / columns);
+
+      const columnNames = sortedNames.slice(startIndex, endIndex);
+
+      return (
+        <div key={columnIndex} className="namesColumn">
+          <ul>
+            {columnNames.map((name, index) => (
+              <li key={index} className="namelist">
+                {name}
+                <button onClick={() => handleRemoveName(startIndex + index)}>Ta bort</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    });
+  };
   const handleGroupChange = (event) => {
     const selectedGroup = event.target.value;
     setGroupName(selectedGroup)
@@ -305,16 +320,9 @@ const App = () => {
       </div>
       <div>
         <p id='nameHeader'>Namn:</p>
-        <ul>
-          {names.map((name, index) => (
-            <li key={index} className="namelist">
-              {name}
-              <button onClick={() => handleRemoveName(index)}>Ta bort</button>
-              <button onClick={() => handleRemoveNameFromGrid(index)}>Ta bort temporärt</button>
-
-            </li>
-          ))}
-        </ul>
+        <div id="namn">
+        {renderNamesColumns()}
+      </div>
       </div>
       <p><a id="mailTag" href="https://skola77.com">Startsida</a></p>
     </div>
