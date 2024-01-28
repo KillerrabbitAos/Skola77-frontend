@@ -79,7 +79,7 @@ const App = () => {
       setUppe("Tavla")
     }
   }
-
+  
   const handleSaveButtonClick = () => {
     const name = prompt('Döp din klass: ');
     if (name) {
@@ -152,10 +152,39 @@ const App = () => {
     }
   };
   const handleRemoveName = (index) => {
+    const nameToRemove = names[index];
+  
+    // Ta bort namnet från 'names'
     const updatedNames = [...names];
     updatedNames.splice(index, 1);
     setNames(updatedNames);
+  
+    // Ta bort namnet från 'boxNames' om det finns
+    setBoxNames((prevBoxNames) =>
+      prevBoxNames.map((box) =>
+        box.value === nameToRemove ? { key: box.key, value: 'tom' } : box
+      )
+    );
   };
+  
+  
+  
+
+  const draÅtHelveteFrånGriden = (index) => {
+    const nameToRemove = names[index];
+    const isNameInGrid = boxNames.some((box) => box.value === nameToRemove);
+  
+    if (isNameInGrid) {
+      setBoxNames((prevBoxNames) =>
+        prevBoxNames.map((box) =>
+          box.value === nameToRemove ? { key: box.key, value: 'tom' } : box
+        )
+      );
+    }
+  };
+  
+  
+  
 
   const handleMassImportNames = () => {
     const textarea = document.getElementById('namesInput');
@@ -174,15 +203,23 @@ const App = () => {
   applyFontSizesToClass('name');
   }
   const handleMixNames = () => {
-    const mixedList = [...names].sort(() => Math.random() - 0.5);
+    // Skapa en lista med objekt som innehåller namnen och deras ursprungliga index
+    const mixedList = [...names].map((name, index) => ({ originalIndex: index, name }));
+    
+    // Slumpa listan och sortera baserat på slumpningen och det ursprungliga indexet
+    mixedList.sort((a, b) => Math.random() - 0.5 || a.originalIndex - b.originalIndex);
+  
     setFilledBoxes([...filledBoxes].sort(() => Math.random() - 0.5));
+  
+    // Skapa en ny lista av objekt med nyckel-värde-par för boxNames
     const newBoxNames = filledBoxes.map((item, index) => ({
       key: item,
-      value: mixedList[index],
+      value: mixedList[index]?.name || '', // Håll rutan tom om name är undefined
     }));
-
+  
     setBoxNames(newBoxNames);
   };
+
   const sortedNames = [...names].sort();
 
   const renderNamesColumns = () => {
@@ -201,6 +238,8 @@ const App = () => {
               <li key={index} className="namelist">
                 {name}
                 <button onClick={() => handleRemoveName(startIndex + index)}>Ta bort</button>
+                <button onClick={() => draÅtHelveteFrånGriden(startIndex + index)}>Ta bort från griden</button>
+
               </li>
             ))}
           </ul>
