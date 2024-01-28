@@ -79,9 +79,7 @@ const App = () => {
       setUppe("Tavla")
     }
   }
-
   
-
   const handleSaveButtonClick = () => {
     const name = prompt('Döp din klass: ');
     if (name) {
@@ -221,8 +219,7 @@ const App = () => {
   
     setBoxNames(newBoxNames);
   };
-  
-  
+
   const sortedNames = [...names].sort();
 
   const renderNamesColumns = () => {
