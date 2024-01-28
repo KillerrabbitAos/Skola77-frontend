@@ -157,6 +157,15 @@ const App = () => {
     setNames(updatedNames);
   };
 
+
+  const handleRemoveNameFromGrid = (index) => {
+    const updatedBoxNames = [...boxNames];
+    const removedItem = updatedBoxNames.splice(index, 1)[0];
+    setBoxNames(updatedBoxNames);
+
+
+    console.log(`Namnet "${removedItem.value}" togs bort från griden.`);
+  };
   const handleMassImportNames = () => {
     const textarea = document.getElementById('namesInput');
     const textareaContent = textarea.value.split('\n').map((name) => name.trim()).filter(Boolean);
@@ -301,6 +310,8 @@ const App = () => {
             <li key={index} className="namelist">
               {name}
               <button onClick={() => handleRemoveName(index)}>Ta bort</button>
+              <button onClick={() => handleRemoveNameFromGrid(index)}>Ta bort temporärt</button>
+
             </li>
           ))}
         </ul>
