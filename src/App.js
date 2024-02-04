@@ -170,18 +170,6 @@ const App = () => {
   
   
 
-  const draÅtHelveteFrånGriden = (index) => {
-    const nameToRemove = names[index];
-    const isNameInGrid = boxNames.some((box) => box.value === nameToRemove);
-  
-    if (isNameInGrid) {
-      setBoxNames((prevBoxNames) =>
-        prevBoxNames.map((box) =>
-          box.value === nameToRemove ? { key: box.key, value: 'tom' } : box
-        )
-      );
-    }
-  };
   
   
   
@@ -238,7 +226,6 @@ const App = () => {
               <li key={index} className="namelist">
                 {name}
                 <button onClick={() => handleRemoveName(startIndex + index)}>Ta bort</button>
-                <button onClick={() => draÅtHelveteFrånGriden(startIndex + index)}>Ta bort från griden</button>
 
               </li>
             ))}
