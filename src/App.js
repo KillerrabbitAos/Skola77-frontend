@@ -41,8 +41,8 @@ function findValueByKey(list, key) {
 const App = () => {
   const [componentLoaded, setComponentLoaded] = useState(false);
   const [groupName, setGroupName] = useState('ny...');
-  const [rows, setRows] = useState(3);
-  const [columns, setColumns] = useState(3);
+  const [rows, setRows] = useState(7);
+  const [columns, setColumns] = useState(7);
   const [boxes, setBoxes] = useState([]);
   const [names, setNames] = useState(["tom stol"]);
   const [boxNames, setBoxNames] = useState('tom');
@@ -51,8 +51,8 @@ const App = () => {
   const [fixaCounter, setFixaCounter] = useState(0);
   const [baklänges, setBaklänges] = useState(false)
   const defaultGroup = 'default';
-  const [rowsInput, setRowsInput] = useState('3');
-  const [columnsInput, setColumnsInput] = useState('3');
+  const [rowsInput, setRowsInput] = useState('7');
+  const [columnsInput, setColumnsInput] = useState('7');
   const [nere, setNere] = useState("Bak")
   const [uppe, setUppe] = useState("Tavla")
 
@@ -206,8 +206,8 @@ const handleMixNames = () => {
     setGroupName(selectedGroup)
     // Om den valda gruppen är standardgruppen, sätt standardvärden
     if (selectedGroup === defaultGroup) {
-      setRows(3);
-      setColumns(3);
+      setRows(7);
+      setColumns(7);
       setBoxNames('tom');
       setBoxes([]);
       setNames([]);
