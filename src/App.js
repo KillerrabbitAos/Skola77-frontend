@@ -5,6 +5,7 @@ import Grid from './Grid';
 import html2pdf from 'html2pdf.js';
 import Cookies from 'js-cookie';
 import ExcelToTextConverter from './ExcelToTextConverter';
+import generateCombinedList from './CombinedListGenerator';
 
 function fitTextToContainer(container, element) {
   for (let i = 0; i < 20; i++) {
@@ -43,7 +44,7 @@ const App = () => {
   const [rows, setRows] = useState(3);
   const [columns, setColumns] = useState(3);
   const [boxes, setBoxes] = useState([]);
-  const [names, setNames] = useState([]);
+  const [names, setNames] = useState(["tom stol"]);
   const [boxNames, setBoxNames] = useState('tom');
   const [filledBoxes, setFilledBoxes] = useState([]);
   const [cellSize, setCellSize] = useState(70);
@@ -190,25 +191,12 @@ const App = () => {
   const fixa = () => {
   applyFontSizesToClass('name');
   }
-  const handleMixNames = () => {
-    // Skapa en lista med objekt som innehåller namnen och deras ursprungliga index
-    const mixedList = [...names].map((name, index) => ({ originalIndex: index, name }));
-    
-    // Slumpa listan och sortera baserat på slumpningen och det ursprungliga indexet
-    mixedList.sort((a, b) => Math.random() - 0.5 || a.originalIndex - b.originalIndex);
-  
-    setFilledBoxes([...filledBoxes].sort(() => Math.random() - 0.5));
-  
-    // Skapa en ny lista av objekt med nyckel-värde-par för boxNames
-    const newBoxNames = filledBoxes.map((item, index) => ({
-      key: item,
-      value: mixedList[index]?.name || '', // Håll rutan tom om name är undefined
-    }));
-  
-    setBoxNames(newBoxNames);
-  };
 
   const sortedNames = [...names].sort();
+
+const handleMixNames = () => {
+  setBoxNames(generateCombinedList(filledBoxes, names, 0));
+}
 
   const renderNamesColumns = () => {
     const columnsArray = new Array(columns).fill(null);
