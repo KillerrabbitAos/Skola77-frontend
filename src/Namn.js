@@ -28,7 +28,7 @@ const NameList = ({ names, handleRemoveName }) => {
             {column.map(({ name, originalIndex }, index) => (
               <li key={index}>
                 {name}
-                <button onClick={() => handleRemoveName(originalIndex)}>Remove</button>
+                <button onClick={() => handleRemoveName(originalIndex)}>Ta bort</button>
               </li>
             ))}
           </ul>
