@@ -6,7 +6,7 @@ import html2pdf from 'html2pdf.js';
 import Cookies from 'js-cookie';
 import ExcelToTextConverter from './ExcelToTextConverter';
 import generateCombinedList from './CombinedListGenerator';
-
+import NameList from './Namn';
 function fitTextToContainer(container, element) {
   for (let i = 0; i < 20; i++) {
   const containerWidth = container.clientWidth;
@@ -153,20 +153,22 @@ const App = () => {
     }
   };
   const handleRemoveName = (index) => {
-    const nameToRemove = names[index];
-  
+  console.log(index)
     // Ta bort namnet från 'names'
     const updatedNames = [...names];
     updatedNames.splice(index, 1);
     setNames(updatedNames);
   
     // Ta bort namnet från 'boxNames' om det finns
-    setBoxNames((prevBoxNames) =>
-      prevBoxNames.map((box) =>
-        box.value === nameToRemove ? { key: box.key, value: 'tom' } : box
-      )
-    );
-  };
+     const newArray = array.map(item => {
+      if (item.value === x) {
+        return { ...item, value: 0 };
+      } else {
+        return item;
+      }
+    }
+    boxNames
+};
   
   
   
@@ -197,31 +199,6 @@ const App = () => {
 const handleMixNames = () => {
   setBoxNames(generateCombinedList(filledBoxes, names, 0));
 }
-
-  const renderNamesColumns = () => {
-    const columnsArray = new Array(columns).fill(null);
-
-    return columnsArray.map((_, columnIndex) => {
-      const startIndex = columnIndex * Math.ceil(sortedNames.length / columns);
-      const endIndex = (columnIndex + 1) * Math.ceil(sortedNames.length / columns);
-
-      const columnNames = sortedNames.slice(startIndex, endIndex);
-
-      return (
-        <div key={columnIndex} className="namesColumn">
-          <ul>
-            {columnNames.map((name, index) => (
-              <li key={index} className="namelist">
-                {name}
-                <button onClick={() => handleRemoveName(startIndex + index)}>Ta bort</button>
-
-              </li>
-            ))}
-          </ul>
-        </div>
-      );
-    });
-  };
   const handleGroupChange = (event) => {
     const selectedGroup = event.target.value;
     setGroupName(selectedGroup)
@@ -335,7 +312,10 @@ const handleMixNames = () => {
       <div>
         <p id='nameHeader'>Namn:</p>
         <div id="namn">
-        {renderNamesColumns()}
+        <NameList
+          names={names}
+          handleRemoveName={handleRemoveName}
+          ></NameList>
       </div>
       </div>
       <p><a id="mailTag" href="https://skola77.com">Startsida</a></p>
