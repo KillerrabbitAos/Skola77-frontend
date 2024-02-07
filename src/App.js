@@ -153,22 +153,23 @@ const App = () => {
     }
   };
   const handleRemoveName = (index) => {
-  console.log(index)
-    // Ta bort namnet från 'names'
+    // Replace the name at 'index' with "tom stol"
     const updatedNames = [...names];
-    updatedNames.splice(index, 1);
+    updatedNames[index] = "tom stol";
     setNames(updatedNames);
   
-    // Ta bort namnet från 'boxNames' om det finns
-     const newArray = array.map(item => {
-      if (item.value === x) {
+    // Update the 'boxNames' array with the 'value' property replaced with 0 for matching items
+    const removedName = names[index];
+    const newArray = boxNames.map(item => {
+      if (item.value === removedName) {
         return { ...item, value: 0 };
       } else {
         return item;
       }
-    }
-    boxNames
-};
+    });
+  
+    setBoxNames(newArray);
+  };
   
   
   
@@ -197,7 +198,8 @@ const App = () => {
   const sortedNames = [...names].sort();
 
 const handleMixNames = () => {
-  setBoxNames(generateCombinedList(filledBoxes, names, 0));
+  const namesList = names
+  setBoxNames(generateCombinedList(filledBoxes, names, 0, namesList));
 }
   const handleGroupChange = (event) => {
     const selectedGroup = event.target.value;
