@@ -252,6 +252,45 @@ const handleMixNames = () => {
     }
     }, [filledBoxes, boxNames, rows, columns, cellSize, fixa]);
  
+  const gridConf = <div className='gridInstallning' id='kebaben'>
+    <p>Namnimport</p>
+    <textarea id="namesInput" rows="10" cols="30" placeholder="Ett namn per rad"></textarea>
+    <button onClick={handleMassImportNames}>Spara namn</button>
+    <ExcelToTextConverter
+      setNames={setNames} />
+  </div>;
+  const grid = <Grid
+    rows={rows}
+    columns={columns}
+    boxes={boxes}
+    setBoxes={setBoxes}
+    names={names}
+    boxNames={boxNames}
+    setBoxNames={setBoxNames}
+    filledBoxes={filledBoxes}
+    setFilledBoxes={setFilledBoxes}
+    cellSize={cellSize}
+    setCellSize={setCellSize}
+    baklänges={baklänges}
+    uppe={uppe}
+    nere={nere} />;
+  const sparningsLösning = <div id='sparaSettings'>
+    <button onClick={handleSaveButtonClick} className='spara' id='sparaKnapp'></button>
+    <label for="sparaKnapp">Spara!</label>
+
+    <label>Sparade klasser:</label>
+    <select id="sparadeKlasser" defaultValue={groupName} onChange={handleGroupChange}>
+      <option key={defaultGroup} value={defaultGroup}>ny...</option>
+      {/* Lista alla grupper som finns sparade i cookies */}
+
+      {Object.keys(Cookies.get()).length > 0 &&
+        Object.keys(Cookies.get()).map((cookieName) => (
+          <option key={cookieName} value={cookieName}>
+            {cookieName.replace('_values', '')}
+          </option>
+        ))}
+    </select>
+  </div>;
     return (
       <div className="App">
         <div className='gridInstallning'>
@@ -263,54 +302,16 @@ const handleMixNames = () => {
           <input type="number" label="Rutstorlek: " value={cellSize} max="300" onChange={(e) => setCellSize(Math.max(0, Math.min(e.target.value, 300)))} />
         </div>
 
-      <div id='sparaSettings'>
-      <button onClick={handleSaveButtonClick} className='spara' id='sparaKnapp'></button>
-      <label for="sparaKnapp">Spara!</label>
-       
-        <label>Sparade klasser:</label>
-  <select id="sparadeKlasser"defaultValue={groupName} onChange={handleGroupChange}>
-  <option key={defaultGroup} value={defaultGroup}>ny...</option>
-  {/* Lista alla grupper som finns sparade i cookies */}
-      
-  {Object.keys(Cookies.get()).length > 0 &&
-              Object.keys(Cookies.get()).map((cookieName) => (
-                <option key={cookieName} value={cookieName}>
-                  {cookieName.replace('_values', '')}
-                </option>
-              ))}
-      </select>
-      </div>
+      {sparningsLösning}
 
     <div id='gridMedAnnat'>
       <button label="fixa 2.0" onClick={fixa}>Fixa!</button>
       <button onClick={handleExportToPDF}>Exportera till PDF</button>
-      <Grid
-        rows={rows}
-        columns={columns}
-        boxes={boxes}
-        setBoxes={setBoxes}
-        names={names}
-        boxNames={boxNames}
-        setBoxNames={setBoxNames}
-        filledBoxes={filledBoxes}
-        setFilledBoxes={setFilledBoxes}
-        cellSize={cellSize}
-        setCellSize={setCellSize}
-        baklänges={baklänges}
-        uppe={uppe}
-        nere={nere}
-      />
+      {grid}
       <button onClick={ändraPerspektiv}>byt perspektiv</button>
       <button onClick={handleMixNames}>Slumpa</button>
       </div>
-      <div className='gridInstallning' id='kebaben'>
-        <p>Namnimport</p>
-        <textarea id="namesInput" rows="10" cols="30" placeholder="Ett namn per rad"></textarea>
-        <button onClick={handleMassImportNames}>Spara namn</button>
-        <ExcelToTextConverter
-        setNames={setNames}
-        />
-      </div>
+      {gridConf}
       <div>
         <p id='nameHeader'>Namn:</p>
         <div id="namn">
