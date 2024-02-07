@@ -159,6 +159,7 @@ const App = () => {
     setNames(updatedNames);
   
     // Update the 'boxNames' array with the 'value' property replaced with 0 for matching items
+    if (boxNames != "tom"){
     const removedName = names[index];
     const newArray = boxNames.map(item => {
       if (item.value === removedName) {
@@ -169,6 +170,7 @@ const App = () => {
     });
   
     setBoxNames(newArray);
+    };
   };
   
   
