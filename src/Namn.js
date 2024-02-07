@@ -1,8 +1,11 @@
 import React from 'react';
 
 const NameList = ({ names, handleRemoveName }) => {
+  // Filter out the name "Tom Stol"
+  const filteredNames = names.filter(name => name !== "tom stol");
+
   // Create an array of objects with name and originalIndex properties
-  const namesWithIndex = names.map((name, index) => ({ name, originalIndex: index }));
+  const namesWithIndex = filteredNames.map((name, index) => ({ name, originalIndex: index }));
 
   // Sort the names alphabetically by their name property
   const sortedNames = namesWithIndex.sort((a, b) => a.name.localeCompare(b.name));
@@ -25,7 +28,7 @@ const NameList = ({ names, handleRemoveName }) => {
             {column.map(({ name, originalIndex }, index) => (
               <li key={index}>
                 {name}
-                <button onClick={() => handleRemoveName(originalIndex)}>Ta bort</button>
+                <button onClick={() => handleRemoveName(originalIndex)}>Remove</button>
               </li>
             ))}
           </ul>
