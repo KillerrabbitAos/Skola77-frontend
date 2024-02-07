@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 function findValueByKey(list, key) {
   if (list === 'tom') {
-    return "tom";
+    return 0;
   } else {
     const foundItem = list.find(item => item.key === key);
     return foundItem ? foundItem.value : null;
@@ -29,7 +29,6 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
   };
   
   useEffect(() => {
-    console.log("worked");
     setNameValue(findValueByKey(boxNames, id));
     if (filledBoxes.includes(id)){
       setIsFilled(true)
@@ -42,14 +41,13 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
     let isMounted = true;
   
     if (isMounted) {
-      console.log("worked");
-      setNameValue(findValueByKey(boxNames, id));
+      setNameValue(names[(findValueByKey(boxNames, id))]);
     }
   
     return () => {
       isMounted = false;
     };
-  }, [boxNames, setNameValue, id, filledBoxes, isFilled]);  
+  }, [boxNames, setNameValue, id, filledBoxes, isFilled, names]);  
   return (
     <div
       className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''}`}

@@ -42,6 +42,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
             boxNames={boxNames}
             filledBoxes={filledBoxes}
             setFilledBoxes={setFilledBoxes}
+            names={names}
           />
         </div>
       );
