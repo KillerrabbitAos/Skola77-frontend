@@ -5,7 +5,8 @@ import Grid from './Grid';
 import html2pdf from 'html2pdf.js';
 import Cookies from 'js-cookie';
 import ExcelToTextConverter from './ExcelToTextConverter';
-
+import generateCombinedList from './CombinedListGenerator';
+import NameList from './Namn';
 function fitTextToContainer(container, element) {
   for (let i = 0; i < 20; i++) {
   const containerWidth = container.clientWidth;
@@ -43,7 +44,7 @@ const App = () => {
   const [rows, setRows] = useState(3);
   const [columns, setColumns] = useState(3);
   const [boxes, setBoxes] = useState([]);
-  const [names, setNames] = useState([]);
+  const [names, setNames] = useState(["tom stol"]);
   const [boxNames, setBoxNames] = useState('tom');
   const [filledBoxes, setFilledBoxes] = useState([]);
   const [cellSize, setCellSize] = useState(70);
@@ -152,19 +153,22 @@ const App = () => {
     }
   };
   const handleRemoveName = (index) => {
-    const nameToRemove = names[index];
-  
-    // Ta bort namnet från 'names'
+    // Replace the name at 'index' with "tom stol"
     const updatedNames = [...names];
-    updatedNames.splice(index, 1);
+    updatedNames[index] = "tom stol";
     setNames(updatedNames);
   
-    // Ta bort namnet från 'boxNames' om det finns
-    setBoxNames((prevBoxNames) =>
-      prevBoxNames.map((box) =>
-        box.value === nameToRemove ? { key: box.key, value: 'tom' } : box
-      )
-    );
+    // Update the 'boxNames' array with the 'value' property replaced with 0 for matching items
+    const removedName = names[index];
+    const newArray = boxNames.map(item => {
+      if (item.value === removedName) {
+        return { ...item, value: 0 };
+      } else {
+        return item;
+      }
+    });
+  
+    setBoxNames(newArray);
   };
   
   
@@ -190,50 +194,13 @@ const App = () => {
   const fixa = () => {
   applyFontSizesToClass('name');
   }
-  const handleMixNames = () => {
-    // Skapa en lista med objekt som innehåller namnen och deras ursprungliga index
-    const mixedList = [...names].map((name, index) => ({ originalIndex: index, name }));
-    
-    // Slumpa listan och sortera baserat på slumpningen och det ursprungliga indexet
-    mixedList.sort((a, b) => Math.random() - 0.5 || a.originalIndex - b.originalIndex);
-  
-    setFilledBoxes([...filledBoxes].sort(() => Math.random() - 0.5));
-  
-    // Skapa en ny lista av objekt med nyckel-värde-par för boxNames
-    const newBoxNames = filledBoxes.map((item, index) => ({
-      key: item,
-      value: mixedList[index]?.name || '', // Håll rutan tom om name är undefined
-    }));
-  
-    setBoxNames(newBoxNames);
-  };
 
   const sortedNames = [...names].sort();
 
-  const renderNamesColumns = () => {
-    const columnsArray = new Array(columns).fill(null);
-
-    return columnsArray.map((_, columnIndex) => {
-      const startIndex = columnIndex * Math.ceil(sortedNames.length / columns);
-      const endIndex = (columnIndex + 1) * Math.ceil(sortedNames.length / columns);
-
-      const columnNames = sortedNames.slice(startIndex, endIndex);
-
-      return (
-        <div key={columnIndex} className="namesColumn">
-          <ul>
-            {columnNames.map((name, index) => (
-              <li key={index} className="namelist">
-                {name}
-                <button onClick={() => handleRemoveName(startIndex + index)}>Ta bort</button>
-
-              </li>
-            ))}
-          </ul>
-        </div>
-      );
-    });
-  };
+const handleMixNames = () => {
+  const namesList = names
+  setBoxNames(generateCombinedList(filledBoxes, names, 0, namesList));
+}
   const handleGroupChange = (event) => {
     const selectedGroup = event.target.value;
     setGroupName(selectedGroup)
@@ -347,7 +314,10 @@ const App = () => {
       <div>
         <p id='nameHeader'>Namn:</p>
         <div id="namn">
-        {renderNamesColumns()}
+        <NameList
+          names={names}
+          handleRemoveName={handleRemoveName}
+          ></NameList>
       </div>
       </div>
       <p><a id="mailTag" href="https://skola77.com">Startsida</a></p>
