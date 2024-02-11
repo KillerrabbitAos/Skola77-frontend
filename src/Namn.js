@@ -1,11 +1,21 @@
 import React from 'react';
 
 const NameList = ({ names, handleRemoveName }) => {
-  // Filter out the name "Tom Stol"
-  const filteredNames = names.filter(name => name !== "tom stol");
 
+  const namesDeepCopy = JSON.parse(JSON.stringify(names));
+  var namesWithIndex = (names.map((name, index) => ({ name, originalIndex: index })))
+  const removedName = "tom stol";
+    const newArray = namesWithIndex.map(item => {
+      if (item.name === removedName) {
+        return { ...item, value: 0 };
+      } else {
+        return item;
+      }
+    });
+  
+    namesWithIndex = (newArray);
   // Create an array of objects with name and originalIndex properties
-  const namesWithIndex = filteredNames.map((name, index) => ({ name, originalIndex: index }));
+  
 
   // Sort the names alphabetically by their name property
   const sortedNames = namesWithIndex.sort((a, b) => a.name.localeCompare(b.name));
