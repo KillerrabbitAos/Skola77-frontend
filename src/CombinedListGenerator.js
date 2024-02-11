@@ -1,10 +1,13 @@
 // CombinedListGenerator.js
 const generateCombinedList = (list2, list3, defaultValue, names) => {
     const maxUniqueNumber = Math.min(list3.length - 1, list2.length); // Maximum unique number is the length of list3 - 1 or the length of list2, whichever is smaller
-  
+    console.log(maxUniqueNumber)
+    
     // Shuffle the list2 array to ensure each item is used only once
     const shuffledList2 = shuffleArray(list2);
-  
+    
+    const newlist = shuffleArray(list3)
+    list3 = newlist
     let combinedList = [];
     let value = 1;
   

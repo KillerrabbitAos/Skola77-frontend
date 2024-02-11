@@ -154,13 +154,15 @@ const App = () => {
   };
   const handleRemoveName = (index) => {
     // Replace the name at 'index' with "tom stol"
+    console.log(index)
     const updatedNames = [...names];
     updatedNames[index] = "tom stol";
+
     setNames(updatedNames);
   
     // Update the 'boxNames' array with the 'value' property replaced with 0 for matching items
     if (boxNames != "tom"){
-    const removedName = names[index];
+    const removedName = index;
     const newArray = boxNames.map(item => {
       if (item.value === removedName) {
         return { ...item, value: 0 };
