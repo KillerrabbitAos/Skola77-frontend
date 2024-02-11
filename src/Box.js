@@ -13,7 +13,6 @@ function findValueByKey(list, key) {
 const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState('tom');
-  const [hookCounter, setHookCounter] = useState(false)
   const handleBoxClick = () => {
     if (!isFilled) {
       const newName = 'tom';
@@ -36,7 +35,7 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
     else{
       setIsFilled(false)
     }
-  }, [boxNames, setNameValue, id]);
+  }, [boxNames, setNameValue, id, filledBoxes]);
   useEffect(() => {
     let isMounted = true;
   
