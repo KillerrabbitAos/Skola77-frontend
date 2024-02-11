@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { ReactSVG } from 'react-svg'
+import React, { useState } from 'react';
 import './App.css';
 import Grid from './Grid';
 import html2pdf from 'html2pdf.js';
@@ -29,17 +28,9 @@ function fitTextToContainer(container, element) {
   element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
 }
 }
-function findValueByKey(list, key) {
-  if (list === 'tom') {
-    return "tom";
-  } else {
-    const foundItem = list.find(item => item.key === key);
-    return foundItem ? foundItem.value : null;
-  }
-}
+
 
 const App = () => {
-  const [componentLoaded, setComponentLoaded] = useState(false);
   const [groupName, setGroupName] = useState('ny...');
   const [rows, setRows] = useState(7);
   const [columns, setColumns] = useState(7);
@@ -199,8 +190,6 @@ const App = () => {
   applyFontSizesToClass('name');
   }
 
-  const sortedNames = [...names].sort();
-
 const handleMixNames = () => {
   const namesList = names
   setBoxNames(generateCombinedList(filledBoxes, names, 0, namesList));
@@ -246,15 +235,15 @@ const handleMixNames = () => {
       //fixa();
    // }
   //}, [rows, columns, boxes, names, boxNames, filledBoxes, cellSize, fixa, fixaCounter]);
-  useEffect(() => {
-    if (fixaCounter > 100){
-      setFixaCounter(0)
-      return;
-      }
-    else{
-      fixa();
-    }
-    }, [filledBoxes, boxNames, rows, columns, cellSize, fixa]);
+  //useEffect(() => {
+    //if (fixaCounter > 100){
+      //setFixaCounter(0)
+      //return;
+      //}
+    //else{
+     // fixa();
+    //}
+    //}, [filledBoxes, boxNames, rows, columns, cellSize, fixa]);
  
   const gridConf = <div className='gridInstallning' id='kebaben'>
     <p>Namnimport</p>
