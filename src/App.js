@@ -161,7 +161,7 @@ const App = () => {
     setNames(updatedNames);
   
     // Update the 'boxNames' array with the 'value' property replaced with 0 for matching items
-    if (boxNames != "tom"){
+    if (boxNames !== "tom"){
     const removedName = index;
     const newArray = boxNames.map(item => {
       if (item.value === removedName) {
@@ -261,7 +261,9 @@ const handleMixNames = () => {
     <textarea id="namesInput" rows="10" cols="30" placeholder="Ett namn per rad"></textarea>
     <button onClick={handleMassImportNames}>Spara namn</button>
     <ExcelToTextConverter
-      setNames={setNames} />
+      setNames={setNames} 
+      names={names}
+      />
   </div>;
   const grid = <Grid
     rows={rows}
@@ -322,6 +324,7 @@ const handleMixNames = () => {
         <NameList
           names={names}
           handleRemoveName={handleRemoveName}
+          setBoxNames={setBoxNames}
           ></NameList>
       </div>
       </div>

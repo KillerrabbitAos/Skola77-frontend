@@ -1,7 +1,7 @@
 import React from 'react';
 import * as XLSX from 'xlsx';
 
-const ExcelToTextConverter = ({ setNames }) => {
+const ExcelToTextConverter = ({ setNames, names }) => {
   const convertExcelToText = async (file) => {
     try {
       const fileReader = new FileReader();
@@ -21,7 +21,9 @@ const ExcelToTextConverter = ({ setNames }) => {
             return cellData ? cellData.v : ''; 
           });
 
-          setNames(textData.filter((text) => text !== undefined));
+          const newNames = (textData.filter((text) => text !== undefined));
+          const combinedNames = names.concat(newNames)
+          setNames(combinedNames)
         } catch (error) {
           console.error('Error parsing Excel data:', error);
         }
