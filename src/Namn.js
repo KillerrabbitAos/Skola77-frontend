@@ -3,17 +3,11 @@ import React from 'react';
 const NameList = ({ names, handleRemoveName }) => {
 
   const namesDeepCopy = JSON.parse(JSON.stringify(names));
-  var namesWithIndex = (names.map((name, index) => ({ name, originalIndex: index })))
-  const removedName = "tom stol";
-    const newArray = namesWithIndex.map(item => {
-      if (item.name === removedName) {
-        return { ...item, value: 0 };
-      } else {
-        return item;
-      }
-    });
+  var newNames = namesDeepCopy.filter(function(item) {
+    return item !== "tom stol"
+})
+  var namesWithIndex = (newNames.map((name, index) => ({ name, originalIndex: index + 1})))
   
-    namesWithIndex = (newArray);
   // Create an array of objects with name and originalIndex properties
   
 
