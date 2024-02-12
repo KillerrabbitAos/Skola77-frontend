@@ -312,7 +312,6 @@ const handleMixNames = () => {
       {sparningsLösning}
 
     <div id='gridMedAnnat'>
-      <button label="fixa 2.0" onClick={fixa}>Fixa!</button>
       <button onClick={handleExportToPDF}>Exportera till PDF</button>
       {grid}
       <button onClick={ändraPerspektiv}>byt perspektiv</button>
