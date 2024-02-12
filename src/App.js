@@ -6,6 +6,17 @@ import Cookies from 'js-cookie';
 import ExcelToTextConverter from './ExcelToTextConverter';
 import generateCombinedList from './CombinedListGenerator';
 import NameList from './Namn';
+import LZString from 'lz-string';
+
+function compressData(data) {
+  return LZString.compressToEncodedURIComponent(JSON.stringify(data));
+}
+
+// Function to decompress data retrieved from cookies
+function decompressData(compressedData) {
+  return JSON.parse(LZString.decompressFromEncodedURIComponent(compressedData));
+}
+
 function fitTextToContainer(container, element) {
   for (let i = 0; i < 20; i++) {
   const containerWidth = container.clientWidth;
@@ -80,17 +91,18 @@ const App = () => {
       setGroupName(name);
 
       // Sparar värden i cookie
-      Cookies.set(`${name}_values`, JSON.stringify({
-          rows: rows,
-          columns: columns,
-          boxes: boxes,
-          names: names,
-          boxNames: boxNames,
-          filledBoxes: filledBoxes,
-          cellSize: cellSize,
-          fixaCounter: fixaCounter,
-      }), { expires: 365 }); // Exempelvis 365 dagar
-
+      const compressedData = compressData({
+        rows: rows,
+        columns: columns,
+        boxes: boxes,
+        names: names,
+        boxNames: boxNames,
+        filledBoxes: filledBoxes,
+        cellSize: cellSize,
+        fixaCounter: fixaCounter,
+      });
+  
+      Cookies.set(`${name}_values`, compressedData, { expires: 365 });
     }
   }
   
@@ -118,11 +130,11 @@ const App = () => {
       return {};
     }
   
-    const valuesString = Cookies.get(cookieName);
-    console.log('Cookie values string:', valuesString);
+    const compressedData = Cookies.get(cookieName);
+    console.log('Cookie values string:', compressedData);
   
     try {
-      const values = JSON.parse(valuesString);
+      const values = decompressData(compressedData);
       return values || {};
     } catch (error) {
       console.error('Error parsing cookie values:', error);
