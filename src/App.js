@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Grid from './Grid';
 import html2pdf from 'html2pdf.js';
@@ -6,6 +6,17 @@ import Cookies from 'js-cookie';
 import ExcelToTextConverter from './ExcelToTextConverter';
 import generateCombinedList from './CombinedListGenerator';
 import NameList from './Namn';
+import LZString from 'lz-string';
+
+function compressData(data) {
+  return LZString.compressToEncodedURIComponent(JSON.stringify(data));
+}
+
+// Function to decompress data retrieved from cookies
+function decompressData(compressedData) {
+  return JSON.parse(LZString.decompressFromEncodedURIComponent(compressedData));
+}
+
 function fitTextToContainer(container, element) {
   for (let i = 0; i < 20; i++) {
   const containerWidth = container.clientWidth;
@@ -41,12 +52,13 @@ const App = () => {
   const [cellSize, setCellSize] = useState(70);
   const [fixaCounter, setFixaCounter] = useState(0);
   const [baklänges, setBaklänges] = useState(false)
-  const defaultGroup = 'default';
+  const defaultGroup = 'ny...';
   const [rowsInput, setRowsInput] = useState('7');
   const [columnsInput, setColumnsInput] = useState('7');
   const [nere, setNere] = useState("Bak")
   const [uppe, setUppe] = useState("Tavla")
-
+  const [clicked, setClicked] = useState(false)
+  const [dummyState, setDummyState] = useState(false);
 
   const handleRowsInputChange = (e) => {
     const value = e.target.value;
@@ -73,22 +85,24 @@ const App = () => {
   }
   
   const handleSaveButtonClick = () => {
+    setDummyState(prevState => !prevState);
     const name = prompt('Döp din klass: ');
     if (name) {
       setGroupName(name);
 
       // Sparar värden i cookie
-      Cookies.set(`${name}_values`, JSON.stringify({
-          rows: rows,
-          columns: columns,
-          boxes: boxes,
-          names: names,
-          boxNames: boxNames,
-          filledBoxes: filledBoxes,
-          cellSize: cellSize,
-          fixaCounter: fixaCounter,
-      }), { expires: 365 }); // Exempelvis 365 dagar
-
+      const compressedData = compressData({
+        rows: rows,
+        columns: columns,
+        boxes: boxes,
+        names: names,
+        boxNames: boxNames,
+        filledBoxes: filledBoxes,
+        cellSize: cellSize,
+        fixaCounter: fixaCounter,
+      });
+  
+      Cookies.set(`${name}_values`, compressedData, { expires: 365 });
     }
   }
   
@@ -116,11 +130,11 @@ const App = () => {
       return {};
     }
   
-    const valuesString = Cookies.get(cookieName);
-    console.log('Cookie values string:', valuesString);
+    const compressedData = Cookies.get(cookieName);
+    console.log('Cookie values string:', compressedData);
   
     try {
-      const values = JSON.parse(valuesString);
+      const values = decompressData(compressedData);
       return values || {};
     } catch (error) {
       console.error('Error parsing cookie values:', error);
@@ -195,6 +209,7 @@ const handleMixNames = () => {
   setBoxNames(generateCombinedList(filledBoxes, names, 0, namesList));
 }
   const handleGroupChange = (event) => {
+    setClicked(false)
     const selectedGroup = event.target.value;
     setGroupName(selectedGroup)
     // Om den valda gruppen är standardgruppen, sätt standardvärden
@@ -203,7 +218,7 @@ const handleMixNames = () => {
       setColumns(7);
       setBoxNames('tom');
       setBoxes([]);
-      setNames([]);
+      setNames(["tom stol"]);
       setFilledBoxes([]);
       setCellSize(70);
       setFixaCounter(0);
@@ -228,22 +243,7 @@ const handleMixNames = () => {
 }
 
 
- // useEffect(() => {
-   // if (fixaCounter > 0) {
-      //setFixaCounter(0);
-   // } else {
-      //fixa();
-   // }
-  //}, [rows, columns, boxes, names, boxNames, filledBoxes, cellSize, fixa, fixaCounter]);
-  //useEffect(() => {
-    //if (fixaCounter > 100){
-      //setFixaCounter(0)
-      //return;
-      //}
-    //else{
-     // fixa();
-    //}
-    //}, [filledBoxes, boxNames, rows, columns, cellSize, fixa]);
+
  
   const gridConf = <div className='gridInstallning' id='kebaben'>
     <p>Namnimport</p>
@@ -274,18 +274,30 @@ const handleMixNames = () => {
     <label for="sparaKnapp">Spara!</label>
 
     <label>Sparade klasser:</label>
-    <select id="sparadeKlasser" defaultValue={groupName} onChange={handleGroupChange}>
-      <option key={defaultGroup} value={defaultGroup}>ny...</option>
+    <select id="sparadeKlasser" defaultValue={groupName} onMouseDown={() => setClicked(true)} onChange={handleGroupChange}>
+  {clicked === true ? (
+    <option key="ny..." value={defaultGroup}>{defaultGroup}</option>
+  ) : (
+    <option key={defaultGroup} value={groupName}>{groupName}</option>
+  )}
+      
       {/* Lista alla grupper som finns sparade i cookies */}
 
       {Object.keys(Cookies.get()).length > 0 &&
         Object.keys(Cookies.get()).map((cookieName) => (
-          <option key={cookieName} value={cookieName}>
+          <option key={cookieName.replace('_values', '') === groupName ? defaultGroup : (cookieName)} value={cookieName}>
             {cookieName.replace('_values', '')}
           </option>
         ))}
     </select>
   </div>;
+  useEffect(() => {
+    // If clicked becomes false, force a re-render by updating dummyState
+    if (!clicked) {
+      setDummyState(prevState => !prevState);
+    }
+  }, [clicked]);
+
     return (
       <div className="App">
         <div className='gridInstallning'>
