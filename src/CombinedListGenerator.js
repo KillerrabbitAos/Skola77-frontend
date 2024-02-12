@@ -9,7 +9,8 @@ const generateCombinedList = (list2, list4, defaultValue, names) => {
   let usedIndexes = new Set();
 
   // Iterate over list3 and use each item from list2 sequentially until list3 is exhausted
-  for (let i = 0; i < list3.length && combinedList.length < shuffledList2.length; i++) {
+  let i = 0;
+  for (; i < list3.length && combinedList.length < shuffledList2.length; i++) {
     const key = shuffledList2[combinedList.length]; // Use the next key from shuffledList2
 
     let randomIndex = Math.floor(Math.random() * names.length);
@@ -20,19 +21,22 @@ const generateCombinedList = (list2, list4, defaultValue, names) => {
 
     let value = randomIndex;
 
-    if (names[value] !== "tom stol") {
+    if (names[value] !== "") {
       combinedList.push({ key, value });
     }
 
     if (value > maxUniqueNumber) {
       value = 1;
     }
+    if (value > maxUniqueNumber) {
+      value = 1;
+    }
   }
 
-  // Assign remaining items in list2 the default value
-  for (let i = combinedList.length; i < list2.length; i++) {
+  // If there are remaining items in list2, use them with default value
+  for (; i < shuffledList2.length; i++) {
     const key = shuffledList2[i];
-    const itemValue = names.includes("tom stol") ? 0 : defaultValue;
+    const itemValue = names.includes("") ? 0 : defaultValue;
     combinedList.push({ key, value: itemValue });
   }
 

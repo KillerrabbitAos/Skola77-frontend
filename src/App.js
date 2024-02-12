@@ -46,7 +46,7 @@ const App = () => {
   const [rows, setRows] = useState(7);
   const [columns, setColumns] = useState(7);
   const [boxes, setBoxes] = useState([]);
-  const [names, setNames] = useState(["tom stol"]);
+  const [names, setNames] = useState([""]);
   const [boxNames, setBoxNames] = useState('tom');
   const [filledBoxes, setFilledBoxes] = useState([]);
   const [cellSize, setCellSize] = useState(70);
@@ -158,10 +158,10 @@ const App = () => {
     }
   };
   const handleRemoveName = (index) => {
-    // Replace the name at 'index' with "tom stol"
+   
     console.log(index)
     const updatedNames = [...names];
-    updatedNames[index] = "tom stol";
+    updatedNames[index] = "";
 
     setNames(updatedNames);
   
@@ -203,11 +203,19 @@ const App = () => {
   const fixa = () => {
   applyFontSizesToClass('name');
   }
+  const firstConstantFunction = async () => {
+    const namesList = names
+    setBoxNames(generateCombinedList(filledBoxes, names, 0, namesList));
+    await new Promise(resolve => setTimeout(resolve, 10));
+  }
 
-const handleMixNames = () => {
-  const namesList = names
-  setBoxNames(generateCombinedList(filledBoxes, names, 0, namesList));
-}
+  const handleMixNames = async () => {
+    // Call the first constant function and wait for it to complete
+    await firstConstantFunction();
+
+    // Once the first function completes, call the second one
+    fixa();
+  };
   const handleGroupChange = (event) => {
     setClicked(false)
     const selectedGroup = event.target.value;
@@ -218,7 +226,7 @@ const handleMixNames = () => {
       setColumns(7);
       setBoxNames('tom');
       setBoxes([]);
-      setNames(["tom stol"]);
+      setNames([""]);
       setFilledBoxes([]);
       setCellSize(70);
       setFixaCounter(0);

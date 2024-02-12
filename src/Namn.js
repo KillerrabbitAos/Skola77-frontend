@@ -4,7 +4,7 @@ const NameList = ({ names, handleRemoveName }) => {
 
   const namesDeepCopy = JSON.parse(JSON.stringify(names));
   var newNames = namesDeepCopy.filter(function(item) {
-    return item !== "tom stol"
+    return item !== ""
 })
   var namesWithIndex = (newNames.map((name, index) => ({ name, originalIndex: index + 1})))
   
