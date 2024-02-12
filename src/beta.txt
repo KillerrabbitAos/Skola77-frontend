@@ -1,0 +1,16 @@
+ // useEffect(() => {
+   // if (fixaCounter > 0) {
+      //setFixaCounter(0);
+   // } else {
+      //fixa();
+   // }
+  //}, [rows, columns, boxes, names, boxNames, filledBoxes, cellSize, fixa, fixaCounter]);
+  //useEffect(() => {
+    //if (fixaCounter > 100){
+      //setFixaCounter(0)
+      //return;
+      //}
+    //else{
+     // fixa();
+    //}
+    //}, [filledBoxes, boxNames, rows, columns, cellSize, fixa]);
