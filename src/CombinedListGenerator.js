@@ -42,18 +42,14 @@ const generateCombinedList = (list2, list4, defaultValue, names) => {
 
   return combinedList;
 };
-};
 
 const shuffleArray = (array1) => {
   let array = array1.slice(); // Copying the array to avoid modifying the original
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
-};
 };
 
 export default generateCombinedList;
