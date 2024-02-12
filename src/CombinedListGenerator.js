@@ -1,13 +1,11 @@
 const generateCombinedList = (list2, list4, defaultValue, names) => {
   const maxUniqueNumber = Math.min(list4.length - 1, list2.length);
-  const maxUniqueNumber = Math.min(list4.length - 1, list2.length);
 
   const shuffledList2 = shuffleArray(list2);
   const list4DeepCopy = JSON.parse(JSON.stringify(list4));
   const list3 = shuffleArray(list4DeepCopy);
 
   let combinedList = [];
-  let usedIndexes = new Set();
   let usedIndexes = new Set();
 
   // Iterate over list3 and use each item from list2 sequentially until list3 is exhausted
