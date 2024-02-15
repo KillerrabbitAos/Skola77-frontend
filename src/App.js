@@ -103,8 +103,8 @@ const App = () => {
       });
   
       Cookies.set(`${name}_values`, compressedData, { expires: 365 });
-      
       await new Promise(resolve => setTimeout(resolve, 10));
+      
       document.getElementById(`${name}_values`).selected = true
     }
     
