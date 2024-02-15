@@ -144,12 +144,15 @@ const App = () => {
   
     try {
       const values = decompressData(compressedData);
+      fixa()
       return values || {};
     } catch (error) {
       console.error('Error parsing cookie values:', error);
       return {};
     }
+  
   };
+  
   
   
   
@@ -220,8 +223,7 @@ const App = () => {
     // Once the first function completes, call the second one
     fixa();
   };
-  const handleGroupChange = (event) => {
-    setClicked(false)
+  const handleGroupChange = async (event) => {
     const selectedGroup = event.target.value;
     setGroupName(selectedGroup)
     // Om den valda gruppen är standardgruppen, sätt standardvärden
@@ -251,6 +253,8 @@ const App = () => {
       // Handle the case when values are not available
       console.error(`No values found for group: ${selectedGroup}`);
     }
+    await new Promise(resolve => setTimeout(resolve, 10));
+    fixa();
   };
 }
 
