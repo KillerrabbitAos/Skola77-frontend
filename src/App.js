@@ -7,6 +7,7 @@ import ExcelToTextConverter from './ExcelToTextConverter';
 import generateCombinedList from './CombinedListGenerator';
 import NameList from './Namn';
 import LZString from 'lz-string';
+import { useCookies } from 'react-cookie';
 
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
@@ -59,7 +60,7 @@ const App = () => {
   const [uppe, setUppe] = useState("Tavla")
   const [clicked, setClicked] = useState(false)
   const [dummyState, setDummyState] = useState(false);
-
+  const [cookies, setCookie, removeCookie] = useCookies(['name']);
   const handleRowsInputChange = (e) => {
     const value = e.target.value;
     setRowsInput(value);
@@ -103,13 +104,19 @@ const App = () => {
   
       Cookies.set(`${name}_values`, compressedData, { expires: 365 });
       
+      await new Promise(resolve => setTimeout(resolve, 10));
       document.getElementById(`${name}_values`).selected = true
     }
     
   }
   
   
-  
+  const raderaKlass = (klassAttRadera) => {
+    setGroupName(defaultGroup);
+    document.getElementById("nyKlass").selected = true
+
+    removeCookie(klassAttRadera)
+  }
 
   function applyFontSizesToClass(className) {
     const elements = document.getElementsByClassName(className);
@@ -280,7 +287,7 @@ const App = () => {
 
     <label>Sparade klasser:</label>
     <select id="sparadeKlasser" defaultValue={groupName} onChange={handleGroupChange}>
-    <option key="ny..." value={defaultGroup}>{defaultGroup}</option>
+    <option id="nyKlass" key="ny..." value={defaultGroup}>{defaultGroup}</option>
       
       {/* Lista alla grupper som finns sparade i cookies */}
 
@@ -291,13 +298,8 @@ const App = () => {
           </option>
         ))}
     </select>
+ 
   </div>;
-  useEffect(() => {
-    // If clicked becomes false, force a re-render by updating dummyState
-    if (!clicked) {
-      setDummyState(prevState => !prevState);
-    }
-  }, [clicked]);
 
     return (
       <div className="App">
