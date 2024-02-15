@@ -12,6 +12,7 @@
     "lz-string": "^1.5.0",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
+    "react-cookie": "^7.0.2",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
     "react-svg": "^16.1.32",
