@@ -16,4 +16,4 @@
     //}, [filledBoxes, boxNames, rows, columns, cellSize, fixa]);
 
     const namesList = names
-  
+  document.getElementById(`${name}_values`).click();

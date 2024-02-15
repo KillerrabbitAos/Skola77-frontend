@@ -27,7 +27,7 @@ const NameList = ({ names, handleRemoveName }) => {
     <div style={{ display: 'flex' }}>
       {/* Render each column */}
       {columns.map((column, columnIndex) => (
-        <div key={columnIndex} style={{ flex: 1 }}>
+        <div key={columnIndex} style={{ flex: 1,  }}>
           <ul>
             {column.map(({ name, originalIndex }, index) => (
               <li key={index}>

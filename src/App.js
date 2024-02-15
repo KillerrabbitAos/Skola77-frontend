@@ -83,13 +83,12 @@ const App = () => {
       setUppe("Tavla")
     }
   }
-  
-  const handleSaveButtonClick = () => {
-    setDummyState(prevState => !prevState);
+
+  const handleSaveButtonClick = async () => {
     const name = prompt('Döp din klass: ');
     if (name) {
       setGroupName(name);
-
+      
       // Sparar värden i cookie
       const compressedData = compressData({
         rows: rows,
@@ -103,7 +102,10 @@ const App = () => {
       });
   
       Cookies.set(`${name}_values`, compressedData, { expires: 365 });
+      
+      document.getElementById(`${name}_values`).selected = true
     }
+    
   }
   
   
@@ -195,11 +197,6 @@ const App = () => {
     textarea.value = '';
   };
 
- // const fixa = useCallback(() => {
-   // setNamesFromBoxNames();
-    //console.log("kebab")
-    //setFixaCounter((prevCounter) => prevCounter + 1);
-  //}, []);
   const fixa = () => {
   applyFontSizesToClass('name');
   }
@@ -282,18 +279,14 @@ const App = () => {
     <label for="sparaKnapp">Spara!</label>
 
     <label>Sparade klasser:</label>
-    <select id="sparadeKlasser" defaultValue={groupName} onMouseDown={() => setClicked(true)} onChange={handleGroupChange}>
-  {clicked === true ? (
+    <select id="sparadeKlasser" defaultValue={groupName} onChange={handleGroupChange}>
     <option key="ny..." value={defaultGroup}>{defaultGroup}</option>
-  ) : (
-    <option key={defaultGroup} value={groupName}>{groupName}</option>
-  )}
       
       {/* Lista alla grupper som finns sparade i cookies */}
 
       {Object.keys(Cookies.get()).length > 0 &&
         Object.keys(Cookies.get()).map((cookieName) => (
-          <option key={cookieName.replace('_values', '') === groupName ? defaultGroup : (cookieName)} value={cookieName}>
+          <option id={cookieName} key={cookieName} value={cookieName}>
             {cookieName.replace('_values', '')}
           </option>
         ))}

@@ -8,10 +8,10 @@ const generateCombinedList = (list2, list4, defaultValue, names) => {
   let combinedList = [];
   let usedIndexes = new Set();
 
-  // Iterate over list3 and use each item from list2 sequentially until list3 is exhausted
+ 
   let i = 0;
   for (; i < list3.length && combinedList.length < shuffledList2.length; i++) {
-    const key = shuffledList2[combinedList.length]; // Use the next key from shuffledList2
+    const key = shuffledList2[combinedList.length]; 
 
     let randomIndex = Math.floor(Math.random() * names.length);
     while (usedIndexes.has(randomIndex)) {
@@ -33,7 +33,7 @@ const generateCombinedList = (list2, list4, defaultValue, names) => {
     }
   }
 
-  // If there are remaining items in list2, use them with default value
+
   for (; i < shuffledList2.length; i++) {
     const key = shuffledList2[i];
     const itemValue = names.includes("") ? 0 : defaultValue;
@@ -44,7 +44,7 @@ const generateCombinedList = (list2, list4, defaultValue, names) => {
 };
 
 const shuffleArray = (array1) => {
-  let array = array1.slice(); // Copying the array to avoid modifying the original
+  let array = array1.slice(); 
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
