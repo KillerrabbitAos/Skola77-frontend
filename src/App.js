@@ -111,10 +111,10 @@ const App = () => {
   }
   
   
-  const raderaKlass = (klassAttRadera) => {
+  const raderaKlass = () => {
     setGroupName(defaultGroup);
     document.getElementById("nyKlass").selected = true
-
+    const klassAttRadera = `${groupName}_values`
     removeCookie(klassAttRadera)
   }
 
@@ -297,8 +297,11 @@ const App = () => {
             {cookieName.replace('_values', '')}
           </option>
         ))}
+        
     </select>
- 
+    {(groupName === defaultGroup)
+          ? ''
+          : <button key="raderaKlass" onMouseDown={raderaKlass}>Ta bort klass</button>}
   </div>;
 
     return (
