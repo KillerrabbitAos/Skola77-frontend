@@ -112,7 +112,7 @@ const App = () => {
   
   
   const raderaKlass = () => {
-    setGroupName(defaultGroup);
+    handleGroupChange(defaultGroup);
     document.getElementById("nyKlass").selected = true
     const klassAttRadera = `${groupName}_values`
     removeCookie(klassAttRadera)
@@ -173,7 +173,7 @@ const App = () => {
    
     console.log(index)
     const updatedNames = [...names];
-    updatedNames[index] = "";
+    updatedNames[index] = ""
 
     setNames(updatedNames);
   
