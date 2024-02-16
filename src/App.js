@@ -112,7 +112,7 @@ const App = () => {
   
   
   const raderaKlass = () => {
-    handleGroupChange(defaultGroup);
+    setGroupName(defaultGroup);
     document.getElementById("nyKlass").selected = true
     const klassAttRadera = `${groupName}_values`
     removeCookie(klassAttRadera)
