@@ -8,6 +8,8 @@ import generateCombinedList from './CombinedListGenerator';
 import NameList from './Namn';
 import LZString from 'lz-string';
 import { useCookies } from 'react-cookie';
+import { papperskorg } from './papperskorg';
+
 
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
@@ -91,7 +93,7 @@ const App = () => {
       setGroupName(name);
       
       // Sparar värden i cookie
-      const compressedData = compressData({
+      const compressedData = compressData({               
         rows: rows,
         columns: columns,
         boxes: boxes,
@@ -152,7 +154,6 @@ const App = () => {
     }
   
   };
-  
   
   
   
@@ -259,7 +260,6 @@ const App = () => {
 }
 
 
-
  
   const gridConf = <div className='gridInstallning' id='kebaben'>
     <p>Namnimport</p>
@@ -305,7 +305,7 @@ const App = () => {
     </select>
     {(groupName === defaultGroup)
           ? ''
-          : <button key="raderaKlass" onMouseDown={raderaKlass}>Ta bort klass</button>}
+          : <button key="raderaKlass" onMouseDown={raderaKlass}></button>}
   </div>;
 
     return (
