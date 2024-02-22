@@ -174,7 +174,7 @@ const App = () => {
    
     console.log(index)
     const updatedNames = [...names];
-    updatedNames[index] = "";
+    updatedNames[index] = ""
 
     setNames(updatedNames);
   
