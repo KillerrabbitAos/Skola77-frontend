@@ -10,9 +10,10 @@ function findValueByKey(list, key) {
 }
 
 
-const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
+const Box = ({ position, boxes, setBoxes, names, id, setId, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState('tom');
+
   const handleBoxClick = () => {
     if (!isFilled) {
       const newName = 'tom';
@@ -43,6 +44,10 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
   
     if (isMounted) {
       setNameValue(names[(findValueByKey(boxNames, id))]);
+      
+      if (findValueByKey(keyChange, id)){
+        id = findValueByKey(keyChange, id)
+      }
     }
   
     return () => {

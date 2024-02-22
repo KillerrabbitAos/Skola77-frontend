@@ -63,6 +63,7 @@ const App = () => {
   const [clicked, setClicked] = useState(false)
   const [dummyState, setDummyState] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(['name']);
+  
   const handleRowsInputChange = (e) => {
     const value = e.target.value;
     setRowsInput(value);
