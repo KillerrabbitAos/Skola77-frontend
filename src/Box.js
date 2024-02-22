@@ -26,7 +26,9 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
       setFilledBoxes((prevFilledBoxes) => prevFilledBoxes.filter((boxId) => boxId !== id));
     }
   };
-  
+  const handleDragStart = (e) => {
+    e.dataTransfer.setData('boxId', id); // Set the id of the dragged box
+  };
   useEffect(() => {
     setNameValue(findValueByKey(boxNames, id));
     if (filledBoxes.includes(id)){
@@ -51,6 +53,9 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
     <div
       className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''}`}
       onMouseDown={handleBoxClick}
+      onDragStart={handleDragStart}
+      draggable={true}
+      id={id}
       style={{ gridArea: position }}
     >
       {isFilled && (
