@@ -1,6 +1,23 @@
 import React, { useState } from 'react';
 import Box from './Box';
 
+function findValueByKey(list, key) {
+  if (list == 'tom') {
+    return null;
+  } else {
+    const foundItem = list.find(item => item.key === key);
+    return foundItem ? foundItem.value : null;
+  }
+}
+function findKeyByValue(list, value) {
+  if (list == 'tom') {
+    return null;
+  } else {
+    const foundItem = list.find(item => item.value === value);
+    return foundItem ? foundItem.key : null;
+  }
+}
+
 const Grid = ({ rows, columns, boxes, setBoxes, keyChange, setKeyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
   const [showBorders, setShowBorders] = useState(true);
   const [editingMode, setEditingMode] = useState(true);
@@ -29,10 +46,11 @@ const Grid = ({ rows, columns, boxes, setBoxes, keyChange, setKeyChange, names, 
   
     console.log(`Box ${draggedBoxId} dropped on ${targetId}`);
     setKeyChange(
-      {
+      [{
         "key": draggedBoxId,
         "value": targetId
-      }
+      }]
+      
     )
     // Update state based on the drop, similar to the previous explanation
   };
@@ -48,9 +66,12 @@ const Grid = ({ rows, columns, boxes, setBoxes, keyChange, setKeyChange, names, 
 
   for (let i = startIndex; i !== endIndex; i += step) {
     const box = boxes[i] || { position: `${i + 1}`, name: '' };
-    var toBeKey = "kebab"
-    if (("box-" + i) != 'box-0'){
-      toBeKey = (`box-${i}`);
+    var toBeKey = (`box-${i}`);
+    if ((findValueByKey(keyChange, (`box-${i}`)))){
+      toBeKey = ((findValueByKey(keyChange, (`box-${i}`))));
+    }
+    if ((findKeyByValue(keyChange, (`box-${i}`)))){
+      toBeKey = (findKeyByValue(keyChange, (`box-${i}`)))
     }
       gridItems.push(
         //if (findValueByKey(keyChange, id)){

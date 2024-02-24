@@ -46,7 +46,7 @@ function fitTextToContainer(container, element) {
 
 const App = () => {
   const [groupName, setGroupName] = useState('ny...');
-  const [keyChange, setKeyChange] = useState([])
+  const [keyChange, setKeyChange] = useState('tom')
   const [rows, setRows] = useState(7);
   const [columns, setColumns] = useState(7);
   const [boxes, setBoxes] = useState([]);
