@@ -10,7 +10,7 @@ function findValueByKey(list, key) {
 }
 
 
-const Box = ({position, boxes, setBoxes, names, bytaPlatser, id, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
+const Box = ({position, boxes, setBoxes, names, bytaPlatser, id, originalId, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState('tom');
 
@@ -31,7 +31,8 @@ const Box = ({position, boxes, setBoxes, names, bytaPlatser, id, keyChange, boxN
     }
   };
   const handleDragStart = (e) => {
-    e.dataTransfer.setData('boxId', id); // Set the id of the dragged box 
+    const idInfo = {ny: id, original: originalId}; 
+    e.dataTransfer.setData('boxId', 'ny: ' + id + 'original: ' + originalId);
   };
 
   useEffect(() => {
@@ -63,6 +64,7 @@ const Box = ({position, boxes, setBoxes, names, bytaPlatser, id, keyChange, boxN
       onDragStart={handleDragStart}
       draggable={bytaPlatser ? true : false}
       id={id}
+      data-originalId={originalId}
       style={{ gridArea: position }}
     >
       {isFilled && (

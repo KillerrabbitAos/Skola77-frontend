@@ -45,21 +45,41 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
       return; // Early return if we don't find a valid target
     }
   
-    const draggedBoxId = e.dataTransfer.getData('boxId'); // Get the dragged box id
+    const draggedBoxId = e.dataTransfer.getData('boxId').split("ny: ")[1].split("original")[0];
+    const draggedBoxOriginalId = e.dataTransfer.getData('boxId').split("original: ")[1] // Get the dragged box id
     const targetId = target.id; // Now we're sure this is the correct target ID
+    const targetOriginalId = target.getAttribute("data-originalId")
     console.log(`Box ${draggedBoxId} dropped on ${targetId}`);
     if (keyChange != 'tom'){
-      const newKeyChange = JSON.parse(JSON.stringify(keyChange));
-      const key = draggedBoxId
-      const value = targetId
-      newKeyChange.push({ key, value })
+      const keyChangeDeepCopy = JSON.parse(JSON.stringify(keyChange));
+      const newKeyChange = [];
+      if (findValueByKey(keyChange, (draggedBoxId))){
+        for (let i = 0; i < keyChange.length; i++){
+          if (keyChange[i].key != draggedBoxId){
+            newKeyChange.push(keyChangeDeepCopy[i])
+          }
+        }
+      }
+      newKeyChange.push({
+        "key": draggedBoxOriginalId,
+        "value": targetId
+      },
+      {
+        "key": targetOriginalId,
+        "value": draggedBoxId
+      })
       setKeyChange(newKeyChange)
     }
   else{
     setKeyChange([{
-      "key": draggedBoxId,
+      "key": draggedBoxOriginalId,
       "value": targetId
-    }])
+    },
+    {
+      "key": targetOriginalId,
+      "value": draggedBoxId
+    }
+  ])
   }  
     // Update state based on the drop, similar to the previous explanation
   };
@@ -79,9 +99,6 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
     if ((findValueByKey(keyChange, (`box-${i}`)))){
       toBeKey = ((findValueByKey(keyChange, (`box-${i}`))));
     }
-    if ((findKeyByValue(keyChange, (`box-${i}`)))){
-      toBeKey = (findKeyByValue(keyChange, (`box-${i}`)))
-    }
       gridItems.push(
         
         <div
@@ -96,6 +113,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
         >
           <Box
             key={toBeKey}
+            originalId={`box-${i}`}
             id={toBeKey}
             position={box.position}
             boxes={boxes}
