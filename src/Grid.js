@@ -1,17 +1,95 @@
 import React, { useState } from 'react';
 import Box from './Box';
 
-const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
+function findValueByKey(list, key) {
+  if (list == 'tom') {
+    return null;
+  } else {
+    const foundItem = list.find(item => item.key === key);
+    return foundItem ? foundItem.value : null;
+  }
+}
+function findKeyByValue(list, value) {
+  if (list == 'tom') {
+    return null;
+  } else {
+    const foundItem = list.find(item => item.value === value);
+    return foundItem ? foundItem.key : null;
+  }
+}
+
+const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, keyChange, setKeyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
   const [showBorders, setShowBorders] = useState(true);
   const [editingMode, setEditingMode] = useState(true);
+
+  const handleRedigeringKlick = () => {
+    setBytaPlatser(bytaPlatser != true);
+  }
 
   const toggleBorders = () => {
     setShowBorders(!showBorders);
     setEditingMode(!editingMode);
 
   };
-
-
+  const handleDrop = (e) => {
+    e.preventDefault();
+  
+    let target = e.target;
+    // Traverse up to find an element with an ID that matches your expected pattern
+    while (target && !target.id.startsWith('box-') && target !== e.currentTarget) {
+      target = target.parentNode;
+    }
+  
+    if (!target || target === e.currentTarget) {
+      console.log('Dropped on an invalid target');
+      return; // Early return if we don't find a valid target
+    }
+  
+    const draggedBoxId = JSON.parse(JSON.stringify(e.dataTransfer.getData('boxId').split("ny: ")[1].split("original")[0]));
+    const draggedBoxOriginalId = JSON.parse(JSON.stringify(e.dataTransfer.getData('boxId').split("original: ")[1])); // Get the dragged box id
+    const targetId = JSON.parse(JSON.stringify(target.id)); // Now we're sure this is the correct target ID
+    const targetOriginalId = JSON.parse(JSON.stringify(target.getAttribute("data-originalId")))
+    console.log(`Box ${draggedBoxId} dropped on ${targetId}`);
+    if (keyChange != 'tom'){
+      console.log("a")
+      const keyChangeDeepCopy = JSON.parse(JSON.stringify(keyChange));
+      const newKeyChange = [];
+        for (let i = 0; i < keyChange.length; i++){
+          console.log(keyChange[i].key)
+          if (keyChange[i].key != draggedBoxOriginalId && keyChange[i].key != targetOriginalId){
+            newKeyChange.push(keyChange[i])
+          }
+          else{
+            console.log('togbort: ' + keyChange[i].key)
+          }
+        }
+      newKeyChange.push({
+        "key": draggedBoxOriginalId,
+        "value": targetId
+      },
+      {
+        "key": targetOriginalId,
+        "value": draggedBoxId
+      })
+      setKeyChange(newKeyChange)
+    }
+  else{
+    console.log("första")
+    setKeyChange([{
+      "key": draggedBoxOriginalId,
+      "value": targetId
+    },
+    {
+      "key": targetOriginalId,
+      "value": draggedBoxId
+    }
+  ])
+  }  
+    // Update state based on the drop, similar to the previous explanation
+  };
+  const handleDragOver = (e) => {
+    e.preventDefault(); // Necessary to allow dropping
+  };
   const generateGrid = () => {
     const gridItems = [];
     var x = baklänges;
@@ -21,7 +99,12 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
 
   for (let i = startIndex; i !== endIndex; i += step) {
     const box = boxes[i] || { position: `${i + 1}`, name: '' };
+    var toBeKey = (`box-${i}`);
+    if ((findValueByKey(keyChange, (`box-${i}`)))){
+      toBeKey = ((findValueByKey(keyChange, (`box-${i}`))));
+    }
       gridItems.push(
+        
         <div
           key={`grid-item-${i}`}
           className="grid-item"
@@ -33,8 +116,9 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
           }}
         >
           <Box
-            key={`box-${i}`}
-            id={`box-${i}`}
+            key={toBeKey}
+            originalId={`box-${i}`}
+            id={toBeKey}
             position={box.position}
             boxes={boxes}
             setBoxes={setBoxes}
@@ -43,6 +127,8 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
             filledBoxes={filledBoxes}
             setFilledBoxes={setFilledBoxes}
             names={names}
+            keyChange={keyChange}
+            bytaPlatser={bytaPlatser}
           />
         </div>
       );
@@ -52,7 +138,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
   };
 
   return (
-    <div className="grid-outer-container" id='gridPdfSak' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: "0px"}}>
+    <div className="grid-outer-container" onDragOver={handleDragOver} onDrop={handleDrop} id='gridPdfSak' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: "0px"}}>
       <p id='uppe'>{uppe}</p>
       <div className="grid-container" style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, gap: '10px', width: `${columns * cellSize + (columns - 1) * 10}px`, }}>
         {generateGrid()}
@@ -60,7 +146,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
 
       <p id='nere'>{nere}</p>
 
-      
+      <button onClick={handleRedigeringKlick}>flytta platser</button>
       <button id="klar" onClick={toggleBorders} style={{ marginTop: '10px' }}>{editingMode ? 'Klar' : 'Fortsätt redigera'}</button>
     </div>
   );

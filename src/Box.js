@@ -10,11 +10,15 @@ function findValueByKey(list, key) {
 }
 
 
-const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
+const Box = ({position, boxes, setBoxes, names, bytaPlatser, id, originalId, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState('tom');
+
   const handleBoxClick = () => {
-    if (!isFilled) {
+    if (bytaPlatser){
+
+    }
+    else if (!isFilled) {
       const newName = 'tom';
       console.log(boxNames[id]);
       if (newName) {
@@ -26,7 +30,11 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
       setFilledBoxes((prevFilledBoxes) => prevFilledBoxes.filter((boxId) => boxId !== id));
     }
   };
-  
+  const handleDragStart = (e) => {
+    const idInfo = {ny: id, original: originalId}; 
+    e.dataTransfer.setData('boxId', 'ny: ' + id + 'original: ' + originalId);
+  };
+
   useEffect(() => {
     setNameValue(findValueByKey(boxNames, id));
     if (filledBoxes.includes(id)){
@@ -41,6 +49,8 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
   
     if (isMounted) {
       setNameValue(names[(findValueByKey(boxNames, id))]);
+      
+      
     }
   
     return () => {
@@ -51,6 +61,10 @@ const Box = ({ position, boxes, setBoxes, names, id, boxNames, setBoxNames, fill
     <div
       className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''}`}
       onMouseDown={handleBoxClick}
+      onDragStart={handleDragStart}
+      draggable={bytaPlatser ? true : false}
+      id={id}
+      data-originalId={originalId}
       style={{ gridArea: position }}
     >
       {isFilled && (

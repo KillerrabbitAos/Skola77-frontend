@@ -46,6 +46,7 @@ function fitTextToContainer(container, element) {
 
 const App = () => {
   const [groupName, setGroupName] = useState('ny...');
+  const [keyChange, setKeyChange] = useState('tom')
   const [rows, setRows] = useState(7);
   const [columns, setColumns] = useState(7);
   const [boxes, setBoxes] = useState([]);
@@ -63,6 +64,8 @@ const App = () => {
   const [clicked, setClicked] = useState(false)
   const [dummyState, setDummyState] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(['name']);
+  const [bytaPlatser, setBytaPlatser] = useState(false)
+  
   const handleRowsInputChange = (e) => {
     const value = e.target.value;
     setRowsInput(value);
@@ -102,6 +105,7 @@ const App = () => {
         filledBoxes: filledBoxes,
         cellSize: cellSize,
         fixaCounter: fixaCounter,
+        keyChange: keyChange,
       });
   
       Cookies.set(`${name}_values`, compressedData, { expires: 365 });
@@ -248,6 +252,7 @@ const App = () => {
       setFilledBoxes(values.filledBoxes || []);
       setCellSize(values.cellSize || 0);
       setFixaCounter(values.fixaCounter || 0);
+      setKeyChange(values.keyChange)
       // Uppdatera groupName när en grupp väljs
       setGroupName(selectedGroup.replace('_values', ''));
     } else {
@@ -284,7 +289,12 @@ const App = () => {
     setCellSize={setCellSize}
     baklänges={baklänges}
     uppe={uppe}
-    nere={nere} />;
+    nere={nere}
+    keyChange={keyChange}
+    setKeyChange={setKeyChange}
+    bytaPlatser={bytaPlatser}
+    setBytaPlatser={setBytaPlatser}
+    />;
   const sparningsLösning = <div id='sparaSettings'>
     <button onClick={handleSaveButtonClick} className='spara' id='sparaKnapp'></button>
     <label for="sparaKnapp">Spara!</label>
