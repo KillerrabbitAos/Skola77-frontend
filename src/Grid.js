@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Box from './Box';
 
-const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
+const Grid = ({ rows, columns, boxes, setBoxes, keyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
   const [showBorders, setShowBorders] = useState(true);
   const [editingMode, setEditingMode] = useState(true);
 
@@ -43,7 +43,15 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
 
   for (let i = startIndex; i !== endIndex; i += step) {
     const box = boxes[i] || { position: `${i + 1}`, name: '' };
+    var toBeKey = "kebab"
+    if (("box-" + i) != 'box-0'){
+      toBeKey = (`box-${i}`);
+    }
       gridItems.push(
+        //if (findValueByKey(keyChange, id)){
+          //var orm = findValueByKey(keyChange, id)
+        //}
+        
         <div
           key={`grid-item-${i}`}
           className="grid-item"
@@ -55,8 +63,8 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
           }}
         >
           <Box
-            key={`box-${i}`}
-            id={`box-${i}`}
+            key={toBeKey}
+            id={toBeKey}
             position={box.position}
             boxes={boxes}
             setBoxes={setBoxes}
@@ -65,6 +73,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, names, boxNames, setBoxNames, fi
             filledBoxes={filledBoxes}
             setFilledBoxes={setFilledBoxes}
             names={names}
+            keyChange={keyChange}
           />
         </div>
       );

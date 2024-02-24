@@ -10,7 +10,7 @@ function findValueByKey(list, key) {
 }
 
 
-const Box = ({ position, boxes, setBoxes, names, id, setId, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
+const Box = ({position, boxes, setBoxes, names, id, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState('tom');
 
@@ -28,8 +28,9 @@ const Box = ({ position, boxes, setBoxes, names, id, setId, boxNames, setBoxName
     }
   };
   const handleDragStart = (e) => {
-    e.dataTransfer.setData('boxId', id); // Set the id of the dragged box
+    e.dataTransfer.setData('boxId', id); // Set the id of the dragged box 
   };
+
   useEffect(() => {
     setNameValue(findValueByKey(boxNames, id));
     if (filledBoxes.includes(id)){
@@ -45,9 +46,7 @@ const Box = ({ position, boxes, setBoxes, names, id, setId, boxNames, setBoxName
     if (isMounted) {
       setNameValue(names[(findValueByKey(boxNames, id))]);
       
-      if (findValueByKey(keyChange, id)){
-        id = findValueByKey(keyChange, id)
-      }
+      
     }
   
     return () => {

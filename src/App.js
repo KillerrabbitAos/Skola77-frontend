@@ -46,6 +46,7 @@ function fitTextToContainer(container, element) {
 
 const App = () => {
   const [groupName, setGroupName] = useState('ny...');
+  const [keyChange, setKeyChange] = useState([])
   const [rows, setRows] = useState(7);
   const [columns, setColumns] = useState(7);
   const [boxes, setBoxes] = useState([]);
@@ -285,7 +286,9 @@ const App = () => {
     setCellSize={setCellSize}
     baklänges={baklänges}
     uppe={uppe}
-    nere={nere} />;
+    nere={nere}
+    keyChange={keyChange}
+    />;
   const sparningsLösning = <div id='sparaSettings'>
     <button onClick={handleSaveButtonClick} className='spara' id='sparaKnapp'></button>
     <label for="sparaKnapp">Spara!</label>
