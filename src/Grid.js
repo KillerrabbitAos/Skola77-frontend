@@ -35,18 +35,17 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
     e.preventDefault();
   
     let target = e.target;
-    // Traverse up to find an element with an ID that matches your expected pattern
     while (target && !target.id.startsWith('box-') && target !== e.currentTarget) {
       target = target.parentNode;
     }
   
     if (!target || target === e.currentTarget) {
       console.log('Dropped on an invalid target');
-      return; // Early return if we don't find a valid target
+      return;
     }
   
     const draggedBoxId = JSON.parse(JSON.stringify(e.dataTransfer.getData('boxId').split("ny: ")[1].split("original")[0]));
-    const draggedBoxOriginalId = JSON.parse(JSON.stringify(e.dataTransfer.getData('boxId').split("original: ")[1])); // Get the dragged box id
+    const draggedBoxOriginalId = JSON.parse(JSON.stringify(e.dataTransfer.getData('boxId').split("original: ")[1]));
     const targetId = JSON.parse(JSON.stringify(target.id)); // Now we're sure this is the correct target ID
     const targetOriginalId = JSON.parse(JSON.stringify(target.getAttribute("data-originalId")))
     console.log(`Box ${draggedBoxId} dropped on ${targetId}`);
@@ -85,7 +84,6 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
     }
   ])
   }  
-    // Update state based on the drop, similar to the previous explanation
   };
   const handleDragOver = (e) => {
     e.preventDefault(); // Necessary to allow dropping
