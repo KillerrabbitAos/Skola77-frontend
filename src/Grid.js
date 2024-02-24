@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Box from './Box';
 
-const Grid = ({ rows, columns, boxes, setBoxes, keyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
+const Grid = ({ rows, columns, boxes, setBoxes, keyChange, setKeyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
   const [showBorders, setShowBorders] = useState(true);
   const [editingMode, setEditingMode] = useState(true);
 
@@ -28,7 +28,12 @@ const Grid = ({ rows, columns, boxes, setBoxes, keyChange, names, boxNames, setB
     const targetId = target.id; // Now we're sure this is the correct target ID
   
     console.log(`Box ${draggedBoxId} dropped on ${targetId}`);
-  
+    setKeyChange(
+      {
+        "key": draggedBoxId,
+        "value": targetId
+      }
+    )
     // Update state based on the drop, similar to the previous explanation
   };
   const handleDragOver = (e) => {

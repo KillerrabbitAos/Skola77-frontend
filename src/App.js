@@ -288,6 +288,7 @@ const App = () => {
     uppe={uppe}
     nere={nere}
     keyChange={keyChange}
+    setKeyChange={setKeyChange}
     />;
   const sparningsLösning = <div id='sparaSettings'>
     <button onClick={handleSaveButtonClick} className='spara' id='sparaKnapp'></button>
