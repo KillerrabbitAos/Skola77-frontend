@@ -53,9 +53,9 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
     if (keyChange != 'tom'){
       const keyChangeDeepCopy = JSON.parse(JSON.stringify(keyChange));
       const newKeyChange = [];
-      if (findValueByKey(keyChange, (draggedBoxId))){
+      if (findValueByKey(keyChange, (draggedBoxOriginalId))){
         for (let i = 0; i < keyChange.length; i++){
-          if (keyChange[i].key != draggedBoxId){
+          if (keyChange[i].key != draggedBoxOriginalId){
             newKeyChange.push(keyChangeDeepCopy[i])
           }
         }

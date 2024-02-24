@@ -105,6 +105,7 @@ const App = () => {
         filledBoxes: filledBoxes,
         cellSize: cellSize,
         fixaCounter: fixaCounter,
+        keyChange: keyChange,
       });
   
       Cookies.set(`${name}_values`, compressedData, { expires: 365 });
@@ -251,6 +252,7 @@ const App = () => {
       setFilledBoxes(values.filledBoxes || []);
       setCellSize(values.cellSize || 0);
       setFixaCounter(values.fixaCounter || 0);
+      setKeyChange(values.keyChange)
       // Uppdatera groupName när en grupp väljs
       setGroupName(selectedGroup.replace('_values', ''));
     } else {
