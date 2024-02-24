@@ -56,7 +56,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
       const newKeyChange = [];
         for (let i = 0; i < keyChange.length; i++){
           console.log(keyChange[i].key)
-          if (keyChange[i].key != draggedBoxOriginalId || keyChange[i] != targetOriginalId){
+          if (keyChange[i].key != draggedBoxOriginalId && keyChange[i].key != targetOriginalId){
             newKeyChange.push(keyChange[i])
           }
           else{
