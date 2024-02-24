@@ -45,13 +45,19 @@ const Grid = ({ rows, columns, boxes, setBoxes, keyChange, setKeyChange, names, 
     const targetId = target.id; // Now we're sure this is the correct target ID
   
     console.log(`Box ${draggedBoxId} dropped on ${targetId}`);
-    setKeyChange(
-      [{
-        "key": draggedBoxId,
-        "value": targetId
-      }]
-      
-    )
+    if (keyChange != 'tom'){
+      const newKeyChange = JSON.parse(JSON.stringify(keyChange));
+      const key = draggedBoxId
+      const value = targetId
+      newKeyChange.push({ key, value })
+      setKeyChange(newKeyChange)
+    }
+  else{
+    setKeyChange([{
+      "key": draggedBoxId,
+      "value": targetId
+    }])
+  }  
     // Update state based on the drop, similar to the previous explanation
   };
   const handleDragOver = (e) => {
@@ -74,9 +80,6 @@ const Grid = ({ rows, columns, boxes, setBoxes, keyChange, setKeyChange, names, 
       toBeKey = (findKeyByValue(keyChange, (`box-${i}`)))
     }
       gridItems.push(
-        //if (findValueByKey(keyChange, id)){
-          //var orm = findValueByKey(keyChange, id)
-        //}
         
         <div
           key={`grid-item-${i}`}
