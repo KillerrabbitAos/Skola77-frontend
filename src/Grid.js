@@ -46,7 +46,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
   
     const draggedBoxId = JSON.parse(JSON.stringify(e.dataTransfer.getData('boxId').split("ny: ")[1].split("original")[0]));
     const draggedBoxOriginalId = JSON.parse(JSON.stringify(e.dataTransfer.getData('boxId').split("original: ")[1]));
-    const targetId = JSON.parse(JSON.stringify(target.id)); // Now we're sure this is the correct target ID
+    const targetId = JSON.parse(JSON.stringify(target.id));
     const targetOriginalId = JSON.parse(JSON.stringify(target.getAttribute("data-originalId")))
     console.log(`Box ${draggedBoxId} dropped on ${targetId}`);
     if (keyChange != 'tom'){
