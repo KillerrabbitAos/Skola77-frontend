@@ -45,21 +45,24 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
       return; // Early return if we don't find a valid target
     }
   
-    const draggedBoxId = e.dataTransfer.getData('boxId').split("ny: ")[1].split("original")[0];
-    const draggedBoxOriginalId = e.dataTransfer.getData('boxId').split("original: ")[1] // Get the dragged box id
-    const targetId = target.id; // Now we're sure this is the correct target ID
-    const targetOriginalId = target.getAttribute("data-originalId")
+    const draggedBoxId = JSON.parse(JSON.stringify(e.dataTransfer.getData('boxId').split("ny: ")[1].split("original")[0]));
+    const draggedBoxOriginalId = JSON.parse(JSON.stringify(e.dataTransfer.getData('boxId').split("original: ")[1])); // Get the dragged box id
+    const targetId = JSON.parse(JSON.stringify(target.id)); // Now we're sure this is the correct target ID
+    const targetOriginalId = JSON.parse(JSON.stringify(target.getAttribute("data-originalId")))
     console.log(`Box ${draggedBoxId} dropped on ${targetId}`);
     if (keyChange != 'tom'){
+      console.log("a")
       const keyChangeDeepCopy = JSON.parse(JSON.stringify(keyChange));
       const newKeyChange = [];
-      if (findValueByKey(keyChange, (draggedBoxOriginalId))){
         for (let i = 0; i < keyChange.length; i++){
-          if (keyChange[i].key != draggedBoxOriginalId){
-            newKeyChange.push(keyChangeDeepCopy[i])
+          console.log(keyChange[i].key)
+          if (keyChange[i].key != draggedBoxOriginalId || keyChange[i] != targetOriginalId){
+            newKeyChange.push(keyChange[i])
+          }
+          else{
+            console.log('togbort: ' + keyChange[i].key)
           }
         }
-      }
       newKeyChange.push({
         "key": draggedBoxOriginalId,
         "value": targetId
@@ -71,6 +74,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
       setKeyChange(newKeyChange)
     }
   else{
+    console.log("första")
     setKeyChange([{
       "key": draggedBoxOriginalId,
       "value": targetId
