@@ -18,9 +18,13 @@ function findKeyByValue(list, value) {
   }
 }
 
-const Grid = ({ rows, columns, boxes, setBoxes, keyChange, setKeyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
+const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, keyChange, setKeyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
   const [showBorders, setShowBorders] = useState(true);
   const [editingMode, setEditingMode] = useState(true);
+
+  const handleRedigeringKlick = () => {
+    setBytaPlatser(bytaPlatser != true);
+  }
 
   const toggleBorders = () => {
     setShowBorders(!showBorders);
@@ -43,7 +47,6 @@ const Grid = ({ rows, columns, boxes, setBoxes, keyChange, setKeyChange, names, 
   
     const draggedBoxId = e.dataTransfer.getData('boxId'); // Get the dragged box id
     const targetId = target.id; // Now we're sure this is the correct target ID
-  
     console.log(`Box ${draggedBoxId} dropped on ${targetId}`);
     if (keyChange != 'tom'){
       const newKeyChange = JSON.parse(JSON.stringify(keyChange));
@@ -103,6 +106,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, keyChange, setKeyChange, names, 
             setFilledBoxes={setFilledBoxes}
             names={names}
             keyChange={keyChange}
+            bytaPlatser={bytaPlatser}
           />
         </div>
       );
@@ -120,7 +124,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, keyChange, setKeyChange, names, 
 
       <p id='nere'>{nere}</p>
 
-      
+      <button onClick={handleRedigeringKlick}>flytta platser</button>
       <button id="klar" onClick={toggleBorders} style={{ marginTop: '10px' }}>{editingMode ? 'Klar' : 'Fortsätt redigera'}</button>
     </div>
   );

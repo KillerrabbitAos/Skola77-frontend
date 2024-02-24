@@ -64,6 +64,7 @@ const App = () => {
   const [clicked, setClicked] = useState(false)
   const [dummyState, setDummyState] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(['name']);
+  const [bytaPlatser, setBytaPlatser] = useState(false)
   
   const handleRowsInputChange = (e) => {
     const value = e.target.value;
@@ -289,6 +290,8 @@ const App = () => {
     nere={nere}
     keyChange={keyChange}
     setKeyChange={setKeyChange}
+    bytaPlatser={bytaPlatser}
+    setBytaPlatser={setBytaPlatser}
     />;
   const sparningsLösning = <div id='sparaSettings'>
     <button onClick={handleSaveButtonClick} className='spara' id='sparaKnapp'></button>

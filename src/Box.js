@@ -10,12 +10,15 @@ function findValueByKey(list, key) {
 }
 
 
-const Box = ({position, boxes, setBoxes, names, id, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
+const Box = ({position, boxes, setBoxes, names, bytaPlatser, id, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState('tom');
 
   const handleBoxClick = () => {
-    if (!isFilled) {
+    if (bytaPlatser){
+
+    }
+    else if (!isFilled) {
       const newName = 'tom';
       console.log(boxNames[id]);
       if (newName) {
@@ -58,7 +61,7 @@ const Box = ({position, boxes, setBoxes, names, id, keyChange, boxNames, setBoxN
       className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''}`}
       onMouseDown={handleBoxClick}
       onDragStart={handleDragStart}
-      draggable={true}
+      draggable={bytaPlatser ? true : false}
       id={id}
       style={{ gridArea: position }}
     >
