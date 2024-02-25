@@ -21,9 +21,12 @@ function findKeyByValue(list, value) {
 const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, keyChange, setKeyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
   const [showBorders, setShowBorders] = useState(true);
   const [editingMode, setEditingMode] = useState(true);
+  const [knappStatus, setKnappStatus] = useState(true);
+
 
   const handleRedigeringKlick = () => {
     setBytaPlatser(bytaPlatser != true);
+    setKnappStatus(!knappStatus);
   }
 
   const toggleBorders = () => {
@@ -144,7 +147,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
 
       <p id='nere'>{nere}</p>
 
-      <button onClick={handleRedigeringKlick}>flytta platser</button>
+      <button id="redigeringsKnapp" onClick={handleRedigeringKlick}>{knappStatus ? 'Ändra placering' : 'Tillbaka till platsutplacering'}</button>
       <button id="klar" onClick={toggleBorders} style={{ marginTop: '10px' }}>{editingMode ? 'Klar' : 'Fortsätt redigera'}</button>
     </div>
   );
