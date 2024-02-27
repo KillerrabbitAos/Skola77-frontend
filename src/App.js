@@ -264,7 +264,7 @@ const App = () => {
   };
 }
 
-
+  
  
   const gridConf = <div className='gridInstallning' id='kebaben'>
     <p>Namnimport</p>
