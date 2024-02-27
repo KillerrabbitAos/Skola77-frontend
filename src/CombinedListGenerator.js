@@ -8,10 +8,10 @@ const generateCombinedList = (list2, list4, defaultValue, names) => {
   let combinedList = [];
   let usedIndexes = new Set();
 
- 
+
   let i = 0;
   for (; i < list3.length && combinedList.length < shuffledList2.length; i++) {
-    const key = shuffledList2[combinedList.length]; 
+    const key = shuffledList2[combinedList.length];
 
     let randomIndex = Math.floor(Math.random() * names.length);
     while (usedIndexes.has(randomIndex)) {
@@ -44,7 +44,7 @@ const generateCombinedList = (list2, list4, defaultValue, names) => {
 };
 
 const shuffleArray = (array1) => {
-  let array = array1.slice(); 
+  let array = array1.slice();
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];

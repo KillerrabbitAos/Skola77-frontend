@@ -36,59 +36,59 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
   };
   const handleDrop = (e) => {
     e.preventDefault();
-  
+
     let target = e.target;
     while (target && !target.id.startsWith('box-') && target !== e.currentTarget) {
       target = target.parentNode;
     }
-  
+
     if (!target || target === e.currentTarget) {
       console.log('Dropped on an invalid target');
       return;
     }
-  
+
     const draggedBoxId = JSON.parse(JSON.stringify(e.dataTransfer.getData('boxId').split("ny: ")[1].split("original")[0]));
     const draggedBoxOriginalId = JSON.parse(JSON.stringify(e.dataTransfer.getData('boxId').split("original: ")[1])); // Get the dragged box id
     const targetId = JSON.parse(JSON.stringify(target.id)); // Now we're sure this is the correct target ID
     const targetOriginalId = JSON.parse(JSON.stringify(target.getAttribute("data-originalid")))
     console.log(`Box ${draggedBoxId} dropped on ${targetId}`);
-    if (keyChange != 'tom'){
+    if (keyChange != 'tom') {
       console.log("a")
       const keyChangeDeepCopy = JSON.parse(JSON.stringify(keyChange));
       const newKeyChange = [];
-        for (let i = 0; i < keyChange.length; i++){
-          console.log(keyChange[i].key)
-          if (keyChange[i].key != draggedBoxOriginalId && keyChange[i].key != targetOriginalId){
-            console.log(keyChange[i].key + "!=" + draggedBoxOriginalId + "&&" + keyChange[i].key + "!=" + targetOriginalId)
-            newKeyChange.push(keyChange[i])
-            console.log(target)
-          }
-          else{
-            console.log('togbort: ' + keyChange[i].key)
-          }
+      for (let i = 0; i < keyChange.length; i++) {
+        console.log(keyChange[i].key)
+        if (keyChange[i].key != draggedBoxOriginalId && keyChange[i].key != targetOriginalId) {
+          console.log(keyChange[i].key + "!=" + draggedBoxOriginalId + "&&" + keyChange[i].key + "!=" + targetOriginalId)
+          newKeyChange.push(keyChange[i])
+          console.log(target)
         }
+        else {
+          console.log('togbort: ' + keyChange[i].key)
+        }
+      }
       newKeyChange.push({
+        "key": draggedBoxOriginalId,
+        "value": targetId
+      },
+        {
+          "key": targetOriginalId,
+          "value": draggedBoxId
+        })
+      setKeyChange(newKeyChange)
+    }
+    else {
+      console.log("första")
+      setKeyChange([{
         "key": draggedBoxOriginalId,
         "value": targetId
       },
       {
         "key": targetOriginalId,
         "value": draggedBoxId
-      })
-      setKeyChange(newKeyChange)
+      }
+      ])
     }
-  else{
-    console.log("första")
-    setKeyChange([{
-      "key": draggedBoxOriginalId,
-      "value": targetId
-    },
-    {
-      "key": targetOriginalId,
-      "value": draggedBoxId
-    }
-  ])
-  }  
   };
   const handleDragOver = (e) => {
     e.preventDefault(); // Necessary to allow dropping
@@ -97,17 +97,17 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
     const gridItems = [];
     var x = baklänges;
     const startIndex = x ? (rows * columns) - 1 : 0;
-  const endIndex = x ? -1 : rows * columns;
-  const step = x ? -1 : 1;
+    const endIndex = x ? -1 : rows * columns;
+    const step = x ? -1 : 1;
 
-  for (let i = startIndex; i !== endIndex; i += step) {
-    const box = boxes[i] || { position: `${i + 1}`, name: '' };
-    var toBeKey = (`box-${i}`);
-    if ((findValueByKey(keyChange, (`box-${i}`)))){
-      toBeKey = ((findValueByKey(keyChange, (`box-${i}`))));
-    }
+    for (let i = startIndex; i !== endIndex; i += step) {
+      const box = boxes[i] || { position: `${i + 1}`, name: '' };
+      var toBeKey = (`box-${i}`);
+      if ((findValueByKey(keyChange, (`box-${i}`)))) {
+        toBeKey = ((findValueByKey(keyChange, (`box-${i}`))));
+      }
       gridItems.push(
-        
+
         <div
           key={`grid-item-${i}`}
           className="grid-item"
@@ -141,7 +141,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
   };
 
   return (
-    <div className="grid-outer-container" onDragOver={handleDragOver} onDrop={handleDrop} id='gridPdfSak' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: "0px"}}>
+    <div className="grid-outer-container" onDragOver={handleDragOver} onDrop={handleDrop} id='gridPdfSak' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: "0px" }}>
       <p id='uppe'>{uppe}</p>
       <div className="grid-container" style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, gap: '10px', width: `${columns * cellSize + (columns - 1) * 10}px`, }}>
         {generateGrid()}

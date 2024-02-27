@@ -10,12 +10,12 @@ function findValueByKey(list, key) {
 }
 
 
-const Box = ({position, boxes, setBoxes, names, bytaPlatser, id, originalid, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
+const Box = ({ position, boxes, setBoxes, names, bytaPlatser, id, originalid, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState('tom');
 
   const handleBoxClick = () => {
-    if (bytaPlatser){
+    if (bytaPlatser) {
 
     }
     else if (!isFilled) {
@@ -31,32 +31,30 @@ const Box = ({position, boxes, setBoxes, names, bytaPlatser, id, originalid, key
     }
   };
   const handleDragStart = (e) => {
-    const idInfo = {ny: id, original: originalid}; 
+    const idInfo = { ny: id, original: originalid };
     e.dataTransfer.setData('boxId', 'ny: ' + id + 'original: ' + originalid);
   };
 
   useEffect(() => {
     setNameValue(findValueByKey(boxNames, id));
-    if (filledBoxes.includes(id)){
+    if (filledBoxes.includes(id)) {
       setIsFilled(true)
     }
-    else{
+    else {
       setIsFilled(false)
     }
   }, [boxNames, setNameValue, id, filledBoxes]);
   useEffect(() => {
     let isMounted = true;
-  
+
     if (isMounted) {
       setNameValue(names[(findValueByKey(boxNames, id))]);
-      
-      
     }
-  
+
     return () => {
       isMounted = false;
     };
-  }, [boxNames, setNameValue, id, filledBoxes, isFilled, names]);  
+  }, [boxNames, setNameValue, id, filledBoxes, isFilled, names]);
   return (
     <div
       className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''}`}

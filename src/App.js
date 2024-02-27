@@ -22,25 +22,25 @@ function decompressData(compressedData) {
 
 function fitTextToContainer(container, element) {
   for (let i = 0; i < 20; i++) {
-  const containerWidth = container.clientWidth;
-  const containerHeight = container.clientHeight;
-  const elementWidth = element.offsetWidth;
-  const elementHeight = element.offsetHeight;
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+    const elementWidth = element.offsetWidth;
+    const elementHeight = element.offsetHeight;
 
-  const widthScale = containerWidth / elementWidth;
-  const heightScale = containerHeight / elementHeight;
+    const widthScale = containerWidth / elementWidth;
+    const heightScale = containerHeight / elementHeight;
 
-  const minScale = Math.min(widthScale, heightScale);
+    const minScale = Math.min(widthScale, heightScale);
 
-  const currentFontSize = window.getComputedStyle(element).fontSize;
-  const newFontSize = parseFloat(currentFontSize) * minScale;
+    const currentFontSize = window.getComputedStyle(element).fontSize;
+    const newFontSize = parseFloat(currentFontSize) * minScale;
 
-  element.style.fontSize = newFontSize + 'px';
+    element.style.fontSize = newFontSize + 'px';
 
-  const offsetX = (containerWidth - elementWidth * minScale) / 2;
-  const offsetY = (containerHeight - elementHeight * minScale) / 2;
-  element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-}
+    const offsetX = (containerWidth - elementWidth * minScale) / 2;
+    const offsetY = (containerHeight - elementHeight * minScale) / 2;
+    element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+  }
 }
 
 
@@ -65,7 +65,7 @@ const App = () => {
   const [dummyState, setDummyState] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(['name']);
   const [bytaPlatser, setBytaPlatser] = useState(false)
-  
+
   const handleRowsInputChange = (e) => {
     const value = e.target.value;
     setRowsInput(value);
@@ -80,11 +80,11 @@ const App = () => {
 
   const ändraPerspektiv = () => {
     setBaklänges(!baklänges)
-    if (baklänges){
+    if (baklänges) {
       setNere("Tavla")
-    setUppe("Bak")
+      setUppe("Bak")
     }
-    else{
+    else {
       setNere("Bak")
       setUppe("Tavla")
     }
@@ -94,9 +94,9 @@ const App = () => {
     const name = prompt('Döp din klass: ');
     if (name) {
       setGroupName(name);
-      
+
       // Sparar värden i cookie
-      const compressedData = compressData({               
+      const compressedData = compressData({
         rows: rows,
         columns: columns,
         boxes: boxes,
@@ -107,16 +107,16 @@ const App = () => {
         fixaCounter: fixaCounter,
         keyChange: keyChange,
       });
-  
+
       Cookies.set(`${name}_values`, compressedData, { expires: 365 });
       await new Promise(resolve => setTimeout(resolve, 10));
-      
+
       document.getElementById(`${name}_values`).selected = true
     }
-    
+
   }
-  
-  
+
+
   const raderaKlass = () => {
     setGroupName(defaultGroup);
     document.getElementById("nyKlass").selected = true
@@ -126,28 +126,28 @@ const App = () => {
 
   function applyFontSizesToClass(className) {
     const elements = document.getElementsByClassName(className);
-  
+
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i];
       const container = element.parentElement;
-  
+
       fitTextToContainer(container, element);
     }
   }
-  
+
   const readCookieValues = (group) => {
     // Läser värden från cookie
     const cookieName = `${group}`;
     console.log('Attempting to get cookie:', cookieName);
-  
+
     if (!Cookies.get(cookieName)) {
       console.log(`${cookieName} cookie does not exist.`);
       return {};
     }
-  
+
     const compressedData = Cookies.get(cookieName);
     console.log('Cookie values string:', compressedData);
-  
+
     try {
       const values = decompressData(compressedData);
       fixa()
@@ -156,11 +156,11 @@ const App = () => {
       console.error('Error parsing cookie values:', error);
       return {};
     }
-  
+
   };
-  
-  
-  
+
+
+
   const handleExportToPDF = () => {
     document.getElementById("klar").style.visibility = "hidden";
     const gridContainer = document.getElementById('gridPdfSak');
@@ -175,34 +175,34 @@ const App = () => {
     }
   };
   const handleRemoveName = (index) => {
-   
+
     console.log(index)
     const updatedNames = [...names];
     updatedNames[index] = ""
 
     setNames(updatedNames);
-  
+
     // Update the 'boxNames' array with the 'value' property replaced with 0 for matching items
-    if (boxNames !== "tom"){
-    const removedName = index;
-    const newArray = boxNames.map(item => {
-      if (item.value === removedName) {
-        return { ...item, value: 0 };
-      } else {
-        return item;
-      }
-    });
-  
-    setBoxNames(newArray);
+    if (boxNames !== "tom") {
+      const removedName = index;
+      const newArray = boxNames.map(item => {
+        if (item.value === removedName) {
+          return { ...item, value: 0 };
+        } else {
+          return item;
+        }
+      });
+
+      setBoxNames(newArray);
     };
   };
-  
-  
-  
 
-  
-  
-  
+
+
+
+
+
+
 
   const handleMassImportNames = () => {
     const textarea = document.getElementById('namesInput');
@@ -213,7 +213,7 @@ const App = () => {
   };
 
   const fixa = () => {
-  applyFontSizesToClass('name');
+    applyFontSizesToClass('name');
   }
   const firstConstantFunction = async () => {
     const namesList = names
@@ -242,38 +242,38 @@ const App = () => {
       setCellSize(70);
       setFixaCounter(0);
     } else {
-    const values = readCookieValues(selectedGroup);
-    if (values) {
-      setRows(values.rows || 0);
-      setColumns(values.columns || 0);
-      setBoxNames(values.boxNames || []);
-      setBoxes(values.boxes || []);
-      setNames(values.names || []);
-      setFilledBoxes(values.filledBoxes || []);
-      setCellSize(values.cellSize || 0);
-      setFixaCounter(values.fixaCounter || 0);
-      setKeyChange(values.keyChange)
-      // Uppdatera groupName när en grupp väljs
-      setGroupName(selectedGroup.replace('_values', ''));
-    } else {
-      // Handle the case when values are not available
-      console.error(`No values found for group: ${selectedGroup}`);
-    }
-    await new Promise(resolve => setTimeout(resolve, 10));
-    fixa();
-  };
-}
+      const values = readCookieValues(selectedGroup);
+      if (values) {
+        setRows(values.rows || 0);
+        setColumns(values.columns || 0);
+        setBoxNames(values.boxNames || []);
+        setBoxes(values.boxes || []);
+        setNames(values.names || []);
+        setFilledBoxes(values.filledBoxes || []);
+        setCellSize(values.cellSize || 0);
+        setFixaCounter(values.fixaCounter || 0);
+        setKeyChange(values.keyChange)
+        // Uppdatera groupName när en grupp väljs
+        setGroupName(selectedGroup.replace('_values', ''));
+      } else {
+        // Handle the case when values are not available
+        console.error(`No values found for group: ${selectedGroup}`);
+      }
+      await new Promise(resolve => setTimeout(resolve, 10));
+      fixa();
+    };
+  }
 
-  
- 
+
+
   const gridConf = <div className='gridInstallning' id='kebaben'>
     <p>Namnimport</p>
     <textarea id="namesInput" rows="10" cols="30" placeholder="Ett namn per rad"></textarea>
     <button onClick={handleMassImportNames}>Spara namn</button>
     <ExcelToTextConverter
-      setNames={setNames} 
+      setNames={setNames}
       names={names}
-      />
+    />
   </div>;
   const grid = <Grid
     rows={rows}
@@ -294,15 +294,15 @@ const App = () => {
     setKeyChange={setKeyChange}
     bytaPlatser={bytaPlatser}
     setBytaPlatser={setBytaPlatser}
-    />;
+  />;
   const sparningsLösning = <div id='sparaSettings'>
     <button onClick={handleSaveButtonClick} className='spara' id='sparaKnapp'></button>
     <label for="sparaKnapp">Spara!</label>
 
     <label>Sparade klasser:</label>
     <select id="sparadeKlasser" defaultValue={groupName} onChange={handleGroupChange}>
-    <option id="nyKlass" key="ny..." value={defaultGroup}>{defaultGroup}</option>
-      
+      <option id="nyKlass" key="ny..." value={defaultGroup}>{defaultGroup}</option>
+
       {/* Lista alla grupper som finns sparade i cookies */}
 
       {Object.keys(Cookies.get()).length > 0 &&
@@ -311,46 +311,46 @@ const App = () => {
             {cookieName.replace('_values', '')}
           </option>
         ))}
-        
+
     </select>
     {(groupName === defaultGroup)
-          ? ''
-          : <button key="raderaKlass" onMouseDown={raderaKlass}></button>}
+      ? ''
+      : <button key="raderaKlass" onMouseDown={raderaKlass}></button>}
   </div>;
 
-    return (
-      <div className="App">
-        <div className='gridInstallning'>
-          <label>Rader:</label>
-          <input type="number" max="50" value={rowsInput} onChange={handleRowsInputChange} />
-          <label>Kolumner:</label>
-          <input type="number" max="50" value={columnsInput} onChange={handleColumnsInputChange} />
-          <label>Storlek:</label>
-          <input type="number" label="Rutstorlek: " value={cellSize} max="300" onChange={(e) => setCellSize(Math.max(0, Math.min(e.target.value, 300)))} />
-        </div>
+  return (
+    <div className="App">
+      <div className='gridInstallning'>
+        <label>Rader:</label>
+        <input type="number" max="50" value={rowsInput} onChange={handleRowsInputChange} />
+        <label>Kolumner:</label>
+        <input type="number" max="50" value={columnsInput} onChange={handleColumnsInputChange} />
+        <label>Storlek:</label>
+        <input type="number" label="Rutstorlek: " value={cellSize} max="300" onChange={(e) => setCellSize(Math.max(0, Math.min(e.target.value, 300)))} />
+      </div>
 
       {sparningsLösning}
 
-    <div id='gridMedAnnat'>
-      <button onClick={handleExportToPDF}>Exportera till PDF</button>
-      {grid}
-      <button onClick={ändraPerspektiv}>byt perspektiv</button>
-      <button onClick={handleMixNames}>Slumpa</button>
+      <div id='gridMedAnnat'>
+        <button onClick={handleExportToPDF}>Exportera till PDF</button>
+        {grid}
+        <button onClick={ändraPerspektiv}>byt perspektiv</button>
+        <button onClick={handleMixNames}>Slumpa</button>
       </div>
       {gridConf}
       <div>
         <p id='nameHeader'>Namn:</p>
         <div id="namn">
-        <NameList
-          names={names}
-          handleRemoveName={handleRemoveName}
-          setBoxNames={setBoxNames}
+          <NameList
+            names={names}
+            handleRemoveName={handleRemoveName}
+            setBoxNames={setBoxNames}
           ></NameList>
-      </div>
+        </div>
       </div>
       <p><a id="mailTag" href="https://skola77.com">Startsida</a></p>
     </div>
   );
-          };
+};
 
 export default App;

@@ -1,7 +1,7 @@
-
 .App {
   text-align: center;
 }
+
 .spara {
   background-image: url(./floppydisk.svg);
   height: 50px;
@@ -11,6 +11,7 @@
   background-size: contain;
   border-style: none;
 }
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -41,19 +42,22 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
 .box {
-  width: 100%; 
+  width: 100%;
   height: 100%;
 }
+
 .box.filled {
   background-color: gray;
-  height: 50%; 
+  height: 50%;
 }
+
 .box.filled span {
   position: relative;
   left: 0%;
@@ -62,10 +66,12 @@
   margin: 0 auto;
   color: black
 }
-.gridInstallning{
+
+.gridInstallning {
   padding: 10px;
 }
-label{
+
+label {
   padding: 5px;
 }
 
@@ -79,19 +85,19 @@ label{
   margin-top: 10px;
 }
 
-#namnSingel{
+#namnSingel {
   margin-bottom: 30px;
   padding: 5px;
 }
 
-#kebaben{
+#kebaben {
   width: 400px;
   margin: auto;
   padding-bottom: 40px;
 
 }
 
-#namesInput{
+#namesInput {
   margin-bottom: 30px;
 }
 
@@ -124,24 +130,24 @@ ul {
   margin-right: 20px;
 }
 
-.namelist button{
+.namelist button {
   margin-left: 20px;
 }
 
-#nameHeader{
+#nameHeader {
   font-weight: bold;
 }
 
-#mailTag{
+#mailTag {
   color: black;
 }
 
-#uppe{
+#uppe {
   border-bottom: solid;
   font-size: 20px;
 }
 
-#nere{
+#nere {
   border-top: solid;
   font-size: 20px;
 }
@@ -149,22 +155,25 @@ ul {
 #sparaSettings {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centrera element vertikalt */
+  align-items: center;
+  /* Centrera element vertikalt */
 }
 
 #sparaKnapp {
-  margin-bottom: 10px; /* lägg till lite mellanrum under knappen */
+  margin-bottom: 10px;
+  /* lägg till lite mellanrum under knappen */
 }
 
-#sparadeKlasser{
+#sparadeKlasser {
   padding: 5px;
   font-size: large;
 }
-#gridMedAnnat{
+
+#gridMedAnnat {
   margin-top: 70px;
 }
 
-#namn{
+#namn {
   justify-content: center;
   display: flex;
 }
@@ -180,8 +189,13 @@ button {
 }
 
 @keyframes allaKnappar {
-  from { background-color: rgb(56, 180, 56); }
-  to { background-color: green; }
+  from {
+    background-color: rgb(56, 180, 56);
+  }
+
+  to {
+    background-color: green;
+  }
 }
 
 button:hover {

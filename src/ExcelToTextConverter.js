@@ -18,7 +18,7 @@ const ExcelToTextConverter = ({ setNames, names }) => {
 
           const textData = cellAddresses.map((cellAddress) => {
             const cellData = sheet[cellAddress];
-            return cellData ? cellData.v : ''; 
+            return cellData ? cellData.v : '';
           });
 
           const newNames = (textData.filter((text) => text !== undefined));
