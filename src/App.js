@@ -297,7 +297,7 @@ const App = () => {
   />;
   const sparningsLösning = <div id='sparaSettings'>
     <button onClick={handleSaveButtonClick} className='spara' id='sparaKnapp'></button>
-    <label for="sparaKnapp">Spara!</label>
+    <label htmlFor="sparaKnapp">Spara!</label>
 
     <label>Sparade klasser:</label>
     <select id="sparadeKlasser" defaultValue={groupName} onChange={handleGroupChange}>
