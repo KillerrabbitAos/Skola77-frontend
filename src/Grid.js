@@ -21,9 +21,12 @@ function findKeyByValue(list, value) {
 const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, keyChange, setKeyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
   const [showBorders, setShowBorders] = useState(true);
   const [editingMode, setEditingMode] = useState(true);
+  const [knappStatus, setKnappStatus] = useState(true);
+
 
   const handleRedigeringKlick = () => {
     setBytaPlatser(bytaPlatser != true);
+    setKnappStatus(!knappStatus);
   }
 
   const toggleBorders = () => {
@@ -35,14 +38,13 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
     e.preventDefault();
   
     let target = e.target;
-    // Traverse up to find an element with an ID that matches your expected pattern
     while (target && !target.id.startsWith('box-') && target !== e.currentTarget) {
       target = target.parentNode;
     }
   
     if (!target || target === e.currentTarget) {
       console.log('Dropped on an invalid target');
-      return; // Early return if we don't find a valid target
+      return;
     }
   
     const draggedBoxId = JSON.parse(JSON.stringify(e.dataTransfer.getData('boxId').split("ny: ")[1].split("original")[0]));
@@ -87,7 +89,6 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
     }
   ])
   }  
-    // Update state based on the drop, similar to the previous explanation
   };
   const handleDragOver = (e) => {
     e.preventDefault(); // Necessary to allow dropping
@@ -148,7 +149,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
 
       <p id='nere'>{nere}</p>
 
-      <button onClick={handleRedigeringKlick}>flytta platser</button>
+      <button id="redigeringsKnapp" onClick={handleRedigeringKlick}>{knappStatus ? 'Ändra placering' : 'Tillbaka till platsutplacering'}</button>
       <button id="klar" onClick={toggleBorders} style={{ marginTop: '10px' }}>{editingMode ? 'Klar' : 'Fortsätt redigera'}</button>
     </div>
   );
