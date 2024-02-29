@@ -101,16 +101,6 @@ label {
   margin-bottom: 30px;
 }
 
-.name {
-  font-size: 100%;
-  font-weight: bold;
-  width: fit-content;
-  max-width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 
 .small-text {
   font-size: 75%;
@@ -124,15 +114,6 @@ ul {
   margin-bottom: 40px;
 }
 
-.namelist {
-  display: flex;
-  justify-content: space-between;
-  margin-right: 20px;
-}
-
-.namelist button {
-  margin-left: 20px;
-}
 
 #nameHeader {
   font-weight: bold;
@@ -173,9 +154,8 @@ ul {
   margin-top: 70px;
 }
 
-#namn {
-  justify-content: center;
-  display: flex;
+#namn button {
+  margin-left: 50px;
 }
 
 button {
