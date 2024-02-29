@@ -31,7 +31,24 @@ const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setShowBorders
 
     if (!target || target === e.currentTarget) {
       console.log('Dropped on an invalid target');
-      
+
+      return;
+    }
+    if (e.dataTransfer.getData('namn')) {
+      console.log(target.id)
+      const newBoxNames = []
+      for (let i = 0; i < boxNames.length; i++) {
+        if (boxNames[i].key != target.id) {
+          newBoxNames.push(boxNames[i])
+        }
+      }
+      const key = target.id
+      const value = e.dataTransfer.getData('namn')
+      newBoxNames.push({ key, value })
+      if (!filledBoxes.includes(target.id)) {
+        setFilledBoxes([...filledBoxes, target.id]);
+      }
+      setBoxNames(newBoxNames)
       return;
     }
 
@@ -77,9 +94,9 @@ const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setShowBorders
       }
       ])
     }
-      await new Promise(resolve => setTimeout(resolve, 10));
-      fixa();
-   
+    await new Promise(resolve => setTimeout(resolve, 10));
+    fixa();
+
   };
   const handleDragOver = (e) => {
     e.preventDefault(); // Necessary to allow dropping
@@ -131,18 +148,18 @@ const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setShowBorders
 
     return gridItems;
   };
-  
+
   return (
     <div className="grid-outer-container" onDragOver={handleDragOver} onDrop={handleDrop} id='gridPdfSak' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: "0px" }}>
       <p id='uppe'>{uppe}</p>
-      <div  id='grid' className="grid-container" style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, gap: '10px', width: `${columns * cellSize + (columns - 1) * 10}px`, }}>
+      <div id='grid' className="grid-container" style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, gap: '10px', width: `${columns * cellSize + (columns - 1) * 10}px`, }}>
         {generateGrid()}
       </div>
 
 
       <p id='nere'>{nere}</p>
 
-      
+
     </div>
   );
 };
