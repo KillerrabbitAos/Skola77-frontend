@@ -1,3 +1,5 @@
+//ett område att bygga på. Implementera olika färger, bilder för pjäser etc.
+
 const schackBräde = {
     "rows": 8,
     "columns": 8,
