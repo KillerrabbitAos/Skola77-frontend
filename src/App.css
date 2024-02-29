@@ -186,6 +186,8 @@ button {
   padding: 15px;
   margin: 10px;
   border-radius: 10px;
+  width: 130px;
+  cursor: pointer;
 }
 
 @keyframes allaKnappar {
@@ -202,4 +204,66 @@ button:hover {
   animation-name: allaKnappar;
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
+}
+
+#slumpaKnappen{
+  background-image: url(./random.png);
+  background-repeat: no-repeat;
+  background-size: 50px;
+  background-position: center;
+  height: 50px;
+  cursor: pointer;
+}
+#slumpaDiv{
+  width: 200px;
+  margin: auto;
+}
+
+#slumpaLabel{
+  cursor: pointer;
+}
+
+#klar{
+  background-image: url(./done.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 50px;
+  border-color: black;
+}
+
+
+#perspektiv{
+  background-image: url(perspektiv.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 55px;
+}
+
+#perspektivDiv{
+
+
+  width: 150px;
+  margin: auto;
+  margin-bottom: 10px;
+
+}
+
+
+#redigeringsKnapp{
+  background-image: url(edit.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 50px;
+}
+
+#pdfKnapp{
+  background-image: url(pdf.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 60px;
+}
+
+#pdfDiv{
+  width: 190px;
+  margin: auto;
 }
