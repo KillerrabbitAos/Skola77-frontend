@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Namn from './ettNamn';
 const NameList = ({ names, handleRemoveName }) => {
 
   const namesDeepCopy = JSON.parse(JSON.stringify(names));
@@ -29,10 +29,12 @@ const NameList = ({ names, handleRemoveName }) => {
         <div key={columnIndex} style={{ flex: 1,  }}>
           <ul>
             {column.map(({ name, originalIndex }, index) => (
-              <li id={originalIndex} key={index}>
-                {name}
-                <button onClick={() => handleRemoveName(originalIndex)}>Ta bort</button>
-              </li>
+              <Namn
+                index={index}
+                name={name}
+                originalIndex={originalIndex}
+                handleRemoveName={handleRemoveName}
+              />
             ))}
           </ul>
         </div>
