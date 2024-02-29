@@ -269,8 +269,13 @@ const App = () => {
       setFixaCounter(0);
     } else {
       var values = schackBräde
+      nere = ("Svart")
+        uppe = ("Vit")
+      
       console.log(schackBräde)
       if (selectedGroup !== 'schack'){
+        var uppe = ("Tavla")
+      var nere = ("Bak")
         values = readCookieValues(selectedGroup); 
       }
       console.log(values)
@@ -286,6 +291,8 @@ const App = () => {
         setKeyChange(values.keyChange)
         // Uppdatera groupName när en grupp väljs
         setGroupName(selectedGroup.replace('_values', ''));
+        setUppe(uppe);
+        setNere(nere);
       } else {
         // Handle the case when values are not available
         console.error(`No values found for group: ${selectedGroup}`);
