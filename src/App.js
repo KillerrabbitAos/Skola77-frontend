@@ -15,6 +15,9 @@ function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
 }
 
+function orm() {
+  alert(orm);
+}
 // Function to decompress data retrieved from cookies
 function decompressData(compressedData) {
   return JSON.parse(LZString.decompressFromEncodedURIComponent(compressedData));

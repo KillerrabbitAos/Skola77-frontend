@@ -123,6 +123,7 @@ const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setShowBorders
             names={names}
             keyChange={keyChange}
             bytaPlatser={bytaPlatser}
+            fixa={fixa}
           />
         </div>
       );
