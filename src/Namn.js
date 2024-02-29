@@ -3,16 +3,15 @@ import React from 'react';
 const NameList = ({ names, handleRemoveName }) => {
 
   const namesDeepCopy = JSON.parse(JSON.stringify(names));
-  var newNames = namesDeepCopy.filter(function(item) {
-    return item !== ""
-})
-  var namesWithIndex = (newNames.map((name, index) => ({ name, originalIndex: index + 1})))
-  
+  var newNames = namesDeepCopy
+  var namesWithIndex = (newNames.map((name, index) => ({ name, originalIndex: index})))
   // Create an array of objects with name and originalIndex properties
   
 
   // Sort the names alphabetically by their name property
-  const sortedNames = namesWithIndex.sort((a, b) => a.name.localeCompare(b.name));
+  const sortedNames = namesWithIndex.sort((a, b) => a.name.localeCompare(b.name)).filter(function(item) {
+    return item.name !== ""
+})
 
   // Calculate the number of names in each column
   const columnSize = Math.ceil(sortedNames.length / 3);
@@ -30,7 +29,7 @@ const NameList = ({ names, handleRemoveName }) => {
         <div key={columnIndex} style={{ flex: 1,  }}>
           <ul>
             {column.map(({ name, originalIndex }, index) => (
-              <li key={index}>
+              <li id={originalIndex} key={index}>
                 {name}
                 <button onClick={() => handleRemoveName(originalIndex)}>Ta bort</button>
               </li>
