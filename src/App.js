@@ -333,11 +333,33 @@ const App = () => {
       {sparningsLösning}
 
       <div id='gridMedAnnat'>
-        <button onClick={handleExportToPDF}>Exportera till PDF</button>
+        <div id='pdfDiv'>
+
+        <button id='pdfKnapp' onClick={handleExportToPDF}></button>
+        <label id='pdfLabel' for="pdfKnapp">Exportera till PDF</label>
+
+
+        </div>
+        
         {grid}
-        <button onClick={ändraPerspektiv}>byt perspektiv</button>
-        <button onClick={handleMixNames}>Slumpa</button>
-      </div>
+
+        <div id='perspektivDiv'>
+
+        <button id='perspektiv' onClick={ändraPerspektiv}></button>
+        <label id='perspektivLabel' for="perspektiv">Byt perspektiv</label>
+
+
+        </div>
+
+        
+        <div id='slumpaDiv'>
+
+        <button onClick={handleMixNames} id='slumpaKnappen'></button>
+        <label id='slumpaLabel' for="slumpaKnappen">Slumpa</label>
+
+        </div>
+
+        </div>
       {gridConf}
       <div>
         <p id='nameHeader'>Namn:</p>

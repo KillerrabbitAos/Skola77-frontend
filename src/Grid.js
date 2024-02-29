@@ -147,10 +147,13 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
         {generateGrid()}
       </div>
 
+
       <p id='nere'>{nere}</p>
 
-      <button id="redigeringsKnapp" onClick={handleRedigeringKlick}>{knappStatus ? 'Ändra placering' : 'Tillbaka till platsutplacering'}</button>
-      <button id="klar" onClick={toggleBorders} style={{ marginTop: '10px' }}>{editingMode ? 'Klar' : 'Fortsätt redigera'}</button>
+      <button id="redigeringsKnapp" onClick={handleRedigeringKlick}></button>
+      <label id='redigeringsLabel' for='redigeringsKnapp'>{knappStatus ? 'Ändra placering' : 'Tillbaka till platsutplacering'}</label>
+      <button id="klar" onClick={toggleBorders} style={{ marginTop: '10px' }}></button>
+      <label id='klarLabel' for="klar">{editingMode ? 'Klar' : 'Fortsätt redigera'}</label>
     </div>
   );
 };
