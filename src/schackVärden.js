@@ -1,4 +1,5 @@
 //ett område att bygga på. Implementera olika färger, bilder för pjäser etc. Men lägsta prio såklart. Det är också lånngt ifrån klart så håll det hemligt.
+//Hur kommer man till dit?
 
 const schackBräde = {
     "rows": 8,
