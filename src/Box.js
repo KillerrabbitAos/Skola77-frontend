@@ -10,7 +10,7 @@ function findValueByKey(list, key) {
 }
 
 
-const Box = ({ position, boxes, setBoxes, names, bytaPlatser, id, originalid, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
+const Box = ({ position, boxes, setBoxes, fixa, names, bytaPlatser, id, originalid, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState('tom');
 
@@ -36,44 +36,50 @@ const Box = ({ position, boxes, setBoxes, names, bytaPlatser, id, originalid, ke
   };
 
   useEffect(() => {
-    setNameValue(findValueByKey(boxNames, id));
-    if (filledBoxes.includes(id)) {
-      setIsFilled(true)
+    if ((document.getElementById(id).getElementsByClassName("name"))[0]) {
+      if ((document.getElementById(id).getElementsByClassName("name"))[0].style.fontSize.startsWith("0.")) {
+        ((document.getElementById(id).getElementsByClassName("name"))[0]).style.fontSize = "20px"
+        fixa();
     }
-    else {
-      setIsFilled(false)
-    }
-  }, [boxNames, setNameValue, id, filledBoxes]);
-  useEffect(() => {
-    let isMounted = true;
+  }
+  setNameValue(findValueByKey(boxNames, id));
+  if (filledBoxes.includes(id)) {
+    setIsFilled(true)
+  }
+  else {
+    setIsFilled(false)
+  }
+}, [boxNames, setNameValue, id, filledBoxes]);
+useEffect(() => {
+  let isMounted = true;
 
-    if (isMounted) {
-      setNameValue(names[(findValueByKey(boxNames, id))]);
-    }
+  if (isMounted) {
+    setNameValue(names[(findValueByKey(boxNames, id))]);
+  }
 
-    return () => {
-      isMounted = false;
-    };
-  }, [boxNames, setNameValue, id, filledBoxes, isFilled, names]);
-  return (
-      <div
-      className='box'
-      onMouseDown={handleBoxClick}
-      onDragStart={handleDragStart}
-      draggable={bytaPlatser ? true : false}
-      id={id}
-      data-originalid={originalid}
-      style={{ gridArea: position }}
-    >
-      <div className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''}`}>
-     {isFilled && (
+  return () => {
+    isMounted = false;
+  };
+}, [boxNames, setNameValue, id, filledBoxes, isFilled, names]);
+return (
+  <div
+    className='box'
+    onMouseDown={handleBoxClick}
+    onDragStart={handleDragStart}
+    draggable={bytaPlatser ? true : false}
+    id={id}
+    data-originalid={originalid}
+    style={{ gridArea: position }}
+  >
+    <div className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''}`}>
+      {isFilled && (
         <span id={id} className={'name'} data-originalid={originalid}>
           {nameValue}
         </span>
       )}
     </div>
-    </div>
-  );
+  </div>
+);
 };
 
 export default Box;
