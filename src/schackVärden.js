@@ -320,3 +320,4 @@ const schackBräde = {
         }
     ]
 }
+export default schackBräde;
