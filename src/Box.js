@@ -56,8 +56,8 @@ const Box = ({ position, boxes, setBoxes, names, bytaPlatser, id, originalid, ke
     };
   }, [boxNames, setNameValue, id, filledBoxes, isFilled, names]);
   return (
-    <div
-      className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''}`}
+      <div
+      className='box'
       onMouseDown={handleBoxClick}
       onDragStart={handleDragStart}
       draggable={bytaPlatser ? true : false}
@@ -65,11 +65,13 @@ const Box = ({ position, boxes, setBoxes, names, bytaPlatser, id, originalid, ke
       data-originalid={originalid}
       style={{ gridArea: position }}
     >
-      {isFilled && (
+      <div className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''}`}>
+     {isFilled && (
         <span id={id} className={'name'} data-originalid={originalid}>
           {nameValue}
         </span>
       )}
+    </div>
     </div>
   );
 };
