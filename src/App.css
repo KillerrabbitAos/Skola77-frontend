@@ -242,3 +242,30 @@ button:hover {
   width: 190px;
   margin: auto;
 }
+
+.box.filled.vit{
+  background-color: white;
+}
+
+.box.filled.svart{
+  background-color: black;
+}
+.box.filled.svart span{
+  color: white;
+}
+.box.filled.vit span{
+  
+}
+
+.grid-container.schackBräde{
+  
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.box.svart{
+  background-color: black;
+}
+.box.vit{
+  background-color: white;
+}

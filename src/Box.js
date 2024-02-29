@@ -10,9 +10,10 @@ function findValueByKey(list, key) {
 }
 
 
-const Box = ({ position, boxes, setBoxes, fixa, names, bytaPlatser, id, originalid, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
+const Box = ({ position, groupName, boxes, setBoxes, fixa, names, bytaPlatser, id, originalid, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState('tom');
+  const [färg, setFärg] = useState(null)
 
   const handleBoxClick = () => {
     if (bytaPlatser) {
@@ -56,14 +57,16 @@ useEffect(() => {
   if (isMounted) {
     setNameValue(names[(findValueByKey(boxNames, id))]);
   }
-
+  if (groupName == "schack"){
+    setFärg(nameValue.split(";")[0])
+  }
   return () => {
     isMounted = false;
   };
 }, [boxNames, setNameValue, id, filledBoxes, isFilled, names]);
 return (
   <div
-    className='box'
+    className={`box ${färg ? färg : ''}`}
     onMouseDown={handleBoxClick}
     onDragStart={handleDragStart}
     draggable={bytaPlatser ? true : false}
@@ -71,10 +74,10 @@ return (
     data-originalid={originalid}
     style={{ gridArea: position }}
   >
-    <div className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''}`}>
+    <div className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''} ${färg ? färg : ''}`}>
       {isFilled && (
         <span id={id} className={'name'} data-originalid={originalid}>
-          {nameValue}
+          {groupName === 'schack' ? nameValue.split(";")[1] : nameValue}
         </span>
       )}
     </div>

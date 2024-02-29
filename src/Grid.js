@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Box from './Box';
+import schackBräde from './schackVärden';
 
 function findValueByKey(list, key) {
   if (list == 'tom') {
@@ -155,7 +156,7 @@ const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, groupName, set
   return (
     <div className="grid-outer-container" onDragOver={handleDragOver} onDrop={handleDrop} id='gridPdfSak' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: "0px" }}>
       <p id='uppe'>{uppe}</p>
-      <div id='grid' className="grid-container" style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, gap: '10px', width: `${columns * cellSize + (columns - 1) * 10}px`, }}>
+      <div id='grid' className={`grid-container ${groupName === 'schack' ? 'schackBräde' : ''}`} style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, gap: '10px', width: `${columns * cellSize + (columns - 1) * 10}px`, }}>
         {generateGrid()}
       </div>
 
