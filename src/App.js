@@ -370,7 +370,7 @@ const App = () => {
         </div>
 
         {grid}
-        <div id='meny' style={{width: (document.getElementById("grid").style.width)}}>
+        <div id='meny'>
       <div id='redigeringsDiv' className='menySaker'>
       <button id="redigeringsKnapp" onClick={handleRedigeringKlick}></button>
       <label id='redigeringsLabel' for='redigeringsKnapp'>{knappStatus ? 'Ändra placering' : 'Tillbaka till platsutplacering'}</label>
