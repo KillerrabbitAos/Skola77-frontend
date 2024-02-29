@@ -123,8 +123,16 @@ const App = () => {
   const raderaKlass = () => {
     setGroupName(defaultGroup);
     document.getElementById("nyKlass").selected = true
-    const klassAttRadera = `${groupName}_values`
+    const klassAttRadera = `${encodeURI(groupName)}_values`
     removeCookie(klassAttRadera)
+    setRows(7);
+      setColumns(7);
+      setBoxNames('tom');
+      setBoxes([]);
+      setNames([""]);
+      setFilledBoxes([]);
+      setCellSize(70);
+      setFixaCounter(0);
   }
 
   function applyFontSizesToClass(className) {
@@ -336,7 +344,7 @@ const App = () => {
     </select>
     {(groupName === defaultGroup)
       ? ''
-      : <button key="raderaKlass" onMouseDown={raderaKlass}></button>}
+      : <button key="raderaKlass" onMouseDown={raderaKlass}>radera klass</button>}
   </div>;
 
   return (
