@@ -11,7 +11,7 @@ import { useCookies } from 'react-cookie';
 import { papperskorg } from './papperskorg';
 import doneImg from './done.svg';
 import backImg from './back.png';
-
+import schackBräde from './schackVärden.js'
 
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
@@ -268,7 +268,11 @@ const App = () => {
       setCellSize(70);
       setFixaCounter(0);
     } else {
-      const values = readCookieValues(selectedGroup);
+      var values = schackBräde
+      console.log(schackBräde)
+      if (selectedGroup !== 'schack'){
+        values = readCookieValues(selectedGroup); 
+      }
       if (values) {
         setRows(values.rows || 0);
         setColumns(values.columns || 0);
@@ -336,7 +340,7 @@ const App = () => {
     <label>Sparade klasser:</label>
     <select id="sparadeKlasser" defaultValue={groupName} onChange={handleGroupChange}>
       <option id="nyKlass" key="ny..." value={defaultGroup}>{defaultGroup}</option>
-
+      {names.includes("schack") && <option id="schack" key="schack" value={"schack"}>schack</option>}
       {/* Lista alla grupper som finns sparade i cookies */}
 
       {Object.keys(Cookies.get()).length > 0 &&
