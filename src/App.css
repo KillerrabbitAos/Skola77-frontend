@@ -223,14 +223,6 @@ button:hover {
   cursor: pointer;
 }
 
-#klar{
-  background-image: url(./done.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 50px;
-  border-color: black;
-}
-
 
 #perspektiv{
   background-image: url(perspektiv.png);

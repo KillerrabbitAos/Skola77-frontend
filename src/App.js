@@ -9,6 +9,8 @@ import NameList from './Namn';
 import LZString from 'lz-string';
 import { useCookies } from 'react-cookie';
 import { papperskorg } from './papperskorg';
+import doneImg from './done.svg';
+import backImg from './back.png';
 
 
 function compressData(data) {
@@ -376,7 +378,19 @@ const App = () => {
       <label id='redigeringsLabel' htmlFor='redigeringsKnapp'>{knappStatus ? 'Ändra placering' : 'Tillbaka till platsutplacering'}</label>
       </div>
       <div id="klarDiv" className='menySaker'>
-      <button id="klar" onClick={toggleBorders} style={{ marginTop: '10px' }}></button>
+      <button
+        id="klar"
+        onClick={toggleBorders}
+        style={{ 
+          backgroundImage: editingMode ? `url(${doneImg})` : `url(${backImg})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          height: '50px',
+          border: 'none',
+          cursor: 'pointer'
+        }}
+>
+</button>
       <label id='klarLabel' htmlFor="klar">{editingMode ? 'Klar' : 'Fortsätt redigera'}</label>
       </div>  
         
