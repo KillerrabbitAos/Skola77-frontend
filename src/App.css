@@ -247,8 +247,7 @@ button:hover {
 .menySaker{
   display: inline-block;
   text-align: center;
-  width: 25%;
-  
+    
 }
 .menySaker label{
   display: block;
