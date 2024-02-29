@@ -5,7 +5,7 @@ const Namn = ({ name, originalIndex, index, handleRemoveName }) => {
 
     const handleDragStart = (e) => {
         console.log(e)
-        e.dataTransfer.setData('boxId', 'ny: ' + 'box-10' + 'original: ' + 'box-10');
+        e.dataTransfer.setData("namn", originalIndex);
       };
 
 
