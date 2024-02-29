@@ -273,6 +273,7 @@ const App = () => {
       if (selectedGroup !== 'schack'){
         values = readCookieValues(selectedGroup); 
       }
+      console.log(values)
       if (values) {
         setRows(values.rows || 0);
         setColumns(values.columns || 0);
