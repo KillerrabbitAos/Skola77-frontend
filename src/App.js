@@ -65,6 +65,9 @@ const App = () => {
   const [dummyState, setDummyState] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(['name']);
   const [bytaPlatser, setBytaPlatser] = useState(false)
+  const [showBorders, setShowBorders] = useState(true);
+  const [editingMode, setEditingMode] = useState(true);
+  const [knappStatus, setKnappStatus] = useState(true);
 
   const handleRowsInputChange = (e) => {
     const value = e.target.value;
@@ -212,7 +215,16 @@ const App = () => {
     setNames((prevNames) => [...prevNames, ...textareaContent]);
     textarea.value = '';
   };
+  const handleRedigeringKlick = () => {
+    setBytaPlatser(bytaPlatser != true);
+    setKnappStatus(!knappStatus);
+  }
 
+  const toggleBorders = () => {
+    setShowBorders(!showBorders);
+    setEditingMode(!editingMode);
+
+  };
   const fixa = () => {
     applyFontSizesToClass('name');
   }
@@ -295,6 +307,13 @@ const App = () => {
     setKeyChange={setKeyChange}
     bytaPlatser={bytaPlatser}
     setBytaPlatser={setBytaPlatser}
+    setKnappStatus={setKnappStatus}
+    knappStatus={knappStatus}
+    setEditingMode={setEditingMode}
+    editingMode={editingMode}
+    setShowBorders={setShowBorders}
+    showBorders={showBorders}
+
   />;
   const sparningsLösning = <div id='sparaSettings'>
     <button onClick={handleSaveButtonClick} className='spara' id='sparaKnapp'></button>
@@ -335,31 +354,34 @@ const App = () => {
       <div id='gridMedAnnat'>
         <div id='pdfDiv'>
 
-        <button id='pdfKnapp' onClick={handleExportToPDF}></button>
-        <label id='pdfLabel' for="pdfKnapp">Exportera till PDF</label>
+          <button id='pdfKnapp' onClick={handleExportToPDF}></button>
+          <label id='pdfLabel' for="pdfKnapp">Exportera till PDF</label>
 
 
         </div>
-        
+
         {grid}
-
-        <div id='perspektivDiv'>
-
-        <button id='perspektiv' onClick={ändraPerspektiv}></button>
-        <label id='perspektivLabel' for="perspektiv">Byt perspektiv</label>
-
-
-        </div>
-
+        <div id='meny'>
+      <div id='redigeringsDiv' className='menySaker'>
+      <button id="redigeringsKnapp" onClick={handleRedigeringKlick}></button>
+      <label id='redigeringsLabel' for='redigeringsKnapp'>{knappStatus ? 'Ändra placering' : 'Tillbaka till platsutplacering'}</label>
+      </div>
+      <div id="klarDiv" className='menySaker'>
+      <button id="klar" onClick={toggleBorders} style={{ marginTop: '10px' }}></button>
+      <label id='klarLabel' for="klar">{editingMode ? 'Klar' : 'Fortsätt redigera'}</label>
+      </div>  
         
-        <div id='slumpaDiv'>
+          <div id="perspektivDiv" className='menySaker'>
+          <button id='perspektiv' onClick={ändraPerspektiv}></button>
+          <label id='perspektivLabel' for="perspektiv">Byt perspektiv</label>
+          </div>
 
-        <button onClick={handleMixNames} id='slumpaKnappen'></button>
-        <label id='slumpaLabel' for="slumpaKnappen">Slumpa</label>
-
-        </div>
-
-        </div>
+          <div className="menySaker" id='slumpaDiv'>
+          <button onClick={handleMixNames} id='slumpaKnappen'></button>
+          <label id='slumpaLabel' for="slumpaKnappen">Slumpa</label>
+          </div>
+      </div>
+      </div>
       {gridConf}
       <div>
         <p id='nameHeader'>Namn:</p>

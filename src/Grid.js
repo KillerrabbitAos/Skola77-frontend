@@ -18,22 +18,10 @@ function findKeyByValue(list, value) {
   }
 }
 
-const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, keyChange, setKeyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
-  const [showBorders, setShowBorders] = useState(true);
-  const [editingMode, setEditingMode] = useState(true);
-  const [knappStatus, setKnappStatus] = useState(true);
+const Grid = ({ rows, columns, knappStatus, setKnappStatus, setShowBorders, setEditingMode, showBorders, editingMode, boxes, setBoxes, setBytaPlatser, bytaPlatser, keyChange, setKeyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
 
 
-  const handleRedigeringKlick = () => {
-    setBytaPlatser(bytaPlatser != true);
-    setKnappStatus(!knappStatus);
-  }
-
-  const toggleBorders = () => {
-    setShowBorders(!showBorders);
-    setEditingMode(!editingMode);
-
-  };
+  
   const handleDrop = (e) => {
     e.preventDefault();
 
@@ -150,10 +138,7 @@ const Grid = ({ rows, columns, boxes, setBoxes, setBytaPlatser, bytaPlatser, key
 
       <p id='nere'>{nere}</p>
 
-      <button id="redigeringsKnapp" onClick={handleRedigeringKlick}></button>
-      <label id='redigeringsLabel' for='redigeringsKnapp'>{knappStatus ? 'Ändra placering' : 'Tillbaka till platsutplacering'}</label>
-      <button id="klar" onClick={toggleBorders} style={{ marginTop: '10px' }}></button>
-      <label id='klarLabel' for="klar">{editingMode ? 'Klar' : 'Fortsätt redigera'}</label>
+      
     </div>
   );
 };

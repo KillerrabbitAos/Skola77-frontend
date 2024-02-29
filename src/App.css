@@ -239,16 +239,20 @@ button:hover {
   height: 55px;
 }
 
-#perspektivDiv{
-
-
-  width: 150px;
+#meny{
   margin: auto;
-  margin-bottom: 10px;
-
+  width: 50%;
 }
 
-
+.menySaker{
+  display: inline-block;
+  text-align: center;
+  width: 25%;
+  
+}
+.menySaker label{
+  display: block;
+}
 #redigeringsKnapp{
   background-image: url(edit.png);
   background-repeat: no-repeat;
