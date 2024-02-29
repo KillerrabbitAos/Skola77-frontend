@@ -18,7 +18,7 @@ function findKeyByValue(list, value) {
   }
 }
 
-const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setShowBorders, setEditingMode, showBorders, editingMode, boxes, setBoxes, setBytaPlatser, bytaPlatser, keyChange, setKeyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
+const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, groupName, setShowBorders, setEditingMode, showBorders, editingMode, boxes, setBoxes, setBytaPlatser, bytaPlatser, keyChange, setKeyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
 
 
   const handleDrop = async (e) => {
@@ -51,12 +51,14 @@ const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setShowBorders
       setBoxNames(newBoxNames)
       return;
     }
+    
 
     const draggedBoxId = JSON.parse(JSON.stringify(e.dataTransfer.getData('boxId').split("ny: ")[1].split("original")[0]));
     const draggedBoxOriginalId = JSON.parse(JSON.stringify(e.dataTransfer.getData('boxId').split("original: ")[1])); // Get the dragged box id
     const targetId = JSON.parse(JSON.stringify(target.id)); // Now we're sure this is the correct target ID
     const targetOriginalId = JSON.parse(JSON.stringify(target.getAttribute("data-originalid")))
     console.log(`Box ${draggedBoxId} dropped on ${targetId}`);
+    
     if (keyChange != 'tom') {
       console.log("a")
       const keyChangeDeepCopy = JSON.parse(JSON.stringify(keyChange));
@@ -74,7 +76,7 @@ const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setShowBorders
       }
       newKeyChange.push({
         "key": draggedBoxOriginalId,
-        "value": targetId
+        "value": (groupName === "schack") ? 'box-T' : targetId
       },
         {
           "key": targetOriginalId,
@@ -141,6 +143,7 @@ const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setShowBorders
             keyChange={keyChange}
             bytaPlatser={bytaPlatser}
             fixa={fixa}
+            groupName={groupName}
           />
         </div>
       );

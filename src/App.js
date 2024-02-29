@@ -332,6 +332,7 @@ const App = () => {
     setShowBorders={setShowBorders}
     showBorders={showBorders}
     fixa={fixa}
+    groupName={groupName}
 
   />;
   const sparningsLösning = <div id='sparaSettings'>
