@@ -364,7 +364,7 @@ const App = () => {
         <div id='pdfDiv'>
 
           <button id='pdfKnapp' onClick={handleExportToPDF}></button>
-          <label id='pdfLabel' for="pdfKnapp">Exportera till PDF</label>
+          <label id='pdfLabel' htmlFor="pdfKnapp">Exportera till PDF</label>
 
 
         </div>
@@ -373,21 +373,21 @@ const App = () => {
         <div id='meny'>
       <div id='redigeringsDiv' className='menySaker'>
       <button id="redigeringsKnapp" onClick={handleRedigeringKlick}></button>
-      <label id='redigeringsLabel' for='redigeringsKnapp'>{knappStatus ? 'Ändra placering' : 'Tillbaka till platsutplacering'}</label>
+      <label id='redigeringsLabel' htmlFor='redigeringsKnapp'>{knappStatus ? 'Ändra placering' : 'Tillbaka till platsutplacering'}</label>
       </div>
       <div id="klarDiv" className='menySaker'>
       <button id="klar" onClick={toggleBorders} style={{ marginTop: '10px' }}></button>
-      <label id='klarLabel' for="klar">{editingMode ? 'Klar' : 'Fortsätt redigera'}</label>
+      <label id='klarLabel' htmlFor="klar">{editingMode ? 'Klar' : 'Fortsätt redigera'}</label>
       </div>  
         
           <div id="perspektivDiv" className='menySaker'>
           <button id='perspektiv' onClick={ändraPerspektiv}></button>
-          <label id='perspektivLabel' for="perspektiv">Byt perspektiv</label>
+          <label id='perspektivLabel' htmlFor="perspektiv">Byt perspektiv</label>
           </div>
 
           <div className="menySaker" id='slumpaDiv'>
           <button onClick={handleMixNames} id='slumpaKnappen'></button>
-          <label id='slumpaLabel' for="slumpaKnappen">Slumpa</label>
+          <label id='slumpaLabel' htmlFor="slumpaKnappen">Slumpa</label>
           </div>
       </div>
       </div>
