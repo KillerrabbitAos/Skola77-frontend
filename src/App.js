@@ -313,6 +313,7 @@ const App = () => {
     editingMode={editingMode}
     setShowBorders={setShowBorders}
     showBorders={showBorders}
+    fixa={fixa}
 
   />;
   const sparningsLösning = <div id='sparaSettings'>

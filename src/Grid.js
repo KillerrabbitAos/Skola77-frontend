@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from './Box';
 
 function findValueByKey(list, key) {
@@ -18,11 +18,10 @@ function findKeyByValue(list, value) {
   }
 }
 
-const Grid = ({ rows, columns, knappStatus, setKnappStatus, setShowBorders, setEditingMode, showBorders, editingMode, boxes, setBoxes, setBytaPlatser, bytaPlatser, keyChange, setKeyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
+const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setShowBorders, setEditingMode, showBorders, editingMode, boxes, setBoxes, setBytaPlatser, bytaPlatser, keyChange, setKeyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
 
 
-  
-  const handleDrop = (e) => {
+  const handleDrop = async (e) => {
     e.preventDefault();
 
     let target = e.target;
@@ -32,6 +31,7 @@ const Grid = ({ rows, columns, knappStatus, setKnappStatus, setShowBorders, setE
 
     if (!target || target === e.currentTarget) {
       console.log('Dropped on an invalid target');
+      
       return;
     }
 
@@ -77,6 +77,9 @@ const Grid = ({ rows, columns, knappStatus, setKnappStatus, setShowBorders, setE
       }
       ])
     }
+      await new Promise(resolve => setTimeout(resolve, 10));
+      fixa();
+   
   };
   const handleDragOver = (e) => {
     e.preventDefault(); // Necessary to allow dropping
@@ -127,7 +130,7 @@ const Grid = ({ rows, columns, knappStatus, setKnappStatus, setShowBorders, setE
 
     return gridItems;
   };
-
+  
   return (
     <div className="grid-outer-container" onDragOver={handleDragOver} onDrop={handleDrop} id='gridPdfSak' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: "0px" }}>
       <p id='uppe'>{uppe}</p>
