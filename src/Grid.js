@@ -150,6 +150,7 @@ const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setLåstaNamn,
             groupName={groupName}
             låstaNamn={låstaNamn}
             setLåstaNamn={setLåstaNamn}
+            showBorders={showBorders}
           />
         </div>
       );

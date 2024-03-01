@@ -13,7 +13,7 @@ function findValueByKey(list, key) {
 }
 
 
-const Box = ({ position, groupName, setLåstaNamn, låstaNamn, boxes, setBoxes, fixa, names, bytaPlatser, id, originalid, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
+const Box = ({ position, groupName, setLåstaNamn, låstaNamn, boxes, showBorders, setBoxes, fixa, names, bytaPlatser, id, originalid, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState('tom');
   const [färg, setFärg] = useState(null)
@@ -91,21 +91,21 @@ return (
     data-originalid={originalid}
     style={{ gridArea: position }}
   >
-    <div className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''} ${färg ? färg : ''}  ${låstaNamn.includes(id) ? 'låst' : ''}`}>
+    <div className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''} ${färg ? färg : ''}  ${låstaNamn.includes(id) && showBorders ? 'låst' : ''}`}>
       {isFilled && (
-        <button className="låsKnappBox" onClick={handleRemoveBox}><RiDeleteBin6Line /></button>
-      )}
-      {isFilled && (
-        <button className='låsKnappBox' onClick={handleLåsaNamn}>{låstaNamn.includes(id) ? <IoIosLock /> : <IoIosUnlock />}</button> 
-      )}
-      {isFilled && (
-        <span id={id} className={'name'} data-originalid={originalid}>
-          {groupName === 'schack' ? nameValue.split(";")[1] : nameValue}
-        </span>
-      )}
+          <button className="låsKnappBox" style={{visibility: showBorders ? 'visible' : 'hidden'}}  onClick={handleRemoveBox}><RiDeleteBin6Line /></button>
+        )}
+        {isFilled && (
+          <button className='låsKnappBox' style={{ visibility: showBorders ? 'visible' : 'hidden' }} onClick={handleLåsaNamn}>{låstaNamn.includes(id) ? <IoIosLock /> : <IoIosUnlock />}</button>
+        )}
+        {isFilled && (
+          <span id={id} className={'name'} data-originalid={originalid}>
+            {groupName === 'schack' ? nameValue.split(";")[1] : nameValue}
+          </span>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
 };
 
 export default Box;
