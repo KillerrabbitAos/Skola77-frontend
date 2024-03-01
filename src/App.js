@@ -89,7 +89,7 @@ const App = () => {
 
   const ändraPerspektiv = () => {
     setBaklänges(!baklänges)
-    if (baklänges) {
+    if (!baklänges) {
       setNere("Tavla")
       setUppe("Bak")
     }
@@ -410,8 +410,7 @@ const App = () => {
           border: 'none',
           cursor: 'pointer'
         }}
->
-</button>
+></button>
       <label id='klarLabel' htmlFor="klar">{editingMode ? 'Klar' : 'Fortsätt redigera'}</label>
       </div>  
         
