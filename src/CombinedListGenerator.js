@@ -1,4 +1,4 @@
-const generateCombinedList = (list2, list4, defaultValue, names) => {
+const generateCombinedList = (list2, list4, defaultValue, names, låstaNamn) => {
   const maxUniqueNumber = Math.min(list4.length - 1, list2.length);
 
   const shuffledList2 = shuffleArray(list2);
@@ -21,7 +21,7 @@ const generateCombinedList = (list2, list4, defaultValue, names) => {
 
     let value = randomIndex;
 
-    if (names[value] !== "") {
+    if (names[value] !== "" && !låstaNamn.includes(value)) {
       combinedList.push({ key, value });
     }
 

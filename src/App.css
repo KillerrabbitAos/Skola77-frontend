@@ -298,3 +298,10 @@ button:hover {
 
 }
 }
+
+.namnILista.låst{
+  color:grey;
+}
+.namnILista.låst.låsknapp{
+  background-image: url(padlock.png);
+}

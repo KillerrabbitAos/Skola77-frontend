@@ -73,6 +73,7 @@ const App = () => {
   const [showBorders, setShowBorders] = useState(true);
   const [editingMode, setEditingMode] = useState(true);
   const [knappStatus, setKnappStatus] = useState(true);
+  const [låstaNamn, setLåstaNamn] = useState([])
 
   const handleRowsInputChange = (e) => {
     const value = e.target.value;
@@ -245,7 +246,7 @@ const App = () => {
   }
   const firstConstantFunction = async () => {
     const namesList = names
-    setBoxNames(generateCombinedList(filledBoxes, names, 0, namesList));
+    setBoxNames(generateCombinedList(filledBoxes, names, 0, namesList, låstaNamn));
     await new Promise(resolve => setTimeout(resolve, 10));
   }
 
@@ -431,6 +432,8 @@ const App = () => {
             names={names}
             handleRemoveName={handleRemoveName}
             setBoxNames={setBoxNames}
+            låstaNamn={låstaNamn}
+            setLåstaNamn={setLåstaNamn}
           ></NameList>
         </div>
       </div>
