@@ -1,7 +1,7 @@
 import React from 'react';
 import Namn from './ettNamn';
 const NameList = ({ names, handleRemoveName, låstaNamn, setLåstaNamn }) => {
-
+  const rader = (window.screen.width/260).toFixed(0)
   const namesDeepCopy = JSON.parse(JSON.stringify(names));
   var newNames = namesDeepCopy
   var namesWithIndex = (newNames.map((name, index) => ({ name, originalIndex: index})))
@@ -14,11 +14,11 @@ const NameList = ({ names, handleRemoveName, låstaNamn, setLåstaNamn }) => {
 })
 
   // Calculate the number of names in each column
-  const columnSize = Math.ceil(sortedNames.length / 3);
+  const columnSize = Math.ceil(sortedNames.length / rader);
 
   // Divide the sorted names array into three columns
   const columns = [];
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < rader; i++) {
     columns.push(sortedNames.slice(i * columnSize, (i + 1) * columnSize));
   }
 

@@ -316,7 +316,7 @@ button:hover {
 
 .namnILista{
 
-
+width: 170px;
 
 text-align: center;
 border: 1px solid black;
@@ -377,6 +377,9 @@ border-radius: 5px;
     }
     
 }
-
+#namn{
+  width: 100%;
+  height: auto;
+}
 
 
