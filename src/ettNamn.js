@@ -11,8 +11,8 @@ const Namn = ({ name, originalIndex, index, handleRemoveName }) => {
 
 return(
     <li id={originalIndex} draggable="true" onDragStart={handleDragStart} key={index}>
-        {name}
         <button onClick={() => handleRemoveName(originalIndex)}>Ta bort</button>
+   {name} 
     </li>
 )
 }
