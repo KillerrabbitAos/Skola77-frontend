@@ -8,12 +8,14 @@ const generateCombinedList = (list2, list4, defaultValue, names, låstaNamn) => 
   const shuffledList2Deep = JSON.parse(JSON.stringify(shuffleArray(list2)));
   for (let i = 0; i < shuffledList2Deep.length; i++){
   if (låstaNamn.includes(shuffledList2Deep[i])) {
-    const foundItem = list4.find(item => item.key === shuffledList2Deep[i])
+    const foundItem = list4DeepCopy.find(item => item.key === shuffledList2Deep[i])
     if (foundItem){
       addLater.push(foundItem)
     }
   }
+  else{
   shuffledList2.push(shuffledList2Deep[i])
+  }
 }
   let combinedList = [];
   let usedIndexes = new Set();
@@ -49,7 +51,9 @@ const generateCombinedList = (list2, list4, defaultValue, names, låstaNamn) => 
     const itemValue = names.includes("") ? 0 : defaultValue;
     combinedList.push({ key, value: itemValue });
   }
-
+  for (let i = 0; i < addLater.length; i++){
+    combinedList.push(addLater[i])
+  }
   return combinedList;
 };
 
