@@ -246,7 +246,7 @@ const App = () => {
   }
   const firstConstantFunction = async () => {
     const namesList = names
-    setBoxNames(generateCombinedList(filledBoxes, names, 0, namesList, låstaNamn));
+    setBoxNames(generateCombinedList(filledBoxes, names, 0, namesList, låstaNamn, boxNames));
     await new Promise(resolve => setTimeout(resolve, 10));
   }
 
