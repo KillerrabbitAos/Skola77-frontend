@@ -158,10 +158,6 @@ li button{
   margin-top: 70px;
 }
 
-#namn button {
-  margin-left: 50px;
-}
-
 button {
   color: white;
   background-color: rgb(56, 180, 56);
@@ -181,6 +177,25 @@ button {
 
   to {
     background-color: green;
+  }
+}
+@keyframes låsKnapp {
+  from {
+    background-color: none;
+    svg{
+      color: black;
+      height: 30px;
+      width: auto;
+    }
+  }
+
+  to {
+    background-color: black;
+    svg{
+      color: white;
+      height: 30px;
+      width: auto;
+    }
   }
 }
 
@@ -299,9 +314,38 @@ button:hover {
 }
 }
 
-.namnILista.låst{
-  color:grey;
+.namnILista{
+
+button{
+  padding: 0%;
+  width: auto;
+  padding: 0%;
+  background: none;
+  margin-left: 0%;
+  svg{
+    color: black;
+    height: 30px;
+    width: auto;
+  }
+  
 }
-.namnILista.låst.låsknapp{
-  background-image: url(padlock.png);
+.låst p{
+  color: grey;
 }
+text-align: center;
+border: 1px solid black;
+border-radius: 5px;
+}
+
+.namnILista button:hover{
+  animation-name: none;
+  animation-duration: none;
+  animation-fill-mode: none;
+}
+.namnILista p{
+  display: contents;
+  font-weight: bolder;
+  color: black;
+}
+
+

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-
+import { IoIosLock } from "react-icons/io";
+import { IoIosUnlock } from "react-icons/io";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const Namn = ({ name, originalIndex, index, handleRemoveName, låstaNamn, setLåstaNamn }) => {
 
@@ -25,10 +27,12 @@ const Namn = ({ name, originalIndex, index, handleRemoveName, låstaNamn, setLå
     }
 
 return(
-    <li id={originalIndex} draggable="true" onDragStart={handleDragStart} className={`namnILista ${låstaNamn.includes(originalIndex) ? 'låst' : ''}`} key={index}>
-        <button onClick={() => handleRemoveName(originalIndex)}>Ta bort</button>
-   {name}
-   <button className='låsKnapp' onClick={handleLåsaNamn}></button> 
+    <li  key={index}>
+        <div id={originalIndex} draggable="true" onDragStart={handleDragStart} className={`namnILista ${låstaNamn.includes(originalIndex) ? 'låst' : ''}`}>    
+        <button onClick={() => handleRemoveName(originalIndex)}><RiDeleteBin6Line /></button>
+   <p>{name}</p>
+   <button className='låsKnapp' onClick={handleLåsaNamn}>{låstaNamn.includes(originalIndex) ? <IoIosLock /> : <IoIosUnlock />}</button> 
+    </div>
     </li>
 )
 }
