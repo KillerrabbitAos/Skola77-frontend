@@ -236,14 +236,14 @@ button:hover {
 }
 
 #pdfKnapp{
-  background-image: url(pdf.png);
+  background-image: url(print.png);
   background-repeat: no-repeat;
   background-position: center;
   height: 60px;
 }
 
 #pdfDiv{
-  width: 190px;
+  width: 180px;
   margin: auto;
 }
 
@@ -257,9 +257,7 @@ button:hover {
 .box.filled.svart span{
   color: white;
 }
-.box.filled.vit span{
-  
-}
+
 
 .grid-container.schackBräde{
 
@@ -272,4 +270,31 @@ button:hover {
 }
 .box.vit{
   background-color: white;
+}
+
+@media print {
+  body * {
+    visibility: hidden; /* Gömmer allt förutom det specifika innehållet du vill skriva ut */
+  }
+  #gridPdfSak * {
+    visibility: visible; /* Gör #gridPdfSak och dess barn synliga */
+  }
+
+  #gridPdfSak {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateY(0%);
+    width: 100%;
+    max-width: 210mm; /* Justera detta beroende på dina marginalinställningar och pappersstorlek */
+    height: auto;
+    margin: 0mm auto;
+    box-shadow: none; /* Tar bort skuggan för en renare utskrift */
+  }
+
+  .box.filled {
+    background-color: gray;
+    visibility: visible;
+
+}
 }

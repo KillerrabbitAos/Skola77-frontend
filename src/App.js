@@ -217,7 +217,9 @@ const App = () => {
 
 
 
-
+  const handlePrint = () => {
+    window.print();
+  };
 
 
 
@@ -381,8 +383,8 @@ const App = () => {
       <div id='gridMedAnnat'>
         <div id='pdfDiv'>
 
-          <button id='pdfKnapp' onClick={handleExportToPDF}></button>
-          <label id='pdfLabel' htmlFor="pdfKnapp">Exportera till PDF</label>
+          <button id='pdfKnapp' onClick={handlePrint}></button>
+          <label id='pdfLabel' htmlFor="pdfKnapp">Skriv ut</label>
 
 
         </div>
