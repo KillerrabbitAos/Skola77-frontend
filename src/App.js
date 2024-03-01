@@ -343,6 +343,8 @@ const App = () => {
     showBorders={showBorders}
     fixa={fixa}
     groupName={groupName}
+    låstaNamn={låstaNamn}
+    setLåstaNamn={setLåstaNamn}
 
   />;
   const sparningsLösning = <div id='sparaSettings'>
@@ -392,10 +394,7 @@ const App = () => {
 
         {grid}
         <div id='meny'>
-      <div id='redigeringsDiv' className='menySaker'>
-      <button id="redigeringsKnapp" onClick={handleRedigeringKlick}></button>
-      <label id='redigeringsLabel' htmlFor='redigeringsKnapp'>{knappStatus ? 'Ändra placering' : 'Tillbaka till platsutplacering'}</label>
-      </div>
+
       <div id="klarDiv" className='menySaker'>
       <button
         id="klar"

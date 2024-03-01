@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { IoIosLock } from "react-icons/io";
+import { IoIosUnlock } from "react-icons/io";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 function findValueByKey(list, key) {
   if (list === 'tom') {
@@ -10,27 +13,41 @@ function findValueByKey(list, key) {
 }
 
 
-const Box = ({ position, groupName, boxes, setBoxes, fixa, names, bytaPlatser, id, originalid, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
+const Box = ({ position, groupName, setLåstaNamn, låstaNamn, boxes, setBoxes, fixa, names, bytaPlatser, id, originalid, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState('tom');
   const [färg, setFärg] = useState(null)
 
-  const handleBoxClick = () => {
-    if (bytaPlatser) {
-
+  const handleLåsaNamn = () => {
+    if (!låstaNamn.includes(id)){
+    setLåstaNamn((prevLåstaNamn) => [...prevLåstaNamn, id])
+  }
+  else{
+    const newLåstaNamn = [] 
+    for (let i = 0; i < låstaNamn.length; i++){
+        if (låstaNamn[i] !== id){
+            newLåstaNamn.push(låstaNamn[i])
+        }
+        setLåstaNamn(newLåstaNamn);
     }
-    else if (!isFilled) {
+  }
+}
+
+
+  const handleBoxClick = () => {
+    if (!isFilled) {
       const newName = 'tom';
       console.log(boxNames[id]);
       if (newName) {
         setIsFilled(true);
         setFilledBoxes([...filledBoxes, id]);
       }
-    } else {
+    }
+  }
+  const handleRemoveBox = () =>{
       setIsFilled(false);
       setFilledBoxes((prevFilledBoxes) => prevFilledBoxes.filter((boxId) => boxId !== id));
-    }
-  };
+  }
   const handleDragStart = (e) => {
     const idInfo = { ny: id, original: originalid };
     e.dataTransfer.setData('boxId', 'ny: ' + id + 'original: ' + originalid);
@@ -67,14 +84,20 @@ useEffect(() => {
 return (
   <div
     className={`box ${färg ? färg : ''}`}
-    onMouseDown={handleBoxClick}
+    onMouseUp={handleBoxClick}
     onDragStart={handleDragStart}
-    draggable={bytaPlatser ? true : false}
+    draggable={isFilled ? true : false}
     id={id}
     data-originalid={originalid}
     style={{ gridArea: position }}
   >
     <div className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''} ${färg ? färg : ''}`}>
+      {isFilled && (
+        <button className="låsKnappBox" onClick={handleRemoveBox}><RiDeleteBin6Line /></button>
+      )}
+      {isFilled && (
+        <button className='låsKnappBox' onClick={handleLåsaNamn}>{låstaNamn.includes(id) ? <IoIosLock /> : <IoIosUnlock />}</button> 
+      )}
       {isFilled && (
         <span id={id} className={'name'} data-originalid={originalid}>
           {groupName === 'schack' ? nameValue.split(";")[1] : nameValue}
