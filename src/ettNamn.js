@@ -28,7 +28,8 @@ const Namn = ({ name, originalIndex, index, handleRemoveName, låstaNamn, setLå
 
 return(
     <li  key={index}>
-        <div id={originalIndex} draggable="true" onDragStart={handleDragStart} className={`namnILista ${låstaNamn.includes(originalIndex) ? 'låst' : ''}`}>    
+        <div id={originalIndex} draggable="true" onDragStart={handleDragStart} className={`namnILista ${låstaNamn.includes(originalIndex) ? 'låst' : 'upplåst'}`}>    
+        <div className='grå'></div>
         <button onClick={() => handleRemoveName(originalIndex)}><RiDeleteBin6Line /></button>
    <p>{name}</p>
    <button className='låsKnapp' onClick={handleLåsaNamn}>{låstaNamn.includes(originalIndex) ? <IoIosLock /> : <IoIosUnlock />}</button> 

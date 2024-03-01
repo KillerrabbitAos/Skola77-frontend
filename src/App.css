@@ -316,36 +316,67 @@ button:hover {
 
 .namnILista{
 
-button{
-  padding: 0%;
-  width: auto;
-  padding: 0%;
-  background: none;
-  margin-left: 0%;
-  svg{
-    color: black;
-    height: 30px;
-    width: auto;
-  }
-  
-}
-.låst p{
-  color: grey;
-}
+
+
 text-align: center;
 border: 1px solid black;
 border-radius: 5px;
 }
+
 
 .namnILista button:hover{
   animation-name: none;
   animation-duration: none;
   animation-fill-mode: none;
 }
-.namnILista p{
-  display: contents;
+.namnILista.upplåst{
+  p{display: contents;
   font-weight: bolder;
   color: black;
+  }
+  button{
+    padding: 0%;
+    width: auto;
+    padding: 0%;
+    background: none;
+    margin-left: 0%;
+    svg{
+      color: black;
+      height: 30px;
+      width: auto;
+    }
+    
+  }
+  .grå{
+    background-color: grey;
+    height: 10px;
+    display: block;
+  }
 }
+.namnILista.låst{
+    p{display: contents;
+    font-weight: bolder;
+    color: gray;}
+    button{
+      padding: 0%;
+      width: auto;
+      padding: 0%;
+      background: none;
+      margin-left: 0%;
+      svg{
+        color: gray;
+        height: 30px;
+        width: auto;
+      }
+      
+    }
+    .grå{
+      background-color: rgb(214, 214, 214);
+      height: 10px;
+      display: block;
+    }
+    
+}
+
 
 
