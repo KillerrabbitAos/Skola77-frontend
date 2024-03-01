@@ -400,3 +400,7 @@ border-radius: 5px;
 animation-duration: none;
 animation-fill-mode: none;
 }
+
+.box.filled.låst{
+  background-color: black;
+}

@@ -4,7 +4,16 @@ const generateCombinedList = (list2, list4, defaultValue, names, låstaNamn) => 
   const shuffledList2 = shuffleArray(list2);
   const list4DeepCopy = JSON.parse(JSON.stringify(list4));
   const list3 = shuffleArray(list4DeepCopy);
-
+  const
+  for (let i = 0; i < shuffledList2.length; i++){
+  if (låstaNamn.includes(shuffledList2[i])){
+    const foundItem = list4.find(item => item.key === shuffledList2)
+    if (foundItem){
+      
+    }
+  }
+  newshuffledList.push(shuffledList2[i])
+}
   let combinedList = [];
   let usedIndexes = new Set();
 

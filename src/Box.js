@@ -91,7 +91,7 @@ return (
     data-originalid={originalid}
     style={{ gridArea: position }}
   >
-    <div className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''} ${färg ? färg : ''}`}>
+    <div className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''} ${färg ? färg : ''}  ${låstaNamn.includes(id) ? 'låst' : ''}`}>
       {isFilled && (
         <button className="låsKnappBox" onClick={handleRemoveBox}><RiDeleteBin6Line /></button>
       )}
