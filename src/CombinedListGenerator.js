@@ -1,18 +1,19 @@
 const generateCombinedList = (list2, list4, defaultValue, names, låstaNamn) => {
   const maxUniqueNumber = Math.min(list4.length - 1, list2.length);
 
-  const shuffledList2 = shuffleArray(list2);
+  const shuffledList2 = []
+  const addLater = []
   const list4DeepCopy = JSON.parse(JSON.stringify(list4));
   const list3 = shuffleArray(list4DeepCopy);
-  const
-  for (let i = 0; i < shuffledList2.length; i++){
-  if (låstaNamn.includes(shuffledList2[i])){
-    const foundItem = list4.find(item => item.key === shuffledList2)
+  const shuffledList2Deep = JSON.parse(JSON.stringify(shuffleArray(list2)));
+  for (let i = 0; i < shuffledList2Deep.length; i++){
+  if (låstaNamn.includes(shuffledList2Deep[i])) {
+    const foundItem = list4.find(item => item.key === shuffledList2Deep[i])
     if (foundItem){
-      
+      addLater.push(foundItem)
     }
   }
-  newshuffledList.push(shuffledList2[i])
+  shuffledList2.push(shuffledList2Deep[i])
 }
   let combinedList = [];
   let usedIndexes = new Set();
