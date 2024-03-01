@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Box from './Box';
 import schackBräde from './schackVärden';
-
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 function findValueByKey(list, key) {
   if (list == 'tom') {
     return null;
@@ -97,8 +99,9 @@ const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setLåstaNamn,
       }
       ])
     }
-    await new Promise(resolve => setTimeout(resolve, 10));
-    fixa();
+  
+    return;
+    
 
   };
   const handleDragOver = (e) => {
