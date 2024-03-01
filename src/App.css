@@ -399,13 +399,11 @@ animation-duration: none;
 animation-fill-mode: none;
 }
 
-<<<<<<< HEAD
 .box.filled.låst{
   background-color: black;
-=======
+}
 #placeringsTitel{
   visibility: hidden;
->>>>>>> origin/master
 }
 
 .box.filled.låst{
