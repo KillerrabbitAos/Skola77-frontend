@@ -158,7 +158,7 @@ const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setLåstaNamn,
   return (
     <div className="grid-outer-container" onDragOver={handleDragOver} onDrop={handleDrop} id='gridPdfSak' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: "0px" }}>
       
-      <h2 id='placeringsNamn'></h2>
+      <h1 id='placeringsTitel'>{groupName}</h1>
 
       
       <p id='uppe'>{uppe}</p>

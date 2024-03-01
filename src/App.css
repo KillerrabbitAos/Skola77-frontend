@@ -311,6 +311,11 @@ button:hover {
     visibility: visible;
 
 }
+
+  #placeringsTitel{
+    visibility: visible !important;
+  }
+
 }
 
 .namnILista{
@@ -329,9 +334,7 @@ border-radius: 5px;
   animation-fill-mode: none;
 }
 .namnILista.upplåst{
-  svg:hover{
-    
-  }
+
   p{display: contents;
   font-weight: bolder;
   color: black;
@@ -380,9 +383,6 @@ border-radius: 5px;
   width: 100%;
   height: auto;
 }
-.bin svg:hover{
-  
-}
 
 .låsKnappBox{
   padding: 0%;
@@ -397,4 +397,8 @@ border-radius: 5px;
   animation-name: none;
 animation-duration: none;
 animation-fill-mode: none;
+}
+
+#placeringsTitel{
+  visibility: hidden;
 }
