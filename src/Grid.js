@@ -155,7 +155,13 @@ const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, groupName, set
 
   return (
     <div className="grid-outer-container" onDragOver={handleDragOver} onDrop={handleDrop} id='gridPdfSak' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: "0px" }}>
+      
+      <h2 id='placeringsNamn'></h2>
+
+      
       <p id='uppe'>{uppe}</p>
+
+
       <div id='grid' className={`grid-container ${groupName === 'schack' ? 'schackBräde' : ''}`} style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)`, gap: '10px', width: `${columns * cellSize + (columns - 1) * 10}px`, }}>
         {generateGrid()}
       </div>
