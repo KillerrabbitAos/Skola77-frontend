@@ -375,7 +375,7 @@ const App = () => {
   useEffect( () => {
    fixa()
     console.log("fixade")
-  }, [updateFixa] 
+  }, [updateFixa, cellSize] 
    )
    useEffect( () => {
      fixa(); 
