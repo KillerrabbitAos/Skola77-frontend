@@ -99,7 +99,8 @@ const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setLåstaNamn,
       }
       ])
     }
-  
+
+
     return;
     
 

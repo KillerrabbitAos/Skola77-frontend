@@ -13,6 +13,8 @@ import doneImg from './done.svg';
 import backImg from './back.png';
 import schackBräde from './schackVärden.js'
 
+
+
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
 }
@@ -75,16 +77,23 @@ const App = () => {
   const [knappStatus, setKnappStatus] = useState(true);
   const [låstaNamn, setLåstaNamn] = useState([])
 
+  useEffect(() => {
+    fixa();
+  }, [cellSize]); // Lägg till denna rad i din App-komponent
+  
+  
   const handleRowsInputChange = (e) => {
     const value = e.target.value;
     setRowsInput(value);
     setRows(isNaN(value) || value === '' ? 0 : parseInt(value, 10));
+    fixa()
   };
 
   const handleColumnsInputChange = (e) => {
     const value = e.target.value;
     setColumnsInput(value);
     setColumns(isNaN(value) || value === '' ? 0 : parseInt(value, 10));
+    fixa();
   };
 
   const ändraPerspektiv = () => {

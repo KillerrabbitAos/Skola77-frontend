@@ -51,13 +51,13 @@ const Box = ({ position, groupName, setLåstaNamn, låstaNamn, boxes, showBorder
   const handleDragStart = (e) => {
     const idInfo = { ny: id, original: originalid };
     e.dataTransfer.setData('boxId', 'ny: ' + id + 'original: ' + originalid);
+    fixa()
   };
 
   useEffect(() => {
     if ((document.getElementById(id).getElementsByClassName("name"))[0]) {
       if ((document.getElementById(id).getElementsByClassName("name"))[0].style.fontSize.startsWith("0.")) {
         ((document.getElementById(id).getElementsByClassName("name"))[0]).style.fontSize = "20px"
-        fixa();
     }
   }
   setNameValue(findValueByKey(boxNames, id));
