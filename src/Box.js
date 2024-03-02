@@ -77,6 +77,7 @@ useEffect(() => {
   if (groupName == "schack"){
     setFärg(nameValue.split(";")[0])
   }
+  fixa();
   return () => {
     isMounted = false;
   };

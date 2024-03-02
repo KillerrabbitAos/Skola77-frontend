@@ -21,7 +21,7 @@ function findKeyByValue(list, value) {
   }
 }
 
-const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setLåstaNamn, låstaNamn, groupName, setShowBorders, setEditingMode, showBorders, editingMode, boxes, setBoxes, setBytaPlatser, bytaPlatser, keyChange, setKeyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
+const Grid = ({ rows, fixa, columns, updateFixa, setUpdateFixa, knappStatus, setKnappStatus, setLåstaNamn, låstaNamn, groupName, setShowBorders, setEditingMode, showBorders, editingMode, boxes, setBoxes, setBytaPlatser, bytaPlatser, keyChange, setKeyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
 
 
   const handleDrop = async (e) => {
@@ -52,6 +52,7 @@ const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setLåstaNamn,
         setFilledBoxes([...filledBoxes, target.id]);
       }
       setBoxNames(newBoxNames)
+      setUpdateFixa(!updateFixa)
       return;
     }
     
@@ -99,7 +100,7 @@ const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setLåstaNamn,
       }
       ])
     }
-  
+    setUpdateFixa(!updateFixa) 
     return;
     
 
@@ -151,6 +152,7 @@ const Grid = ({ rows, fixa, columns, knappStatus, setKnappStatus, setLåstaNamn,
             låstaNamn={låstaNamn}
             setLåstaNamn={setLåstaNamn}
             showBorders={showBorders}
+
           />
         </div>
       );

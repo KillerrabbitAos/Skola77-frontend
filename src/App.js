@@ -74,6 +74,7 @@ const App = () => {
   const [editingMode, setEditingMode] = useState(true);
   const [knappStatus, setKnappStatus] = useState(true);
   const [låstaNamn, setLåstaNamn] = useState([])
+  const [updateFixa, setUpdateFixa] = useState(false)
 
   const handleRowsInputChange = (e) => {
     const value = e.target.value;
@@ -345,6 +346,8 @@ const App = () => {
     groupName={groupName}
     låstaNamn={låstaNamn}
     setLåstaNamn={setLåstaNamn}
+    updateFixa={updateFixa}
+    setUpdateFixa={setUpdateFixa}
 
   />;
   const sparningsLösning = <div id='sparaSettings'>
@@ -369,7 +372,14 @@ const App = () => {
       ? ''
       : <button key="raderaKlass" onMouseDown={raderaKlass}>radera klass</button>}
   </div>;
-
+  useEffect( () => {
+   fixa()
+    console.log("fixade")
+  }, [updateFixa] 
+   )
+   useEffect( () => {
+     fixa(); 
+   })
   return (
     <div className="App">
       <div className='gridInstallning'>
