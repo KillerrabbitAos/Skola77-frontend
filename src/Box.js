@@ -47,6 +47,16 @@ const Box = ({ position, groupName, setLåstaNamn, låstaNamn, boxes, showBorder
   const handleRemoveBox = () =>{
       setIsFilled(false);
       setFilledBoxes((prevFilledBoxes) => prevFilledBoxes.filter((boxId) => boxId !== id));
+      const newBoxNames = []
+      for (let i = 0; i < boxNames.length; i++) {
+        if (!boxNames[i].key === id){
+          newBoxNames.push(boxNames[i])
+        }
+      }
+      setBoxNames(newBoxNames)
+      if (boxNames = []){
+        setBoxNames('tom')
+      }
   }
   const handleDragStart = (e) => {
     const idInfo = { ny: id, original: originalid };

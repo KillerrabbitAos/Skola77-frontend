@@ -152,7 +152,7 @@ const Grid = ({ rows, fixa, columns, updateFixa, setUpdateFixa, knappStatus, set
             låstaNamn={låstaNamn}
             setLåstaNamn={setLåstaNamn}
             showBorders={showBorders}
-
+          setBoxNames={setBoxNames}
           />
         </div>
       );
