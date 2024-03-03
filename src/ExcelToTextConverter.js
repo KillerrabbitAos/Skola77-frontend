@@ -23,7 +23,8 @@ const ExcelToTextConverter = ({ setNames, names }) => {
 
           const newNames = (textData.filter((text) => text !== undefined));
           const combinedNames = names.concat(newNames)
-          setNames(combinedNames)
+          const prevNames = names
+          setNames([...prevNames, ...combinedNames]);
         } catch (error) {
           console.error('Error parsing Excel data:', error);
         }
