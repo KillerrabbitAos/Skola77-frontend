@@ -57,7 +57,10 @@ const Box = ({ position, groupName, setLåstaNamn, låstaNamn, boxes, showBorder
         }
       }
       setBoxNames(newBoxNames)
-    
+      if (newBoxNames == []){
+        console.log("rem")
+        setBoxNames('tom')
+      }
   }
   const handleDragStart = (e) => {
     const idInfo = { ny: id, original: originalid };
