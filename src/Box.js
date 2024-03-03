@@ -49,14 +49,15 @@ const Box = ({ position, groupName, setLåstaNamn, låstaNamn, boxes, showBorder
       setFilledBoxes((prevFilledBoxes) => prevFilledBoxes.filter((boxId) => boxId !== id));
       const newBoxNames = []
       for (let i = 0; i < boxNames.length; i++) {
-        if (!boxNames[i].key === id){
+        if (JSON.parse(JSON.stringify(boxNames[i].key)) !== (JSON.parse(JSON.stringify(id)))){
           newBoxNames.push(boxNames[i])
+        }
+        else{
+          console.log(JSON.parse(JSON.stringify(boxNames[i].key)) + ' är inte lika med ' + (JSON.parse(JSON.stringify(i))))
         }
       }
       setBoxNames(newBoxNames)
-      if (boxNames = []){
-        setBoxNames('tom')
-      }
+    
   }
   const handleDragStart = (e) => {
     const idInfo = { ny: id, original: originalid };
