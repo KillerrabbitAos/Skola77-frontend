@@ -412,3 +412,8 @@ animation-fill-mode: none;
 .box.filled.låst{
   background-color: black;
 }
+
+.boxNamn{
+  height: 50%;
+  top: 50%;
+}

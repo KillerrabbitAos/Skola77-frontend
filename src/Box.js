@@ -109,12 +109,15 @@ return (
         {isFilled && (
           <button className='låsKnappBox' style={{ visibility: showBorders ? 'visible' : 'hidden' }} onClick={handleLåsaNamn}>{låstaNamn.includes(id) ? <IoIosLock /> : <IoIosUnlock />}</button>
         )}
-        {isFilled && (
+        
+      </div>
+      <div className='boxNamn'>
+      {isFilled && (
           <span id={id} className={'name'} data-originalid={originalid}>
             {groupName === 'schack' ? nameValue.split(";")[1] : nameValue}
           </span>
         )}
-      </div>
+        </div>
     </div>
   );
 };
