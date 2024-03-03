@@ -158,11 +158,11 @@ const App = () => {
 
   function applyFontSizesToClass(className) {
     const elements = document.getElementsByClassName(className);
-
+    
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i];
       const container = element.parentElement;
-
+      
       fitTextToContainer(container, element);
     }
   }
@@ -258,6 +258,19 @@ const App = () => {
   };
   const fixa = () => {
     applyFontSizesToClass('name');
+    //const elements = document.getElementsByClassName('namnTxt')
+    //for (let i = 0; i < elements.length; i++) {
+      //const element = elements[i];
+     // console.log(element)
+     // const container = element.parentElement;
+     // const containerWidth = container.clientWidth;
+      //const elementWidth = element.offsetWidth;
+     // console.log(elementWidth)
+     // console.log(containerWidth)
+     // if (elementWidth > containerWidth){
+     //// fitTextToContainer(container, element);
+     // }
+   // }
   }
   const firstConstantFunction = async () => {
     const namesList = names

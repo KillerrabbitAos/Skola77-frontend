@@ -31,7 +31,7 @@ return(
         <div id={originalIndex} draggable="true" onDragStart={handleDragStart} className={`namnILista ${låstaNamn.includes(originalIndex) ? 'låst' : 'upplåst'}`}>    
         <div className='grå'></div>
         <button className="bin" onClick={() => handleRemoveName(originalIndex)}><RiDeleteBin6Line /></button>
-   <p>{name}</p>
+   <div style={{width: '134px', display: 'contents'}} className='namnTxt'><span>{name}</span></div>
    <button className='låsKnapp' onClick={handleLåsaNamn}>{låstaNamn.includes(originalIndex) ? <IoIosLock /> : <IoIosUnlock />}</button> 
     </div>
     </li>

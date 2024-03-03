@@ -338,7 +338,9 @@ border-radius: 5px;
 }
 .namnILista.upplåst{
 
-  p{display: contents;
+  span {
+    
+    display: contents;
   font-weight: bolder;
   color: black;
   }
@@ -361,7 +363,7 @@ border-radius: 5px;
   }
 }
 .namnILista.låst{
-    p{display: contents;
+    span {display: contents;
     font-weight: bolder;
     color: gray;}
     button{
