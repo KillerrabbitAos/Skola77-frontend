@@ -51,6 +51,7 @@
 .box {
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
 .box.filled {
@@ -63,8 +64,9 @@
   bottom: -100%;
   transform: translate(-50%, -50%);
   margin: 0 auto;
-  color: black
-
+  color: black;
+  position: absolute;
+  white-space: nowrap;
 }
 
 .gridInstallning {
@@ -410,8 +412,3 @@ animation-fill-mode: none;
 .box.filled.låst{
   background-color: black;
 }
-
-#placeringsTitel{
-  visibility: v;
-}
-

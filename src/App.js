@@ -76,16 +76,25 @@ const App = () => {
   const [låstaNamn, setLåstaNamn] = useState([])
   const [updateFixa, setUpdateFixa] = useState(false)
 
+
+  useEffect(() => {
+    fixa();
+  }, [cellSize]);
+
+
+
   const handleRowsInputChange = (e) => {
     const value = e.target.value;
     setRowsInput(value);
     setRows(isNaN(value) || value === '' ? 0 : parseInt(value, 10));
+    fixa()
   };
 
   const handleColumnsInputChange = (e) => {
     const value = e.target.value;
     setColumnsInput(value);
     setColumns(isNaN(value) || value === '' ? 0 : parseInt(value, 10));
+    fixa()
   };
 
   const ändraPerspektiv = () => {
