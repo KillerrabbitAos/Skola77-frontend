@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { IoIosLock } from "react-icons/io";
 import { IoIosUnlock } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { ImUnlocked } from "react-icons/im";
+import { ImLock } from "react-icons/im";
 
 function findValueByKey(list, key) {
   if (list === 'tom') {
@@ -111,11 +113,11 @@ return (
           <button className="låsKnappBox" style={{visibility: showBorders ? 'visible' : 'hidden'}}  onClick={handleRemoveBox}><RiDeleteBin6Line /></button>
         )}
         {isFilled && (
-          <button className='låsKnappBox' style={{ visibility: showBorders ? 'visible' : 'hidden' }} onClick={handleLåsaNamn}>{låstaNamn.includes(id) ? <IoIosLock /> : <IoIosUnlock />}</button>
+          <button className='låsKnappBox' style={{ visibility: showBorders ? 'visible' : 'hidden' }} onClick={handleLåsaNamn}>{låstaNamn.includes(id) ? <ImLock /> : <ImUnlocked />}</button>
         )}
         
       </div>
-      <div className='boxNamn'>
+      <div className={`boxNamn ${låstaNamn.includes(id) ? 'låstBoxNamn' : ''} ${nameValue ? '' : 'tom'}`}>
       {isFilled && (
           <span id={id} className={'name'} data-originalid={originalid}>
             {groupName === 'schack' ? nameValue.split(";")[1] : nameValue}
