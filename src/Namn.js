@@ -1,7 +1,7 @@
 import React from 'react';
 import Namn from './ettNamn';
-const NameList = ({ names, handleRemoveName, låstaNamn, setLåstaNamn }) => {
-  const rader = (window.screen.width/260).toFixed(0)
+const NameList = ({ names, handleRemoveName, låstaNamn, setLåstaNamn, namnRader}) => {
+  const rader = namnRader
   const namesDeepCopy = JSON.parse(JSON.stringify(names));
   var newNames = namesDeepCopy
   var namesWithIndex = (newNames.map((name, index) => ({ name, originalIndex: index})))

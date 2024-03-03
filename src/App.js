@@ -75,13 +75,18 @@ const App = () => {
   const [knappStatus, setKnappStatus] = useState(true);
   const [låstaNamn, setLåstaNamn] = useState([])
   const [updateFixa, setUpdateFixa] = useState(false)
-
-
+  const [namnRader, setNamnRader] = useState((window.screen.width/260).toFixed(0))
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [windowHeight, setWindowHeight] = useState(0);
+  let resizeWindow = () => {
+    setWindowWidth(window.innerWidth);
+    setWindowHeight(window.innerHeight);
+  };
   useEffect(() => {
     fixa();
   }, [cellSize]);
 
-
+  
 
   const handleRowsInputChange = (e) => {
     const value = e.target.value;
@@ -389,8 +394,20 @@ const App = () => {
    useEffect( () => {
      fixa(); 
    })
+   
+   useEffect( () => {
+    window.addEventListener("resize", resizeWindow);
+    return () => window.removeEventListener("resize", resizeWindow);
+  }, []);
+    useEffect(()=> {
+      setNamnRader((document.getElementById('bräddMått').getBoundingClientRect().width/260).toFixed(0))
+      while (!document.getElementById('bräddMått').getBoundingClientRect().width){
+      setNamnRader(document.getElementById('bräddMått').getBoundingClientRect().width/260).toFixed(0)
+    }
+    }, [windowWidth])
   return (
     <div className="App">
+      <div id='bräddMått'></div>
       <div className='gridInstallning'>
         <label>Rader:</label>
         <input type="number" max="50" value={rowsInput} onChange={handleRowsInputChange} />
@@ -454,6 +471,7 @@ const App = () => {
             setBoxNames={setBoxNames}
             låstaNamn={låstaNamn}
             setLåstaNamn={setLåstaNamn}
+            namnRader={namnRader}
           ></NameList>
         </div>
       </div>
