@@ -23,6 +23,12 @@
   }
 }
 
+body{
+  -webkit-print-color-adjust:exact !important;
+  print-color-adjust:exact !important;
+}
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -309,14 +315,15 @@ button:hover {
     box-shadow: none; /* Tar bort skuggan för en renare utskrift */
   }
 
-  .box.filled {
-    background-color: gray;
-    visibility: visible;
-
-}
-
   #placeringsTitel{
     visibility: visible !important;
+  }
+
+  .låsKnappBox{
+
+
+    display: none;
+
   }
 
 }
