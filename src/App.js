@@ -93,15 +93,9 @@ const App = () => {
     setWindowHeight(window.innerHeight);
   };
   useEffect(() => {
-
-    
-
     fixa();
-  }, [cellSize]);
-
-  useEffect(() => {
     ReactGA.pageview(location.pathname + location.search);
-  }, [location]);
+  }, [cellSize, [location]]);
 
   const handleRowsInputChange = (e) => {
     const value = e.target.value;
