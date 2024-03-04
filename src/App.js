@@ -14,13 +14,11 @@ import backImg from './back.png';
 import schackBräde from './schackVärden.js'
 import ReactGA from 'react-ga';
 // Initialize React Ga with your tracking ID
-ReactGA.initialize('YOUR_TRACKING_ID');
+ReactGA.initialize('G-G4DX7V6DCL');
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
-
-G-G4DX7V6DCL
 
 
 function compressData(data) {
