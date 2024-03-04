@@ -222,7 +222,7 @@ button:hover {
   cursor: pointer;
 }
 #slumpaDiv{
-  width: 200px;
+  width: 150px;
   margin: auto;
 }
 
@@ -235,7 +235,7 @@ button:hover {
   background-image: url(perspektiv.png);
   background-repeat: no-repeat;
   background-position: center;
-  height: 55px;
+  height: 50px;
 }
 
 #meny{

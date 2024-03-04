@@ -444,8 +444,6 @@ const App = () => {
         {grid}
         <div id='meny'>
         <div id='redigeringsDiv' className='menySaker'>
-      <button id="redigeringsKnapp" onClick={fixa}></button>
-      <label id='redigeringsLabel' htmlFor='redigeringsKnapp'>fixa</label>
       </div>
       <div id="klarDiv" className='menySaker'>
       <button
