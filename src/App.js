@@ -16,7 +16,6 @@ import ReactGA from 'react-ga';
 // Initialize React Ga with your tracking ID
 ReactGA.initialize('G-G4DX7V6DCL');
 import { useLocation } from 'react-router-dom';
-import ReactGA from 'react-ga';
 
 
 
