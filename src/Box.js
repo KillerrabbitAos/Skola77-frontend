@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { IoIosLock } from "react-icons/io";
 import { IoIosUnlock } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { ImUnlocked } from "react-icons/im";
+import { ImLock } from "react-icons/im";
 
 function findValueByKey(list, key) {
   if (list === 'tom') {
@@ -49,12 +51,16 @@ const Box = ({ position, groupName, setLåstaNamn, låstaNamn, boxes, showBorder
       setFilledBoxes((prevFilledBoxes) => prevFilledBoxes.filter((boxId) => boxId !== id));
       const newBoxNames = []
       for (let i = 0; i < boxNames.length; i++) {
-        if (!boxNames[i].key === id){
+        if (JSON.parse(JSON.stringify(boxNames[i].key)) !== (JSON.parse(JSON.stringify(id)))){
           newBoxNames.push(boxNames[i])
+        }
+        else{
+          console.log(JSON.parse(JSON.stringify(boxNames[i].key)) + ' är inte lika med ' + (JSON.parse(JSON.stringify(i))))
         }
       }
       setBoxNames(newBoxNames)
-      if (boxNames = []){
+      if (newBoxNames == []){
+        console.log("rem")
         setBoxNames('tom')
       }
   }
@@ -107,11 +113,11 @@ return (
           <button className="låsKnappBox" style={{visibility: showBorders ? 'visible' : 'hidden'}}  onClick={handleRemoveBox}><RiDeleteBin6Line /></button>
         )}
         {isFilled && (
-          <button className='låsKnappBox' style={{ visibility: showBorders ? 'visible' : 'hidden' }} onClick={handleLåsaNamn}>{låstaNamn.includes(id) ? <IoIosLock /> : <IoIosUnlock />}</button>
+          <button className='låsKnappBox' style={{ visibility: showBorders ? 'visible' : 'hidden' }} onClick={handleLåsaNamn}>{låstaNamn.includes(id) ? <ImLock /> : <ImUnlocked />}</button>
         )}
         
       </div>
-      <div className='boxNamn'>
+      <div className={`boxNamn ${låstaNamn.includes(id) ? 'låstBoxNamn' : ''} ${nameValue ? '' : 'tom'}`}>
       {isFilled && (
           <span id={id} className={'name'} data-originalid={originalid}>
             {groupName === 'schack' ? nameValue.split(";")[1] : nameValue}
