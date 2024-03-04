@@ -12,6 +12,16 @@ import { papperskorg } from './papperskorg';
 import doneImg from './done.svg';
 import backImg from './back.png';
 import schackBräde from './schackVärden.js'
+import ReactGA from 'react-ga';
+// Initialize React Ga with your tracking ID
+ReactGA.initialize('YOUR_TRACKING_ID');
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import ReactGA from 'react-ga';
+
+
+G-G4DX7V6DCL
+
 
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
@@ -78,15 +88,22 @@ const App = () => {
   const [namnRader, setNamnRader] = useState((window.screen.width/260).toFixed(0))
   const [windowWidth, setWindowWidth] = useState(0);
   const [windowHeight, setWindowHeight] = useState(0);
+  const location = useLocation();
+
   let resizeWindow = () => {
     setWindowWidth(window.innerWidth);
     setWindowHeight(window.innerHeight);
   };
   useEffect(() => {
+
+    
+
     fixa();
   }, [cellSize]);
 
-  
+  useEffect(() => {
+    ReactGA.pageview(location.pathname + location.search);
+  }, [location]);
 
   const handleRowsInputChange = (e) => {
     const value = e.target.value;
@@ -418,7 +435,16 @@ const App = () => {
       setNamnRader(document.getElementById('bräddMått').getBoundingClientRect().width/260).toFixed(0)
     }
     }, [windowWidth])
+
+
+
   return (
+
+
+
+    
+
+
     <div className="App">
       <div id='bräddMått'></div>
       <div className='gridInstallning'>
