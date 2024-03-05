@@ -20,6 +20,9 @@ const Box = ({ position, groupName, setLåstaNamn, contextMenu, setContextMenu, 
   const [nameValue, setNameValue] = useState('tom');
   const [färg, setFärg] = useState(null)
   const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
+  const namesDeepCopy = JSON.parse(JSON.stringify(names));
+  var newNames = namesDeepCopy
+  var namesWithIndex = (newNames.map((name, index) => ({ name, originalIndex: index})))
 const setShowContextMenu = (bool) => {
     const newContextMenu = []
   if (bool){
@@ -37,7 +40,9 @@ const setShowContextMenu = (bool) => {
 
   }
 }
-
+const sortedNames = namesWithIndex.sort((a, b) => a.name.localeCompare(b.name)).filter(function(item) {
+  return item.name !== ""
+})
   const handleLåsaNamn = () => {
     if (!låstaNamn.includes(id)){
     setLåstaNamn((prevLåstaNamn) => [...prevLåstaNamn, id])
@@ -184,8 +189,22 @@ return (
         border: '1px solid #ddd',
         borderRadius: '5px',
         boxShadow: '0 2px 5px rgba(0,0,0,0.2)' }}>
-          {names.map((name) => (
-            <li key={name} onClick={() => {/* Implement your logic for when a name is clicked, possibly using a function that handles this logic and passes the name or other data as argument */}}>
+          {sortedNames.map(({name, originalIndex}, index) => (
+            <li className='högerKlick' key={name} onClick={() => {
+              const newBoxNames = []
+              for (let i = 0; i < boxNames.length; i++) {
+                if (boxNames[i].key != id) {
+                  newBoxNames.push(boxNames[i])
+                }
+              }
+              const key = id
+              const value = originalIndex
+              newBoxNames.push({ key, value })
+              if (!filledBoxes.includes(id)) {
+                setFilledBoxes([...filledBoxes, id]);
+              }
+              setBoxNames(newBoxNames)
+              return;}}>
               {name}
             </li>
           ))}
