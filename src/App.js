@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Grid from './Grid';
-import html2pdf from 'html2pdf.js';
 import Cookies from 'js-cookie';
 import ExcelToTextConverter from './ExcelToTextConverter';
 import generateCombinedList from './CombinedListGenerator';
@@ -192,21 +191,6 @@ const App = () => {
   };
 
 
-
-
-  const handleExportToPDF = () => {
-    document.getElementById("klar").style.visibility = "hidden";
-    const gridContainer = document.getElementById('gridPdfSak');
-
-    if (gridContainer) {
-      const pdfConfig = {
-        filename: 'skola77-placering.pdf',
-        jsPDF: { unit: 'in', format: 'A4', orientation: 'landscape' }
-      };
-
-      html2pdf(gridContainer, pdfConfig);
-    }
-  };
   const handleRemoveName = (index) => {
 
     console.log(index)
