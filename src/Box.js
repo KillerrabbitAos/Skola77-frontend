@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoIosLock } from "react-icons/io";
 import { IoIosUnlock } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -14,17 +14,29 @@ function findValueByKey(list, key) {
   }
 }
 
-let openContextMenuId = null;
 
-const Box = ({ position, groupName, setLåstaNamn, låstaNamn, boxes, showBorders, setBoxes, fixa, names, bytaPlatser, id, originalid, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
-  const boxRef = useRef(null); // Ref for the box
-  const menuRef = useRef(null);
+const Box = ({ position, groupName, setLåstaNamn, contextMenu, setContextMenu, showContextMenu, låstaNamn, boxes, showBorders, setBoxes, fixa, names, bytaPlatser, id, originalid, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState('tom');
   const [färg, setFärg] = useState(null)
-  const [showContextMenu, setShowContextMenu] = useState(false);
   const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
+const setShowContextMenu = (bool) => {
+    const newContextMenu = []
+  if (bool){
+      newContextMenu.push(id)
+      setContextMenu(newContextMenu)
+    }
+    else{
+      const newContextMenu = []
+      for (let i = 0; i < contextMenu.length; i++){
+        if (contextMenu[i] !== id){
+            newContextMenu.push(låstaNamn[i])
+        }
+        setLåstaNamn(newContextMenu); 
+    }
 
+  }
+}
 
   const handleLåsaNamn = () => {
     if (!låstaNamn.includes(id)){
@@ -47,21 +59,22 @@ const Box = ({ position, groupName, setLåstaNamn, låstaNamn, boxes, showBorder
 
 // Context menu handlers
 const handleContextMenu = (e) => {
-  e.preventDefault(); // Prevent default context menu
-
-  // Check if there's already an open context menu and close it
-  if (openContextMenuId !== null && openContextMenuId !== id) {
-      // Signal the other box to close its menu
-      document.dispatchEvent(new CustomEvent('closeContextMenu', { detail: { boxId: openContextMenuId }}));
-  }
-
-  // Update the tracker with the current box's id
-  openContextMenuId = id;
-
-  // Show the context menu
-  setShowContextMenu(true);
-  setContextMenuPosition({ x: e.clientX, y: e.clientY });
+  e.preventDefault(); // Prevent default right-click menu
+  setShowContextMenu(true); // Show custom context menu
+  // Set position for the context menu
+  setContextMenuPosition({
+    x: e.clientX,
+    y: e.clientY
+  });
 };
+
+const handleClick = (e) => {
+  // Hide context menu when clicking anywhere else
+  if (showContextMenu) {
+    setShowContextMenu(false);
+  }
+};
+
 
 
   const handleBoxClick = (e) => {
@@ -128,30 +141,13 @@ useEffect(() => {
 }, [boxNames, setNameValue, id, filledBoxes, isFilled, names]);
 
 useEffect(() => {
-  const closeMenuListener = (event) => {
-      // Check if the close event is for this box
-      if (event.detail.boxId !== id) {
-          setShowContextMenu(false);
-      }
-  };
-
-  document.addEventListener('closeContextMenu', closeMenuListener);
-
+  // Listen for clicks to handle hiding the context menu
+  document.addEventListener('click', handleClick);
   return () => {
-      document.removeEventListener('closeContextMenu', closeMenuListener);
+    document.removeEventListener('click', handleClick);
   };
-}, []);
-useEffect(() => {
-  return () => {
-      // If this box had the open context menu, clear the tracker on unmount
-      if (openContextMenuId === id) {
-          openContextMenuId = null;
-      }
-  };
-}, []);
-
+}, [showContextMenu]);
 return (
-  
   <div
     className={`box ${färg ? färg : ''}`}
     onMouseUp={handleBoxClick}
@@ -160,7 +156,6 @@ return (
     id={id}
     data-originalid={originalid}
     style={{ gridArea: position }}
-    ref={boxRef}
     onContextMenu={handleContextMenu}
   >
     <div className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''} ${färg ? färg : ''}  ${låstaNamn.includes(id) && showBorders ? 'låst' : ''}`}>

@@ -418,6 +418,7 @@ const App = () => {
       setNamnRader(document.getElementById('bräddMått').getBoundingClientRect().width/260).toFixed(0)
     }
     }, [windowWidth])
+    
   return (
     <div className="App">
       <div id='bräddMått'></div>
