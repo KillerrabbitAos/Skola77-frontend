@@ -21,18 +21,12 @@ const Box = ({ position, groupName, setLåstaNamn, låstaNamn, boxes, showBorder
   const [färg, setFärg] = useState(null)
 
   const handleLåsaNamn = () => {
-    if (!låstaNamn.includes(id)){
-    setLåstaNamn((prevLåstaNamn) => [...prevLåstaNamn, id])
-  }
-  else{
-    const newLåstaNamn = [] 
-    for (let i = 0; i < låstaNamn.length; i++){
-        if (låstaNamn[i] !== id){
-            newLåstaNamn.push(låstaNamn[i])
-        }
-        setLåstaNamn(newLåstaNamn);
-    }
-  }
+    const isCurrentlyLocked = låstaNamn.includes(id);
+    const updatedLåstaNamn = isCurrentlyLocked
+      ? låstaNamn.filter((lockedId) => lockedId !== id)
+      : [...låstaNamn, id];
+  
+    setLåstaNamn(updatedLåstaNamn);
 }
 
 
@@ -46,24 +40,18 @@ const Box = ({ position, groupName, setLåstaNamn, låstaNamn, boxes, showBorder
       }
     }
   }
-  const handleRemoveBox = () =>{
-      setIsFilled(false);
-      setFilledBoxes((prevFilledBoxes) => prevFilledBoxes.filter((boxId) => boxId !== id));
-      const newBoxNames = []
-      for (let i = 0; i < boxNames.length; i++) {
-        if (JSON.parse(JSON.stringify(boxNames[i].key)) !== (JSON.parse(JSON.stringify(id)))){
-          newBoxNames.push(boxNames[i])
-        }
-        else{
-          console.log(JSON.parse(JSON.stringify(boxNames[i].key)) + ' är inte lika med ' + (JSON.parse(JSON.stringify(i))))
-        }
-      }
-      setBoxNames(newBoxNames)
-      if (newBoxNames == []){
-        console.log("rem")
-        setBoxNames('tom')
-      }
-  }
+  const handleRemoveBox = () => {
+    setIsFilled(false);
+    setFilledBoxes((prevFilledBoxes) => prevFilledBoxes.filter((boxId) => boxId !== id));
+  
+    if (låstaNamn.includes(id)) {
+      setLåstaNamn((prevLåstaNamn) => prevLåstaNamn.filter((lockedId) => lockedId !== id));
+    }
+  
+    const newBoxNames = boxNames.filter((box) => box.key !== id);
+    setBoxNames(newBoxNames.length ? newBoxNames : 'tom');
+  };
+  
   const handleDragStart = (e) => {
     const idInfo = { ny: id, original: originalid };
     e.dataTransfer.setData('boxId', 'ny: ' + id + 'original: ' + originalid);

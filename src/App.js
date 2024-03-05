@@ -17,8 +17,10 @@ function compressData(data) {
 }
 
 function orm() {
+  //bästa funktionen 2024
   alert(orm);
 }
+
 // Function to decompress data retrieved from cookies
 function decompressData(compressedData) {
   return JSON.parse(LZString.decompressFromEncodedURIComponent(compressedData));
@@ -129,6 +131,7 @@ const App = () => {
         cellSize: cellSize,
         fixaCounter: fixaCounter,
         keyChange: keyChange,
+        låstaNamn: låstaNamn,
       });
 
       Cookies.set(`${name}_values`, compressedData, { expires: 365 });
@@ -282,6 +285,8 @@ const App = () => {
       setFilledBoxes([]);
       setCellSize(70);
       setFixaCounter(0);
+      setLåstaNamn([]);
+
     } else {
       var values = schackBräde
       nere = ("Svart")
@@ -308,6 +313,7 @@ const App = () => {
         setGroupName(selectedGroup.replace('_values', ''));
         setUppe(uppe);
         setNere(nere);
+        setLåstaNamn(values.låstaNamn || []);
       } else {
         // Handle the case when values are not available
         console.error(`No values found for group: ${selectedGroup}`);
