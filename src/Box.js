@@ -30,12 +30,11 @@ const setShowContextMenu = (bool) => {
       setContextMenu(newContextMenu)
     }
     else{
-      const newContextMenu = []
       for (let i = 0; i < contextMenu.length; i++){
         if (contextMenu[i] !== id){
             newContextMenu.push(låstaNamn[i])
         }
-        setLåstaNamn(newContextMenu); 
+        setContextMenu(newContextMenu); 
     }
 
   }
@@ -204,6 +203,7 @@ return (
                 setFilledBoxes([...filledBoxes, id]);
               }
               setBoxNames(newBoxNames)
+              setShowContextMenu(false)
               return;}}>
               {name}
             </li>
