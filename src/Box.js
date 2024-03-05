@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { IoIosLock } from "react-icons/io";
 import { IoIosUnlock } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -14,11 +14,17 @@ function findValueByKey(list, key) {
   }
 }
 
+let openContextMenuId = null;
 
 const Box = ({ position, groupName, setLåstaNamn, låstaNamn, boxes, showBorders, setBoxes, fixa, names, bytaPlatser, id, originalid, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
+  const boxRef = useRef(null); // Ref for the box
+  const menuRef = useRef(null);
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState('tom');
   const [färg, setFärg] = useState(null)
+  const [showContextMenu, setShowContextMenu] = useState(false);
+  const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
+
 
   const handleLåsaNamn = () => {
     if (!låstaNamn.includes(id)){
@@ -36,8 +42,30 @@ const Box = ({ position, groupName, setLåstaNamn, låstaNamn, boxes, showBorder
 }
 
 
-  const handleBoxClick = () => {
-    if (!isFilled) {
+
+// Existing useEffect and handlers
+
+// Context menu handlers
+const handleContextMenu = (e) => {
+  e.preventDefault(); // Prevent default context menu
+
+  // Check if there's already an open context menu and close it
+  if (openContextMenuId !== null && openContextMenuId !== id) {
+      // Signal the other box to close its menu
+      document.dispatchEvent(new CustomEvent('closeContextMenu', { detail: { boxId: openContextMenuId }}));
+  }
+
+  // Update the tracker with the current box's id
+  openContextMenuId = id;
+
+  // Show the context menu
+  setShowContextMenu(true);
+  setContextMenuPosition({ x: e.clientX, y: e.clientY });
+};
+
+
+  const handleBoxClick = (e) => {
+    if (e.button === 0 && !isFilled) {
       const newName = 'tom';
       console.log(boxNames[id]);
       if (newName) {
@@ -98,7 +126,32 @@ useEffect(() => {
     isMounted = false;
   };
 }, [boxNames, setNameValue, id, filledBoxes, isFilled, names]);
+
+useEffect(() => {
+  const closeMenuListener = (event) => {
+      // Check if the close event is for this box
+      if (event.detail.boxId !== id) {
+          setShowContextMenu(false);
+      }
+  };
+
+  document.addEventListener('closeContextMenu', closeMenuListener);
+
+  return () => {
+      document.removeEventListener('closeContextMenu', closeMenuListener);
+  };
+}, []);
+useEffect(() => {
+  return () => {
+      // If this box had the open context menu, clear the tracker on unmount
+      if (openContextMenuId === id) {
+          openContextMenuId = null;
+      }
+  };
+}, []);
+
 return (
+  
   <div
     className={`box ${färg ? färg : ''}`}
     onMouseUp={handleBoxClick}
@@ -107,6 +160,8 @@ return (
     id={id}
     data-originalid={originalid}
     style={{ gridArea: position }}
+    ref={boxRef}
+    onContextMenu={handleContextMenu}
   >
     <div className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''} ${färg ? färg : ''}  ${låstaNamn.includes(id) && showBorders ? 'låst' : ''}`}>
       {isFilled && (
@@ -124,7 +179,25 @@ return (
           </span>
         )}
         </div>
+        {showContextMenu && (
+        <ul className="custom-context-menu" style={{ position: 'fixed', // Use 'fixed' for positioning based on viewport
+        top: contextMenuPosition.y,
+        left: contextMenuPosition.x,
+        listStyle: 'none',
+        padding: '10px',
+        backgroundColor: 'white',
+        border: '1px solid #ddd',
+        borderRadius: '5px',
+        boxShadow: '0 2px 5px rgba(0,0,0,0.2)' }}>
+          {names.map((name) => (
+            <li key={name} onClick={() => {/* Implement your logic for when a name is clicked, possibly using a function that handles this logic and passes the name or other data as argument */}}>
+              {name}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
+    
   );
 };
 
