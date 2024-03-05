@@ -389,9 +389,9 @@ const App = () => {
 
       {Object.keys(Cookies.get()).length > 0 &&
         Object.keys(Cookies.get()).map((cookieName) => (
-          <option id={cookieName} key={cookieName} value={cookieName}>
+          cookieName.startsWith("_a") ? '' : (<option id={cookieName} key={cookieName} value={cookieName}>
             {cookieName.replace('_values', '')}
-          </option>
+          </option>)
         ))}
 
     </select>
