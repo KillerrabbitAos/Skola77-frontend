@@ -22,7 +22,6 @@ const Box = ({ position, groupName, setLåstaNamn, contextMenu, setContextMenu, 
   const [färg, setFärg] = useState(null)
   const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
   const namesDeepCopy = JSON.parse(JSON.stringify(names));
-  const [test, setTest] = useState(true)
   var newNames = namesDeepCopy
   var namesWithIndex = (newNames.map((name, index) => ({ name, originalIndex: index})))
 const setShowContextMenu = (bool) => {
@@ -81,7 +80,7 @@ const handleContextMenu = (e) => {
 
 const handleClick = (e) => {
   // Hide context menu when clicking anywhere else
-  if (showContextMenu && !test) {
+  if (showContextMenu && !isTablet) {
     setShowContextMenu(false)
   }
 };
@@ -176,22 +175,22 @@ return (
         {isFilled && (
           <button className='låsKnappBox' style={{ visibility: showBorders ? 'visible' : 'hidden' }} onClick={handleLåsaNamn}>{låstaNamn.includes(id) ? <ImLock /> : <ImUnlocked />}</button>
         )}
-        {isFilled && (
+        {(isFilled && isTablet) &&(
           <button onClick={ipadContext} style={{ visibility: showBorders ? 'visible' : 'hidden', color: 'black' }} className='låsKnappBox'><ImUnlocked /></button>
         )}
         
       </div>
       <div className={`boxNamn ${låstaNamn.includes(id) ? 'låstBoxNamn' : ''} ${nameValue ? '' : 'tom'}`}>
-      {isFilled && (
+      {(isFilled) && (
           <span id={id} className={'name'} data-originalid={originalid}>
             {groupName === 'schack' ? nameValue.split(";")[1] : nameValue}
           </span>
         )}
         </div>
         {showContextMenu && (
-        <ul className="custom-context-menu" style={{ position: { test ? 'relative' : 'fixed'}, // Use 'fixed' for positioning based on viewport
-        { test && (top: 'contextMenuPosition.y',
-        left: 'contextMenuPosition.x')},
+        <ul className="custom-context-menu" style={{ position:  isTablet ? 'relative' : 'fixed', // Use 'fixed' for positioning based on viewport
+        top: isTablet ? 'contextMenuPosition.y' : '50%',
+        left: isTablet ? 'contextMenuPosition.x' : '50%',
         listStyle: 'none',
         padding: '10px',
         backgroundColor: 'white',
