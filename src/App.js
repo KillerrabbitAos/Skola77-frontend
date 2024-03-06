@@ -85,6 +85,8 @@ const App = () => {
   const [namnRader, setNamnRader] = useState((window.screen.width/260).toFixed(0))
   const [windowWidth, setWindowWidth] = useState(0);
   const [windowHeight, setWindowHeight] = useState(0);
+  const [showSavedMessage, setShowSavedMessage] = useState(false);
+
   let resizeWindow = () => {
     setWindowWidth(window.innerWidth);
     setWindowHeight(window.innerHeight);
@@ -122,11 +124,60 @@ const App = () => {
   }
 
   const handleSaveButtonClick = async () => {
+
+    if (groupName !== defaultGroup) {
+      const compressedData = compressData({
+        rows,
+        columns,
+        boxes,
+        names,
+        boxNames,
+        filledBoxes,
+        cellSize,
+        fixaCounter,
+        keyChange,
+        låstaNamn,
+      });
+  
+      Cookies.set(`${groupName}_values`, compressedData, { expires: 365 });
+  
+      setShowSavedMessage(true);
+      setTimeout(() => {
+        setShowSavedMessage(false);
+      }, 2000);
+    } else {
+      const name = prompt('Döp din klass: ');
+      if (name) {
+        setGroupName(name);
+  
+        const compressedData = compressData({
+          rows,
+          columns,
+          boxes,
+          names,
+          boxNames,
+          filledBoxes,
+          cellSize,
+          fixaCounter,
+          keyChange,
+          låstaNamn,
+        });
+  
+        Cookies.set(`${name}_values`, compressedData, { expires: 365 });
+        await new Promise(resolve => setTimeout(resolve, 100));
+  
+        document.getElementById(`${name}_values`).selected = true;
+      }
+    }
+  };
+  
+
+
+  const sparaSomNy = async () => {
     const name = prompt('Döp din klass: ');
     if (name) {
       setGroupName(name);
 
-      // Sparar värden i cookie
       const compressedData = compressData({
         rows: rows,
         columns: columns,
@@ -147,6 +198,8 @@ const App = () => {
     }
 
   }
+  
+
 
 
   const raderaKlass = () => {
@@ -403,6 +456,9 @@ const App = () => {
 
   />;
   const sparningsLösning = <div id='sparaSettings'>
+
+    {showSavedMessage && <div><b>Sparat!</b></div>}
+
     <button onClick={handleSaveButtonClick} className='spara' id='sparaKnapp'></button>
     <label htmlFor="sparaKnapp">Spara!</label>
 
@@ -423,6 +479,10 @@ const App = () => {
     {(groupName === defaultGroup)
       ? ''
       : <button key="raderaKlass" onMouseDown={raderaKlass}>radera klass</button>}
+
+    {(groupName === defaultGroup)
+      ? ''
+      : <button onMouseDown={sparaSomNy}>Spara som ny</button>}
   </div>;
   useEffect( () => {
    fixa()
