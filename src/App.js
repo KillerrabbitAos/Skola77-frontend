@@ -26,7 +26,7 @@ function decompressData(compressedData) {
   return JSON.parse(LZString.decompressFromEncodedURIComponent(compressedData));
 }
 
-function fitTextToContainer(container, element) {
+function fitTextToContainer(container, element, maxFontSizePx) {
   for (let i = 0; i < 20; i++) {
     const containerWidth = container.clientWidth;
     const containerHeight = container.clientHeight;
@@ -39,15 +39,21 @@ function fitTextToContainer(container, element) {
     const minScale = Math.min(widthScale, heightScale);
 
     const currentFontSize = window.getComputedStyle(element).fontSize;
-    const newFontSize = parseFloat(currentFontSize) * minScale;
+    let newFontSize = parseFloat(currentFontSize) * minScale;
+
+    newFontSize = Math.min(newFontSize, maxFontSizePx);
 
     element.style.fontSize = newFontSize + 'px';
 
-    const offsetX = (containerWidth - elementWidth * minScale) / 2;
-    const offsetY = (containerHeight - elementHeight * minScale) / 2;
+    const scaledElementWidth = element.offsetWidth * minScale;
+    const scaledElementHeight = element.offsetHeight * minScale;
+
+    const offsetX = (containerWidth - scaledElementWidth) / 2;
+    const offsetY = (containerHeight - scaledElementHeight) / 2;
     element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
   }
 }
+
 
 
 const App = () => {
@@ -165,7 +171,7 @@ const App = () => {
       const element = elements[i];
       const container = element.parentElement;
       
-      fitTextToContainer(container, element);
+      fitTextToContainer(container, element, 25);
     }
   }
 
