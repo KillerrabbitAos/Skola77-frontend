@@ -188,9 +188,9 @@ return (
         )}
         </div>
         {showContextMenu && (
-        <ul className="custom-context-menu" style={{ position:  isTablet ? 'relative' : 'fixed', // Use 'fixed' for positioning based on viewport
-        top: isTablet ? 'contextMenuPosition.y' : '50%',
-        left: isTablet ? 'contextMenuPosition.x' : '50%',
+        <ul className="custom-context-menu" style={{ position:  (isTablet ? 'fixed' : 'relative'), // Use 'fixed' for positioning based on viewport
+        top: isTablet ? '50%' : 'contextMenuPosition.y',
+        left: isTablet ? '50%' : 'contextMenuPosition.x',
         listStyle: 'none',
         padding: '10px',
         backgroundColor: 'white',
