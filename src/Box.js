@@ -136,6 +136,7 @@ const handleClick = (e) => {
   }
 }, [boxNames, setNameValue, id, filledBoxes]);
 useEffect(() => {
+  fixa();
   let isMounted = true;
 
   if (isMounted) {
