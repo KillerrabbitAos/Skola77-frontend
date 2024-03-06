@@ -4,6 +4,7 @@ import { IoIosUnlock } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { ImUnlocked } from "react-icons/im";
 import { ImLock } from "react-icons/im";
+import { isTablet } from 'react-device-detect';
 
 function findValueByKey(list, key) {
   if (list === 'tom') {
@@ -21,10 +22,12 @@ const Box = ({ position, groupName, setLåstaNamn, contextMenu, setContextMenu, 
   const [färg, setFärg] = useState(null)
   const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
   const namesDeepCopy = JSON.parse(JSON.stringify(names));
+  const [test, setTest] = useState(true)
   var newNames = namesDeepCopy
   var namesWithIndex = (newNames.map((name, index) => ({ name, originalIndex: index})))
 const setShowContextMenu = (bool) => {
     const newContextMenu = []
+    console.log("context")
   if (bool){
       newContextMenu.push(id)
       setContextMenu(newContextMenu)
@@ -57,7 +60,11 @@ const sortedNames = namesWithIndex.sort((a, b) => a.name.localeCompare(b.name)).
   }
 }
 
-
+const ipadContext = () => {
+  const newContextMenu = []
+            newContextMenu.push(id)
+      setShowContextMenu(newContextMenu)
+}
 
 // Existing useEffect and handlers
 
@@ -74,8 +81,8 @@ const handleContextMenu = (e) => {
 
 const handleClick = (e) => {
   // Hide context menu when clicking anywhere else
-  if (showContextMenu) {
-    setShowContextMenu(false);
+  if (showContextMenu && !test) {
+    setShowContextMenu(false)
   }
 };
 
@@ -96,7 +103,7 @@ const handleClick = (e) => {
       setFilledBoxes((prevFilledBoxes) => prevFilledBoxes.filter((boxId) => boxId !== id));
       const newBoxNames = []
       for (let i = 0; i < boxNames.length; i++) {
-        if (JSON.parse(JSON.stringify(boxNames[i].key)) !== (JSON.parse(JSON.stringify(id)))){
+        if (boxNames[i].key !== id){
           newBoxNames.push(boxNames[i])
         }
         else{
@@ -169,6 +176,9 @@ return (
         {isFilled && (
           <button className='låsKnappBox' style={{ visibility: showBorders ? 'visible' : 'hidden' }} onClick={handleLåsaNamn}>{låstaNamn.includes(id) ? <ImLock /> : <ImUnlocked />}</button>
         )}
+        {isFilled && (
+          <button onClick={ipadContext} style={{ visibility: showBorders ? 'visible' : 'hidden', color: 'black' }} className='låsKnappBox'><ImUnlocked /></button>
+        )}
         
       </div>
       <div className={`boxNamn ${låstaNamn.includes(id) ? 'låstBoxNamn' : ''} ${nameValue ? '' : 'tom'}`}>
@@ -179,9 +189,9 @@ return (
         )}
         </div>
         {showContextMenu && (
-        <ul className="custom-context-menu" style={{ position: 'fixed', // Use 'fixed' for positioning based on viewport
-        top: contextMenuPosition.y,
-        left: contextMenuPosition.x,
+        <ul className="custom-context-menu" style={{ position: { test ? 'relative' : 'fixed'}, // Use 'fixed' for positioning based on viewport
+        { test && (top: 'contextMenuPosition.y',
+        left: 'contextMenuPosition.x')},
         listStyle: 'none',
         padding: '10px',
         backgroundColor: 'white',
