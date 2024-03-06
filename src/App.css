@@ -442,3 +442,31 @@ animation-fill-mode: none;
   rgba(0, 0, 0, 0.3) 20px
 )
 }
+
+.storkleksÄndring{
+  margin: 40px;
+  display: flex;
+}
+
+#ökaStorlek{
+  background-image: url(plus.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 60px;
+
+}
+
+#minskaStorlek{
+  background-image: url(minus.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 60px;
+}
+
+.ökaStorlekDiv{
+  width: 150px;
+}
+
+.minskaStorlekDiv{
+  width: 150px;
+}

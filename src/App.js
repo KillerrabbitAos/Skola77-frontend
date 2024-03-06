@@ -243,6 +243,35 @@ const App = () => {
     setEditingMode(!editingMode);
 
   };
+
+
+  const ökaStorlek = () => {
+
+    if (cellSize >= 150){
+      console.log("för stor:" + cellSize);
+
+      return;
+    }
+
+    setCellSize(cellSize + 10);
+    console.log(cellSize);
+
+  }
+
+  const minskaStorlek = () => {
+
+
+    if (cellSize <= 60){
+
+      console.log("för liten:" + cellSize);
+      return;
+    }
+
+    setCellSize(cellSize - 10);
+    console.log(cellSize);
+  }
+
+
   const fixa = () => {
     applyFontSizesToClass('name');
     //const elements = document.getElementsByClassName('namnTxt')
@@ -416,8 +445,25 @@ const App = () => {
         <input type="number" max="50" value={rowsInput} onChange={handleRowsInputChange} />
         <label>Kolumner:</label>
         <input type="number" max="50" value={columnsInput} onChange={handleColumnsInputChange} />
-        <label>Storlek:</label>
-        <input type="number" label="Rutstorlek: " value={cellSize} max="300" onChange={(e) => setCellSize(Math.max(0, Math.min(e.target.value, 300)))} />
+
+        <div className='storkleksÄndring'>
+
+
+        <div className='ökaStorlekDiv'>
+        <button onClick={ökaStorlek} id='ökaStorlek' className='grönaKnappar'></button>
+        <label htmlFor='ökaStorlek'>Öka Storlek</label>
+        </div>
+
+
+        <div className='minskaStorlekDiv'>
+        <button onClick={minskaStorlek} id='minskaStorlek'></button>
+        <label htmlFor='minskaStorlek'>Minska storlek</label>
+        </div>
+
+
+        </div>
+
+
       </div>
 
       {sparningsLösning}
