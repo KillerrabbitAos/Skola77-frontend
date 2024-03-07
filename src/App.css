@@ -470,3 +470,25 @@ animation-fill-mode: none;
 .minskaStorlekDiv{
   width: 150px;
 }
+
+.sparaKnappar{
+  margin-top: 30px;
+  display: flex;
+  width: 360px;
+}
+
+.sparaKnappar button{
+  height: 45px;
+}
+
+#raderaKlass{
+  background-image: url(taBort.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#sparaSomNy{
+  background-image: url(sparaSom.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}

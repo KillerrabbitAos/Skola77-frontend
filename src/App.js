@@ -476,13 +476,37 @@ const App = () => {
         ))}
 
     </select>
-    {(groupName === defaultGroup)
-      ? ''
-      : <button key="raderaKlass" onMouseDown={raderaKlass}>radera klass</button>}
 
-    {(groupName === defaultGroup)
-      ? ''
-      : <button onMouseDown={sparaSomNy}>Spara som ny</button>}
+
+    <div className='sparaKnappar'>
+
+    {
+  (groupName === defaultGroup)
+    ? ''
+    : (
+      <div className='raderaKlassDiv'>
+        <button onMouseDown={raderaKlass} id='raderaKlass'></button>
+        <label htmlFor='raderaKlass'>Radera Klass</label>
+      </div>
+    )
+}
+
+{
+  (groupName === defaultGroup)
+    ? ''
+    : (
+      <div className='sparaSomNyDiv'>
+        <button onMouseDown={sparaSomNy} id='sparaSomNy'></button>
+        <label htmlFor='sparaSomNy'>Spara som ny</label>
+      </div>
+    )
+}
+
+
+    </div>
+
+
+    
   </div>;
   useEffect( () => {
    fixa()
