@@ -20,7 +20,31 @@ const Box = ({ position, groupName, setLåstaNamn, contextMenu, updateFixa, setU
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState('tom');
   const [färg, setFärg] = useState(null)
+  const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
+  const namesDeepCopy = JSON.parse(JSON.stringify(names));
+  const isBeta = true
+  var newNames = namesDeepCopy
+  var namesWithIndex = (newNames.map((name, index) => ({ name, originalIndex: index})))
+const setShowContextMenu = (bool) => {
+    const newContextMenu = []
+    console.log("context")
+  if (bool){
+      newContextMenu.push(id)
+      setContextMenu(newContextMenu)
+    }
+    else{
+      for (let i = 0; i < contextMenu.length; i++){
+        if (contextMenu[i] !== id){
+            newContextMenu.push(låstaNamn[i])
+        }
+        setContextMenu(newContextMenu); 
+    }
 
+  }
+}
+const sortedNames = namesWithIndex.sort((a, b) => a.name.localeCompare(b.name)).filter(function(item) {
+  return item.name !== ""
+})
   const handleLåsaNamn = () => {
     const isCurrentlyLocked = låstaNamn.includes(id);
     const updatedLåstaNamn = isCurrentlyLocked
@@ -30,7 +54,31 @@ const Box = ({ position, groupName, setLåstaNamn, contextMenu, updateFixa, setU
     setLåstaNamn(updatedLåstaNamn);
 }
 
+const ipadContext = () => {
+  const newContextMenu = []
+            newContextMenu.push(id)
+      setShowContextMenu(newContextMenu)
+}
 
+// Existing useEffect and handlers
+
+// Context menu handlers
+const handleContextMenu = (e) => {
+  e.preventDefault(); // Prevent default right-click menu
+  setShowContextMenu(true); // Show custom context menu
+  // Set position for the context menu
+  setContextMenuPosition({
+    x: e.clientX,
+    y: e.clientY
+  });
+};
+
+const handleClick = (e) => {
+  // Hide context menu when clicking anywhere else
+  if (showContextMenu && !isTablet) {
+    setShowContextMenu(false)
+  }
+};
   const handleBoxClick = () => {
     if (!isFilled) {
       const newName = 'tom';
