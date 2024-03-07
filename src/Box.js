@@ -22,7 +22,7 @@ const Box = ({ position, groupName, setLåstaNamn, contextMenu, updateFixa, setU
   const [färg, setFärg] = useState(null)
   const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
   const namesDeepCopy = JSON.parse(JSON.stringify(names));
-  
+  const isBeta = true
   var newNames = namesDeepCopy
   var namesWithIndex = (newNames.map((name, index) => ({ name, originalIndex: index})))
 const setShowContextMenu = (bool) => {
@@ -177,7 +177,7 @@ return (
         {isFilled && (
           <button className='låsKnappBox' style={{ visibility: showBorders ? 'visible' : 'hidden' }} onClick={handleLåsaNamn}>{låstaNamn.includes(id) ? <ImLock /> : <ImUnlocked />}</button>
         )}
-        {(isFilled && isTablet) &&(
+        {(isFilled && isTablet && !isBeta) &&(
           <button onClick={ipadContext} style={{ visibility: showBorders ? 'visible' : 'hidden', color: 'black' }} className='låsKnappBox'><ImUnlocked /></button>
         )}
         
