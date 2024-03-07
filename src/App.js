@@ -78,6 +78,7 @@ const App = () => {
   const [namnRader, setNamnRader] = useState((window.screen.width/260).toFixed(0))
   const [windowWidth, setWindowWidth] = useState(0);
   const [windowHeight, setWindowHeight] = useState(0);
+  const [runFixa, setRunFixa] = useState(false)
   let resizeWindow = () => {
     setWindowWidth(window.innerWidth);
     setWindowHeight(window.innerHeight);
@@ -401,6 +402,10 @@ const App = () => {
   </div>;
   useEffect( () => {
    fixa()
+   setTimeout(() => {
+    console.log("fixade igen");
+    fixa();
+  }, 10);
     console.log("fixade")
   }, [updateFixa, cellSize] 
    )
@@ -418,6 +423,7 @@ const App = () => {
       setNamnRader(document.getElementById('bräddMått').getBoundingClientRect().width/260).toFixed(0)
     }
     }, [windowWidth])
+    
     
   return (
     <div className="App">

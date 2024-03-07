@@ -16,12 +16,13 @@ function findValueByKey(list, key) {
 }
 
 
-const Box = ({ position, groupName, setLåstaNamn, contextMenu, setContextMenu, showContextMenu, låstaNamn, boxes, showBorders, setBoxes, fixa, names, bytaPlatser, id, originalid, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
+const Box = ({ position, groupName, setLåstaNamn, contextMenu, updateFixa, setUpdateFixa, setContextMenu, showContextMenu, låstaNamn, boxes, showBorders, setBoxes, fixa, names, bytaPlatser, id, originalid, keyChange, boxNames, setBoxNames, filledBoxes, setFilledBoxes }) => {
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState('tom');
   const [färg, setFärg] = useState(null)
   const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
   const namesDeepCopy = JSON.parse(JSON.stringify(names));
+  
   var newNames = namesDeepCopy
   var namesWithIndex = (newNames.map((name, index) => ({ name, originalIndex: index})))
 const setShowContextMenu = (bool) => {
@@ -192,6 +193,7 @@ return (
         <ul className="custom-context-menu" style={{ position:  (isTablet ? 'relative' : 'fixed'), // Use 'fixed' for positioning based on viewport
         top: isTablet ? '50%' : contextMenuPosition.y,
         left: isTablet ? '50%' : contextMenuPosition.x,
+        zIndex: 7,
         listStyle: 'none',
         padding: '10px',
         backgroundColor: 'white',
@@ -199,7 +201,7 @@ return (
         borderRadius: '5px',
         boxShadow: '0 2px 5px rgba(0,0,0,0.2)' }}>
           {sortedNames.map(({name, originalIndex}, index) => (
-            <li className='högerKlick' key={name} onClick={() => {
+            <li className='högerKlick' key={'context-' + index} onClick={() => {
               const newBoxNames = []
               for (let i = 0; i < boxNames.length; i++) {
                 if (boxNames[i].key != id) {
@@ -214,6 +216,7 @@ return (
               }
               setBoxNames(newBoxNames)
               setShowContextMenu(false)
+              setUpdateFixa(!updateFixa)
               return;}}>
               {name}
             </li>
