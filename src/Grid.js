@@ -23,7 +23,7 @@ function findKeyByValue(list, value) {
 
 const Grid = ({ rows, fixa, columns, updateFixa, setUpdateFixa, knappStatus, setKnappStatus, setLåstaNamn, låstaNamn, groupName, setShowBorders, setEditingMode, showBorders, editingMode, boxes, setBoxes, setBytaPlatser, bytaPlatser, keyChange, setKeyChange, names, boxNames, setBoxNames, filledBoxes, setFilledBoxes, cellSize, setCellSize, baklänges, nere, uppe }) => {
 
-
+const [contextMenu, setContextMenu] = useState(['tom'])
   const handleDrop = async (e) => {
     e.preventDefault();
 
@@ -142,6 +142,8 @@ const Grid = ({ rows, fixa, columns, updateFixa, setUpdateFixa, knappStatus, set
             setBoxes={setBoxes}
             name={box.name}
             boxNames={boxNames}
+            updateFixa={updateFixa}
+            setUpdateFixa={setUpdateFixa}
             filledBoxes={filledBoxes}
             setFilledBoxes={setFilledBoxes}
             names={names}
@@ -153,6 +155,9 @@ const Grid = ({ rows, fixa, columns, updateFixa, setUpdateFixa, knappStatus, set
             setLåstaNamn={setLåstaNamn}
             showBorders={showBorders}
           setBoxNames={setBoxNames}
+          showContextMenu={contextMenu.includes(`box-${i}`)}
+          setContextMenu={setContextMenu}
+          contextMenu={contextMenu}
           />
         </div>
       );
