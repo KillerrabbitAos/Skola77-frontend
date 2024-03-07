@@ -190,16 +190,20 @@ return (
         )}
         </div>
         {showContextMenu && (
-        <ul className="custom-context-menu" style={{ position:  (isTablet ? 'relative' : 'fixed'), // Use 'fixed' for positioning based on viewport
-        top: isTablet ? '50%' : contextMenuPosition.y,
-        left: isTablet ? '50%' : contextMenuPosition.x,
-        zIndex: 7,
+        <div style={{zIndex: 7, flexDirection: 'column',position:  (isTablet ? 'relative' : 'fixed'), top: isTablet ? '50%' : contextMenuPosition.y,
+        left: isTablet ? '50%' : contextMenuPosition.x, display: 'flex', height: '300px', maxHeight: '300x'}}>
+        
+        <ul className="custom-context-menu" style={{
         listStyle: 'none',
         padding: '10px',
+        display: 'block',
         backgroundColor: 'white',
+        overflowY:'scroll',
+        flex: '1',
         border: '1px solid #ddd',
-        borderRadius: '5px',
-        boxShadow: '0 2px 5px rgba(0,0,0,0.2)' }}>
+        boxShadow: '0 2px 5px rgba(0,0,0,0.2)', borderRadius: '5px'
+        
+         }}>
           {sortedNames.map(({name, originalIndex}, index) => (
             <li className='högerKlick' key={'context-' + index} onClick={() => {
               const newBoxNames = []
@@ -222,6 +226,7 @@ return (
             </li>
           ))}
         </ul>
+      </div>
       )}
     </div>
     
