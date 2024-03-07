@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Grid from './Grid';
-import html2pdf from 'html2pdf.js';
 import Cookies from 'js-cookie';
 import ExcelToTextConverter from './ExcelToTextConverter';
 import generateCombinedList from './CombinedListGenerator';
@@ -18,14 +17,16 @@ function compressData(data) {
 }
 
 function orm() {
+  //bästa funktionen 2024
   alert(orm);
 }
+
 // Function to decompress data retrieved from cookies
 function decompressData(compressedData) {
   return JSON.parse(LZString.decompressFromEncodedURIComponent(compressedData));
 }
 
-function fitTextToContainer(container, element) {
+function fitTextToContainer(container, element, maxFontSizePx) {
   for (let i = 0; i < 20; i++) {
     const containerWidth = container.clientWidth;
     const containerHeight = container.clientHeight;
@@ -38,15 +39,21 @@ function fitTextToContainer(container, element) {
     const minScale = Math.min(widthScale, heightScale);
 
     const currentFontSize = window.getComputedStyle(element).fontSize;
-    const newFontSize = parseFloat(currentFontSize) * minScale;
+    let newFontSize = parseFloat(currentFontSize) * minScale;
+
+    newFontSize = Math.min(newFontSize, maxFontSizePx);
 
     element.style.fontSize = newFontSize + 'px';
 
-    const offsetX = (containerWidth - elementWidth * minScale) / 2;
-    const offsetY = (containerHeight - elementHeight * minScale) / 2;
+    const scaledElementWidth = element.offsetWidth * minScale;
+    const scaledElementHeight = element.offsetHeight * minScale;
+
+    const offsetX = (containerWidth - scaledElementWidth) / 2;
+    const offsetY = (containerHeight - scaledElementHeight) / 2;
     element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
   }
 }
+
 
 
 const App = () => {
@@ -79,6 +86,8 @@ const App = () => {
   const [windowWidth, setWindowWidth] = useState(0);
   const [windowHeight, setWindowHeight] = useState(0);
   const [runFixa, setRunFixa] = useState(false)
+  const [showSavedMessage, setShowSavedMessage] = useState(false);
+
   let resizeWindow = () => {
     setWindowWidth(window.innerWidth);
     setWindowHeight(window.innerHeight);
@@ -116,11 +125,60 @@ const App = () => {
   }
 
   const handleSaveButtonClick = async () => {
-    const name = prompt('Döp din klass: ');
+
+    if (groupName !== defaultGroup) {
+      const compressedData = compressData({
+        rows,
+        columns,
+        boxes,
+        names,
+        boxNames,
+        filledBoxes,
+        cellSize,
+        fixaCounter,
+        keyChange,
+        låstaNamn,
+      });
+  
+      Cookies.set(`${groupName}_values`, compressedData, { expires: 365 });
+  
+      setShowSavedMessage(true);
+      setTimeout(() => {
+        setShowSavedMessage(false);
+      }, 2000);
+    } else {
+      const name = prompt('Döp din placering: ');
+      if (name) {
+        setGroupName(name);
+  
+        const compressedData = compressData({
+          rows,
+          columns,
+          boxes,
+          names,
+          boxNames,
+          filledBoxes,
+          cellSize,
+          fixaCounter,
+          keyChange,
+          låstaNamn,
+        });
+  
+        Cookies.set(`${name}_values`, compressedData, { expires: 365 });
+        await new Promise(resolve => setTimeout(resolve, 100));
+  
+        document.getElementById(`${name}_values`).selected = true;
+      }
+    }
+  };
+  
+
+
+  const sparaSomNy = async () => {
+    const name = prompt('Döp din placering: ');
     if (name) {
       setGroupName(name);
 
-      // Sparar värden i cookie
       const compressedData = compressData({
         rows: rows,
         columns: columns,
@@ -131,6 +189,7 @@ const App = () => {
         cellSize: cellSize,
         fixaCounter: fixaCounter,
         keyChange: keyChange,
+        låstaNamn: låstaNamn,
       });
 
       Cookies.set(`${name}_values`, compressedData, { expires: 365 });
@@ -140,6 +199,8 @@ const App = () => {
     }
 
   }
+  
+
 
 
   const raderaKlass = () => {
@@ -164,7 +225,7 @@ const App = () => {
       const element = elements[i];
       const container = element.parentElement;
       
-      fitTextToContainer(container, element);
+      fitTextToContainer(container, element, 25);
     }
   }
 
@@ -193,21 +254,6 @@ const App = () => {
   };
 
 
-
-
-  const handleExportToPDF = () => {
-    document.getElementById("klar").style.visibility = "hidden";
-    const gridContainer = document.getElementById('gridPdfSak');
-
-    if (gridContainer) {
-      const pdfConfig = {
-        filename: 'skola77-placering.pdf',
-        jsPDF: { unit: 'in', format: 'A4', orientation: 'landscape' }
-      };
-
-      html2pdf(gridContainer, pdfConfig);
-    }
-  };
   const handleRemoveName = (index) => {
 
     console.log(index)
@@ -257,6 +303,35 @@ const App = () => {
     setEditingMode(!editingMode);
 
   };
+
+
+  const ökaStorlek = () => {
+
+    if (cellSize >= 150){
+      console.log("för stor:" + cellSize);
+
+      return;
+    }
+
+    setCellSize(cellSize + 10);
+    console.log(cellSize);
+
+  }
+
+  const minskaStorlek = () => {
+
+
+    if (cellSize <= 60){
+
+      console.log("för liten:" + cellSize);
+      return;
+    }
+
+    setCellSize(cellSize - 10);
+    console.log(cellSize);
+  }
+
+
   const fixa = () => {
     applyFontSizesToClass('name');
     //const elements = document.getElementsByClassName('namnTxt')
@@ -299,6 +374,8 @@ const App = () => {
       setFilledBoxes([]);
       setCellSize(70);
       setFixaCounter(0);
+      setLåstaNamn([]);
+
     } else {
       var values = schackBräde
       nere = ("Svart")
@@ -325,6 +402,7 @@ const App = () => {
         setGroupName(selectedGroup.replace('_values', ''));
         setUppe(uppe);
         setNere(nere);
+        setLåstaNamn(values.låstaNamn || []);
       } else {
         // Handle the case when values are not available
         console.error(`No values found for group: ${selectedGroup}`);
@@ -379,6 +457,9 @@ const App = () => {
 
   />;
   const sparningsLösning = <div id='sparaSettings'>
+
+    {showSavedMessage && <div><b>Sparat!</b></div>}
+
     <button onClick={handleSaveButtonClick} className='spara' id='sparaKnapp'></button>
     <label htmlFor="sparaKnapp">Spara!</label>
 
@@ -396,9 +477,37 @@ const App = () => {
         ))}
 
     </select>
-    {(groupName === defaultGroup)
-      ? ''
-      : <button key="raderaKlass" onMouseDown={raderaKlass}>radera klass</button>}
+
+
+    <div className='sparaKnappar'>
+
+    {
+  (groupName === defaultGroup)
+    ? ''
+    : (
+      <div className='raderaKlassDiv'>
+        <button onMouseDown={raderaKlass} id='raderaKlass'></button>
+        <label htmlFor='raderaKlass'>Radera Klass</label>
+      </div>
+    )
+}
+
+{
+  (groupName === defaultGroup)
+    ? ''
+    : (
+      <div className='sparaSomNyDiv'>
+        <button onMouseDown={sparaSomNy} id='sparaSomNy'></button>
+        <label htmlFor='sparaSomNy'>Spara som ny</label>
+      </div>
+    )
+}
+
+
+    </div>
+
+
+    
   </div>;
   useEffect( () => {
    fixa()
@@ -433,8 +542,25 @@ const App = () => {
         <input type="number" max="50" value={rowsInput} onChange={handleRowsInputChange} />
         <label>Kolumner:</label>
         <input type="number" max="50" value={columnsInput} onChange={handleColumnsInputChange} />
-        <label>Storlek:</label>
-        <input type="number" label="Rutstorlek: " value={cellSize} max="300" onChange={(e) => setCellSize(Math.max(0, Math.min(e.target.value, 300)))} />
+
+        <div className='storkleksÄndring'>
+
+
+        <div className='ökaStorlekDiv'>
+        <button onClick={ökaStorlek} id='ökaStorlek' className='grönaKnappar'></button>
+        <label htmlFor='ökaStorlek'>Öka Storlek</label>
+        </div>
+
+
+        <div className='minskaStorlekDiv'>
+        <button onClick={minskaStorlek} id='minskaStorlek'></button>
+        <label htmlFor='minskaStorlek'>Minska storlek</label>
+        </div>
+
+
+        </div>
+
+
       </div>
 
       {sparningsLösning}

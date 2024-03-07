@@ -452,3 +452,54 @@ animation-fill-mode: none;
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+
+
+.storkleksÄndring{
+  margin: 40px;
+  display: flex;
+}
+
+#ökaStorlek{
+  background-image: url(plus.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 60px;
+
+}
+
+#minskaStorlek{
+  background-image: url(minus.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 60px;
+}
+
+.ökaStorlekDiv{
+  width: 150px;
+}
+
+.minskaStorlekDiv{
+  width: 150px;
+}
+
+.sparaKnappar{
+  margin-top: 30px;
+  display: flex;
+  width: 360px;
+}
+
+.sparaKnappar button{
+  height: 45px;
+}
+
+#raderaKlass{
+  background-image: url(taBort.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#sparaSomNy{
+  background-image: url(sparaSom.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}

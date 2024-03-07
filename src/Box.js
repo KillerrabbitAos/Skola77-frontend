@@ -20,76 +20,19 @@ const Box = ({ position, groupName, setLåstaNamn, contextMenu, updateFixa, setU
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState('tom');
   const [färg, setFärg] = useState(null)
-  const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
-  const namesDeepCopy = JSON.parse(JSON.stringify(names));
-  const isBeta = true
-  var newNames = namesDeepCopy
-  var namesWithIndex = (newNames.map((name, index) => ({ name, originalIndex: index})))
-const setShowContextMenu = (bool) => {
-    const newContextMenu = []
-    console.log("context")
-  if (bool){
-      newContextMenu.push(id)
-      setContextMenu(newContextMenu)
-    }
-    else{
-      for (let i = 0; i < contextMenu.length; i++){
-        if (contextMenu[i] !== id){
-            newContextMenu.push(låstaNamn[i])
-        }
-        setContextMenu(newContextMenu); 
-    }
 
-  }
-}
-const sortedNames = namesWithIndex.sort((a, b) => a.name.localeCompare(b.name)).filter(function(item) {
-  return item.name !== ""
-})
   const handleLåsaNamn = () => {
-    if (!låstaNamn.includes(id)){
-    setLåstaNamn((prevLåstaNamn) => [...prevLåstaNamn, id])
-  }
-  else{
-    const newLåstaNamn = [] 
-    for (let i = 0; i < låstaNamn.length; i++){
-        if (låstaNamn[i] !== id){
-            newLåstaNamn.push(låstaNamn[i])
-        }
-        setLåstaNamn(newLåstaNamn);
-    }
-  }
+    const isCurrentlyLocked = låstaNamn.includes(id);
+    const updatedLåstaNamn = isCurrentlyLocked
+      ? låstaNamn.filter((lockedId) => lockedId !== id)
+      : [...låstaNamn, id];
+  
+    setLåstaNamn(updatedLåstaNamn);
 }
 
-const ipadContext = () => {
-  const newContextMenu = []
-            newContextMenu.push(id)
-      setShowContextMenu(newContextMenu)
-}
 
-// Existing useEffect and handlers
-
-// Context menu handlers
-const handleContextMenu = (e) => {
-  e.preventDefault(); // Prevent default right-click menu
-  setShowContextMenu(true); // Show custom context menu
-  // Set position for the context menu
-  setContextMenuPosition({
-    x: e.clientX,
-    y: e.clientY
-  });
-};
-
-const handleClick = (e) => {
-  // Hide context menu when clicking anywhere else
-  if (showContextMenu && !isTablet) {
-    setShowContextMenu(false)
-  }
-};
-
-
-
-  const handleBoxClick = (e) => {
-    if (e.button === 0 && !isFilled) {
+  const handleBoxClick = () => {
+    if (!isFilled) {
       const newName = 'tom';
       console.log(boxNames[id]);
       if (newName) {
@@ -98,24 +41,18 @@ const handleClick = (e) => {
       }
     }
   }
-  const handleRemoveBox = () =>{
-      setIsFilled(false);
-      setFilledBoxes((prevFilledBoxes) => prevFilledBoxes.filter((boxId) => boxId !== id));
-      const newBoxNames = []
-      for (let i = 0; i < boxNames.length; i++) {
-        if (boxNames[i].key !== id){
-          newBoxNames.push(boxNames[i])
-        }
-        else{
-          console.log(JSON.parse(JSON.stringify(boxNames[i].key)) + ' är inte lika med ' + (JSON.parse(JSON.stringify(i))))
-        }
-      }
-      setBoxNames(newBoxNames)
-      if (newBoxNames == []){
-        console.log("rem")
-        setBoxNames('tom')
-      }
-  }
+  const handleRemoveBox = () => {
+    setIsFilled(false);
+    setFilledBoxes((prevFilledBoxes) => prevFilledBoxes.filter((boxId) => boxId !== id));
+  
+    if (låstaNamn.includes(id)) {
+      setLåstaNamn((prevLåstaNamn) => prevLåstaNamn.filter((lockedId) => lockedId !== id));
+    }
+  
+    const newBoxNames = boxNames.filter((box) => box.key !== id);
+    setBoxNames(newBoxNames.length ? newBoxNames : 'tom');
+  };
+  
   const handleDragStart = (e) => {
     const idInfo = { ny: id, original: originalid };
     e.dataTransfer.setData('boxId', 'ny: ' + id + 'original: ' + originalid);
