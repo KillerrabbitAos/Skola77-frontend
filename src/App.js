@@ -146,7 +146,7 @@ const App = () => {
         setShowSavedMessage(false);
       }, 2000);
     } else {
-      const name = prompt('Döp din klass: ');
+      const name = prompt('Döp din placering: ');
       if (name) {
         setGroupName(name);
   
@@ -174,7 +174,7 @@ const App = () => {
 
 
   const sparaSomNy = async () => {
-    const name = prompt('Döp din klass: ');
+    const name = prompt('Döp din placering: ');
     if (name) {
       setGroupName(name);
 
