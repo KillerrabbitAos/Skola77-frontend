@@ -529,15 +529,12 @@ animation-fill-mode: none;
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
 }
-#sparaNamnSettings{
-  background-color: #61dafb;
-  
-}
 #sparaNamnKnapp{
   padding: 1px;
   width: auto;
   margin: 0px;
-
+  position: relative;
+  float: left;
   background-color: grey;
   border-radius: 0;
   border-style: outset;
@@ -556,4 +553,35 @@ animation-fill-mode: none;
   display: grid;
   height: 22px;
   padding: 0px;
+}
+#sparaNamnSomNy{
+  padding: 1px;
+  width: auto;
+  margin: 0px;
+  position: relative;
+  background-color: grey;
+  border-radius: 0;
+  border-style: outset;
+  :hover{
+    background-color: gray;
+  }
+  right: 100%;
+}
+#raderaNamnKlass{
+  padding: 1px;
+  width: auto;
+  margin: 0px;
+  position: relative;
+  float: left;
+  background-color: grey;
+  border-radius: 0;
+  border-style: outset;
+  :hover{
+    background-color: gray;
+  } 
+}
+#yberKebab{
+  float: right;
+  position: relative;
+  right: 7%;
 }

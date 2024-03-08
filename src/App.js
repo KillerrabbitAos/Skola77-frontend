@@ -12,6 +12,7 @@ import doneImg from './done.svg';
 import backImg from './back.png';
 import schackBräde from './schackVärden.js'
 import { isTablet } from 'react-device-detect';
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
@@ -229,7 +230,22 @@ const App = () => {
     }
 
   }
-  
+  const sparaNamnSomNy = async () => {
+    const name = prompt('Döp din klass: ');
+    if (name) {
+      setGroupName(name);
+
+      const compressedData = compressData({
+        names
+      });
+
+      Cookies.set(`${name}_nameValues`, compressedData, { expires: 365 });
+      await new Promise(resolve => setTimeout(resolve, 10));
+
+      document.getElementById(`${name}_nameValues`).selected = true
+    }
+
+  } 
 
 
 
@@ -548,7 +564,8 @@ const handleNameGroupChange = (event) => {
     
   </div>;
   const NamnSparningsLösning = <div id='sparaNamnSettings'>
-
+<div style={{display: 'block', width: '100%', height: '35px'}}>
+<div id='yberKebab'>
   {showSavedMessage && <div><b>Sparat!</b></div>}
   <div id='kebabWrap'>
   
@@ -566,39 +583,42 @@ const handleNameGroupChange = (event) => {
 
   </select>
 </div>
+<div style={{display:'flex'}}>
 <button onClick={handleSaveNames} className='sparaNamnKnapp' id='sparaNamnKnapp'>spara</button>
+{
+(nameGroupName === defaultGroup)
+  ? ''
+  : (
+    <div className='raderaNamnKlassDiv'>
+      <button onMouseDown={raderaNamnKlass} id='raderaNamnKlass'><RiDeleteBin6Line /></button>
+    </div>
+  )
+}
+{
+//{
+//(nameGroupName === defaultGroup)
+  //? ''
+  //: (
+    //<div className='sparaNamnSomNyDiv'>
+      //<button onMouseDown={sparaNamnSomNy} id='sparaNamnSomNy'>Spara som ny</button>
+   // </div>
+  //)
+//}
+}
+</div>
+
 </div>
 
   <div className='sparaKnappar'>
 
-  {
-(nameGroupName === defaultGroup)
-  ? ''
-  : (
-    <div className='raderaKlassDiv'>
-      <button onMouseDown={raderaNamnKlass} id='raderaKlass'></button>
-      <label htmlFor='raderaKlass'>Radera Klass</label>
-    </div>
-  )
-}
-
-{
-(groupName === defaultGroup)
-  ? ''
-  : (
-    <div className='sparaSomNyDiv'>
-      <button onMouseDown={sparaSomNy} id='sparaSomNy'></button>
-      <label htmlFor='sparaSomNy'>Spara som ny</label>
-    </div>
-  )
-}
-
-
+  
   </div>
 
 
   
-</div>;
+</div>
+</div>
+</div>
   useEffect( () => {
    fixa()
    setTimeout(() => {
