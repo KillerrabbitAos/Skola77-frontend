@@ -23,11 +23,10 @@
   }
 }
 
-body{
-  -webkit-print-color-adjust:exact !important;
-  print-color-adjust:exact !important;
+body {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
 }
-
 
 .App-header {
   background-color: #282c34;
@@ -102,13 +101,11 @@ label {
   width: 400px;
   margin: auto;
   padding-bottom: 40px;
-
 }
 
 #namesInput {
   margin-bottom: 30px;
 }
-
 
 .small-text {
   font-size: 75%;
@@ -122,10 +119,9 @@ ul {
   margin-bottom: 40px;
   list-style-type: none;
 }
-li button{
-  width: 100px
+li button {
+  width: 100px;
 }
-
 
 #nameHeader {
   font-weight: bold;
@@ -199,7 +195,7 @@ button {
 @keyframes låsKnapp {
   from {
     background-color: none;
-    svg{
+    svg {
       color: black;
       height: 30px;
       width: auto;
@@ -208,7 +204,7 @@ button {
 
   to {
     background-color: black;
-    svg{
+    svg {
       color: white;
       height: 30px;
       width: auto;
@@ -222,7 +218,7 @@ button:hover {
   animation-fill-mode: forwards;
 }
 
-#slumpaKnappen{
+#slumpaKnappen {
   background-image: url(./random.png);
   background-repeat: no-repeat;
   background-size: 50px;
@@ -230,77 +226,73 @@ button:hover {
   height: 50px;
   cursor: pointer;
 }
-#slumpaDiv{
+#slumpaDiv {
   width: 150px;
   margin: auto;
 }
 
-#slumpaLabel{
+#slumpaLabel {
   cursor: pointer;
 }
 
-
-#perspektiv{
+#perspektiv {
   background-image: url(perspektiv.png);
   background-repeat: no-repeat;
   background-position: center;
   height: 50px;
 }
 
-#meny{
+#meny {
   margin: auto;
   width: 50%;
 }
 
-.menySaker{
+.menySaker {
   display: inline-block;
   text-align: center;
-    
 }
-.menySaker label{
+.menySaker label {
   display: block;
 }
-#redigeringsKnapp{
+#redigeringsKnapp {
   background-image: url(edit.png);
   background-repeat: no-repeat;
   background-position: center;
   height: 50px;
 }
 
-#pdfKnapp{
+#pdfKnapp {
   background-image: url(print.png);
   background-repeat: no-repeat;
   background-position: center;
   height: 60px;
 }
 
-#pdfDiv{
+#pdfDiv {
   width: 180px;
   margin: auto;
 }
 
-.box.filled.vit{
+.box.filled.vit {
   background-color: white;
 }
 
-.box.filled.svart{
+.box.filled.svart {
   background-color: black;
 }
-.box.filled.svart span{
+.box.filled.svart span {
   color: white;
 }
 
-
-.grid-container.schackBräde{
-
+.grid-container.schackBräde {
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.box.svart{
+.box.svart {
   background-color: black;
 }
-.box.vit{
+.box.vit {
   background-color: white;
 }
 
@@ -324,199 +316,187 @@ button:hover {
     box-shadow: none; /* Tar bort skuggan för en renare utskrift */
   }
 
-  #placeringsTitel{
+  #placeringsTitel {
     visibility: visible !important;
   }
 
-  .låsKnappBox{
-
-
+  .låsKnappBox {
     display: none;
-
   }
-
 }
 
-.namnILista{
+.namnILista {
+  width: 200px;
 
-width: 200px;
-
-text-align: center;
-border: 1px solid black;
-border-radius: 5px;
-margin-bottom: 20px;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 
-
-.namnILista button:hover{
+.namnILista button:hover {
   animation-name: none;
   animation-duration: none;
   animation-fill-mode: none;
 }
-.namnILista.upplåst{
-
+.namnILista.upplåst {
   span {
-    
     display: contents;
-  font-weight: bolder;
-  color: black;
+    font-weight: bolder;
+    color: black;
   }
-  button{
+  button {
     padding: 0%;
     width: auto;
     padding: 0%;
     background: none;
-    svg{
+    svg {
       color: black;
       height: 30px;
       width: auto;
     }
-    
   }
-  .grå{
+  .grå {
     background-color: grey;
     height: 10px;
     display: block;
   }
 }
-.namnILista.låst{
-    span {display: contents;
+.namnILista.låst {
+  span {
+    display: contents;
     font-weight: bolder;
-    color: gray;}
-    button{
-      padding: 0%;
+    color: gray;
+  }
+  button {
+    padding: 0%;
+    width: auto;
+    background: none;
+    svg {
+      color: gray;
+      height: 30px;
       width: auto;
-      background: none;
-      svg{
-        color: gray;
-        height: 30px;
-        width: auto;
-      }
-      
     }
-    .grå{
-      background-color: rgb(214, 214, 214);
-      height: 10px;
-      display: block;
-    }
-    
+  }
+  .grå {
+    background-color: rgb(214, 214, 214);
+    height: 10px;
+    display: block;
+  }
 }
-#namn{
+#namn {
   width: 100%;
   height: auto;
 }
 
-.låsKnappBox{
+.låsKnappBox {
   padding: 0%;
-    width: 50%;
-    bottom: 10px;
-    margin-left: 0;
-    margin-right: 0;
-    height: 100%;
-    position: relative;
-    border-radius: 0;
-    background-color: gray;
-    border-style: revert;
-    
+  width: 50%;
+  bottom: 10px;
+  margin-left: 0;
+  margin-right: 0;
+  height: 100%;
+  position: relative;
+  border-radius: 0;
+  background-color: gray;
+  border-style: revert;
 }
-.låsKnappBox:hover{
+.låsKnappBox:hover {
   animation-name: none;
-animation-duration: none;
-animation-fill-mode: none;
+  animation-duration: none;
+  animation-fill-mode: none;
 }
 
-.box.filled.låst{
+.box.filled.låst {
   background-color: black;
 }
-#placeringsTitel{
+#placeringsTitel {
   visibility: hidden;
 }
 
-.box.filled.låst{
+.box.filled.låst {
   background-color: black;
 }
 
-.boxNamn{
+.boxNamn {
   height: 50%;
   top: 50%;
 }
 
-#bräddMått{
+#bräddMått {
   width: 100%;
   height: 1px;
 }
 
-.boxNamn.låstBoxNamn.tom{
+.boxNamn.låstBoxNamn.tom {
   background: repeating-linear-gradient(
-  45deg,
-  rgba(179, 179, 179, 0.3),
-  rgba(0, 0, 0, 0.2) 10px,
-  rgba(0, 0, 0, 0.3) 10px,
-  rgba(0, 0, 0, 0.3) 20px
-)
+    45deg,
+    rgba(179, 179, 179, 0.3),
+    rgba(0, 0, 0, 0.2) 10px,
+    rgba(0, 0, 0, 0.3) 10px,
+    rgba(0, 0, 0, 0.3) 20px
+  );
 }
-.högerKlick:hover{
+.högerKlick:hover {
   background-color: rgb(226, 226, 226);
   -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-
-.storkleksÄndring{
+.storkleksÄndring {
   margin: 40px;
   display: flex;
 }
 
-#ökaStorlek{
+#ökaStorlek {
   background-image: url(plus.png);
   background-repeat: no-repeat;
   background-position: center;
   height: 60px;
-
 }
 
-#minskaStorlek{
+#minskaStorlek {
   background-image: url(minus.png);
   background-repeat: no-repeat;
   background-position: center;
   height: 60px;
 }
 
-.ökaStorlekDiv{
+.ökaStorlekDiv {
   width: 150px;
 }
 
-.minskaStorlekDiv{
+.minskaStorlekDiv {
   width: 150px;
 }
 
-.sparaKnappar{
+.sparaKnappar {
   margin-top: 30px;
   display: flex;
   width: 360px;
 }
 
-.sparaKnappar button{
+.sparaKnappar button {
   height: 45px;
 }
 
-#raderaKlass{
+#raderaKlass {
   background-image: url(taBort.png);
   background-repeat: no-repeat;
   background-position: center;
 }
 
-#sparaSomNy{
+#sparaSomNy {
   background-image: url(sparaSom.png);
   background-repeat: no-repeat;
   background-position: center;
 }
-.papperskorg{
+.papperskorg {
   background-color: red;
   width: 50%;
   border-radius: 0;
@@ -525,14 +505,13 @@ animation-fill-mode: none;
   margin: 0;
   bottom: 10px;
   position: relative;
-  
 }
-.papperskorg:hover{
-    animation-name: redAn;
+.papperskorg:hover {
+  animation-name: redAn;
   animation-duration: none;
   animation-fill-mode: forwards;
 }
-.box{
+.box {
   height: 100%;
 }
 .prevent-select {
@@ -540,7 +519,7 @@ animation-fill-mode: none;
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
 }
-#sparaNamnKnapp{
+#sparaNamnKnapp {
   padding: 1px;
   width: auto;
   margin: 0px;
@@ -549,23 +528,23 @@ animation-fill-mode: none;
   background-color: grey;
   border-radius: 0;
   border-style: outset;
-  :hover{
+  :hover {
     background-color: gray;
   }
 }
-#kebabWrap{
+#kebabWrap {
   display: flex;
   position: relative;
   left: 70%;
 }
-#sparadeNamnKlasser{
+#sparadeNamnKlasser {
   size: 15px;
   position: relative;
   display: grid;
   height: 22px;
   padding: 0px;
 }
-#sparaNamnSomNy{
+#sparaNamnSomNy {
   padding: 1px;
   width: auto;
   margin: 0px;
@@ -573,12 +552,12 @@ animation-fill-mode: none;
   background-color: grey;
   border-radius: 0;
   border-style: outset;
-  :hover{
+  :hover {
     background-color: gray;
   }
   right: 100%;
 }
-#raderaNamnKlass{
+#raderaNamnKlass {
   padding: 1px;
   width: auto;
   margin: 0px;
@@ -587,11 +566,11 @@ animation-fill-mode: none;
   background-color: grey;
   border-radius: 0;
   border-style: outset;
-  :hover{
+  :hover {
     background-color: gray;
-  } 
+  }
 }
-#yberKebab{
+#yberKebab {
   float: right;
   position: relative;
   right: 7%;
