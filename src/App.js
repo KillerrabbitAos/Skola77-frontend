@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import Grid from "./Grid";
 import Cookies from "js-cookie";
-import ExcelToTextConverter from "./ExcelToTextConverter";
-import generateCombinedList from "./CombinedListGenerator";
-import NameList from "./Namn";
 import LZString from "lz-string";
+import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { papperskorg } from "./papperskorg";
-import doneImg from "./done.svg";
-import backImg from "./back.png";
-import schackBräde from "./schackVärden.js";
 import { isTablet } from "react-device-detect";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import "./App.css";
+import generateCombinedList from "./CombinedListGenerator";
+import ExcelToTextConverter from "./ExcelToTextConverter";
+import Grid from "./Grid";
+import NameList from "./Namn";
+import backImg from "./back.png";
+import doneImg from "./done.svg";
+import schackBräde from "./schackVärden.js";
 
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
