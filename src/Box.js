@@ -72,7 +72,9 @@ const handleContextMenu = (e) => {
     y: e.clientY
   });
 };
-
+const handleContextMenuTom = (e) => {
+  e.preventDefault();
+}
 const handleClick = (e) => {
   // Hide context menu when clicking anywhere else
   if (showContextMenu) {
@@ -153,7 +155,7 @@ return (
     id={id}
     data-originalid={originalid}
     style={{ gridArea: position }}
-    onContextMenu={handleContextMenu}
+    onContextMenu={names[1] ? handleContextMenu : handleContextMenuTom}
   >
     <div className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''} ${färg ? färg : ''}  ${låstaNamn.includes(id) && showBorders ? 'låst' : ''}`}>
       {isFilled && (
