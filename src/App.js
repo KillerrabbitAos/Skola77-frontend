@@ -252,12 +252,16 @@ const App = () => {
   const raderaKlass = () => {
     setGroupName(defaultGroup);
     document.getElementById("nyKlass").selected = true
-    const klassAttRadera = `${encodeURI(groupName)}_nameValues`
+    const klassAttRadera = `${encodeURI(groupName)}_values`
     removeCookie(klassAttRadera)
-    setNames([''])
   }
   const raderaNamnKlass = () => {
-    setNameGroupName(defaultGroup); 
+    setNameGroupName(defaultGroup);
+    document.getElementById("nyKlassNamn").selected = true
+    const klassAttRadera = `${encodeURI(nameGroupName)}`
+    removeCookie(klassAttRadera)
+    setNames(['']) 
+    
   }
 
   function applyFontSizesToClass(className) {
@@ -571,7 +575,7 @@ const handleNameGroupChange = (event) => {
   
 <div style={{display: 'block'}}>
   <select id="sparadeNamnKlasser" defaultValue={groupName} onChange={handleNameGroupChange}>
-    <option id="nyKlass" key="ny..." value={defaultGroup}>{defaultGroup}</option>
+    <option id="nyKlassNamn" key="ny..." value={defaultGroup}>{defaultGroup}</option>
     {/* Lista alla grupper som finns sparade i cookies */}
 
     {Object.keys(Cookies.get()).length > 0 &&
