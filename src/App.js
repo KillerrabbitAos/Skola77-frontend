@@ -553,7 +553,6 @@ const handleNameGroupChange = (event) => {
   <div id='kebabWrap'>
   
 <div style={{display: 'block'}}>
-  <label htmlFor='sparadeKlasser'>klass</label>
   <select id="sparadeNamnKlasser" defaultValue={groupName} onChange={handleNameGroupChange}>
     <option id="nyKlass" key="ny..." value={defaultGroup}>{defaultGroup}</option>
     {/* Lista alla grupper som finns sparade i cookies */}

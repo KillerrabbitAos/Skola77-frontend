@@ -536,6 +536,8 @@ animation-fill-mode: none;
 #sparaNamnKnapp{
   padding: 1px;
   width: auto;
+  margin: 0px;
+
   background-color: grey;
   border-radius: 0;
   border-style: outset;
@@ -550,4 +552,8 @@ animation-fill-mode: none;
 }
 #sparadeNamnKlasser{
   size: 15px;
+  position: relative;
+  display: grid;
+  height: 22px;
+  padding: 0px;
 }
