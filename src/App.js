@@ -88,6 +88,7 @@ const App = () => {
   const [windowHeight, setWindowHeight] = useState(0);
   const [runFixa, setRunFixa] = useState(false)
   const [showSavedMessage, setShowSavedMessage] = useState(false);
+  const [nameGroupName, setNameGroupName] = useState(defaultGroup)
 
   let resizeWindow = () => {
     setWindowWidth(window.innerWidth);
@@ -124,6 +125,34 @@ const App = () => {
       setUppe("Tavla")
     }
   }
+  const handleSaveNames = async () => {
+    if (groupName !== defaultGroup) {
+      const compressedData = compressData({
+        names
+      });
+  
+      Cookies.set(`${groupName}_nameValues`, compressedData, { expires: 365 });
+  
+      setShowSavedMessage(true);
+      setTimeout(() => {
+        setShowSavedMessage(false);
+      }, 2000);
+    } else {
+      const name = prompt('Döp din klass: ');
+      if (name) {
+        setNameGroupName(name);
+  
+        const compressedData = compressData({
+          names
+        });
+  
+        Cookies.set(`${name}_nameValues`, compressedData, { expires: 365 });
+        await new Promise(resolve => setTimeout(resolve, 100));
+  
+        document.getElementById(`${name}_nameValues`).selected = true;
+      }
+  }
+}
 
   const handleSaveButtonClick = async () => {
 
@@ -207,16 +236,12 @@ const App = () => {
   const raderaKlass = () => {
     setGroupName(defaultGroup);
     document.getElementById("nyKlass").selected = true
-    const klassAttRadera = `${encodeURI(groupName)}_values`
+    const klassAttRadera = `${encodeURI(groupName)}_nameValues`
     removeCookie(klassAttRadera)
-    setRows(7);
-      setColumns(7);
-      setBoxNames('tom');
-      setBoxes([]);
-      setNames([""]);
-      setFilledBoxes([]);
-      setCellSize(70);
-      setFixaCounter(0);
+    setNames([''])
+  }
+  const raderaNamnKlass = () => {
+    setNameGroupName(defaultGroup); 
   }
 
   function applyFontSizesToClass(className) {
@@ -413,7 +438,19 @@ const App = () => {
     };
   }
 
-
+const handleNameGroupChange = (event) => {
+  const selectedNameGroup = event.target.value;
+    setNameGroupName(selectedNameGroup)
+    if (selectedNameGroup === defaultGroup){
+      setNames([''])
+    }
+    else{
+      const values = readCookieValues(selectedNameGroup); 
+      if (values){
+        setNames(values.names)
+      }
+    }
+}
 
   const gridConf = <div className='gridInstallning' id='kebaben'>
     <p>Namnimport</p>
@@ -472,7 +509,7 @@ const App = () => {
 
       {Object.keys(Cookies.get()).length > 0 &&
         Object.keys(Cookies.get()).map((cookieName) => (
-          (cookieName.startsWith("_ga") ? '' : (<option id={cookieName} key={cookieName} value={cookieName}>
+          (cookieName.endsWith("_values") && (<option id={cookieName} key={cookieName} value={cookieName}>
             {cookieName.replace('_values', '')}
           </option>))
         ))}
@@ -510,6 +547,59 @@ const App = () => {
 
     
   </div>;
+  const NamnSparningsLösning = <div id='sparaNamnSettings'>
+
+  {showSavedMessage && <div><b>Sparat!</b></div>}
+  <div id='kebabWrap'>
+  
+<div style={{display: 'block'}}>
+  <label htmlFor='sparadeKlasser'>klass</label>
+  <select id="sparadeNamnKlasser" defaultValue={groupName} onChange={handleNameGroupChange}>
+    <option id="nyKlass" key="ny..." value={defaultGroup}>{defaultGroup}</option>
+    {/* Lista alla grupper som finns sparade i cookies */}
+
+    {Object.keys(Cookies.get()).length > 0 &&
+      Object.keys(Cookies.get()).map((cookieName) => (
+        (cookieName.endsWith('nameValues') && (<option id={cookieName} key={cookieName} value={cookieName}>
+          {cookieName.replace('_nameValues', '')}
+        </option>))
+      ))}
+
+  </select>
+</div>
+<button onClick={handleSaveNames} className='sparaNamnKnapp' id='sparaNamnKnapp'>spara</button>
+</div>
+
+  <div className='sparaKnappar'>
+
+  {
+(nameGroupName === defaultGroup)
+  ? ''
+  : (
+    <div className='raderaKlassDiv'>
+      <button onMouseDown={raderaNamnKlass} id='raderaKlass'></button>
+      <label htmlFor='raderaKlass'>Radera Klass</label>
+    </div>
+  )
+}
+
+{
+(groupName === defaultGroup)
+  ? ''
+  : (
+    <div className='sparaSomNyDiv'>
+      <button onMouseDown={sparaSomNy} id='sparaSomNy'></button>
+      <label htmlFor='sparaSomNy'>Spara som ny</label>
+    </div>
+  )
+}
+
+
+  </div>
+
+
+  
+</div>;
   useEffect( () => {
    fixa()
    setTimeout(() => {
@@ -609,6 +699,7 @@ const App = () => {
       {gridConf}
       <div>
         <p id='nameHeader'>Namn:</p>
+      {NamnSparningsLösning}
         <div id="namn">
           <NameList
             names={names}
