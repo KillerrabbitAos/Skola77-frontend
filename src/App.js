@@ -84,7 +84,7 @@ const App = () => {
   const [knappStatus, setKnappStatus] = useState(true);
   const [låstaNamn, setLåstaNamn] = useState([])
   const [updateFixa, setUpdateFixa] = useState(false)
-  const [namnRader, setNamnRader] = useState((window.screen.width/260).toFixed(0))
+  const [namnRader, setNamnRader] = useState((window.screen.width / 260).toFixed(0))
   const [windowWidth, setWindowWidth] = useState(0);
   const [windowHeight, setWindowHeight] = useState(0);
   const [runFixa, setRunFixa] = useState(false)
@@ -99,7 +99,7 @@ const App = () => {
     fixa();
   }, [cellSize]);
 
-  
+
 
   const handleRowsInputChange = (e) => {
     const value = e.target.value;
@@ -131,9 +131,9 @@ const App = () => {
       const compressedData = compressData({
         names
       });
-  
+
       Cookies.set(`${groupName}_nameValues`, compressedData, { expires: 365 });
-  
+
       setShowSavedMessage(true);
       setTimeout(() => {
         setShowSavedMessage(false);
@@ -142,18 +142,18 @@ const App = () => {
       const name = prompt('Döp din klass: ');
       if (name) {
         setNameGroupName(name);
-  
+
         const compressedData = compressData({
           names
         });
-  
+
         Cookies.set(`${name}_nameValues`, compressedData, { expires: 365 });
         await new Promise(resolve => setTimeout(resolve, 100));
-  
+
         document.getElementById(`${name}_nameValues`).selected = true;
       }
+    }
   }
-}
 
   const handleSaveButtonClick = async () => {
 
@@ -170,9 +170,9 @@ const App = () => {
         keyChange,
         låstaNamn,
       });
-  
+
       Cookies.set(`${groupName}_values`, compressedData, { expires: 365 });
-  
+
       setShowSavedMessage(true);
       setTimeout(() => {
         setShowSavedMessage(false);
@@ -181,7 +181,7 @@ const App = () => {
       const name = prompt('Döp din placering: ');
       if (name) {
         setGroupName(name);
-  
+
         const compressedData = compressData({
           rows,
           columns,
@@ -194,15 +194,15 @@ const App = () => {
           keyChange,
           låstaNamn,
         });
-  
+
         Cookies.set(`${name}_values`, compressedData, { expires: 365 });
         await new Promise(resolve => setTimeout(resolve, 100));
-  
+
         document.getElementById(`${name}_values`).selected = true;
       }
     }
   };
-  
+
 
 
   const sparaSomNy = async () => {
@@ -245,7 +245,7 @@ const App = () => {
       document.getElementById(`${name}_nameValues`).selected = true
     }
 
-  } 
+  }
 
 
 
@@ -260,17 +260,17 @@ const App = () => {
     document.getElementById("nyKlassNamn").selected = true
     const klassAttRadera = `${encodeURI(nameGroupName)}`
     removeCookie(klassAttRadera)
-    setNames(['']) 
-    
+    setNames([''])
+
   }
 
   function applyFontSizesToClass(className) {
     const elements = document.getElementsByClassName(className);
-    
+
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i];
       const container = element.parentElement;
-      
+
       fitTextToContainer(container, element, 25);
     }
   }
@@ -353,7 +353,7 @@ const App = () => {
 
   const ökaStorlek = () => {
 
-    if (cellSize >= 150){
+    if (cellSize >= 150) {
       console.log("för stor:" + cellSize);
 
       return;
@@ -367,7 +367,7 @@ const App = () => {
   const minskaStorlek = () => {
 
 
-    if (cellSize <= 60){
+    if (cellSize <= 60) {
 
       console.log("för liten:" + cellSize);
       return;
@@ -382,17 +382,17 @@ const App = () => {
     applyFontSizesToClass('name');
     //const elements = document.getElementsByClassName('namnTxt')
     //for (let i = 0; i < elements.length; i++) {
-      //const element = elements[i];
-     // console.log(element)
-     // const container = element.parentElement;
-     // const containerWidth = container.clientWidth;
-      //const elementWidth = element.offsetWidth;
-     // console.log(elementWidth)
-     // console.log(containerWidth)
-     // if (elementWidth > containerWidth){
-     //// fitTextToContainer(container, element);
-     // }
-   // }
+    //const element = elements[i];
+    // console.log(element)
+    // const container = element.parentElement;
+    // const containerWidth = container.clientWidth;
+    //const elementWidth = element.offsetWidth;
+    // console.log(elementWidth)
+    // console.log(containerWidth)
+    // if (elementWidth > containerWidth){
+    //// fitTextToContainer(container, element);
+    // }
+    // }
   }
   const firstConstantFunction = async () => {
     const namesList = names
@@ -425,13 +425,13 @@ const App = () => {
     } else {
       var values = schackBräde
       nere = ("Svart")
-        uppe = ("Vit")
-      
+      uppe = ("Vit")
+
       console.log(schackBräde)
-      if (selectedGroup !== 'schack'){
+      if (selectedGroup !== 'schack') {
         var uppe = ("Tavla")
-      var nere = ("Bak")
-        values = readCookieValues(selectedGroup); 
+        var nere = ("Bak")
+        values = readCookieValues(selectedGroup);
       }
       console.log(values)
       if (values) {
@@ -458,19 +458,19 @@ const App = () => {
     };
   }
 
-const handleNameGroupChange = (event) => {
-  const selectedNameGroup = event.target.value;
+  const handleNameGroupChange = (event) => {
+    const selectedNameGroup = event.target.value;
     setNameGroupName(selectedNameGroup)
-    if (selectedNameGroup === defaultGroup){
+    if (selectedNameGroup === defaultGroup) {
       setNames([''])
     }
-    else{
-      const values = readCookieValues(selectedNameGroup); 
-      if (values){
+    else {
+      const values = readCookieValues(selectedNameGroup);
+      if (values) {
         setNames(values.names)
       }
     }
-}
+  }
 
   const gridConf = <div className='gridInstallning' id='kebaben'>
     <p>Namnimport</p>
@@ -539,115 +539,115 @@ const handleNameGroupChange = (event) => {
 
     <div className='sparaKnappar'>
 
-    {
-  (groupName === defaultGroup)
-    ? ''
-    : (
-      <div className='raderaKlassDiv'>
-        <button onMouseDown={raderaKlass} id='raderaKlass'></button>
-        <label htmlFor='raderaKlass'>Radera Klass</label>
-      </div>
-    )
-}
+      {
+        (groupName === defaultGroup)
+          ? ''
+          : (
+            <div className='raderaKlassDiv'>
+              <button onMouseDown={raderaKlass} id='raderaKlass'></button>
+              <label htmlFor='raderaKlass'>Radera Klass</label>
+            </div>
+          )
+      }
 
-{
-  (groupName === defaultGroup)
-    ? ''
-    : (
-      <div className='sparaSomNyDiv'>
-        <button onMouseDown={sparaSomNy} id='sparaSomNy'></button>
-        <label htmlFor='sparaSomNy'>Spara som ny</label>
-      </div>
-    )
-}
+      {
+        (groupName === defaultGroup)
+          ? ''
+          : (
+            <div className='sparaSomNyDiv'>
+              <button onMouseDown={sparaSomNy} id='sparaSomNy'></button>
+              <label htmlFor='sparaSomNy'>Spara som ny</label>
+            </div>
+          )
+      }
 
 
     </div>
 
 
-    
+
   </div>;
   const NamnSparningsLösning = <div id='sparaNamnSettings'>
-<div style={{display: 'block', width: '100%', height: '35px'}}>
-<div id='yberKebab'>
-  {showSavedMessage && <div><b>Sparat!</b></div>}
-  <div id='kebabWrap'>
-  
-<div style={{display: 'block'}}>
-  <select id="sparadeNamnKlasser" defaultValue={groupName} onChange={handleNameGroupChange}>
-    <option id="nyKlassNamn" key="ny..." value={defaultGroup}>{defaultGroup}</option>
-    {/* Lista alla grupper som finns sparade i cookies */}
+    <div style={{ display: 'block', width: '100%', height: '35px' }}>
+      <div id='yberKebab'>
+        {showSavedMessage && <div><b>Sparat!</b></div>}
+        <div id='kebabWrap'>
 
-    {Object.keys(Cookies.get()).length > 0 &&
-      Object.keys(Cookies.get()).map((cookieName) => (
-        (cookieName.endsWith('nameValues') && (<option id={cookieName} key={cookieName} value={cookieName}>
-          {cookieName.replace('_nameValues', '')}
-        </option>))
-      ))}
+          <div style={{ display: 'block' }}>
+            <select id="sparadeNamnKlasser" defaultValue={groupName} onChange={handleNameGroupChange}>
+              <option id="nyKlassNamn" key="ny..." value={defaultGroup}>{defaultGroup}</option>
+              {/* Lista alla grupper som finns sparade i cookies */}
 
-  </select>
-</div>
-<div style={{display:'flex'}}>
-<button onClick={handleSaveNames} className='sparaNamnKnapp' id='sparaNamnKnapp'>spara</button>
-{
-(nameGroupName === defaultGroup)
-  ? ''
-  : (
-    <div className='raderaNamnKlassDiv'>
-      <button onMouseDown={raderaNamnKlass} id='raderaNamnKlass'><RiDeleteBin6Line /></button>
+              {Object.keys(Cookies.get()).length > 0 &&
+                Object.keys(Cookies.get()).map((cookieName) => (
+                  (cookieName.endsWith('nameValues') && (<option id={cookieName} key={cookieName} value={cookieName}>
+                    {cookieName.replace('_nameValues', '')}
+                  </option>))
+                ))}
+
+            </select>
+          </div>
+          <div style={{ display: 'flex' }}>
+            <button onClick={handleSaveNames} className='sparaNamnKnapp' id='sparaNamnKnapp'>spara</button>
+            {
+              (nameGroupName === defaultGroup)
+                ? ''
+                : (
+                  <div className='raderaNamnKlassDiv'>
+                    <button onMouseDown={raderaNamnKlass} id='raderaNamnKlass'><RiDeleteBin6Line /></button>
+                  </div>
+                )
+            }
+            {
+              //{
+              //(nameGroupName === defaultGroup)
+              //? ''
+              //: (
+              //<div className='sparaNamnSomNyDiv'>
+              //<button onMouseDown={sparaNamnSomNy} id='sparaNamnSomNy'>Spara som ny</button>
+              // </div>
+              //)
+              //}
+            }
+          </div>
+
+        </div>
+
+        <div className='sparaKnappar'>
+
+
+        </div>
+
+
+
+      </div>
     </div>
-  )
-}
-{
-//{
-//(nameGroupName === defaultGroup)
-  //? ''
-  //: (
-    //<div className='sparaNamnSomNyDiv'>
-      //<button onMouseDown={sparaNamnSomNy} id='sparaNamnSomNy'>Spara som ny</button>
-   // </div>
-  //)
-//}
-}
-</div>
-
-</div>
-
-  <div className='sparaKnappar'>
-
-  
   </div>
-
-
-  
-</div>
-</div>
-</div>
-  useEffect( () => {
-   fixa()
-   setTimeout(() => {
-    console.log("fixade igen");
-    fixa();
-  }, 10);
+  useEffect(() => {
+    fixa()
+    setTimeout(() => {
+      console.log("fixade igen");
+      fixa();
+    }, 10);
     console.log("fixade")
-  }, [updateFixa, cellSize] 
-   )
-   useEffect( () => {
-     fixa(); 
-   })
-   
-   useEffect( () => {
+  }, [updateFixa, cellSize]
+  )
+  useEffect(() => {
+    fixa();
+  })
+
+  useEffect(() => {
     window.addEventListener("resize", resizeWindow);
     return () => window.removeEventListener("resize", resizeWindow);
   }, []);
-    useEffect(()=> {
-      setNamnRader((document.getElementById('bräddMått').getBoundingClientRect().width/260).toFixed(0))
-      while (!document.getElementById('bräddMått').getBoundingClientRect().width){
-      setNamnRader(document.getElementById('bräddMått').getBoundingClientRect().width/260).toFixed(0)
+  useEffect(() => {
+    setNamnRader((document.getElementById('bräddMått').getBoundingClientRect().width / 260).toFixed(0))
+    while (!document.getElementById('bräddMått').getBoundingClientRect().width) {
+      setNamnRader(document.getElementById('bräddMått').getBoundingClientRect().width / 260).toFixed(0)
     }
-    }, [windowWidth])
-    
-    
+  }, [windowWidth])
+
+
   return (
     <div className="App">
       <div id='bräddMått'></div>
@@ -660,16 +660,16 @@ const handleNameGroupChange = (event) => {
         <div className='storkleksÄndring'>
 
 
-        <div className='ökaStorlekDiv'>
-        <button onClick={ökaStorlek} id='ökaStorlek' className='grönaKnappar'></button>
-        <label htmlFor='ökaStorlek'>Öka Storlek</label>
-        </div>
+          <div className='ökaStorlekDiv'>
+            <button onClick={ökaStorlek} id='ökaStorlek' className='grönaKnappar'></button>
+            <label htmlFor='ökaStorlek'>Öka Storlek</label>
+          </div>
 
 
-        <div className='minskaStorlekDiv'>
-        <button onClick={minskaStorlek} id='minskaStorlek'></button>
-        <label htmlFor='minskaStorlek'>Minska storlek</label>
-        </div>
+          <div className='minskaStorlekDiv'>
+            <button onClick={minskaStorlek} id='minskaStorlek'></button>
+            <label htmlFor='minskaStorlek'>Minska storlek</label>
+          </div>
 
 
         </div>
@@ -690,39 +690,39 @@ const handleNameGroupChange = (event) => {
 
         {grid}
         <div id='meny'>
-        <div id='redigeringsDiv' className='menySaker'>
-      </div>
-      <div id="klarDiv" className='menySaker'>
-      <button
-        id="klar"
-        onClick={toggleBorders}
-        style={{ 
-          backgroundImage: editingMode ? `url(${doneImg})` : `url(${backImg})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          height: '50px',
-          border: 'none',
-          cursor: 'pointer'
-        }}
-></button>
-      <label id='klarLabel' htmlFor="klar">{editingMode ? 'Klar' : 'Fortsätt redigera'}</label>
-      </div>  
-        
+          <div id='redigeringsDiv' className='menySaker'>
+          </div>
+          <div id="klarDiv" className='menySaker'>
+            <button
+              id="klar"
+              onClick={toggleBorders}
+              style={{
+                backgroundImage: editingMode ? `url(${doneImg})` : `url(${backImg})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                height: '50px',
+                border: 'none',
+                cursor: 'pointer'
+              }}
+            ></button>
+            <label id='klarLabel' htmlFor="klar">{editingMode ? 'Klar' : 'Fortsätt redigera'}</label>
+          </div>
+
           <div id="perspektivDiv" className='menySaker'>
-          <button id='perspektiv' onClick={ändraPerspektiv}></button>
-          <label id='perspektivLabel' htmlFor="perspektiv">Byt perspektiv</label>
+            <button id='perspektiv' onClick={ändraPerspektiv}></button>
+            <label id='perspektivLabel' htmlFor="perspektiv">Byt perspektiv</label>
           </div>
 
           <div className="menySaker" id='slumpaDiv'>
-          <button onClick={handleMixNames} id='slumpaKnappen'></button>
-          <label id='slumpaLabel' htmlFor="slumpaKnappen">Slumpa</label>
+            <button onClick={handleMixNames} id='slumpaKnappen'></button>
+            <label id='slumpaLabel' htmlFor="slumpaKnappen">Slumpa</label>
           </div>
-      </div>
+        </div>
       </div>
       {gridConf}
       <div>
         <p id='nameHeader'>Namn:</p>
-      {NamnSparningsLösning}
+        {NamnSparningsLösning}
         <div id="namn">
           <NameList
             names={names}
