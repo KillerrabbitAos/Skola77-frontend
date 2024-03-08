@@ -187,6 +187,15 @@ button {
     background-color: green;
   }
 }
+@keyframes redAn {
+  from {
+    background-color: red;
+  }
+
+  to {
+    background-color: rgba(237, 0, 0, 0.87);
+  }
+}
 @keyframes låsKnapp {
   from {
     background-color: none;
@@ -516,10 +525,12 @@ animation-fill-mode: none;
   margin: 0;
   bottom: 10px;
   position: relative;
-  button:hover{
-    color: red;
-  }
-
+  
+}
+.papperskorg:hover{
+    animation-name: redAn;
+  animation-duration: none;
+  animation-fill-mode: forwards;
 }
 .box{
   height: 100%;
