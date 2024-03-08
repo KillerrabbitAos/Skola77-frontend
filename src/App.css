@@ -540,3 +540,59 @@ animation-fill-mode: none;
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
 }
+#sparaNamnKnapp{
+  padding: 1px;
+  width: auto;
+  margin: 0px;
+  position: relative;
+  float: left;
+  background-color: grey;
+  border-radius: 0;
+  border-style: outset;
+  :hover{
+    background-color: gray;
+  }
+}
+#kebabWrap{
+  display: flex;
+  position: relative;
+  left: 70%;
+}
+#sparadeNamnKlasser{
+  size: 15px;
+  position: relative;
+  display: grid;
+  height: 22px;
+  padding: 0px;
+}
+#sparaNamnSomNy{
+  padding: 1px;
+  width: auto;
+  margin: 0px;
+  position: relative;
+  background-color: grey;
+  border-radius: 0;
+  border-style: outset;
+  :hover{
+    background-color: gray;
+  }
+  right: 100%;
+}
+#raderaNamnKlass{
+  padding: 1px;
+  width: auto;
+  margin: 0px;
+  position: relative;
+  float: left;
+  background-color: grey;
+  border-radius: 0;
+  border-style: outset;
+  :hover{
+    background-color: gray;
+  } 
+}
+#yberKebab{
+  float: right;
+  position: relative;
+  right: 7%;
+}

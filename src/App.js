@@ -12,6 +12,7 @@ import doneImg from './done.svg';
 import backImg from './back.png';
 import schackBräde from './schackVärden.js'
 import { isTablet } from 'react-device-detect';
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
@@ -88,6 +89,7 @@ const App = () => {
   const [windowHeight, setWindowHeight] = useState(0);
   const [runFixa, setRunFixa] = useState(false)
   const [showSavedMessage, setShowSavedMessage] = useState(false);
+  const [nameGroupName, setNameGroupName] = useState(defaultGroup)
 
   let resizeWindow = () => {
     setWindowWidth(window.innerWidth);
@@ -124,6 +126,34 @@ const App = () => {
       setUppe("Tavla")
     }
   }
+  const handleSaveNames = async () => {
+    if (groupName !== defaultGroup) {
+      const compressedData = compressData({
+        names
+      });
+  
+      Cookies.set(`${groupName}_nameValues`, compressedData, { expires: 365 });
+  
+      setShowSavedMessage(true);
+      setTimeout(() => {
+        setShowSavedMessage(false);
+      }, 2000);
+    } else {
+      const name = prompt('Döp din klass: ');
+      if (name) {
+        setNameGroupName(name);
+  
+        const compressedData = compressData({
+          names
+        });
+  
+        Cookies.set(`${name}_nameValues`, compressedData, { expires: 365 });
+        await new Promise(resolve => setTimeout(resolve, 100));
+  
+        document.getElementById(`${name}_nameValues`).selected = true;
+      }
+  }
+}
 
   const handleSaveButtonClick = async () => {
 
@@ -200,7 +230,22 @@ const App = () => {
     }
 
   }
-  
+  const sparaNamnSomNy = async () => {
+    const name = prompt('Döp din klass: ');
+    if (name) {
+      setGroupName(name);
+
+      const compressedData = compressData({
+        names
+      });
+
+      Cookies.set(`${name}_nameValues`, compressedData, { expires: 365 });
+      await new Promise(resolve => setTimeout(resolve, 10));
+
+      document.getElementById(`${name}_nameValues`).selected = true
+    }
+
+  } 
 
 
 
@@ -209,14 +254,14 @@ const App = () => {
     document.getElementById("nyKlass").selected = true
     const klassAttRadera = `${encodeURI(groupName)}_values`
     removeCookie(klassAttRadera)
-    setRows(7);
-      setColumns(7);
-      setBoxNames('tom');
-      setBoxes([]);
-      setNames([""]);
-      setFilledBoxes([]);
-      setCellSize(70);
-      setFixaCounter(0);
+  }
+  const raderaNamnKlass = () => {
+    setNameGroupName(defaultGroup);
+    document.getElementById("nyKlassNamn").selected = true
+    const klassAttRadera = `${encodeURI(nameGroupName)}`
+    removeCookie(klassAttRadera)
+    setNames(['']) 
+    
   }
 
   function applyFontSizesToClass(className) {
@@ -413,7 +458,19 @@ const App = () => {
     };
   }
 
-
+const handleNameGroupChange = (event) => {
+  const selectedNameGroup = event.target.value;
+    setNameGroupName(selectedNameGroup)
+    if (selectedNameGroup === defaultGroup){
+      setNames([''])
+    }
+    else{
+      const values = readCookieValues(selectedNameGroup); 
+      if (values){
+        setNames(values.names)
+      }
+    }
+}
 
   const gridConf = <div className='gridInstallning' id='kebaben'>
     <p>Namnimport</p>
@@ -472,7 +529,7 @@ const App = () => {
 
       {Object.keys(Cookies.get()).length > 0 &&
         Object.keys(Cookies.get()).map((cookieName) => (
-          (cookieName.startsWith("_ga") ? '' : (<option id={cookieName} key={cookieName} value={cookieName}>
+          (cookieName.endsWith("_values") && (<option id={cookieName} key={cookieName} value={cookieName}>
             {cookieName.replace('_values', '')}
           </option>))
         ))}
@@ -510,6 +567,62 @@ const App = () => {
 
     
   </div>;
+  const NamnSparningsLösning = <div id='sparaNamnSettings'>
+<div style={{display: 'block', width: '100%', height: '35px'}}>
+<div id='yberKebab'>
+  {showSavedMessage && <div><b>Sparat!</b></div>}
+  <div id='kebabWrap'>
+  
+<div style={{display: 'block'}}>
+  <select id="sparadeNamnKlasser" defaultValue={groupName} onChange={handleNameGroupChange}>
+    <option id="nyKlassNamn" key="ny..." value={defaultGroup}>{defaultGroup}</option>
+    {/* Lista alla grupper som finns sparade i cookies */}
+
+    {Object.keys(Cookies.get()).length > 0 &&
+      Object.keys(Cookies.get()).map((cookieName) => (
+        (cookieName.endsWith('nameValues') && (<option id={cookieName} key={cookieName} value={cookieName}>
+          {cookieName.replace('_nameValues', '')}
+        </option>))
+      ))}
+
+  </select>
+</div>
+<div style={{display:'flex'}}>
+<button onClick={handleSaveNames} className='sparaNamnKnapp' id='sparaNamnKnapp'>spara</button>
+{
+(nameGroupName === defaultGroup)
+  ? ''
+  : (
+    <div className='raderaNamnKlassDiv'>
+      <button onMouseDown={raderaNamnKlass} id='raderaNamnKlass'><RiDeleteBin6Line /></button>
+    </div>
+  )
+}
+{
+//{
+//(nameGroupName === defaultGroup)
+  //? ''
+  //: (
+    //<div className='sparaNamnSomNyDiv'>
+      //<button onMouseDown={sparaNamnSomNy} id='sparaNamnSomNy'>Spara som ny</button>
+   // </div>
+  //)
+//}
+}
+</div>
+
+</div>
+
+  <div className='sparaKnappar'>
+
+  
+  </div>
+
+
+  
+</div>
+</div>
+</div>
   useEffect( () => {
    fixa()
    setTimeout(() => {
@@ -609,6 +722,7 @@ const App = () => {
       {gridConf}
       <div>
         <p id='nameHeader'>Namn:</p>
+      {NamnSparningsLösning}
         <div id="namn">
           <NameList
             names={names}
