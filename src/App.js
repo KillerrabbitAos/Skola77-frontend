@@ -11,6 +11,7 @@ import { papperskorg } from './papperskorg';
 import doneImg from './done.svg';
 import backImg from './back.png';
 import schackBräde from './schackVärden.js'
+import { isTablet } from 'react-device-detect';
 
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
@@ -60,12 +61,12 @@ const App = () => {
   const [groupName, setGroupName] = useState('ny...');
   const [keyChange, setKeyChange] = useState('tom')
   const [rows, setRows] = useState(7);
-  const [columns, setColumns] = useState(7);
+  const [columns, setColumns] = useState(9);
   const [boxes, setBoxes] = useState([]);
   const [names, setNames] = useState([""]);
   const [boxNames, setBoxNames] = useState('tom');
   const [filledBoxes, setFilledBoxes] = useState([]);
-  const [cellSize, setCellSize] = useState(70);
+  const [cellSize, setCellSize] = useState(isTablet ? 85 : 70);
   const [fixaCounter, setFixaCounter] = useState(0);
   const [baklänges, setBaklänges] = useState(false)
   const defaultGroup = 'ny...';

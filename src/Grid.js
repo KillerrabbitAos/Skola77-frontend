@@ -125,7 +125,7 @@ const [contextMenu, setContextMenu] = useState(['tom'])
 
         <div
           key={`grid-item-${i}`}
-          className="grid-item"
+          className="grid-item prevent-select"
           style={{
             width: `${cellSize}px`,
             height: `${cellSize}px`,
