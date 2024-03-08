@@ -75,7 +75,7 @@ const handleContextMenu = (e) => {
 
 const handleClick = (e) => {
   // Hide context menu when clicking anywhere else
-  if (showContextMenu && !isTablet) {
+  if (showContextMenu) {
     setShowContextMenu(false)
   }
 };
