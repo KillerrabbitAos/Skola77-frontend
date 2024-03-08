@@ -91,14 +91,14 @@ const handleClick = (e) => {
   }
   const handleRemoveBox = () => {
     setIsFilled(false);
-    setFilledBoxes((prevFilledBoxes) => prevFilledBoxes.filter((boxId) => boxId !== id));
-  
     if (låstaNamn.includes(id)) {
       setLåstaNamn((prevLåstaNamn) => prevLåstaNamn.filter((lockedId) => lockedId !== id));
     }
-  
-    const newBoxNames = boxNames.filter((box) => box.key !== id);
-    setBoxNames(newBoxNames.length ? newBoxNames : 'tom');
+    setFilledBoxes((prevFilledBoxes) => prevFilledBoxes.filter((boxId) => boxId !== id));
+    if (nameValue !== "tom" && nameValue !== '' && nameValue){
+      const newBoxNames = boxNames.filter((box) => box.key !== id);
+      setBoxNames(newBoxNames.length ? newBoxNames : 'tom');
+    }
   };
   
   const handleDragStart = (e) => {
@@ -157,7 +157,7 @@ return (
   >
     <div className={`box ${(filledBoxes.includes(id)) ? 'filled' : ''} ${färg ? färg : ''}  ${låstaNamn.includes(id) && showBorders ? 'låst' : ''}`}>
       {isFilled && (
-          <button className="låsKnappBox" style={{visibility: showBorders ? 'visible' : 'hidden'}}  onClick={handleRemoveBox}><RiDeleteBin6Line /></button>
+          <button className="papperskorg" style={{visibility: showBorders ? 'visible' : 'hidden'}}  onClick={handleRemoveBox}><RiDeleteBin6Line /></button>
         )}
         {isFilled && (
           <button className='låsKnappBox' style={{ visibility: showBorders ? 'visible' : 'hidden' }} onClick={handleLåsaNamn}>{låstaNamn.includes(id) ? <ImLock /> : <ImUnlocked />}</button>
