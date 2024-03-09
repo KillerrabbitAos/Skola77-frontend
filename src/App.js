@@ -123,18 +123,14 @@ const App = () => {
     }
   };
   const handleSaveNames = async () => {
-    if (groupName !== defaultGroup) {
+    if (nameGroupName !== defaultGroup) {
       const compressedData = compressData({
-        names,
+        names
       });
 
-      Cookies.set(`${groupName}_nameValues`, compressedData, { expires: 365 });
-
-      setShowSavedMessage(true);
-      setTimeout(() => {
-        setShowSavedMessage(false);
-      }, 2000);
-    } else {
+      Cookies.set(`${nameGroupName}_nameValues`, compressedData, { expires: 365 });
+    }
+      else {
       const name = prompt("Döp din klass: ");
       if (name) {
         setNameGroupName(name);
@@ -444,7 +440,8 @@ const App = () => {
   };
 
   const handleNameGroupChange = (event) => {
-    const selectedNameGroup = event.target.value;
+    
+      const selectedNameGroup = event.target.value;
     setNameGroupName(selectedNameGroup);
     if (selectedNameGroup === defaultGroup) {
       setNames([""]);
