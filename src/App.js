@@ -58,7 +58,7 @@ function fitTextToContainer(container, element, maxFontSizePx) {
 const App = () => {
   const [groupName, setGroupName] = useState("ny...");
   const [keyChange, setKeyChange] = useState("tom");
-  const [rows, setRows] = useState(7);
+  const [rows, setRows] = useState(8);
   const [columns, setColumns] = useState(9);
   const [boxes, setBoxes] = useState([]);
   const [names, setNames] = useState([""]);
@@ -68,8 +68,8 @@ const App = () => {
   const [fixaCounter, setFixaCounter] = useState(0);
   const [baklänges, setBaklänges] = useState(false);
   const defaultGroup = "ny...";
-  const [rowsInput, setRowsInput] = useState("7");
-  const [columnsInput, setColumnsInput] = useState("7");
+  const [rowsInput, setRowsInput] = useState("8");
+  const [columnsInput, setColumnsInput] = useState("9");
   const [nere, setNere] = useState("Bak");
   const [uppe, setUppe] = useState("Tavla");
   const [clicked, setClicked] = useState(false);
@@ -89,6 +89,7 @@ const App = () => {
   const [runFixa, setRunFixa] = useState(false);
   const [showSavedMessage, setShowSavedMessage] = useState(false);
   const [nameGroupName, setNameGroupName] = useState(defaultGroup);
+  const [gridGroupName, setGridGroupName] = useState(defaultGroup)
 
   let resizeWindow = () => {
     setWindowWidth(window.innerWidth);
@@ -143,6 +144,36 @@ const App = () => {
         await new Promise((resolve) => setTimeout(resolve, 100));
 
         document.getElementById(`${name}_nameValues`).selected = true;
+      }
+    }
+  };
+  const handleSaveGrid = async () => {
+    if (nameGroupName !== defaultGroup) {
+      const compressedData = compressData({
+        rows,
+        columns,
+        cellSize,
+        filledBoxes,
+      });
+
+      Cookies.set(`${nameGroupName}_gridValues`, compressedData, { expires: 365 });
+    }
+      else {
+      const name = prompt("Döp det här klassrummet: ");
+      if (name) {
+        setGridGroupName(name);
+
+        const compressedData = compressData({
+          rows,
+        columns,
+        cellSize,
+        filledBoxes,
+        });
+
+        Cookies.set(`${name}_gridValues`, compressedData, { expires: 365 });
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
+        document.getElementById(`${name}_gridValues`).selected = true;
       }
     }
   };
@@ -248,7 +279,16 @@ const App = () => {
     removeCookie(klassAttRadera);
     setNames([""]);
   };
-
+  const raderaGrid = () => {
+    setGridGroupName(defaultGroup);
+    document.getElementById("nyGridNamn").selected = true;
+    const klassAttRadera = `${encodeURI(gridGroupName)}`;
+    removeCookie(klassAttRadera);
+    setColumns(8);
+      setRows(9);
+      setCellSize(70);
+    
+  }; 
   function applyFontSizesToClass(className) {
     const elements = document.getElementsByClassName(className);
 
@@ -452,6 +492,25 @@ const App = () => {
       }
     }
   };
+  const handleGridGroupChange = (event) => {
+    
+    const selectedGridGroup = event.target.value;
+  setGridGroupName(selectedGridGroup);
+  if (selectedGridGroup === defaultGroup) {
+    setColumns(8);
+      setRows(9);
+      setCellSize(70);
+      setFilledBoxes([])
+  } else {
+    const values = readCookieValues(selectedGridGroup);
+    if (values) {
+      setColumns(values.columns);
+      setRows(values.rows);
+      setCellSize(values.cellSize);
+      setFilledBoxes(values.filledBoxes)
+    }
+  }
+};
 
   const gridConf = (
     <div className="gridInstallning" id="kebaben">
@@ -466,6 +525,77 @@ const App = () => {
       <ExcelToTextConverter setNames={setNames} names={names} />
     </div>
   );
+  const GridSparningsLösning = (
+    <div id="sparaNamnSettings">
+      <div style={{ display: "block", width: "100%", height: "35px" }}>
+        <div id="yberKebabGrid">
+          {showSavedMessage && (
+            <div>
+              <b>Sparat!</b>
+            </div>
+          )}
+          <div id="kebabWrap">
+            <div style={{ display: "block" }}>
+              <select
+                id="sparadeNamnKlasser"
+                defaultValue={groupName}
+                onChange={handleGridGroupChange}
+              >
+                <option id="nyGridNamn" key="ny..." value={defaultGroup}>
+                  {defaultGroup}
+                </option>
+
+                {Object.keys(Cookies.get()).length > 0 &&
+                  Object.keys(Cookies.get()).map(
+                    (cookieName) =>
+                      cookieName.endsWith("gridValues") && (
+                        <option
+                          id={cookieName}
+                          key={cookieName}
+                          value={cookieName}
+                        >
+                          {cookieName.replace("_gridValues", "")}
+                        </option>
+                      )
+                  )}
+              </select>
+            </div>
+            <div style={{ display: "flex" }}>
+              <button
+                onClick={handleSaveGrid}
+                className="sparaNamnKnapp"
+                id="sparaNamnKnapp"
+              >
+                spara
+              </button>
+              {gridGroupName === defaultGroup ? (
+                ""
+              ) : (
+                <div className="raderaNamnKlassDiv">
+                  <button onMouseDown={raderaGrid} id="raderaNamnKlass">
+                    <RiDeleteBin6Line />
+                  </button>
+                </div>
+              )}
+              {
+                //{
+                //(nameGroupName === defaultGroup)
+                //? ''
+                //: (
+                //<div className='sparaNamnSomNyDiv'>
+                //<button onMouseDown={sparaNamnSomNy} id='sparaNamnSomNy'>Spara som ny</button>
+                // </div>
+                //)
+                //}
+              }
+            </div>
+          </div>
+
+          <div className="sparaKnappar"></div>
+        </div>
+      </div>
+    </div>
+    )
   const grid = (
     <Grid
       rows={rows}
@@ -498,6 +628,7 @@ const App = () => {
       setLåstaNamn={setLåstaNamn}
       updateFixa={updateFixa}
       setUpdateFixa={setUpdateFixa}
+      GridSparningsLösning={GridSparningsLösning}
     />
   );
   const sparningsLösning = (
@@ -563,6 +694,8 @@ const App = () => {
       </div>
     </div>
   );
+  
+
   const NamnSparningsLösning = (
     <div id="sparaNamnSettings">
       <div style={{ display: "block", width: "100%", height: "35px" }}>
@@ -582,7 +715,6 @@ const App = () => {
                 <option id="nyKlassNamn" key="ny..." value={defaultGroup}>
                   {defaultGroup}
                 </option>
-                {/* Lista alla grupper som finns sparade i cookies */}
 
                 {Object.keys(Cookies.get()).length > 0 &&
                   Object.keys(Cookies.get()).map(
@@ -711,7 +843,7 @@ const App = () => {
             Skriv ut
           </label>
         </div>
-
+        
         {grid}
         <div id="meny">
           <div id="redigeringsDiv" className="menySaker"></div>

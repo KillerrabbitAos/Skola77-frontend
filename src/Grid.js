@@ -52,6 +52,7 @@ const Grid = ({
   baklänges,
   nere,
   uppe,
+  GridSparningsLösning
 }) => {
   const [contextMenu, setContextMenu] = useState(["tom"]);
   const handleDrop = async (e) => {
@@ -230,8 +231,11 @@ const Grid = ({
       }}
     >
       <h1 id="placeringsTitel">{groupName}</h1>
-
-      <p id="uppe">{uppe}</p>
+      
+      <div style={{display: 'inline-block', width: '100%'}}>
+      <p style={{float: 'left', position: 'relative', left: '50%'}} id="uppe">{uppe}</p>
+      {GridSparningsLösning}
+      </div>
 
       <div
         id="grid"
