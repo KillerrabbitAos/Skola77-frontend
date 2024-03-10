@@ -591,5 +591,5 @@ button:hover {
     width:auto;
 }
 .dragging{
-  background-size: 0 0 !important;
+  background-color: transparent !important;
 }
