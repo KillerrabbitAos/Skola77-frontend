@@ -266,7 +266,7 @@ const Grid = ({
 
       <div style={{ display: "inline-block", width: "100%" }}>
         <p
-          style={{ float: "left", position: "relative", left: "50%" }}
+          style={{ float: "left", position: "relative", left: "47.5%" }}
           id="uppe"
         >
           {uppe}
