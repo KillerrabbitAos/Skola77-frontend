@@ -593,3 +593,9 @@ button:hover {
 .dragging{
   background-color: transparent !important;
 }
+.pil{
+  height: 30px;
+      width: auto;
+      position: relative;
+      top: 10px;
+}

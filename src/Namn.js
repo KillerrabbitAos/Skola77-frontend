@@ -1,6 +1,6 @@
 import React from 'react';
 import Namn from './ettNamn';
-const NameList = ({ names, handleRemoveName, låstaNamn, setLåstaNamn, namnRader}) => {
+const NameList = ({ names, handleRemoveName, låstaNamn, setLåstaNamn, namnRader, visaNamn}) => {
   const rader = namnRader
   const namesDeepCopy = JSON.parse(JSON.stringify(names));
   var newNames = namesDeepCopy
@@ -23,9 +23,9 @@ const NameList = ({ names, handleRemoveName, låstaNamn, setLåstaNamn, namnRade
   }
 
   return (
-    <div style={{ display: 'flex' }}>
-      {/* Render each column */}
-      {columns.map((column, columnIndex) => (
+    <div style={{ display: 'flex'}}>
+      {visaNamn && (
+      columns.map((column, columnIndex) => (
         <div key={columnIndex} style={{ flex: 1,  }}>
           <ul>
             {column.map(({ name, originalIndex }, index) => (
@@ -40,7 +40,8 @@ const NameList = ({ names, handleRemoveName, låstaNamn, setLåstaNamn, namnRade
             ))}
           </ul>
         </div>
-      ))}
+      ))
+            )}
     </div>
   );
 };

@@ -12,6 +12,8 @@ import NameList from "./Namn";
 import backImg from "./back.png";
 import doneImg from "./done.svg";
 import schackBräde from "./schackVärden.js";
+import { set } from "react-ga";
+import { IoIosArrowRoundDown, IoIosArrowRoundForward } from "react-icons/io";
 
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
@@ -89,7 +91,8 @@ const App = () => {
   const [runFixa, setRunFixa] = useState(false);
   const [showSavedMessage, setShowSavedMessage] = useState(false);
   const [nameGroupName, setNameGroupName] = useState(defaultGroup);
-  const [gridGroupName, setGridGroupName] = useState(defaultGroup)
+  const [gridGroupName, setGridGroupName] = useState(defaultGroup);
+  const [visaNamn, setVisaNamn] = useState(true);
 
   let resizeWindow = () => {
     setWindowWidth(window.innerWidth);
@@ -126,12 +129,13 @@ const App = () => {
   const handleSaveNames = async () => {
     if (nameGroupName !== defaultGroup) {
       const compressedData = compressData({
-        names
+        names,
       });
 
-      Cookies.set(`${nameGroupName}_nameValues`, compressedData, { expires: 365 });
-    }
-      else {
+      Cookies.set(`${nameGroupName}_nameValues`, compressedData, {
+        expires: 365,
+      });
+    } else {
       const name = prompt("Döp din klass: ");
       if (name) {
         setNameGroupName(name);
@@ -157,19 +161,20 @@ const App = () => {
         keyChange,
       });
 
-      Cookies.set(`${nameGroupName}_gridValues`, compressedData, { expires: 365 });
-    }
-      else {
+      Cookies.set(`${nameGroupName}_gridValues`, compressedData, {
+        expires: 365,
+      });
+    } else {
       const name = prompt("Döp det här klassrummet: ");
       if (name) {
         setGridGroupName(name);
 
         const compressedData = compressData({
           rows,
-        columns,
-        cellSize,
-        filledBoxes,
-        keyChange,
+          columns,
+          cellSize,
+          filledBoxes,
+          keyChange,
         });
 
         Cookies.set(`${name}_gridValues`, compressedData, { expires: 365 });
@@ -287,10 +292,9 @@ const App = () => {
     const klassAttRadera = `${encodeURI(gridGroupName)}`;
     removeCookie(klassAttRadera);
     setColumns(8);
-      setRows(9);
-      setCellSize(70);
-    
-  }; 
+    setRows(9);
+    setCellSize(70);
+  };
   function applyFontSizesToClass(className) {
     const elements = document.getElementsByClassName(className);
 
@@ -482,8 +486,7 @@ const App = () => {
   };
 
   const handleNameGroupChange = (event) => {
-    
-      const selectedNameGroup = event.target.value;
+    const selectedNameGroup = event.target.value;
     setNameGroupName(selectedNameGroup);
     if (selectedNameGroup === defaultGroup) {
       setNames([""]);
@@ -495,25 +498,24 @@ const App = () => {
     }
   };
   const handleGridGroupChange = (event) => {
-    
     const selectedGridGroup = event.target.value;
-  setGridGroupName(selectedGridGroup);
-  if (selectedGridGroup === defaultGroup) {
-    setColumns(8);
+    setGridGroupName(selectedGridGroup);
+    if (selectedGridGroup === defaultGroup) {
+      setColumns(8);
       setRows(9);
       setCellSize(70);
-      setFilledBoxes([])
-  } else {
-    const values = readCookieValues(selectedGridGroup);
-    if (values) {
-      setColumns(values.columns);
-      setRows(values.rows);
-      setCellSize(values.cellSize);
-      setFilledBoxes(values.filledBoxes)
-      setKeyChange(values.keyChange)
+      setFilledBoxes([]);
+    } else {
+      const values = readCookieValues(selectedGridGroup);
+      if (values) {
+        setColumns(values.columns);
+        setRows(values.rows);
+        setCellSize(values.cellSize);
+        setFilledBoxes(values.filledBoxes);
+        setKeyChange(values.keyChange);
+      }
     }
-  }
-};
+  };
 
   const gridConf = (
     <div className="gridInstallning" id="kebaben">
@@ -598,7 +600,7 @@ const App = () => {
         </div>
       </div>
     </div>
-    )
+  );
   const grid = (
     <Grid
       rows={rows}
@@ -697,8 +699,10 @@ const App = () => {
       </div>
     </div>
   );
-  
 
+  const handleToggleNamn = () => {
+    setVisaNamn(!visaNamn);
+  };
   const NamnSparningsLösning = (
     <div id="sparaNamnSettings">
       <div style={{ display: "block", width: "100%", height: "35px" }}>
@@ -846,7 +850,7 @@ const App = () => {
             Skriv ut
           </label>
         </div>
-        
+
         {grid}
         <div id="meny">
           <div id="redigeringsDiv" className="menySaker"></div>
@@ -887,10 +891,18 @@ const App = () => {
       </div>
       {gridConf}
       <div>
-        <p id="nameHeader">Namn:</p>
+        <p id="nameHeader" className="prevent-select">
+          {nameGroupName}
+          {visaNamn ? (
+            <IoIosArrowRoundDown className='pil' onClick={handleToggleNamn} />
+          ) : (
+            <IoIosArrowRoundForward className='pil' onClick={handleToggleNamn} />
+          )}
+        </p>
         {NamnSparningsLösning}
         <div id="namn">
           <NameList
+            visaNamn={visaNamn}
             names={names}
             handleRemoveName={handleRemoveName}
             setBoxNames={setBoxNames}
