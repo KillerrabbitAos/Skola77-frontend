@@ -299,6 +299,7 @@ button:hover {
 @media print {
   body * {
     visibility: hidden; /* Gömmer allt förutom det specifika innehållet du vill skriva ut */
+
   }
   #gridPdfSak * {
 
@@ -322,7 +323,8 @@ button:hover {
     box-shadow: none; /* Tar bort skuggan för en renare utskrift */
   }
 #grid{
- 
+  zoom: 0.8;
+  -moz-transform: scale(0.8);
 }
   #placeringsTitel {
     visibility: visible !important;
