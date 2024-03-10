@@ -547,6 +547,7 @@ button:hover {
   display: flex;
   position: relative;
   left: 70%;
+  width: 100px;
 }
 #sparadeNamnKlasser {
   size: 15px;
