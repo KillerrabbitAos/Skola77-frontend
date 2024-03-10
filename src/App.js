@@ -510,6 +510,7 @@ const App = () => {
       setRows(values.rows);
       setCellSize(values.cellSize);
       setFilledBoxes(values.filledBoxes)
+      setKeyChange(values.keyChange)
     }
   }
 };
