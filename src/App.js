@@ -894,7 +894,7 @@ const App = () => {
       {gridConf}
       <div>
         <p id="nameHeader" className="prevent-select">
-          {nameGroupName}
+          {nameGroupName.split("_nameValues")[0]}
           {visaNamn ? (
             <IoIosArrowDropdownCircle className='pil' onClick={handleToggleNamn} />
           ) : (
