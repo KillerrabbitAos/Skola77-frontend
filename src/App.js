@@ -154,6 +154,7 @@ const App = () => {
         columns,
         cellSize,
         filledBoxes,
+        keyChange,
       });
 
       Cookies.set(`${nameGroupName}_gridValues`, compressedData, { expires: 365 });
@@ -168,6 +169,7 @@ const App = () => {
         columns,
         cellSize,
         filledBoxes,
+        keyChange,
         });
 
         Cookies.set(`${name}_gridValues`, compressedData, { expires: 365 });
