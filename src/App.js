@@ -526,7 +526,7 @@ const App = () => {
         cols="30"
         placeholder="Ett namn per rad"
       ></textarea>
-      <button onClick={handleMassImportNames}>Spara namn</button>
+      <button style={{fontWeight: 'bolder', fontSize: '20px'}} onClick={handleMassImportNames}>Lägg till...</button>
       <ExcelToTextConverter setNames={setNames} names={names} />
     </div>
   );
