@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Box from "./Box";
+import SchackBox from "./schackBox";
 import schackBräde from "./schackVärden";
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -52,7 +53,7 @@ const Grid = ({
   baklänges,
   nere,
   uppe,
-  GridSparningsLösning
+  GridSparningsLösning,
 }) => {
   const [contextMenu, setContextMenu] = useState(["tom"]);
   const handleDrop = async (e) => {
@@ -184,32 +185,61 @@ const Grid = ({
             boxSizing: "border-box",
           }}
         >
-          <Box
-            key={toBeKey}
-            originalid={`box-${i}`}
-            id={toBeKey}
-            position={box.position}
-            boxes={boxes}
-            setBoxes={setBoxes}
-            name={box.name}
-            boxNames={boxNames}
-            updateFixa={updateFixa}
-            setUpdateFixa={setUpdateFixa}
-            filledBoxes={filledBoxes}
-            setFilledBoxes={setFilledBoxes}
-            names={names}
-            keyChange={keyChange}
-            bytaPlatser={bytaPlatser}
-            fixa={fixa}
-            groupName={groupName}
-            låstaNamn={låstaNamn}
-            setLåstaNamn={setLåstaNamn}
-            showBorders={showBorders}
-            setBoxNames={setBoxNames}
-            showContextMenu={contextMenu.includes(`box-${i}`)}
-            setContextMenu={setContextMenu}
-            contextMenu={contextMenu}
-          />
+          {groupName === "schack" ? (
+            <SchackBox
+              key={toBeKey}
+              originalid={`box-${i}`}
+              id={toBeKey}
+              position={box.position}
+              boxes={boxes}
+              setBoxes={setBoxes}
+              name={box.name}
+              boxNames={boxNames}
+              updateFixa={updateFixa}
+              setUpdateFixa={setUpdateFixa}
+              filledBoxes={filledBoxes}
+              setFilledBoxes={setFilledBoxes}
+              names={names}
+              keyChange={keyChange}
+              bytaPlatser={bytaPlatser}
+              fixa={fixa}
+              groupName={groupName}
+              låstaNamn={låstaNamn}
+              setLåstaNamn={setLåstaNamn}
+              showBorders={showBorders}
+              setBoxNames={setBoxNames}
+              showContextMenu={contextMenu.includes(`box-${i}`)}
+              setContextMenu={setContextMenu}
+              contextMenu={contextMenu}
+            />
+          ) : (
+            <Box
+              key={toBeKey}
+              originalid={`box-${i}`}
+              id={toBeKey}
+              position={box.position}
+              boxes={boxes}
+              setBoxes={setBoxes}
+              name={box.name}
+              boxNames={boxNames}
+              updateFixa={updateFixa}
+              setUpdateFixa={setUpdateFixa}
+              filledBoxes={filledBoxes}
+              setFilledBoxes={setFilledBoxes}
+              names={names}
+              keyChange={keyChange}
+              bytaPlatser={bytaPlatser}
+              fixa={fixa}
+              groupName={groupName}
+              låstaNamn={låstaNamn}
+              setLåstaNamn={setLåstaNamn}
+              showBorders={showBorders}
+              setBoxNames={setBoxNames}
+              showContextMenu={contextMenu.includes(`box-${i}`)}
+              setContextMenu={setContextMenu}
+              contextMenu={contextMenu}
+            />
+          )}
         </div>
       );
     }
@@ -231,10 +261,15 @@ const Grid = ({
       }}
     >
       <h1 id="placeringsTitel">{groupName}</h1>
-      
-      <div style={{display: 'inline-block', width: '100%'}}>
-      <p style={{float: 'left', position: 'relative', left: '50%'}} id="uppe">{uppe}</p>
-      {GridSparningsLösning}
+
+      <div style={{ display: "inline-block", width: "100%" }}>
+        <p
+          style={{ float: "left", position: "relative", left: "50%" }}
+          id="uppe"
+        >
+          {uppe}
+        </p>
+        {GridSparningsLösning}
       </div>
 
       <div

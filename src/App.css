@@ -299,11 +299,15 @@ button:hover {
 @media print {
   body * {
     visibility: hidden; /* Gömmer allt förutom det specifika innehållet du vill skriva ut */
+    width: fit-content;
   }
   #gridPdfSak * {
+    width: fit-content;
     visibility: visible; /* Gör #gridPdfSak och dess barn synliga */
   }
-
+  #kebabWrap * {
+    visibility: hidden;
+  }
   #gridPdfSak {
     position: absolute;
     left: 0;
@@ -315,7 +319,10 @@ button:hover {
     margin: 0mm auto;
     box-shadow: none; /* Tar bort skuggan för en renare utskrift */
   }
-
+#grid{
+  zoom: 0.5;
+  -moz-transform: scale(0.5);
+}
   #placeringsTitel {
     visibility: visible !important;
   }
@@ -578,4 +585,8 @@ button:hover {
   float: right;
   position: relative;
   right: 7%;
+}
+.schackPjäs svg{
+    height: 100%;
+    width:auto;
 }
