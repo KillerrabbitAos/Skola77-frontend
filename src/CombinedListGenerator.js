@@ -12,7 +12,7 @@ console.log(list2)
   for (let i = 0; i < list2.length; i++){
   if (låstaNamn.includes(list2[i])) {
     console.log("kebab")
-    const foundItem = boxNames.find(item => item.key === list2[i])
+    const foundItem = boxNames !== "tom" ? boxNames.find(item => item.key === list2[i]) : false
     if (foundItem){
       console.log("orm")
       addLater.push(foundItem)
