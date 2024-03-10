@@ -590,3 +590,6 @@ button:hover {
     height: 100%;
     width:auto;
 }
+.dragging{
+  background-size: 0 0 !important;
+}

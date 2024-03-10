@@ -6,7 +6,20 @@ import { ImUnlocked } from "react-icons/im";
 import { ImLock } from "react-icons/im";
 import { isTablet } from "react-device-detect";
 import { FaChessKing } from "react-icons/fa";
-import { TbChess, TbChessFilled, TbChessKnight, TbChessKnightFilled, TbChessBishop, TbChessBishopFilled, TbChessRook, TbChessRookFilled, TbChessKing, TbChessQueen, TbChessKingFilled, TbChessQueenFilled } from "react-icons/tb";
+import {
+  TbChess,
+  TbChessFilled,
+  TbChessKnight,
+  TbChessKnightFilled,
+  TbChessBishop,
+  TbChessBishopFilled,
+  TbChessRook,
+  TbChessRookFilled,
+  TbChessKing,
+  TbChessQueen,
+  TbChessKingFilled,
+  TbChessQueenFilled,
+} from "react-icons/tb";
 
 function findValueByKey(list, key) {
   if (list === "tom") {
@@ -40,6 +53,7 @@ const SchackBox = ({
   setBoxNames,
   filledBoxes,
   setFilledBoxes,
+  i,
 }) => {
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState("tom");
@@ -138,7 +152,7 @@ const SchackBox = ({
   };
 
   const handleDragStart = (e) => {
-    const idInfo = { ny: id, original: originalid };
+    e.currentTarget.classList.add("dragging");
     e.dataTransfer.setData("boxId", "ny: " + id + "original: " + originalid);
   };
 
@@ -170,9 +184,6 @@ const SchackBox = ({
     if (isMounted) {
       setNameValue(names[findValueByKey(boxNames, id)]);
     }
-    if (groupName == "schack") {
-      setFärg(nameValue.split(";")[0]);
-    }
     fixa();
     return () => {
       isMounted = false;
@@ -194,7 +205,14 @@ const SchackBox = ({
       id={id}
       className="schackPjäs"
       data-originalid={originalid}
-      style={{ gridArea: position, width: '100%', height: '100%' }}
+      style={{
+        gridArea: position,
+        width: "100%",
+        height: "100%",
+        backgroundColor: `${
+          (parseInt(i / 8) + i) % 2 === 1 ? "lightgray" : "white"
+        }`,
+      }}
       onContextMenu={handleContextMenuTom}
     >
       {nameValue === "vit;bonde" ? (

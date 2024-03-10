@@ -58,7 +58,7 @@ const Grid = ({
   const [contextMenu, setContextMenu] = useState(["tom"]);
   const handleDrop = async (e) => {
     e.preventDefault();
-
+    e.target.classList.remove("dragging")
     let target = e.target;
     while (
       target &&
@@ -183,6 +183,7 @@ const Grid = ({
             height: `${cellSize}px`,
             outline: showBorders ? "1px solid black" : "none",
             boxSizing: "border-box",
+           
           }}
         >
           {groupName === "schack" ? (
@@ -211,6 +212,7 @@ const Grid = ({
               showContextMenu={contextMenu.includes(`box-${i}`)}
               setContextMenu={setContextMenu}
               contextMenu={contextMenu}
+              i={i}
             />
           ) : (
             <Box
