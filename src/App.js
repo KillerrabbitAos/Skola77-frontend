@@ -15,6 +15,8 @@ import schackBräde from "./schackVärden.js";
 import { set } from "react-ga";
 import { IoIosArrowRoundDown, IoIosArrowRoundForward } from "react-icons/io";
 import { IoIosArrowDropright, IoIosArrowDropdownCircle } from "react-icons/io";
+import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
+
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
 }
@@ -806,7 +808,7 @@ const App = () => {
   }, [windowWidth]);
 
   return (
-    <div className="App">
+    <div className="App prevent-select">
       <div id="bräddMått"></div>
       <div className="gridInstallning">
         <label>Rader:</label>
@@ -882,8 +884,8 @@ const App = () => {
           </div>
 
           <div className="menySaker" id="slumpaDiv">
-            <button onClick={handleMixNames} id="slumpaKnappen"></button>
-            <label id="slumpaLabel" htmlFor="slumpaKnappen">
+            <GiPerspectiveDiceSixFacesRandom style={{height: '80px', width: 'auto'}}onClick={handleMixNames} id="slumpaKnappen"/>
+            <label className='prevent-select' id="slumpaLabel" htmlFor="slumpaKnappen">
               Slumpa
             </label>
           </div>
