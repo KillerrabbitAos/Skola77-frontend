@@ -651,7 +651,7 @@ const App = () => {
       ></button>
       <label htmlFor="sparaKnapp">Spara!</label>
 
-      <label>Sparade klasser:</label>
+      <label>Sparade bordsplaceringar:</label>
       <select
         id="sparadeKlasser"
         defaultValue={groupName}
