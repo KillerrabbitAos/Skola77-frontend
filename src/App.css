@@ -299,14 +299,16 @@ button:hover {
 @media print {
   body * {
     visibility: hidden; /* Gömmer allt förutom det specifika innehållet du vill skriva ut */
-    width: fit-content;
   }
   #gridPdfSak * {
-    width: fit-content;
+
     visibility: visible; /* Gör #gridPdfSak och dess barn synliga */
   }
   #kebabWrap * {
     visibility: hidden;
+  }
+  .box.filled{
+    visibility: visible !important;
   }
   #gridPdfSak {
     position: absolute;
@@ -320,8 +322,7 @@ button:hover {
     box-shadow: none; /* Tar bort skuggan för en renare utskrift */
   }
 #grid{
-  zoom: 0.5;
-  -moz-transform: scale(0.5);
+ 
 }
   #placeringsTitel {
     visibility: visible !important;
