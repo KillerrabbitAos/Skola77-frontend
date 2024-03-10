@@ -14,7 +14,7 @@ import doneImg from "./done.svg";
 import schackBräde from "./schackVärden.js";
 import { set } from "react-ga";
 import { IoIosArrowRoundDown, IoIosArrowRoundForward } from "react-icons/io";
-
+import { IoIosArrowDropright, IoIosArrowDropdownCircle } from "react-icons/io";
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
 }
@@ -894,9 +894,9 @@ const App = () => {
         <p id="nameHeader" className="prevent-select">
           {nameGroupName}
           {visaNamn ? (
-            <IoIosArrowRoundDown className='pil' onClick={handleToggleNamn} />
+            <IoIosArrowDropdownCircle className='pil' onClick={handleToggleNamn} />
           ) : (
-            <IoIosArrowRoundForward className='pil' onClick={handleToggleNamn} />
+            <IoIosArrowDropright className='pil' onClick={handleToggleNamn} />
           )}
         </p>
         {NamnSparningsLösning}
