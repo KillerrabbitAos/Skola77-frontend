@@ -283,8 +283,8 @@ const Grid = ({
           display: "grid",
           gridTemplateColumns: `repeat(${columns}, 1fr)`,
           gridTemplateRows: `repeat(${rows}, 1fr)`,
-          gap: "10px",
-          width: `${columns * cellSize + (columns - 1) * 10}px`,
+          gap: groupName === "schack" ? "0px" : "10px",
+          width: `${groupName === "schack" ? columns * cellSize : columns * cellSize + (columns - 1) * 10}px`,
         }}
       >
         {generateGrid()}
