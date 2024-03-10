@@ -181,7 +181,7 @@ const Grid = ({
           style={{
             width: `${cellSize}px`,
             height: `${cellSize}px`,
-            outline: showBorders ? "1px solid black" : "none",
+            outline: showBorders && groupName !== "schack" ? "1px solid black" : "none",
             boxSizing: "border-box",
            
           }}
