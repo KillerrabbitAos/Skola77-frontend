@@ -5,10 +5,10 @@ import { useCookies } from "react-cookie";
 import { isTablet } from "react-device-detect";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import "./App.css";
-import generateCombinedList from "./CombinedListGenerator";
-import ExcelToTextConverter from "./ExcelToTextConverter";
-import Grid from "./Grid";
-import NameList from "./Namn";
+import generateCombinedList from "./CombinedListGenerator.js";
+import ExcelToTextConverter from "./ExcelToTextConverter.js";
+import Grid from "./Grid.js";
+import NameList from "./Namn.js";
 import backImg from "./back.png";
 import doneImg from "./done.svg";
 import schackBräde from "./schackVärden.js";
@@ -59,7 +59,7 @@ function fitTextToContainer(container, element, maxFontSizePx) {
   }
 }
 
-const App = () => {
+const Editor = () => {
   const [groupName, setGroupName] = useState("ny...");
   const [keyChange, setKeyChange] = useState("tom");
   const [rows, setRows] = useState(8);
@@ -923,4 +923,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Editor;
