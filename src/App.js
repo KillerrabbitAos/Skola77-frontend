@@ -161,6 +161,7 @@ const App = () => {
         cellSize,
         filledBoxes,
         keyChange,
+        låstaNamn,
       });
 
       Cookies.set(`${nameGroupName}_gridValues`, compressedData, {
@@ -177,6 +178,7 @@ const App = () => {
           cellSize,
           filledBoxes,
           keyChange,
+          låstaNamn,
         });
 
         Cookies.set(`${name}_gridValues`, compressedData, { expires: 365 });
@@ -514,6 +516,7 @@ const App = () => {
       setFilledBoxes([]);
       setCellSize(70);
       setFixaCounter(0);
+
     }
     
     else {
@@ -524,6 +527,8 @@ const App = () => {
         setCellSize(values.cellSize);
         setFilledBoxes(values.filledBoxes);
         setKeyChange(values.keyChange);
+        setLåstaNamn(values.låstaNamn || []);
+
       }
     }
   };

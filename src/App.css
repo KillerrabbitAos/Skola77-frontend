@@ -331,10 +331,6 @@ button:hover {
     visibility: visible !important;
   }
 
-  .låsKnappBox {
-    display: none;
-  }
-
   .papperskorg, .låsKnappBox {
     display: none !important;
   }
@@ -414,7 +410,6 @@ button:hover {
   position: relative;
   border-radius: 0;
   background-color: gray;
-  border-style: revert;
 }
 .låsKnappBox:hover {
   animation-name: none;
