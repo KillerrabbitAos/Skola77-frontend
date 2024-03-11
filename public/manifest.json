@@ -37,6 +37,12 @@
       "src": "demobilder/sparaKlassrum.png",
       "type": "image/png",
       "sizes": "192x192"
+    },
+    {
+      "src": "PDFs/Skola77 vilkor och integritetspolicy.pdf"
+    },
+    {
+      "src": "PDFs/Skola77 Snabbguide.pdf"
     }
 
   ],
