@@ -2,7 +2,16 @@ const Hem = () => {
     return (
     <div>
         <p id="bodyTitle">Det här är Skola77:</p>
-    
+        <div class="foton">
+        <a href="demobilder/bänkar.png"><img src="demobilder/bänkar.png"></img></a>
+        <a href="demobilder/sparaKlassrum.png"><img src="demobilder/sparaKlassrum.png"></img></a>
+        <a href="demobilder/ändraGridStorlek.png"><img src="demobilder/ändraGridstorlek.png"></img></a>
+        <a href="demobilder/bytPerspektiv.png"><img src="demobilder/bytPerspektiv.png"></img></a>
+        <a href="demobilder/klassrum.png"><img src="demobilder/klassrum.png"></img></a>
+
+
+    </div>
+
         
     
         <h2 id="info">Skola77 gör det möjligt för dig som lärare att smidigt och snabbt göra nya bordsplaceringar på bara några sekunder!</h2>
