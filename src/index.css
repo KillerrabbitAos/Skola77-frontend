@@ -228,3 +228,12 @@ body {
 .navbar a.active {
   text-decoration: underline;
 }
+
+#kebbe{
+  font-family: Arial;
+  
+}
+
+.active text {
+  text-decoration: underline;
+}

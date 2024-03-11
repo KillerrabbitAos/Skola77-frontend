@@ -1,0 +1,69 @@
+ <svg
+               version="1.1"
+               id="svg1"
+               width="180"
+               height="90"
+               viewBox="0 0 719.15137 281.92912"
+               xmlns="http://www.w3.org/2000/svg"
+               xmlns:svg="http://www.w3.org/2000/svg">
+              <defs
+                 id="defs1" />
+              <path
+                 id="path13-1"
+                 style="fill:#004a55;fill-opacity:1;stroke-width:2.74041"
+                 d="m 385.58874,93.79193 v -12.1785 h -52.9567 v 12.1785 z" />
+              <rect
+                 style="fill:#004a55;fill-opacity:1;stroke-width:2.69762"
+                 id="rect2-8"
+                 width="269.62531"
+                 height="16.074135"
+                 x="449.52609"
+                 y="106.72203" />
+              <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:130px;font-family:'Arial';fill:#004a55;fill-opacity:1;stroke-width:0.749854"
+     x="72.019821"
+     y="296.32489"
+     id="text2"
+     transform="scale(1.0363323,0.96494145)"><tspan
+       id="tspan2"
+       x="72.019821"
+       y="296.32489"
+       style="fill:#004a55;fill-opacity:1;stroke-width:0.749854">Skola 77</tspan></text>
+
+              <rect
+                 style="fill:#004a55;fill-opacity:1;stroke-width:2.69762"
+                 id="rect2"
+                 width="269.62531"
+                 height="16.074135"
+                 x="0"
+                 y="107.08574" />
+              <path
+                 id="rect7"
+                 style="fill:#004a55;fill-opacity:1;stroke-width:2.46044"
+                 d="m 384.67489,125.18559 h 11 V 74.89262 h -11 z" />
+              <path
+                 id="path13"
+                 style="fill:#004a55;fill-opacity:1;stroke-width:2.53809"
+                 d="m 334.25692,74.89262 h -11 v 50.29297 h 11 z" />
+              <path
+                 id="path16"
+                 style="fill:#004a55;fill-opacity:1;stroke-width:2.89738"
+                 d="M 385.58874,25.22701 V 11.61343 h -52.9567 v 13.61358 z" />
+              <path
+                 id="rect4"
+                 style="fill:#004a55;fill-opacity:1;stroke-width:1.21638"
+                 d="m 323.85729,62.12053 h 72.12938 a 7.9228561,6.7046875 0 0 1 7.92286,6.70469 7.6176492,6.4464073 0 0 1 -7.63309,6.43332 h -73.19126 a 7.3981143,6.2606267 0 0 1 -7.39811,-6.26063 8.1486063,6.8957277 0 0 1 8.17022,-6.87738 z" />
+              <path
+                 id="path14"
+                 style="fill:#004a55;fill-opacity:1;stroke-width:1.2088"
+                 d="m 333.95149,5e-5 a 6.6720318,6.8556348 0 0 0 -6.67112,6.85547 v 49.96093 h 13.99997 V 7.57231 A 7.3488673,7.5510956 0 0 0 333.95149,5e-5 Z" />
+              <path
+                 id="path15"
+                 style="fill:#004a55;fill-opacity:1;stroke-width:1.2088"
+                 d="m 384.6155,0 a 6.6720302,6.8556348 0 0 0 -6.67112,6.85547 V 56.8164 h 13.99997 V 7.57226 A 7.3488655,7.5510956 0 0 0 384.6155,0 Z" />
+              <path
+                 id="path17"
+                 style="fill:#004a55;fill-opacity:1;stroke-width:1.2088"
+                 d="m 359.15366,5e-5 a 6.6720302,6.8556348 0 0 0 -6.67112,6.85547 v 49.96093 h 13.99997 V 7.57231 A 7.3488655,7.5510956 0 0 0 359.15366,5e-5 Z" />
+            </svg>

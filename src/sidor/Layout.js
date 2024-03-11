@@ -6,7 +6,11 @@ const Layout = () => {
       <div className="navbar">
         <ul>
           <li className="header" id="main">
-            <NavLink to="/" activeClassName="active">Hem</NavLink>
+            <NavLink to="/" activeClassName="active">
+              
+              <img src="/logga.svg" id="kebbe"></img>
+
+            </NavLink>
           </li>
           <li className="header">
             <NavLink to="/Editor" activeClassName="active">Editor</NavLink>
