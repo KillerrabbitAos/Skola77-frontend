@@ -161,6 +161,7 @@ const Editor = () => {
         cellSize,
         filledBoxes,
         keyChange,
+        låstaNamn,
       });
 
       Cookies.set(`${nameGroupName}_gridValues`, compressedData, {
@@ -177,6 +178,7 @@ const Editor = () => {
           cellSize,
           filledBoxes,
           keyChange,
+          låstaNamn,
         });
 
         Cookies.set(`${name}_gridValues`, compressedData, { expires: 365 });
@@ -293,7 +295,7 @@ const Editor = () => {
     document.getElementById("nyGridNamn").selected = true;
     const klassAttRadera = `${encodeURI(gridGroupName)}`;
     removeCookie(klassAttRadera);
-    setColumns(8);
+    setColumns(9);
     setRows(9);
     setCellSize(70);
   };
@@ -499,15 +501,25 @@ const Editor = () => {
       }
     }
   };
+
   const handleGridGroupChange = (event) => {
     const selectedGridGroup = event.target.value;
     setGridGroupName(selectedGridGroup);
+    setLåstaNamn([]);
+
     if (selectedGridGroup === defaultGroup) {
-      setColumns(8);
-      setRows(9);
-      setCellSize(70);
+      setRows(7);
+      setColumns(7);
+      setBoxNames("tom");
+      setBoxes([]);
+      setNames([""]);
       setFilledBoxes([]);
-    } else {
+      setCellSize(70);
+      setFixaCounter(0);
+
+    }
+    
+    else {
       const values = readCookieValues(selectedGridGroup);
       if (values) {
         setColumns(values.columns);
@@ -515,6 +527,8 @@ const Editor = () => {
         setCellSize(values.cellSize);
         setFilledBoxes(values.filledBoxes);
         setKeyChange(values.keyChange);
+        setLåstaNamn(values.låstaNamn || []);
+
       }
     }
   };
