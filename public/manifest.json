@@ -12,7 +12,39 @@
       "src": "Skola77.png",
       "type": "image/png",
       "sizes": "192x192"
+    },
+    {
+      "src": "demobilder/klassrum.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "demobilder/bytPerspektiv.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "demobilder/bänkar.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "demobilder/ändraGridstorlek.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "demobilder/sparaKlassrum.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "PDFs/Skola77 vilkor och integritetspolicy.pdf"
+    },
+    {
+      "src": "PDFs/Skola77 Snabbguide.pdf"
     }
+
   ],
   "start_url": ".",
   "display": "standalone",
