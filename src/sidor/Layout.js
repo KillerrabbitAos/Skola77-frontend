@@ -12,7 +12,7 @@ const Layout = () => {
             <Link to="/Editor">Editor</Link>
           </li>
           <li className="header">
-            <Link to="/Support">Support</Link>
+            <Link to="/Support">Hjälp</Link>
           </li>
           <li className="header">
             <Link to="/Kontakt">Kontakt</Link>
