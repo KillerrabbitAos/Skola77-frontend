@@ -326,14 +326,9 @@ button:hover {
   }
 #grid{
   zoom: 0.8;
-  -moz-transform: scale(0.8);
 }
   #placeringsTitel {
     visibility: visible !important;
-  }
-
-  .låsKnappBox {
-    display: none;
   }
 
   .papperskorg, .låsKnappBox {
@@ -415,7 +410,6 @@ button:hover {
   position: relative;
   border-radius: 0;
   background-color: gray;
-  border-style: revert;
 }
 .låsKnappBox:hover {
   animation-name: none;
