@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./sidor/Layout.js";
 import Hem from "./sidor/Hem";
-import Editor from "./Editor";
+import Editor from "./Editor.js";
 import Support from "./sidor/Support";
 import NoPage from "./sidor/NoPage";
 import Kontakt from './sidor/Kontakt.js';
