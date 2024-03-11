@@ -8,6 +8,7 @@ import Hem from "./sidor/Hem";
 import Editor from "./Editor";
 import Support from "./sidor/Support";
 import NoPage from "./sidor/NoPage";
+import Kontakt from './sidor/Kontakt.js';
 
 export default function App() {
   return (
@@ -16,7 +17,8 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Hem />} />
           <Route path="Editor" element={<Editor />} />
-          <Route path="support" element={<Support />} />
+          <Route path="Support" element={<Support />} />
+          <Route path="Kontakt" element={<Kontakt />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

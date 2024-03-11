@@ -14,6 +14,9 @@ const Layout = () => {
           <li className="header">
             <Link to="/Support">Support</Link>
           </li>
+          <li className="header">
+            <Link to="/Kontakt">Kontakt</Link>
+          </li>
         </ul>
       </div>
 
