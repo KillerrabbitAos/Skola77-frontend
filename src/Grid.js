@@ -264,9 +264,8 @@ const Grid = ({
     >
       <h1 id="placeringsTitel">{groupName}</h1>
 
-      <div style={{ display: "inline-block", width: "100%" }}>
+      <div style={{ display: "inline-block", width: "100%" }} className="helaGriden">
         <p
-          style={{ float: "left", position: "relative", left: "47.5%" }}
           id="uppe"
         >
           {uppe}

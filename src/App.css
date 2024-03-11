@@ -134,6 +134,8 @@ li button {
 #uppe {
   border-bottom: solid;
   font-size: 20px;
+  width: 50px;
+  margin: auto;
 }
 
 #nere {
@@ -602,4 +604,10 @@ button:hover {
       width: auto;
       position: relative;
       top: 10px;
+}
+
+.helaGriden {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
