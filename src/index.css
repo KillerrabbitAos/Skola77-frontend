@@ -114,7 +114,7 @@ body {
   font-weight: bold;
 }
 
-.navbar {
+.navbar{
   display: flex;
   align-items: center;
   background-color: #ffffff;
@@ -206,6 +206,21 @@ body {
   margin-right: 50px;
 
 }
-.navbar ul{
-  width: 100%;
+
+
+.navbar ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.navbar ul li {
+  margin-right: 20px; /* Adjusts space between list items; remove if not needed */
+}
+
+.navbar ul li:last-child {
+  margin-right: 0; /* Removes margin from the last item to avoid extra spacing on the right */
 }
