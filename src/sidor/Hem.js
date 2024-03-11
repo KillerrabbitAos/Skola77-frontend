@@ -17,7 +17,7 @@ const Hem = () => {
         <h2 id="info">Skola77 gör det möjligt för dig som lärare att smidigt och snabbt göra nya bordsplaceringar på bara några sekunder!</h2>
     
     
-        <button id="betaKnapp"><a href="https://beta.skola77.com" target="_blank" style={{textDecoration: 'none', color: 'rgb(255, 255, 255)'}}>Ta mig till betan!</a></button>
+        <h2 id="info">Klicka på "Editor" i menyn uppe till vänster för att ta dig till betan</h2>
     
         <div class="about">
     
