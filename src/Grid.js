@@ -99,8 +99,8 @@ const Grid = ({
     );
     const draggedBoxOriginalId = JSON.parse(
       JSON.stringify(e.dataTransfer.getData("boxId").split("original: ")[1])
-    ); // Get the dragged box id
-    const targetId = JSON.parse(JSON.stringify(target.id)); // Now we're sure this is the correct target ID
+    );
+    const targetId = JSON.parse(JSON.stringify(target.id)); 
     const targetOriginalId = JSON.parse(
       JSON.stringify(target.getAttribute("data-originalid"))
     );
@@ -159,7 +159,7 @@ const Grid = ({
     return;
   };
   const handleDragOver = (e) => {
-    e.preventDefault(); // Necessary to allow dropping
+    e.preventDefault(); 
   };
   const generateGrid = () => {
     const gridItems = [];
