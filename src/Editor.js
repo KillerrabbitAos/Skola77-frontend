@@ -74,7 +74,7 @@ const Editor = () => {
   const [names, setNames] = useState([""]);
   const [boxNames, setBoxNames] = useState("tom");
   const [filledBoxes, setFilledBoxes] = useState([]);
-  const [cellSize, setCellSize] = useState(isTablet ? 85 : 70);
+  const [cellSize, setCellSize] = useState(isTablet ? 70 : 70);
   const [fixaCounter, setFixaCounter] = useState(0);
   const [baklänges, setBaklänges] = useState(false);
   const defaultGroup = "ny...";
