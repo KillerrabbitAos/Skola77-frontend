@@ -268,6 +268,7 @@ const Grid = ({
         <p
           id="uppe"
         >
+            <button onclick={() => {setFilledBoxes()}}>rensa</button>
           {uppe}
         </p>
         {GridSparningsLösning}
