@@ -193,7 +193,7 @@ const Editor = () => {
         Cookies.set(`${name}_gridValues`, compressedData, { expires: 365 });
         await new Promise((resolve) => setTimeout(resolve, 100));
 
-        document.getElementById(`${name}_gridValues`).selected = true;
+        document.getElementById(`${name}`).selected = true;
       }
     }
   };
