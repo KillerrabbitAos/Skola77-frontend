@@ -160,7 +160,7 @@ const Editor = () => {
     }
   };
   const handleSaveGrid = async () => {
-    if (gridGroupName !== defaultGroup) {
+    if (nameGroupName !== defaultGroup) {
       const compressedData = compressData({
         rows,
         columns,
@@ -170,12 +170,9 @@ const Editor = () => {
         låstaNamn,
       });
 
-      Cookies.set(`${gridGroupName}`, compressedData, {
+      Cookies.set(`${nameGroupName}_gridValues`, compressedData, {
         expires: 365,
-
       });
-
-      alert("sparat");
     } else {
       const name = prompt("Döp det här klassrummet: ");
       if (name) {
@@ -190,10 +187,10 @@ const Editor = () => {
           låstaNamn,
         });
 
-        Cookies.set(`${name}`, compressedData, { expires: 365 });
+        Cookies.set(`${name}_gridValues`, compressedData, { expires: 365 });
         await new Promise((resolve) => setTimeout(resolve, 100));
 
-        document.getElementById(`${name}`).selected = true;
+        document.getElementById(`${name}_gridValues`).selected = true;
       }
     }
   };
@@ -948,4 +945,3 @@ const Editor = () => {
 
 
 export default Editor;
-
