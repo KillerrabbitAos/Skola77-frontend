@@ -18,7 +18,7 @@ const Hem = () => {
     
     
         <h2 id="info">Klicka på "Editor" i menyn uppe till vänster för att ta dig till betan</h2>
-    
+    <h2>Vi har gjort förändringar på sidan nyligen. Dessa förändringar har lätt till att vissa personers data har försvunnit. Vi tar hantering din personliga information väldigt seriöst. En bieffekt av det är att personlig data inte går att komma åt igen efter en systemflytt som vi har gjort nu. Ofta kan hemsidor få tillbaka din data. Men det kan inte vi pågrund av vårat säkerhetsfokus. Vi kan försäkra dig om att detta aldrig kommer att hända igen. Kom ihåg att din information är säker här och att du alltid kan maila oss vid eventuella frågor och/eller funderingar. Tack för att du använder våran tjänst.</h2>
         <div class="about">
     
             <h1>Varför Skola77?</h1>
