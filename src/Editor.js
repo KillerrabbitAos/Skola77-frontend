@@ -107,6 +107,7 @@ const Editor = () => {
     setWindowHeight(window.innerHeight);
   };
   useEffect(() => {
+
     fixa();
   }, [cellSize]);
 
@@ -173,6 +174,7 @@ const Editor = () => {
       Cookies.set(`${nameGroupName}_gridValues`, compressedData, {
         expires: 365,
       });
+
     } else {
       const name = prompt("Döp det här klassrummet: ");
       if (name) {
@@ -192,6 +194,10 @@ const Editor = () => {
 
         document.getElementById(`${name}_gridValues`).selected = true;
       }
+    }
+
+    if (nameGroupName !== defaultGroup && gridGroupName !== defaultGroup) {
+      setGroupName(`${nameGroupName} i ${gridGroupName}`);
     }
   };
 
@@ -304,6 +310,12 @@ const Editor = () => {
     setColumns(9);
     setRows(9);
     setCellSize(70);
+    setBoxNames("tom");
+    setBoxes([]);
+    setFilledBoxes([]);
+    setCellSize(70);
+    setFixaCounter(0);
+    setLåstaNamn([]);
   };
   function applyFontSizesToClass(className) {
     const elements = document.getElementsByClassName(className);
@@ -518,7 +530,6 @@ const Editor = () => {
       setColumns(7);
       setBoxNames("tom");
       setBoxes([]);
-      setNames([""]);
       setFilledBoxes([]);
       setCellSize(70);
       setFixaCounter(0);
