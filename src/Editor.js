@@ -160,7 +160,7 @@ const Editor = () => {
     }
   };
   const handleSaveGrid = async () => {
-    if (nameGroupName !== defaultGroup) {
+    if (gridGroupName !== defaultGroup) {
       const compressedData = compressData({
         rows,
         columns,
@@ -170,7 +170,7 @@ const Editor = () => {
         låstaNamn,
       });
 
-      Cookies.set(`${nameGroupName}_gridValues`, compressedData, {
+      Cookies.set(`${gridGroupName}_gridValues`, compressedData, {
         expires: 365,
 
       });
