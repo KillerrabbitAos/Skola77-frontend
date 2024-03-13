@@ -172,7 +172,10 @@ const Editor = () => {
 
       Cookies.set(`${nameGroupName}_gridValues`, compressedData, {
         expires: 365,
+
       });
+
+      alert("sparat");
     } else {
       const name = prompt("Döp det här klassrummet: ");
       if (name) {
