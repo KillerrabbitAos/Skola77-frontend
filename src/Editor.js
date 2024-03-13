@@ -170,7 +170,7 @@ const Editor = () => {
         låstaNamn,
       });
 
-      Cookies.set(`${gridGroupName}_gridValues`, compressedData, {
+      Cookies.set(`${gridGroupName}`, compressedData, {
         expires: 365,
 
       });
