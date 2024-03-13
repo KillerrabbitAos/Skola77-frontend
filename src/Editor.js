@@ -136,15 +136,7 @@ const Editor = () => {
     }
   };
   const handleSaveNames = async () => {
-    if (nameGroupName !== defaultGroup) {
-      const compressedData = compressData({
-        names,
-      });
 
-      Cookies.set(`${nameGroupName}_nameValues`, compressedData, {
-        expires: 365,
-      });
-    } else {
       const name = prompt("Döp din klass: ");
       if (name) {
         setNameGroupName(name);
@@ -158,24 +150,9 @@ const Editor = () => {
 
         document.getElementById(`${name}_nameValues`).selected = true;
       }
-    }
   };
   const handleSaveGrid = async () => {
-    if (nameGroupName !== defaultGroup) {
-      const compressedData = compressData({
-        rows,
-        columns,
-        cellSize,
-        filledBoxes,
-        keyChange,
-        låstaNamn,
-      });
-
-      Cookies.set(`${nameGroupName}_gridValues`, compressedData, {
-        expires: 365,
-      });
-
-    } else {
+    
       const name = prompt("Döp det här klassrummet: ");
       if (name) {
         setGridGroupName(name);
@@ -194,7 +171,6 @@ const Editor = () => {
 
         document.getElementById(`${name}_gridValues`).selected = true;
       }
-    }
 
     if (nameGroupName !== defaultGroup && gridGroupName !== defaultGroup) {
       setGroupName(`${nameGroupName} i ${gridGroupName}`);
