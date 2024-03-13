@@ -324,15 +324,19 @@ button:hover {
     margin: 0mm auto;
     box-shadow: none; /* Tar bort skuggan för en renare utskrift */
   }
-#grid{
-  zoom: 0.8;
-}
+  #grid{
+    zoom: 0.8;
+  }
   #placeringsTitel {
     visibility: visible !important;
   }
 
   .papperskorg, .låsKnappBox {
     display: none !important;
+  }
+
+  #namn{
+    display: none;
   }
 }
 
