@@ -190,7 +190,7 @@ const Editor = () => {
           låstaNamn,
         });
 
-        Cookies.set(`${name}_gridValues`, compressedData, { expires: 365 });
+        Cookies.set(`${name}`, compressedData, { expires: 365 });
         await new Promise((resolve) => setTimeout(resolve, 100));
 //orm
         document.getElementById(`${name}`).selected = true;
