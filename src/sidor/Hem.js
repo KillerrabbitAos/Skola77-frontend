@@ -33,6 +33,10 @@ const Hem = () => {
     
     
             </ul>
+
+            <div class="trustpilot-widget" data-locale="sv-SE" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="65f1cff6b025711eadb979d8" data-style-height="52px" data-style-width="100%">
+            <a href="https://se.trustpilot.com/review/skola77.com" target="_blank" rel="noopener">Trustpilot</a>
+            </div>
     
             <p id="OBS"><u>OBS: Skola77 är fortfarande under utveckling och kanske inte fungerar helt korrekt. Speciellt med mobila enheter.</u></p>
     
