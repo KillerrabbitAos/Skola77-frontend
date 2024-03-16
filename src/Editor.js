@@ -889,7 +889,8 @@ const Editor = () => {
               Byt perspektiv
             </label>
           </div>
-
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3404103859079849"
+     crossorigin="anonymous"></script>
           <div className="menySaker" id="slumpaDiv">
             <GiPerspectiveDiceSixFacesRandom style={{height: '80px', width: 'auto'}}onClick={handleMixNames} id="slumpaKnappen"/>
             <label className='prevent-select' id="slumpaLabel" htmlFor="slumpaKnappen">
