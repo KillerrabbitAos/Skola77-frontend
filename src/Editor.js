@@ -21,6 +21,7 @@ import { IoIosArrowRoundDown, IoIosArrowRoundForward } from "react-icons/io";
 import { IoIosArrowDropright, IoIosArrowDropdownCircle } from "react-icons/io";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 
+
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
 }
@@ -816,6 +817,7 @@ const Editor = () => {
 
   return (
     <div className="App prevent-select">
+      
       <div id="bräddMått"></div>
       <div className="gridInstallning">
         <label>Rader:</label>
