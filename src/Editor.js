@@ -217,6 +217,20 @@ const Editor = () => {
     }
   };
 
+  function useBeforeUnload(message) {
+    useEffect(() => {
+      const handler = (event) => {
+        event.preventDefault();
+        event.returnValue = message;
+        return message;
+      };
+      window.addEventListener('beforeunload', handler);
+      return () => window.removeEventListener('beforeunload', handler);
+    }, [message]);
+  }
+
+  useBeforeUnload("Är du säker på att du vill lämna sidan? Eventuella osparade ändringar kan gå förlorade.");
+  
   const sparaSomNy = async () => {
     const name = prompt("Döp din placering: ");
     if (name) {
