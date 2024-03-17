@@ -646,7 +646,26 @@ const Editor = () => {
           <b>Sparat!</b>
         </div>
       )}
-
+      <button
+        onClick={() => {
+          const backup = JSON.stringify(Cookies.get())
+          console.log(backup);
+        }}
+      >
+        Backup
+      </button>
+      <button
+        onClick={() => {
+          const backup = JSON.parse('{"_ga":"GA1.1.54407166.1710689436","_ga_WZ6VB1YJ30":"GS1.1.1710689436.1.0.1710689436.0.0.0","_gcl_au":"1.1.1466532011.1710689436","dww_values":"N4IgTg9g7gziBcAOANCAxhANgVwLYDs54BOVAIwgA8BTIgbQF1V8BDXWhOkEJkCygHJsO8EABcIuEKgBmAS0yZqAEwBCVEV34BaAIy7pfKnoBMPVGmqKAynIBe1BAHYADLLmUWAYQjZ8Y6jAENxAAa2oATy8ACxZ8AHNHUQkpVEwAU5gxFiECTgYAXyA","adwadw_values":"N4IgTg9g7gziBcB2ANCAxhANgVwLYDs4lUAjCADwFMiBtAXVXwENdqEaQQGQzyA5Fm3ggALhFwhUAMwCWmTJQAmAIQpCOvALQAmACxdUaSvIDKMgF6UEiAAzSZ5JgGEI2fCMpgEdkAGtKAJ5OABZM+ADmVsJiEqiYAKcwIkwCBOx0AL5AA"}')
+          Object.keys(backup).map((cookie) => {
+            Cookies.set(cookie, backup.cookie, { expires: 365 });
+            console.log(cookie)
+            console.log(backup)
+          });
+        }}
+      >
+        importera Backup
+      </button>
       <button
         onClick={handleSaveButtonClick}
         className="spara"
