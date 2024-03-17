@@ -11,8 +11,6 @@ import ExcelToTextConverter from "./ExcelToTextConverter.js";
 import Grid from "./Grid.js";
 import NameList from "./Namn.js";
 
-
-
 import backImg from "./back.png";
 import doneImg from "./done.svg";
 import schackBräde from "./schackVärden.js";
@@ -20,7 +18,6 @@ import { set } from "react-ga";
 import { IoIosArrowRoundDown, IoIosArrowRoundForward } from "react-icons/io";
 import { IoIosArrowDropright, IoIosArrowDropdownCircle } from "react-icons/io";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
-
 
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
@@ -64,9 +61,7 @@ function fitTextToContainer(container, element, maxFontSizePx) {
   }
 }
 
-
 const Editor = () => {
-
   const [groupName, setGroupName] = useState("ny...");
   const [keyChange, setKeyChange] = useState("tom");
   const [rows, setRows] = useState(8);
@@ -108,7 +103,6 @@ const Editor = () => {
     setWindowHeight(window.innerHeight);
   };
   useEffect(() => {
-
     fixa();
   }, [cellSize]);
 
@@ -137,41 +131,39 @@ const Editor = () => {
     }
   };
   const handleSaveNames = async () => {
+    const name = prompt("Döp din klass: ");
+    if (name) {
+      setNameGroupName(name);
 
-      const name = prompt("Döp din klass: ");
-      if (name) {
-        setNameGroupName(name);
+      const compressedData = compressData({
+        names,
+      });
 
-        const compressedData = compressData({
-          names,
-        });
+      Cookies.set(`${name}_nameValues`, compressedData, { expires: 365 });
+      await new Promise((resolve) => setTimeout(resolve, 100));
 
-        Cookies.set(`${name}_nameValues`, compressedData, { expires: 365 });
-        await new Promise((resolve) => setTimeout(resolve, 100));
-
-        document.getElementById(`${name}_nameValues`).selected = true;
-      }
+      document.getElementById(`${name}_nameValues`).selected = true;
+    }
   };
   const handleSaveGrid = async () => {
-    
-      const name = prompt("Döp det här klassrummet: ");
-      if (name) {
-        setGridGroupName(name);
+    const name = prompt("Döp det här klassrummet: ");
+    if (name) {
+      setGridGroupName(name);
 
-        const compressedData = compressData({
-          rows,
-          columns,
-          cellSize,
-          filledBoxes,
-          keyChange,
-          låstaNamn,
-        });
+      const compressedData = compressData({
+        rows,
+        columns,
+        cellSize,
+        filledBoxes,
+        keyChange,
+        låstaNamn,
+      });
 
-        Cookies.set(`${name}_gridValues`, compressedData, { expires: 365 });
-        await new Promise((resolve) => setTimeout(resolve, 100));
+      Cookies.set(`${name}_gridValues`, compressedData, { expires: 365 });
+      await new Promise((resolve) => setTimeout(resolve, 100));
 
-        document.getElementById(`${name}_gridValues`).selected = true;
-      }
+      document.getElementById(`${name}_gridValues`).selected = true;
+    }
 
     if (nameGroupName !== defaultGroup && gridGroupName !== defaultGroup) {
       setGroupName(`${nameGroupName} i ${gridGroupName}`);
@@ -510,10 +502,7 @@ const Editor = () => {
       setFilledBoxes([]);
       setCellSize(70);
       setFixaCounter(0);
-
-    }
-    
-    else {
+    } else {
       const values = readCookieValues(selectedGridGroup);
       if (values) {
         setColumns(values.columns);
@@ -522,7 +511,6 @@ const Editor = () => {
         setFilledBoxes(values.filledBoxes);
         setKeyChange(values.keyChange);
         setLåstaNamn(values.låstaNamn || []);
-
       }
     }
   };
@@ -536,7 +524,12 @@ const Editor = () => {
         cols="30"
         placeholder="Ett namn per rad"
       ></textarea>
-      <button style={{fontWeight: 'bolder', fontSize: '20px'}} onClick={handleMassImportNames}>Lägg till...</button>
+      <button
+        style={{ fontWeight: "bolder", fontSize: "20px" }}
+        onClick={handleMassImportNames}
+      >
+        Lägg till...
+      </button>
       <ExcelToTextConverter setNames={setNames} names={names} />
     </div>
   );
@@ -817,7 +810,6 @@ const Editor = () => {
 
   return (
     <div className="App prevent-select">
-      
       <div id="bräddMått"></div>
       <div className="gridInstallning">
         <label>Rader:</label>
@@ -893,8 +885,16 @@ const Editor = () => {
           </div>
 
           <div className="menySaker" id="slumpaDiv">
-            <GiPerspectiveDiceSixFacesRandom style={{height: '80px', width: 'auto'}}onClick={handleMixNames} id="slumpaKnappen"/>
-            <label className='prevent-select' id="slumpaLabel" htmlFor="slumpaKnappen">
+            <GiPerspectiveDiceSixFacesRandom
+              style={{ height: "80px", width: "auto" }}
+              onClick={handleMixNames}
+              id="slumpaKnappen"
+            />
+            <label
+              className="prevent-select"
+              id="slumpaLabel"
+              htmlFor="slumpaKnappen"
+            >
               Slumpa
             </label>
           </div>
@@ -905,9 +905,12 @@ const Editor = () => {
         <p id="nameHeader" className="prevent-select">
           {nameGroupName.split("_nameValues")[0]}
           {visaNamn ? (
-            <IoIosArrowDropdownCircle className='pil' onClick={handleToggleNamn} />
+            <IoIosArrowDropdownCircle
+              className="pil"
+              onClick={handleToggleNamn}
+            />
           ) : (
-            <IoIosArrowDropright className='pil' onClick={handleToggleNamn} />
+            <IoIosArrowDropright className="pil" onClick={handleToggleNamn} />
           )}
         </p>
         {NamnSparningsLösning}
@@ -931,6 +934,5 @@ const Editor = () => {
     </div>
   );
 };
-
 
 export default Editor;
