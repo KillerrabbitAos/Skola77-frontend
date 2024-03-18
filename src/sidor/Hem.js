@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { isMobile } from 'react-device-detect';
+import { isMobile, isTablet} from 'react-device-detect';
 
 const Hem = () => {
     useEffect(() => {
