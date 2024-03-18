@@ -29,7 +29,6 @@ const DownloadJSON = ({ data, fileName }) => {
         );
         }
       else {
-          json.stringify(selectedFile)
           const backup = JSON.parse(selectedFile)
           backup.map((cookieName) => {
             if (cookieName) {
