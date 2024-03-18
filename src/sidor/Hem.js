@@ -3,7 +3,7 @@ import { isMobile } from 'react-device-detect';
 
 const Hem = () => {
     useEffect(() => {
-        if (isMobile) {
+        if (isMobile && !isTablet) {
             alert('Du besöker just nu Skola77 från en mobiltelefon. Observera att sidan inte alls är utformad för den typen av användande. Vi rekommenderar starkt att du testar sidan på dator för en bättre användarupplevelse.');
         }
     }, []);
