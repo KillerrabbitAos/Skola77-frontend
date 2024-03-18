@@ -1,22 +1,23 @@
-import React from 'react';
+import React from "react";
 import Cookies from "js-cookie";
 import { useCookies } from "react-cookie";
-import { json } from 'react-router-dom';
+import { json } from "react-router-dom";
 
 const DownloadJSON = ({ data, fileName }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["name"]);
 
   const downloadJSON = () => {
-    const jsonData = new Blob([JSON.stringify(data)], { type: 'application/json' });
+    const jsonData = new Blob([JSON.stringify(data)], {
+      type: "application/json",
+    });
     const jsonURL = URL.createObjectURL(jsonData);
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = jsonURL;
     link.download = `${fileName}.json`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
-  
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -27,9 +28,14 @@ const DownloadJSON = ({ data, fileName }) => {
         alert(
           'Filformatet är inte ".json". Kolla så att du har valt rätt fil.'
         );
-        }
-      else {
-          const backup = JSON.parse(selectedFile)
+      } else {
+        var reader = new FileReader();
+        reader.readAsText(selectedFile, "UTF-8");
+        reader.onload = function (evt) {
+          const mönster = /[^"]/
+          const backup = evt.target.result.split("[")[1].split("]")[0].split(",")
+          const backup2 = backup.map((item) => {const matchar = item.match(mönster).join(''); return (matchar)})
+          console.log(backup2)
           backup.map((cookieName) => {
             if (cookieName) {
               Cookies.set(cookieName.split(":")[0], cookieName.split(":")[1], {
@@ -37,17 +43,18 @@ const DownloadJSON = ({ data, fileName }) => {
               });
             }
           });
-        }
+        };
       }
-      }
+    }
+  }
 
-  
+
   return (
     <div>
-    <button onClick={downloadJSON}>Download JSON</button>
-    <input type="file" onChange={handleFileChange}></input>
+      <button onClick={downloadJSON}>Download JSON</button>
+      <input type="file" onChange={handleFileChange}></input>
     </div>
   );
-}
+};
 
 export default DownloadJSON;
