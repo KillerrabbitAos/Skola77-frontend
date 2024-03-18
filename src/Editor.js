@@ -18,6 +18,7 @@ import { set } from "react-ga";
 import { IoIosArrowRoundDown, IoIosArrowRoundForward } from "react-icons/io";
 import { IoIosArrowDropright, IoIosArrowDropdownCircle } from "react-icons/io";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
+import DownloadJSON from "./laddaNed.js";
 
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
@@ -647,9 +648,7 @@ const Editor = () => {
           <b>Sparat!</b>
         </div>
       )}
-      <button
-        onClick={() => {
-          setBackup1(JSON.stringify(
+      {Cookies.get && <DownloadJSON data={JSON.stringify(
             Object.keys(Cookies.get()).map((cookieName) => {
               if (
                 cookieName.endsWith("_values") ||
@@ -659,11 +658,9 @@ const Editor = () => {
                 return `${cookieName}:${Cookies.get(cookieName)}`;
               }
             })
-          ));
-        }}
-      >
-        Backup
-      </button>
+          )} fileName={`backup skola77`} />
+          }
+    
       <button
         onClick={() => {
           const backup = JSON.parse(backup1);
