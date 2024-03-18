@@ -97,7 +97,7 @@ const Editor = () => {
   const [nameGroupName, setNameGroupName] = useState(defaultGroup);
   const [gridGroupName, setGridGroupName] = useState(defaultGroup);
   const [visaNamn, setVisaNamn] = useState(true);
-  const [backup1, setBackup1] = useState()
+  const [backup1, setBackup1] = useState();
 
   let resizeWindow = () => {
     setWindowWidth(window.innerWidth);
@@ -649,21 +649,30 @@ const Editor = () => {
       )}
       <button
         onClick={() => {
-          setBackup1(Object.keys(Cookies.get()).map(
-            (cookieName) =>
-              cookieName.endsWith("_values") && (
-                {cookieName: Cookies.get(cookieName)}
-              )
-          ))}
+          setBackup1(JSON.stringify(
+            Object.keys(Cookies.get()).map((cookieName) => {
+              if (
+                cookieName.endsWith("_values") ||
+                cookieName.endsWith("_gridValues") ||
+                cookieName.endsWith("_nameValues")
+              ) {
+                return `${cookieName}:${Cookies.get(cookieName)}`;
               }
+            })
+          ));
+        }}
       >
         Backup
       </button>
       <button
         onClick={() => {
-          const backup = backup1;
+          const backup = JSON.parse(backup1);
           backup.map((cookieName) => {
-            Cookies.set(cookieName, backup.cookieName, { expires: 365 });
+            if (cookieName) {
+              Cookies.set(cookieName.split(":")[0], cookieName.split(":")[1], {
+                expires: 365,
+              });
+            }
           });
         }}
       >
