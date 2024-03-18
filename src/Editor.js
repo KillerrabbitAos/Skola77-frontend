@@ -662,20 +662,6 @@ const Editor = () => {
           }
     
       <button
-        onClick={() => {
-          const backup = JSON.parse(backup1);
-          backup.map((cookieName) => {
-            if (cookieName) {
-              Cookies.set(cookieName.split(":")[0], cookieName.split(":")[1], {
-                expires: 365,
-              });
-            }
-          });
-        }}
-      >
-        importera Backup
-      </button>
-      <button
         onClick={handleSaveButtonClick}
         className="spara"
         id="sparaKnapp"
