@@ -50,8 +50,11 @@ const DownloadJSON = ({ data, fileName }) => {
 
   return (
     <div>
-      <button onClick={downloadJSON}>Download JSON</button>
-      <input type="file" onChange={handleFileChange}></input>
+      <button style={{fontWeight: "bolder"}}onClick={downloadJSON}>Säkerhetskopiera på fil</button>
+      <div style={{display: "grid",}}>
+      <label htmlFor="backup">Importera backupfil</label>
+      <input id="backup" type="file" onChange={handleFileChange}></input>
+      </div>
     </div>
   );
 };

@@ -648,18 +648,7 @@ const Editor = () => {
           <b>Sparat!</b>
         </div>
       )}
-      {Cookies.get && <DownloadJSON data={JSON.stringify(
-            Object.keys(Cookies.get()).map((cookieName) => {
-              if (
-                cookieName.endsWith("_values") ||
-                cookieName.endsWith("_gridValues") ||
-                cookieName.endsWith("_nameValues")
-              ) {
-                return `${cookieName}:${Cookies.get(cookieName)}`;
-              }
-            })
-          )} fileName={`backup skola77`} />
-          }
+      
     
       <button
         onClick={handleSaveButtonClick}
@@ -826,6 +815,8 @@ const Editor = () => {
     <div className="App prevent-select">
       <div id="bräddMått"></div>
       <div className="gridInstallning">
+      <div style={{display: "flex"}}>
+      <div>
         <label>Rader:</label>
         <input
           type="number"
@@ -840,7 +831,20 @@ const Editor = () => {
           value={columnsInput}
           onChange={handleColumnsInputChange}
         />
-
+        </div>
+        {Cookies.get && <DownloadJSON data={JSON.stringify(
+            Object.keys(Cookies.get()).map((cookieName) => {
+              if (
+                cookieName.endsWith("_values") ||
+                cookieName.endsWith("_gridValues") ||
+                cookieName.endsWith("_nameValues")
+              ) {
+                return `${cookieName}:${Cookies.get(cookieName)}`;
+              }
+            })
+          )} fileName={`backup skola77`} />
+          }
+    </div>
         <div className="storkleksÄndring">
           <div className="ökaStorlekDiv">
             <button
