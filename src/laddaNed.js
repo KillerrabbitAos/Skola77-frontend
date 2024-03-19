@@ -32,10 +32,9 @@ const DownloadJSON = ({ data, fileName }) => {
         var reader = new FileReader();
         reader.readAsText(selectedFile, "UTF-8");
         reader.onload = function (evt) {
-          const mönster = /[^"]/
-          const backup = evt.target.result.split("[")[1].split("]")[0].split(",")
-          const backup2 = backup.map((item) => {const matchar = item.match(mönster).join(''); return (matchar)})
-          console.log(backup2)
+          const backup = JSON.parse(evt.target.result)
+          const backup2 = backup.map((item) => {})
+          console.log(backup2) 
           backup.map((cookieName) => {
             if (cookieName) {
               Cookies.set(cookieName.split(":")[0], cookieName.split(":")[1], {
