@@ -847,7 +847,7 @@ const Editor = () => {
     
         <div className="storkleksÄndring" style={{position: "relative", float: "left", left:"-150px", margin:"20px", width:"300px", display:"inline"}}>
           <div className="ökaStorlekDiv" style={{position:"relative", width:"50%", display:"block"}}>
-            <div style={{height: "50px"}}>            
+            <div style={{height: "50px", position: "relative", left:"0px"}}>            
               <button
               onClick={ökaStorlek}
               id="ökaStorlek"
@@ -857,7 +857,7 @@ const Editor = () => {
           </div>
           </div>
 
-          <div style={{height: "50px"}}>
+          <div style={{height: "50px", position:"relative", right:"0px"}}>
           <div className="minskaStorlekDiv" style={{position:"relative", width:"50%", display:"block", height:"auto"}}>
             <button onClick={minskaStorlek} id="minskaStorlek"></button>
             <label style={{position:"relative"}} htmlFor="minskaStorlek">Minska storlek</label>
