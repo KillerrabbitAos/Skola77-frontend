@@ -7,7 +7,7 @@ const DownloadJSON = ({ data, fileName }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["name"]);
 
   const downloadJSON = () => {
-    const jsonData = new Blob([JSON.stringify(data)], {
+    const jsonData = new Blob([data], {
       type: "application/json",
     });
     const jsonURL = URL.createObjectURL(jsonData);
