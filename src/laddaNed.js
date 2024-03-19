@@ -49,7 +49,7 @@ const DownloadJSON = ({ data, fileName }) => {
 
 
   return (
-    <div>
+    <div style={{float: "right", position: "relative"}}>
       <button style={{fontWeight: "bolder"}}onClick={downloadJSON}>Säkerhetskopiera på fil</button>
       <div style={{display: "grid",}}>
       <label htmlFor="backup">Importera backupfil</label>

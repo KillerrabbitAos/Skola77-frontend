@@ -815,8 +815,8 @@ const Editor = () => {
     <div className="App prevent-select">
       <div id="bräddMått"></div>
       <div className="gridInstallning">
-      <div style={{display: "flex"}}>
-      <div>
+      <div style={{display: "inline", width: "100%"}}>
+      <div style={{position: "relative", width: "600px", float: "left", left: "calc(50% - 300px)", bottom: "0px"}}>
         <label>Rader:</label>
         <input
           type="number"
@@ -844,24 +844,29 @@ const Editor = () => {
             })
           )} fileName={`backup skola77`} />
           }
-    </div>
-        <div className="storkleksÄndring">
-          <div className="ökaStorlekDiv">
-            <button
+    
+        <div className="storkleksÄndring" style={{position: "relative", float: "left", left:"-150px", margin:"20px", width:"300px", display:"inline"}}>
+          <div className="ökaStorlekDiv" style={{position:"relative", width:"50%", display:"block"}}>
+            <div style={{height: "50px"}}>            
+              <button
               onClick={ökaStorlek}
               id="ökaStorlek"
               className="grönaKnappar"
             ></button>
-            <label htmlFor="ökaStorlek">Öka Storlek</label>
+            <label style={{position:"relative"}} htmlFor="ökaStorlek">Öka Storlek</label>
+          </div>
           </div>
 
-          <div className="minskaStorlekDiv">
+          <div style={{height: "50px"}}>
+          <div className="minskaStorlekDiv" style={{position:"relative", width:"50%", display:"block", height:"auto"}}>
             <button onClick={minskaStorlek} id="minskaStorlek"></button>
-            <label htmlFor="minskaStorlek">Minska storlek</label>
+            <label style={{position:"relative"}} htmlFor="minskaStorlek">Minska storlek</label>
           </div>
+          </div>
+
         </div>
       </div>
-
+ </div>
       {sparningsLösning}
 
       <div id="gridMedAnnat">
