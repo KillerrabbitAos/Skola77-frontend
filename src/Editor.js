@@ -648,8 +648,7 @@ const Editor = () => {
           <b>Sparat!</b>
         </div>
       )}
-      
-    
+
       <button
         onClick={handleSaveButtonClick}
         className="spara"
@@ -815,58 +814,73 @@ const Editor = () => {
     <div className="App prevent-select">
       <div id="bräddMått"></div>
       <div className="gridInstallning">
-      <div style={{display: "inline", width: "100%"}}>
-      <div style={{position: "relative", width: "600px", float: "left", left: "calc(50% - 300px)", bottom: "0px"}}>
-        <label>Rader:</label>
-        <input
-          type="number"
-          max="50"
-          value={rowsInput}
-          onChange={handleRowsInputChange}
-        />
-        <label>Kolumner:</label>
-        <input
-          type="number"
-          max="50"
-          value={columnsInput}
-          onChange={handleColumnsInputChange}
-        />
-        </div>
-        {Cookies.get && <DownloadJSON data={JSON.stringify(
-            Object.keys(Cookies.get()).map((cookieName) => {
-              if (
-                cookieName.endsWith("_values") ||
-                cookieName.endsWith("_gridValues") ||
-                cookieName.endsWith("_nameValues")
-              ) {
-                return `${cookieName}:${Cookies.get(cookieName)}`;
-              }
-            })
-          )} fileName={`backup skola77`} />
-          }
-    
-        <div className="storkleksÄndring" style={{position: "relative", float: "left", left:"-150px", margin:"20px", width:"300px", display:"inline"}}>
-          <div className="ökaStorlekDiv" style={{position:"relative", width:"50%", display:"block"}}>
-            <div style={{height: "50px", position: "relative", left:"0px"}}>            
+        <div style={{ display: "inline", width: "100%" }}>
+          <div
+            style={{
+              position: "relative",
+              width: "600px",
+              float: "left",
+              left: "calc(50% - 300px)",
+              bottom: "0px",
+            }}
+          >
+            <label>Rader:</label>
+            <input
+              type="number"
+              max="50"
+              value={rowsInput}
+              onChange={handleRowsInputChange}
+            />
+            <label>Kolumner:</label>
+            <input
+              type="number"
+              max="50"
+              value={columnsInput}
+              onChange={handleColumnsInputChange}
+            />
+          </div>
+          {Cookies.get && (
+            <DownloadJSON
+              data={JSON.stringify(
+                Object.keys(Cookies.get()).map((cookieName) => {
+                  if (
+                    cookieName.endsWith("_values") ||
+                    cookieName.endsWith("_gridValues") ||
+                    cookieName.endsWith("_nameValues")
+                  ) {
+                    return `${cookieName}:${Cookies.get(cookieName)}`;
+                  }
+                })
+              )}
+              fileName={`backup skola77`}
+            />
+          )}
+
+          <div className="storkleksÄndring">
+            <div id="höjaDiv" className="storlekDiv">
               <button
-              onClick={ökaStorlek}
-              id="ökaStorlek"
-              className="grönaKnappar"
+                onClick={ökaStorlek}
+                id="ökaStorlek"
+                className="storlek"
+              ></button>
+              <label htmlFor="ökaStorlek">
+                Öka Storlek
+              </label>
+            </div>
+
+          <div id="minskaDiv" className="storlekDiv">
+            <button
+              className="storlek"
+              onClick={minskaStorlek}
+              id="minskaStorlek"
             ></button>
-            <label style={{position:"relative"}} htmlFor="ökaStorlek">Öka Storlek</label>
+            <label htmlFor="minskaStorlek">
+              Minska storlek
+            </label>
           </div>
           </div>
-
-          <div style={{height: "50px", position:"relative", right:"0px"}}>
-          <div className="minskaStorlekDiv" style={{position:"relative", width:"50%", display:"block", height:"auto"}}>
-            <button onClick={minskaStorlek} id="minskaStorlek"></button>
-            <label style={{position:"relative"}} htmlFor="minskaStorlek">Minska storlek</label>
-          </div>
-          </div>
-
         </div>
       </div>
- </div>
       {sparningsLösning}
 
       <div id="gridMedAnnat">

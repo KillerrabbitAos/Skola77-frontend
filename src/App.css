@@ -463,8 +463,7 @@ button:hover {
 }
 
 .storkleksÄndring {
-  margin: 40px;
-  display: flex;
+
 }
 
 #ökaStorlek {
@@ -480,13 +479,28 @@ button:hover {
   background-position: center;
   height: 60px;
 }
-
-.ökaStorlekDiv {
-  width: 150px;
+#minskaDiv{
+  float: left;
+}
+#höjaDiv{
+  float: right;
+}
+.storlekDiv {
+  position:relative; 
+  width:150px;
+  display:block;
+  margin: 0;
+}
+.storkleksÄndring{
+  width: 300px;
+  position: relative;
+  left: calc(50% - 150px)
 }
 
 .minskaStorlekDiv {
-  width: 150px;
+  position: relative; 
+  width: 50%;
+   display: block;
 }
 
 .sparaKnappar {
