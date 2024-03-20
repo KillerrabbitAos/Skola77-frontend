@@ -108,19 +108,9 @@ const Editor = () => {
     fixa();
   }, [cellSize]);
 
-  const handleRowsInputChange = (e) => {
-    const value = e.target.value;
-    setRowsInput(value);
-    setRows(isNaN(value) || value === "" ? 0 : parseInt(value, 10));
-    fixa();
-  };
+  
 
-  const handleColumnsInputChange = (e) => {
-    const value = e.target.value;
-    setColumnsInput(value);
-    setColumns(isNaN(value) || value === "" ? 0 : parseInt(value, 10));
-    fixa();
-  };
+
 
   const ändraPerspektiv = () => {
     setBaklänges(!baklänges);
@@ -639,6 +629,12 @@ const Editor = () => {
       updateFixa={updateFixa}
       setUpdateFixa={setUpdateFixa}
       GridSparningsLösning={GridSparningsLösning}
+      setRowsInput={setRowsInput}
+      rowsInput={rowsInput}
+      setColumnsInput={setColumnsInput}
+      columnsInput={columnsInput}
+      setRows={setRows}
+      setColumns={setColumns}
     />
   );
   const sparningsLösning = (
@@ -815,30 +811,7 @@ const Editor = () => {
       <div id="bräddMått"></div>
       <div className="gridInstallning">
         <div style={{ display: "inline", width: "100%" }}>
-          <div
-            style={{
-              position: "relative",
-              width: "600px",
-              float: "left",
-              left: "calc(50% - 300px)",
-              bottom: "0px",
-            }}
-          >
-            <label>Rader:</label>
-            <input
-              type="number"
-              max="50"
-              value={rowsInput}
-              onChange={handleRowsInputChange}
-            />
-            <label>Kolumner:</label>
-            <input
-              type="number"
-              max="50"
-              value={columnsInput}
-              onChange={handleColumnsInputChange}
-            />
-          </div>
+          
           {Cookies.get && (
             <DownloadJSON
               data={JSON.stringify(

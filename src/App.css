@@ -161,7 +161,7 @@ li button {
 }
 
 #gridMedAnnat {
-  margin-top: 70px;
+  margin-top: 30px;
 }
 
 button {
@@ -426,6 +426,7 @@ button:hover {
 }
 #placeringsTitel {
   visibility: hidden;
+  display: contents;
 }
 
 .box.filled.låst {

@@ -54,8 +54,26 @@ const Grid = ({
   nere,
   uppe,
   GridSparningsLösning,
+  columnsInput,
+  setColumnsInput,
+  setRowsInput,
+  rowsInput,
+  setRows,
+  setColumns,
 }) => {
   const [contextMenu, setContextMenu] = useState(["tom"]);
+  const handleRowsInputChange = (e) => {
+    const value = e.target.value;
+    setRowsInput(value);
+    setRows(isNaN(value) || value === "" ? 0 : parseInt(value, 10));
+    fixa();
+  };
+  const handleColumnsInputChange = (e) => {
+    const value = e.target.value;
+    setColumnsInput(value);
+    setColumns(isNaN(value) || value === "" ? 0 : parseInt(value, 10));
+    fixa();
+  };
   const handleDrop = async (e) => {
     e.preventDefault();
     e.target.classList.remove("dragging")
@@ -271,6 +289,31 @@ const Grid = ({
           {uppe}
         </p>
         {GridSparningsLösning}
+        <div
+            style={{
+              position: "relative",
+              width: "600px",
+              float: "left",
+              left: "calc(50% - 300px)",
+              bottom: "0px",
+              marginBottom: "10px",
+            }}
+          >
+            <label>Rader:</label>
+            <input
+              type="number"
+              max="50"
+              value={rowsInput}
+              onChange={handleRowsInputChange}
+            />
+            <label>Kolumner:</label>
+            <input
+              type="number"
+              max="50"
+              value={columnsInput}
+              onChange={handleColumnsInputChange}
+            />
+          </div>
       </div>
 
       <div
