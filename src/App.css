@@ -136,6 +136,8 @@ li button {
   font-size: 20px;
   width: 50px;
   margin: auto;
+  margin-bottom: 20px;
+  margin-top: 40px;
 }
 
 #nere {
@@ -336,6 +338,10 @@ button:hover {
   }
 
   #namn{
+    display: none;
+  }
+
+  .gridSize{
     display: none;
   }
 }

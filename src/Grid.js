@@ -283,13 +283,9 @@ const Grid = ({
       <h1 id="placeringsTitel">{groupName}</h1>
 
       <div style={{ display: "inline-block", width: "100%" }} className="helaGriden">
-        <p
-          id="uppe"
-        >
-          {uppe}
-        </p>
+        
         {GridSparningsLösning}
-        <div
+        <div className="gridSize"
             style={{
               position: "relative",
               width: "600px",
@@ -314,7 +310,15 @@ const Grid = ({
               onChange={handleColumnsInputChange}
             />
           </div>
+
+          
       </div>
+
+      <p
+          id="uppe"
+        >
+          {uppe}
+        </p>
 
       <div
         id="grid"
