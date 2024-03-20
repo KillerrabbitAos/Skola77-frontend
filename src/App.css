@@ -630,3 +630,18 @@ button:hover {
   justify-content: center;
   width: 100%;
 }
+
+#backupButton{
+  text-align: center;
+}
+
+#backupDiv{
+  float: right;
+  text-align: center;
+  justify-content: center;
+}
+
+#div2{
+  display: grid;
+}
+
