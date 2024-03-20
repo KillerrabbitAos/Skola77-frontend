@@ -98,7 +98,13 @@ const Editor = () => {
   const [nameGroupName, setNameGroupName] = useState(defaultGroup);
   const [gridGroupName, setGridGroupName] = useState(defaultGroup);
   const [visaNamn, setVisaNamn] = useState(true);
+
   const [backup1, setBackup1] = useState();
+
+  let baconBurger = false;
+  let cheeseBurger = false;
+
+
 
   let resizeWindow = () => {
     setWindowWidth(window.innerWidth);
@@ -157,12 +163,58 @@ const Editor = () => {
       document.getElementById(`${name}_gridValues`).selected = true;
     }
 
-    if (nameGroupName !== defaultGroup && gridGroupName !== defaultGroup) {
-      setGroupName(`${nameGroupName} i ${gridGroupName}`);
-    }
   };
 
   const handleSaveButtonClick = async () => {
+
+    let finalGroupName = groupName;
+
+  if (groupName == defaultGroup && gridGroupName !== defaultGroup && nameGroupName !== defaultGroup) {
+    baconBurger = true;
+    
+    const finNameGroupName = nameGroupName.replace("_nameValues", "");
+    const finGridGroupName = gridGroupName.replace("_gridValues", "");
+  
+    finalGroupName = finNameGroupName + " i " + finGridGroupName;
+    setGroupName(finalGroupName);
+    cheeseBurger = true
+  }
+
+  if (cheeseBurger == true) {
+
+    cheeseBurger = false
+
+
+    const compressedData = compressData({
+      rows,
+      columns,
+      boxes,
+      names,
+      boxNames,
+      filledBoxes,
+      cellSize,
+      fixaCounter,
+      keyChange,
+      låstaNamn,
+    });
+    
+    Cookies.set(`${finalGroupName}_values`, compressedData, { expires: 365 });
+  
+    setShowSavedMessage(true);
+    setTimeout(() => {
+      setShowSavedMessage(false);
+    }, 2000);
+
+    document.getElementById(`${finalGroupName}_values`).selected = true;
+
+  }
+
+  
+
+
+
+
+
     if (groupName !== defaultGroup) {
       const compressedData = compressData({
         rows,
@@ -183,7 +235,18 @@ const Editor = () => {
       setTimeout(() => {
         setShowSavedMessage(false);
       }, 2000);
-    } else {
+    }
+    
+    
+    
+    else {
+      if (baconBurger == true){
+        baconBurger = false;
+        return
+      }
+
+      else{
+
       const name = prompt("Döp din placering: ");
       if (name) {
         setGroupName(name);
@@ -206,9 +269,27 @@ const Editor = () => {
 
         document.getElementById(`${name}_values`).selected = true;
       }
+
+
+      }
+      
     }
   };
 
+  function useBeforeUnload(message) {
+    useEffect(() => {
+      const handler = (event) => {
+        event.preventDefault();
+        event.returnValue = message;
+        return message;
+      };
+      window.addEventListener('beforeunload', handler);
+      return () => window.removeEventListener('beforeunload', handler);
+    }, [message]);
+  }
+
+  useBeforeUnload("Är du säker på att du vill lämna sidan? Eventuella osparade ändringar kan gå förlorade.");
+  
   const sparaSomNy = async () => {
     const name = prompt("Döp din placering: ");
     if (name) {
@@ -529,11 +610,7 @@ const Editor = () => {
     <div id="sparaNamnSettings">
       <div style={{ display: "block", width: "100%", height: "35px" }}>
         <div id="yberKebabGrid">
-          {showSavedMessage && (
-            <div>
-              <b>Sparat!</b>
-            </div>
-          )}
+          
           <div id="kebabWrap">
             <div style={{ display: "block" }}>
               <select
@@ -708,11 +785,7 @@ const Editor = () => {
     <div id="sparaNamnSettings">
       <div style={{ display: "block", width: "100%", height: "35px" }}>
         <div id="yberKebab">
-          {showSavedMessage && (
-            <div>
-              <b>Sparat!</b>
-            </div>
-          )}
+        
           <div id="kebabWrap">
             <div style={{ display: "block" }}>
               <select
