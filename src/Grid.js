@@ -240,6 +240,7 @@ const Grid = ({
               showContextMenu={contextMenu.includes(`box-${i}`)}
               setContextMenu={setContextMenu}
               contextMenu={contextMenu}
+              editingMode={editingMode}
             />
           )}
         </div>
