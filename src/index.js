@@ -9,6 +9,8 @@ import Editor from "./Editor.js";
 import Support from "./sidor/Support";
 import NoPage from "./sidor/NoPage";
 import Kontakt from './sidor/Kontakt.js';
+import OmOss from './sidor/omOss.js';
+
 
 export default function App() {
   return (
@@ -19,6 +21,8 @@ export default function App() {
           <Route path="Editor" element={<Editor />} />
           <Route path="Support" element={<Support />} />
           <Route path="Kontakt" element={<Kontakt />} />
+          <Route path="OmOss" element={<OmOss />} />
+
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
