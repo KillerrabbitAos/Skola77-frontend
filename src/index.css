@@ -231,6 +231,7 @@ html {
 
 #kebbe{
   font-family: Arial;
+  width: 190px;
   
 }
 
@@ -277,4 +278,9 @@ html {
 
 #omOssHead{
   text-align: center;
+}
+
+#bodyOmOss{
+  padding: 100px;
+  font-size: 20px;
 }
