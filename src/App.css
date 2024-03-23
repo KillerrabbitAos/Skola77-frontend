@@ -111,14 +111,7 @@ label {
   font-size: 75%;
 }
 
-ul {
-  position: relative;
-  display: table;
-  margin: 0 auto;
-  text-align: left;
-  margin-bottom: 40px;
-  list-style-type: none;
-}
+
 li button {
   width: 100px;
 }
@@ -608,4 +601,9 @@ button:hover {
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+#cookies{
+  margin-left: 40px;
+  margin-top: 30px;
 }

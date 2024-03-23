@@ -10,6 +10,8 @@ import Support from "./sidor/Support";
 import NoPage from "./sidor/NoPage";
 import Kontakt from './sidor/Kontakt.js';
 import OmOss from './sidor/omOss.js';
+import Cookies from './sidor/cookies.js';
+
 
 
 export default function App() {
@@ -22,6 +24,7 @@ export default function App() {
           <Route path="Support" element={<Support />} />
           <Route path="Kontakt" element={<Kontakt />} />
           <Route path="OmOss" element={<OmOss />} />
+          <Route path="cookies" element={<Cookies />} />
 
           <Route path="*" element={<NoPage />} />
         </Route>
