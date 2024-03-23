@@ -865,7 +865,7 @@ const Editor = () => {
       <div id="bräddMått"></div>
       <div className="gridInstallning">
       {sparningsLösning}
-        <div style={{ display: "inline", width: "252.5px" }}>
+        <div id="backupDiv">
           
           {Cookies.get && (
             <DownloadJSON

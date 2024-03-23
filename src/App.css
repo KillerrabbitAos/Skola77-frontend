@@ -651,3 +651,10 @@ button:hover {
 #sparaGridContainer{
   display: contents;
 }
+
+#backupDiv{
+  display: inline;
+  width: 252.5px;
+  position: relative;
+  float: right;
+}
