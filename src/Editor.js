@@ -864,7 +864,8 @@ const Editor = () => {
     <div className="App prevent-select">
       <div id="bräddMått"></div>
       <div className="gridInstallning">
-        <div style={{ display: "inline", width: "100%" }}>
+      {sparningsLösning}
+        <div style={{ display: "inline", width: "252.5px" }}>
           
           {Cookies.get && (
             <DownloadJSON
@@ -886,7 +887,7 @@ const Editor = () => {
 
         </div>
       </div>
-      {sparningsLösning}
+      
 
       <div id="gridMedAnnat">
         <div id="pdfDiv">
