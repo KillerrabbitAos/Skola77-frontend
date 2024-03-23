@@ -77,12 +77,11 @@ body {
 .gridInstallning {
   padding: 10px;
 }
-.namnFält{
+.namnFält {
   padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 label {
@@ -158,7 +157,6 @@ li button {
   width: 202.25px;
   position: relative;
   left: calc(50% - 101.125px);
-
 }
 
 #sparaKnapp {
@@ -312,16 +310,14 @@ button:hover {
 @media print {
   body * {
     visibility: hidden; /* Gömmer allt förutom det specifika innehållet du vill skriva ut */
-
   }
   #gridPdfSak * {
-
     visibility: visible; /* Gör #gridPdfSak och dess barn synliga */
   }
   #kebabWrap * {
     visibility: hidden;
   }
-  .box.filled{
+  .box.filled {
     visibility: visible !important;
   }
   #gridPdfSak {
@@ -335,22 +331,23 @@ button:hover {
     margin: 0mm auto;
     box-shadow: none; /* Tar bort skuggan för en renare utskrift */
   }
-  #grid{
+  #grid {
     zoom: 0.8;
   }
   #placeringsTitel {
     visibility: visible !important;
   }
 
-  .papperskorg, .låsKnappBox {
+  .papperskorg,
+  .låsKnappBox {
     display: none !important;
   }
 
-  #namn{
+  #namn {
     display: none;
   }
 
-  .gridSize{
+  .gridSize {
     display: none;
   }
 }
@@ -479,7 +476,6 @@ button:hover {
 }
 
 .storkleksÄndring {
-
 }
 
 #ökaStorlek {
@@ -495,30 +491,29 @@ button:hover {
   background-position: center;
   height: 60px;
 }
-#minskaDiv{
+#minskaDiv {
   float: left;
   left: 300px;
 }
-#höjaDiv{
+#höjaDiv {
   float: right;
   right: 300px;
 }
 .storlekDiv {
-  position:relative; 
-  width:150px;
-  display:block;
+  position: relative;
+  width: 150px;
+  display: block;
   margin: 0;
 }
-.storkleksÄndring{
+.storkleksÄndring {
   width: 300px;
   position: relative;
-  left: calc(50% - 150px)
-}a
-
-.minskaStorlekDiv {
-  position: relative; 
+  left: calc(50% - 150px);
+}
+a .minskaStorlekDiv {
+  position: relative;
   width: 50%;
-   display: block;
+  display: block;
 }
 
 .sparaKnappar {
@@ -622,18 +617,18 @@ button:hover {
   position: relative;
   right: 7%;
 }
-.schackPjäs svg{
-    height: 100%;
-    width:auto;
+.schackPjäs svg {
+  height: 100%;
+  width: auto;
 }
-.dragging{
+.dragging {
   background-color: transparent !important;
 }
-.pil{
+.pil {
   height: 30px;
-      width: auto;
-      position: relative;
-      top: 10px;
+  width: auto;
+  position: relative;
+  top: 10px;
 }
 
 .helaGriden {
@@ -642,25 +637,25 @@ button:hover {
   width: 100%;
 }
 
-#backupButton{
+#backupButton {
   text-align: center;
 }
 
-#backupDiv{
+#backupDiv {
   float: right;
   text-align: center;
   justify-content: center;
 }
 
-#div2{
+#div2 {
   display: grid;
 }
 
-#sparaGridContainer{
+#sparaGridContainer {
   display: contents;
 }
 
-#backupDiv{
+#backupDiv {
   display: inline;
   width: 252.5px;
   position: relative;

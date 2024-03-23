@@ -96,7 +96,7 @@ const Grid = ({
   };
   const handleDrop = async (e) => {
     e.preventDefault();
-    e.target.classList.remove("dragging")
+    e.target.classList.remove("dragging");
     let target = e.target;
     while (
       target &&
@@ -138,7 +138,7 @@ const Grid = ({
     const draggedBoxOriginalId = JSON.parse(
       JSON.stringify(e.dataTransfer.getData("boxId").split("original: ")[1])
     );
-    const targetId = JSON.parse(JSON.stringify(target.id)); 
+    const targetId = JSON.parse(JSON.stringify(target.id));
     const targetOriginalId = JSON.parse(
       JSON.stringify(target.getAttribute("data-originalid"))
     );
@@ -197,7 +197,7 @@ const Grid = ({
     return;
   };
   const handleDragOver = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
   };
   const generateGrid = () => {
     const gridItems = [];
@@ -219,9 +219,11 @@ const Grid = ({
           style={{
             width: `${cellSize}px`,
             height: `${cellSize}px`,
-            outline: showBorders && groupName !== "schack" ? "1px solid black" : "none",
+            outline:
+              showBorders && groupName !== "schack"
+                ? "1px solid black"
+                : "none",
             boxSizing: "border-box",
-           
           }}
         >
           {groupName === "schack" ? (
@@ -302,64 +304,57 @@ const Grid = ({
     >
       <h1 id="placeringsTitel">{groupName}</h1>
 
-      <div style={{ display: "inline-block", width: "100%" }} className="helaGriden">
+      <div
+        style={{ display: "inline-block", width: "100%" }}
+        className="helaGriden"
+      >
         <div id="sparaGridContainer">{GridSparningsLösning}</div>
-        
-        <div className="gridSize"
-            style={{
-              position: "relative",
-              width: "100%",
-              float: "left",
-              bottom: "0px",
-              marginBottom: "10px",
-            }}
-          >
-                      
-            <div id="höjaDiv" className="storlekDiv">
-              <button
-                onClick={ökaStorlek}
-                id="ökaStorlek"
-                className="storlek"
-              ></button>
-              <label htmlFor="ökaStorlek">
-                Öka Storlek
-              </label>
-            </div>
 
-            <label>Rader:</label>
-            <input
-              type="number"
-              max="50"
-              value={rowsInput}
-              onChange={handleRowsInputChange}
-            />
-            <label>Kolumner:</label>
-            <input
-              type="number"
-              max="50"
-              value={columnsInput}
-              onChange={handleColumnsInputChange}
-            />
-            <div id="minskaDiv" className="storlekDiv">
+        <div
+          className="gridSize"
+          style={{
+            position: "relative",
+            width: "100%",
+            float: "left",
+            bottom: "0px",
+            marginBottom: "10px",
+          }}
+        >
+          <div id="höjaDiv" className="storlekDiv">
+            <button
+              onClick={ökaStorlek}
+              id="ökaStorlek"
+              className="storlek"
+            ></button>
+            <label htmlFor="ökaStorlek">Öka Storlek</label>
+          </div>
+
+          <label>Rader:</label>
+          <input
+            type="number"
+            max="50"
+            value={rowsInput}
+            onChange={handleRowsInputChange}
+          />
+          <label>Kolumner:</label>
+          <input
+            type="number"
+            max="50"
+            value={columnsInput}
+            onChange={handleColumnsInputChange}
+          />
+          <div id="minskaDiv" className="storlekDiv">
             <button
               className="storlek"
               onClick={minskaStorlek}
               id="minskaStorlek"
             ></button>
-            <label htmlFor="minskaStorlek">
-              Minska storlek
-            </label>
+            <label htmlFor="minskaStorlek">Minska storlek</label>
           </div>
-          </div>
-
-          
+        </div>
       </div>
 
-      <p
-          id="uppe"
-        >
-          {uppe}
-        </p>
+      <p id="uppe">{uppe}</p>
 
       <div
         id="grid"
@@ -371,7 +366,11 @@ const Grid = ({
           gridTemplateColumns: `repeat(${columns}, 1fr)`,
           gridTemplateRows: `repeat(${rows}, 1fr)`,
           gap: groupName === "schack" ? "0px" : "10px",
-          width: `${groupName === "schack" ? columns * cellSize : columns * cellSize + (columns - 1) * 10}px`,
+          width: `${
+            groupName === "schack"
+              ? columns * cellSize
+              : columns * cellSize + (columns - 1) * 10
+          }px`,
         }}
       >
         {generateGrid()}
