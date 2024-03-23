@@ -77,6 +77,13 @@ body {
 .gridInstallning {
   padding: 10px;
 }
+.namnFält{
+  padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+}
 
 label {
   padding: 5px;
@@ -85,6 +92,7 @@ label {
 .gridInstallning {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 #namesInput {
@@ -656,5 +664,6 @@ button:hover {
   display: inline;
   width: 252.5px;
   position: relative;
-  float: right;
+  float: left;
+  left: 50%;
 }

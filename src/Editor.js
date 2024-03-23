@@ -570,7 +570,7 @@ const Editor = () => {
   };
 
   const gridConf = (
-    <div className="gridInstallning" id="kebaben">
+    <div className="namnFält" id="kebaben">
       <p>Namnimport</p>
       <textarea
         id="namesInput"
