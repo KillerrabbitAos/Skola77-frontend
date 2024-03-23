@@ -563,68 +563,20 @@ const Editor = () => {
       </button>
       <ExcelToTextConverter setNames={setNames} names={names} />
     </div>
+
+
+
+    
+
+
   );
   const GridSparningsLösning = (
     <div id="sparaNamnSettings">
       <div style={{ display: "block", width: "100%", height: "35px" }}>
+
+        
         <div id="yberKebabGrid">
-          <div id="kebabWrap">
-            <div style={{ display: "block" }}>
-              <select
-                id="sparadeNamnKlasser"
-                defaultValue={groupName}
-                onChange={handleGridGroupChange}
-              >
-                <option id="nyGridNamn" key="ny..." value={defaultGroup}>
-                  {defaultGroup}
-                </option>
-
-                {Object.keys(Cookies.get()).length > 0 &&
-                  Object.keys(Cookies.get()).map(
-                    (cookieName) =>
-                      cookieName.endsWith("gridValues") && (
-                        <option
-                          id={cookieName}
-                          key={cookieName}
-                          value={cookieName}
-                        >
-                          {cookieName.replace("_gridValues", "")}
-                        </option>
-                      )
-                  )}
-              </select>
-            </div>
-            <div style={{ display: "flex" }}>
-              <button
-                onClick={handleSaveGrid}
-                className="sparaNamnKnapp"
-                id="sparaNamnKnapp"
-              >
-                spara
-              </button>
-              {gridGroupName === defaultGroup ? (
-                ""
-              ) : (
-                <div className="raderaNamnKlassDiv">
-                  <button onMouseDown={raderaGrid} id="raderaNamnKlass">
-                    <RiDeleteBin6Line />
-                  </button>
-                </div>
-              )}
-              {
-                //{
-                //(nameGroupName === defaultGroup)
-                //? ''
-                //: (
-                //<div className='sparaNamnSomNyDiv'>
-                //<button onMouseDown={sparaNamnSomNy} id='sparaNamnSomNy'>Spara som ny</button>
-                // </div>
-                //)
-                //}
-              }
-            </div>
-          </div>
-
+          
           <div className="sparaKnappar"></div>
         </div>
       </div>
@@ -741,66 +693,7 @@ const Editor = () => {
   const NamnSparningsLösning = (
     <div id="sparaNamnSettings">
       <div style={{ display: "block", width: "100%", height: "35px" }}>
-        <div id="yberKebab">
-          <div id="kebabWrap">
-            <div style={{ display: "block" }}>
-              <select
-                id="sparadeNamnKlasser"
-                defaultValue={groupName}
-                onChange={handleNameGroupChange}
-              >
-                <option id="nyKlassNamn" key="ny..." value={defaultGroup}>
-                  {defaultGroup}
-                </option>
-
-                {Object.keys(Cookies.get()).length > 0 &&
-                  Object.keys(Cookies.get()).map(
-                    (cookieName) =>
-                      cookieName.endsWith("nameValues") && (
-                        <option
-                          id={cookieName}
-                          key={cookieName}
-                          value={cookieName}
-                        >
-                          {cookieName.replace("_nameValues", "")}
-                        </option>
-                      )
-                  )}
-              </select>
-            </div>
-            <div style={{ display: "flex" }}>
-              <button
-                onClick={handleSaveNames}
-                className="sparaNamnKnapp"
-                id="sparaNamnKnapp"
-              >
-                spara
-              </button>
-              {nameGroupName === defaultGroup ? (
-                ""
-              ) : (
-                <div className="raderaNamnKlassDiv">
-                  <button onMouseDown={raderaNamnKlass} id="raderaNamnKlass">
-                    <RiDeleteBin6Line />
-                  </button>
-                </div>
-              )}
-              {
-                //{
-                //(nameGroupName === defaultGroup)
-                //? ''
-                //: (
-                //<div className='sparaNamnSomNyDiv'>
-                //<button onMouseDown={sparaNamnSomNy} id='sparaNamnSomNy'>Spara som ny</button>
-                // </div>
-                //)
-                //}
-              }
-            </div>
-          </div>
-
-          <div className="sparaKnappar"></div>
-        </div>
+        
       </div>
     </div>
   );
@@ -867,8 +760,68 @@ const Editor = () => {
             Skriv ut
           </label>
         </div>
+        
+        <div id="kebabWrap">
+            <div style={{ display: "block" }}>
+              <select
+                id="sparadeNamnKlasser"
+                defaultValue={groupName}
+                onChange={handleGridGroupChange}
+              >
+                <option id="nyGridNamn" key="ny..." value={defaultGroup}>
+                  {defaultGroup}
+                </option>
+
+                {Object.keys(Cookies.get()).length > 0 &&
+                  Object.keys(Cookies.get()).map(
+                    (cookieName) =>
+                      cookieName.endsWith("gridValues") && (
+                        <option
+                          id={cookieName}
+                          key={cookieName}
+                          value={cookieName}
+                        >
+                          {cookieName.replace("_gridValues", "")}
+                        </option>
+                      )
+                  )}
+              </select>
+            </div>
+            <div style={{ display: "flex" }}>
+              <button
+                onClick={handleSaveGrid}
+                className="sparaNamnKnapp"
+                id="sparaNamnKnapp"
+              >
+                spara
+              </button>
+              {gridGroupName === defaultGroup ? (
+                ""
+              ) : (
+                <div className="raderaNamnKlassDiv">
+                  <button onMouseDown={raderaGrid} id="raderaNamnKlass">
+                    <RiDeleteBin6Line />
+                  </button>
+                </div>
+              )}
+              {
+                //{
+                //(nameGroupName === defaultGroup)
+                //? ''
+                //: (
+                //<div className='sparaNamnSomNyDiv'>
+                //<button onMouseDown={sparaNamnSomNy} id='sparaNamnSomNy'>Spara som ny</button>
+                // </div>
+                //)
+                //}
+              }
+            </div>
+          </div>
+
 
         {grid}
+
+        
         <div id="meny">
           <div id="redigeringsDiv" className="menySaker"></div>
           <div id="klarDiv" className="menySaker">
@@ -897,6 +850,8 @@ const Editor = () => {
               Byt perspektiv
             </label>
           </div>
+          
+          
 
           <div className="menySaker" id="slumpaDiv">
             <GiPerspectiveDiceSixFacesRandom
@@ -914,6 +869,8 @@ const Editor = () => {
           </div>
         </div>
       </div>
+
+      
       {gridConf}
       <div>
         <p id="nameHeader" className="prevent-select">
@@ -927,6 +884,68 @@ const Editor = () => {
             <IoIosArrowDropright className="pil" onClick={handleToggleNamn} />
           )}
         </p>
+
+        <div id="yberKebab">
+          <div id="kebabWrap">
+            <div style={{ display: "block" }}>
+              <select
+                id="sparadeNamnKlasser"
+                defaultValue={groupName}
+                onChange={handleNameGroupChange}
+              >
+                <option id="nyKlassNamn" key="ny..." value={defaultGroup}>
+                  {defaultGroup}
+                </option>
+
+                {Object.keys(Cookies.get()).length > 0 &&
+                  Object.keys(Cookies.get()).map(
+                    (cookieName) =>
+                      cookieName.endsWith("nameValues") && (
+                        <option
+                          id={cookieName}
+                          key={cookieName}
+                          value={cookieName}
+                        >
+                          {cookieName.replace("_nameValues", "")}
+                        </option>
+                      )
+                  )}
+              </select>
+            </div>
+            <div style={{ display: "flex" }}>
+              <button
+                onClick={handleSaveNames}
+                className="sparaNamnKnapp"
+                id="sparaNamnKnapp"
+              >
+                spara
+              </button>
+              {nameGroupName === defaultGroup ? (
+                ""
+              ) : (
+                <div className="raderaNamnKlassDiv">
+                  <button onMouseDown={raderaNamnKlass} id="raderaNamnKlass">
+                    <RiDeleteBin6Line />
+                  </button>
+                </div>
+              )}
+              {
+                //{
+                //(nameGroupName === defaultGroup)
+                //? ''
+                //: (
+                //<div className='sparaNamnSomNyDiv'>
+                //<button onMouseDown={sparaNamnSomNy} id='sparaNamnSomNy'>Spara som ny</button>
+                // </div>
+                //)
+                //}
+              }
+            </div>
+          </div>
+
+          <div className="sparaKnappar"></div>
+        </div>
+
         {NamnSparningsLösning}
         <div id="namn">
           <NameList

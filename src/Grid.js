@@ -354,6 +354,8 @@ const Grid = ({
         </div>
       </div>
 
+      
+
       <p id="uppe">{uppe}</p>
 
       <div
