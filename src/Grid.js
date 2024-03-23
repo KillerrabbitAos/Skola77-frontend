@@ -68,6 +68,26 @@ const Grid = ({
     setRows(isNaN(value) || value === "" ? 0 : parseInt(value, 10));
     fixa();
   };
+  const ökaStorlek = () => {
+    if (cellSize >= 150) {
+      console.log("för stor:" + cellSize);
+
+      return;
+    }
+
+    setCellSize(cellSize + 10);
+    console.log(cellSize);
+  };
+
+  const minskaStorlek = () => {
+    if (cellSize <= 60) {
+      console.log("för liten:" + cellSize);
+      return;
+    }
+
+    setCellSize(cellSize - 10);
+    console.log(cellSize);
+  };
   const handleColumnsInputChange = (e) => {
     const value = e.target.value;
     setColumnsInput(value);
@@ -283,18 +303,29 @@ const Grid = ({
       <h1 id="placeringsTitel">{groupName}</h1>
 
       <div style={{ display: "inline-block", width: "100%" }} className="helaGriden">
+        <div id="sparaGridContainer">{GridSparningsLösning}</div>
         
-        {GridSparningsLösning}
         <div className="gridSize"
             style={{
               position: "relative",
-              width: "600px",
+              width: "100%",
               float: "left",
-              left: "calc(50% - 300px)",
               bottom: "0px",
               marginBottom: "10px",
             }}
           >
+                      
+            <div id="höjaDiv" className="storlekDiv">
+              <button
+                onClick={ökaStorlek}
+                id="ökaStorlek"
+                className="storlek"
+              ></button>
+              <label htmlFor="ökaStorlek">
+                Öka Storlek
+              </label>
+            </div>
+
             <label>Rader:</label>
             <input
               type="number"
@@ -309,6 +340,16 @@ const Grid = ({
               value={columnsInput}
               onChange={handleColumnsInputChange}
             />
+            <div id="minskaDiv" className="storlekDiv">
+            <button
+              className="storlek"
+              onClick={minskaStorlek}
+              id="minskaStorlek"
+            ></button>
+            <label htmlFor="minskaStorlek">
+              Minska storlek
+            </label>
+          </div>
           </div>
 
           

@@ -440,26 +440,7 @@ const Editor = () => {
     setEditingMode(!editingMode);
   };
 
-  const ökaStorlek = () => {
-    if (cellSize >= 150) {
-      console.log("för stor:" + cellSize);
-
-      return;
-    }
-
-    setCellSize(cellSize + 10);
-    console.log(cellSize);
-  };
-
-  const minskaStorlek = () => {
-    if (cellSize <= 60) {
-      console.log("för liten:" + cellSize);
-      return;
-    }
-
-    setCellSize(cellSize - 10);
-    console.log(cellSize);
-  };
+ 
 
   const fixa = () => {
     applyFontSizesToClass("name");
@@ -902,29 +883,7 @@ const Editor = () => {
             />
           )}
 
-          <div className="storkleksÄndring">
-            <div id="höjaDiv" className="storlekDiv">
-              <button
-                onClick={ökaStorlek}
-                id="ökaStorlek"
-                className="storlek"
-              ></button>
-              <label htmlFor="ökaStorlek">
-                Öka Storlek
-              </label>
-            </div>
 
-          <div id="minskaDiv" className="storlekDiv">
-            <button
-              className="storlek"
-              onClick={minskaStorlek}
-              id="minskaStorlek"
-            ></button>
-            <label htmlFor="minskaStorlek">
-              Minska storlek
-            </label>
-          </div>
-          </div>
         </div>
       </div>
       {sparningsLösning}
@@ -936,7 +895,7 @@ const Editor = () => {
             Skriv ut
           </label>
         </div>
-
+                  
         {grid}
         <div id="meny">
           <div id="redigeringsDiv" className="menySaker"></div>

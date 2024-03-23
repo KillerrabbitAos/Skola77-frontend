@@ -137,7 +137,6 @@ li button {
   width: 50px;
   margin: auto;
   margin-bottom: 20px;
-  margin-top: 40px;
 }
 
 #nere {
@@ -488,9 +487,11 @@ button:hover {
 }
 #minskaDiv{
   float: left;
+  left: 300px;
 }
 #höjaDiv{
   float: right;
+  right: 300px;
 }
 .storlekDiv {
   position:relative; 
@@ -502,7 +503,7 @@ button:hover {
   width: 300px;
   position: relative;
   left: calc(50% - 150px)
-}
+}a
 
 .minskaStorlekDiv {
   position: relative; 
@@ -645,3 +646,6 @@ button:hover {
   display: grid;
 }
 
+#sparaGridContainer{
+  display: contents;
+}
