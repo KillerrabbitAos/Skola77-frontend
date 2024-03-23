@@ -397,6 +397,11 @@ button:hover {
   height: auto;
 }
 
+#namn ul{
+  list-style-type: none;
+
+}
+
 .låsKnappBox {
   padding: 0%;
   width: 50%;
