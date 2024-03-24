@@ -712,15 +712,20 @@ const Editor = () => {
             />
           )}
         </div>
-      </div>
 
-      <div id="gridMedAnnat">
         <div id="pdfDiv">
           <button id="pdfKnapp" onClick={handlePrint}></button>
           <label id="pdfLabel" htmlFor="pdfKnapp">
             Skriv ut
           </label>
         </div>
+
+
+      </div>
+
+      
+      <div id="gridMedAnnat">
+        
         
         
 
