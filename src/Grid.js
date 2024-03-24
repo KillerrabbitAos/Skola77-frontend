@@ -196,7 +196,6 @@ const Grid = ({
       JSON.stringify(e.dataTransfer.getData("boxId").split("original: ")[1])
     );
     const targetId = JSON.parse(JSON.stringify(target.id));
-    const targetId = JSON.parse(JSON.stringify(target.id));
     const targetOriginalId = JSON.parse(
       JSON.stringify(target.getAttribute("data-originalid"))
     );
