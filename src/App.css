@@ -661,3 +661,7 @@ a .minskaStorlekDiv {
 #sparaNamnSettings{
   margin-bottom: 10px;
 }
+#ovanförGrid{
+  display: inline;
+  width: 100%;
+}

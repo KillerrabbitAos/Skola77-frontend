@@ -137,26 +137,7 @@ const Editor = () => {
       document.getElementById(`${name}_nameValues`).selected = true;
     }
   };
-  const handleSaveGrid = async () => {
-    const name = prompt("Döp det här klassrummet: ");
-    if (name) {
-      setGridGroupName(name);
-
-      const compressedData = compressData({
-        rows,
-        columns,
-        cellSize,
-        filledBoxes,
-        keyChange,
-        låstaNamn,
-      });
-
-      Cookies.set(`${name}_gridValues`, compressedData, { expires: 365 });
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
-      document.getElementById(`${name}_gridValues`).selected = true;
-    }
-  };
+ 
 
   const handleSaveButtonClick = async () => {
     let finalGroupName = groupName;
@@ -520,31 +501,7 @@ const Editor = () => {
     }
   };
 
-  const handleGridGroupChange = (event) => {
-    const selectedGridGroup = event.target.value;
-    setGridGroupName(selectedGridGroup);
-    setLåstaNamn([]);
-
-    if (selectedGridGroup === defaultGroup) {
-      setRows(7);
-      setColumns(7);
-      setBoxNames("tom");
-      setBoxes([]);
-      setFilledBoxes([]);
-      setCellSize(70);
-      setFixaCounter(0);
-    } else {
-      const values = readCookieValues(selectedGridGroup);
-      if (values) {
-        setColumns(values.columns);
-        setRows(values.rows);
-        setCellSize(values.cellSize);
-        setFilledBoxes(values.filledBoxes);
-        setKeyChange(values.keyChange);
-        setLåstaNamn(values.låstaNamn || []);
-      }
-    }
-  };
+  
 
   const gridConf = (
     <div className="namnFält" id="kebaben">
@@ -621,6 +578,9 @@ const Editor = () => {
       columnsInput={columnsInput}
       setRows={setRows}
       setColumns={setColumns}
+      setGridGroupName={setGridGroupName}
+      readCookieValues={readCookieValues}
+      setFixaCounter={setFixaCounter}
     />
   );
   const sparningsLösning = (
@@ -761,62 +721,7 @@ const Editor = () => {
           </label>
         </div>
         
-        <div id="kebabWrap">
-            <div style={{ display: "block" }}>
-              <select
-                id="sparadeNamnKlasser"
-                defaultValue={groupName}
-                onChange={handleGridGroupChange}
-              >
-                <option id="nyGridNamn" key="ny..." value={defaultGroup}>
-                  {defaultGroup}
-                </option>
-
-                {Object.keys(Cookies.get()).length > 0 &&
-                  Object.keys(Cookies.get()).map(
-                    (cookieName) =>
-                      cookieName.endsWith("gridValues") && (
-                        <option
-                          id={cookieName}
-                          key={cookieName}
-                          value={cookieName}
-                        >
-                          {cookieName.replace("_gridValues", "")}
-                        </option>
-                      )
-                  )}
-              </select>
-            </div>
-            <div style={{ display: "flex" }}>
-              <button
-                onClick={handleSaveGrid}
-                className="sparaNamnKnapp"
-                id="sparaNamnKnapp"
-              >
-                Spara klassrum
-              </button>
-              {gridGroupName === defaultGroup ? (
-                ""
-              ) : (
-                <div className="raderaNamnKlassDiv">
-                  <button onMouseDown={raderaGrid} id="raderaNamnKlass">
-                    <RiDeleteBin6Line />
-                  </button>
-                </div>
-              )}
-              {
-                //{
-                //(nameGroupName === defaultGroup)
-                //? ''
-                //: (
-                //<div className='sparaNamnSomNyDiv'>
-                //<button onMouseDown={sparaNamnSomNy} id='sparaNamnSomNy'>Spara som ny</button>
-                // </div>
-                //)
-                //}
-              }
-            </div>
-          </div>
+        
 
 
         {grid}

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Box from "./Box";
 import SchackBox from "./schackBox";
+import Cookies from "js-cookie";
 import schackBräde from "./schackVärden";
+import LZString from "lz-string";
+import { RiDeleteBin6Line } from "react-icons/ri";
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -21,7 +24,9 @@ function findKeyByValue(list, value) {
     return foundItem ? foundItem.key : null;
   }
 }
-
+function compressData(data) {
+  return LZString.compressToEncodedURIComponent(JSON.stringify(data));
+}
 const Grid = ({
   rows,
   fixa,
@@ -60,6 +65,13 @@ const Grid = ({
   rowsInput,
   setRows,
   setColumns,
+  raderaGrid,
+  gridGroupName,
+  defaultGroup,
+  setGridGroupName,
+  setFixaCounter,
+  readCookieValues,
+  
 }) => {
   const [contextMenu, setContextMenu] = useState(["tom"]);
   const handleRowsInputChange = (e) => {
@@ -87,6 +99,51 @@ const Grid = ({
 
     setCellSize(cellSize - 10);
     console.log(cellSize);
+  };
+  const handleSaveGrid = async () => {
+    const name = prompt("Döp det här klassrummet: ");
+    if (name) {
+      setGridGroupName(name);
+
+      const compressedData = compressData({
+        rows,
+        columns,
+        cellSize,
+        filledBoxes,
+        keyChange,
+        låstaNamn,
+      });
+
+      Cookies.set(`${name}_gridValues`, compressedData, { expires: 365 });
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      document.getElementById(`${name}_gridValues`).selected = true;
+    }
+  };
+  const handleGridGroupChange = (event) => {
+    const selectedGridGroup = event.target.value;
+    setGridGroupName(selectedGridGroup);
+    setLåstaNamn([]);
+
+    if (selectedGridGroup === defaultGroup) {
+      setRows(7);
+      setColumns(7);
+      setBoxNames("tom");
+      setBoxes([]);
+      setFilledBoxes([]);
+      setCellSize(70);
+      setFixaCounter(0);
+    } else {
+      const values = readCookieValues(selectedGridGroup);
+      if (values) {
+        setColumns(values.columns);
+        setRows(values.rows);
+        setCellSize(values.cellSize);
+        setFilledBoxes(values.filledBoxes);
+        setKeyChange(values.keyChange);
+        setLåstaNamn(values.låstaNamn || []);
+      }
+    }
   };
   const handleColumnsInputChange = (e) => {
     const value = e.target.value;
@@ -355,8 +412,65 @@ const Grid = ({
       </div>
 
       
+      <div id="ovanförGrid">
+      <span id="uppe">{uppe}</span>
+      <div id="kebabWrap" style={{left:"68%", marginBottom: "5px"}}>
+            <div style={{ display: "block" }}>
+              <select
+                id="sparadeNamnKlasser"
+                defaultValue={groupName}
+                onChange={handleGridGroupChange}
+              >
+                <option id="nyGridNamn" key="ny..." value={defaultGroup}>
+                  {defaultGroup}
+                </option>
 
-      <p id="uppe">{uppe}</p>
+                {Object.keys(Cookies.get()).length > 0 &&
+                  Object.keys(Cookies.get()).map(
+                    (cookieName) =>
+                      cookieName.endsWith("gridValues") && (
+                        <option
+                          id={cookieName}
+                          key={cookieName}
+                          value={cookieName}
+                        >
+                          {cookieName.replace("_gridValues", "")}
+                        </option>
+                      )
+                  )}
+              </select>
+            </div>
+            <div style={{ display: "flex" }}>
+              <button
+                onClick={handleSaveGrid}
+                className="sparaNamnKnapp"
+                id="sparaNamnKnapp"
+              >
+                Spara klassrum
+              </button>
+              {gridGroupName === defaultGroup ? (
+                ""
+              ) : (
+                <div className="raderaNamnKlassDiv">
+                  <button onMouseDown={raderaGrid} id="raderaNamnKlass">
+                    <RiDeleteBin6Line />
+                  </button>
+                </div>
+              )}
+              {
+                //{
+                //(nameGroupName === defaultGroup)
+                //? ''
+                //: (
+                //<div className='sparaNamnSomNyDiv'>
+                //<button onMouseDown={sparaNamnSomNy} id='sparaNamnSomNy'>Spara som ny</button>
+                // </div>
+                //)
+                //}
+              }
+            </div>
+          </div>
+          </div>
 
       <div
         id="grid"
