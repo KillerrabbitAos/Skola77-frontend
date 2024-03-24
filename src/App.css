@@ -77,6 +77,12 @@ body {
 .gridInstallning {
   padding: 10px;
 }
+.namnFält {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 label {
   padding: 5px;
@@ -84,8 +90,8 @@ label {
 
 .gridInstallning {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 #namesInput {
@@ -129,6 +135,7 @@ li button {
   font-size: 20px;
   width: 50px;
   margin: auto;
+  margin-bottom: 20px;
 }
 
 #nere {
@@ -140,7 +147,9 @@ li button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Centrera element vertikalt */
+  width: 202.25px;
+  position: relative;
+  left: calc(50% - 101.125px);
 }
 
 #sparaKnapp {
@@ -154,7 +163,7 @@ li button {
 }
 
 #gridMedAnnat {
-  margin-top: 70px;
+  margin-top: 30px;
 }
 
 button {
@@ -294,16 +303,14 @@ button:hover {
 @media print {
   body * {
     visibility: hidden; /* Gömmer allt förutom det specifika innehållet du vill skriva ut */
-
   }
   #gridPdfSak * {
-
     visibility: visible; /* Gör #gridPdfSak och dess barn synliga */
   }
   #kebabWrap * {
     visibility: hidden;
   }
-  .box.filled{
+  .box.filled {
     visibility: visible !important;
   }
   #gridPdfSak {
@@ -317,18 +324,23 @@ button:hover {
     margin: 0mm auto;
     box-shadow: none; /* Tar bort skuggan för en renare utskrift */
   }
-  #grid{
+  #grid {
     zoom: 0.8;
   }
   #placeringsTitel {
     visibility: visible !important;
   }
 
-  .papperskorg, .låsKnappBox {
+  .papperskorg,
+  .låsKnappBox {
     display: none !important;
   }
 
-  #namn{
+  #namn {
+    display: none;
+  }
+
+  .gridSize {
     display: none;
   }
 }
@@ -424,6 +436,7 @@ button:hover {
 }
 #placeringsTitel {
   visibility: hidden;
+  display: contents;
 }
 
 .box.filled.låst {
@@ -461,8 +474,6 @@ button:hover {
 }
 
 .storkleksÄndring {
-  margin: 40px;
-  display: flex;
 }
 
 #ökaStorlek {
@@ -478,13 +489,29 @@ button:hover {
   background-position: center;
   height: 60px;
 }
-
-.ökaStorlekDiv {
-  width: 150px;
+#minskaDiv {
+  float: left;
+  left: calc(50% - 375px);
 }
-
-.minskaStorlekDiv {
+#höjaDiv {
+  float: right;
+  right: calc(50% - 375px);
+}
+.storlekDiv {
+  position: relative;
   width: 150px;
+  display: block;
+  margin: 0;
+}
+.storkleksÄndring {
+  width: 300px;
+  position: relative;
+  left: calc(50% - 150px);
+}
+a .minskaStorlekDiv {
+  position: relative;
+  width: 50%;
+  display: block;
 }
 
 .sparaKnappar {
@@ -552,9 +579,9 @@ button:hover {
 }
 #sparadeNamnKlasser {
   size: 15px;
+  height: 37px;
   position: relative;
   display: grid;
-  height: 22px;
   padding: 0px;
 }
 #sparaNamnSomNy {
@@ -583,23 +610,19 @@ button:hover {
     background-color: gray;
   }
 }
-#yberKebab {
-  float: right;
-  position: relative;
-  right: 7%;
+
+.schackPjäs svg {
+  height: 100%;
+  width: auto;
 }
-.schackPjäs svg{
-    height: 100%;
-    width:auto;
-}
-.dragging{
+.dragging {
   background-color: transparent !important;
 }
-.pil{
+.pil {
   height: 30px;
-      width: auto;
-      position: relative;
-      top: 10px;
+  width: auto;
+  position: relative;
+  top: 10px;
 }
 
 .helaGriden {
@@ -608,7 +631,35 @@ button:hover {
   width: 100%;
 }
 
-#cookies{
-  margin-left: 40px;
-  margin-top: 30px;
+#backupButton {
+  text-align: center;
+}
+
+#backupDiv {
+  float: right;
+  text-align: center;
+  justify-content: center;
+}
+
+#div2 {
+  display: grid;
+}
+
+#sparaGridContainer {
+  display: contents;
+}
+
+#backupDiv {
+  display: inline;
+  width: 252.5px;
+  position: relative;
+  float: left;
+  left: 50%;
+}
+#sparaNamnSettings{
+  margin-bottom: 10px;
+}
+#ovanförGrid{
+  display: inline;
+  width: 100%;
 }
