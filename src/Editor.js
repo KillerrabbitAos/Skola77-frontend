@@ -692,7 +692,9 @@ const Editor = () => {
   return (
     <div className="App prevent-select">
       <div id="bräddMått"></div>
+      
       <div className="gridInstallning">
+      
         {sparningsLösning}
         <div id="backupDiv">
           {Cookies.get && (
@@ -713,18 +715,21 @@ const Editor = () => {
           )}
         </div>
 
-        <div id="pdfDiv">
-          <button id="pdfKnapp" onClick={handlePrint}></button>
-          <label id="pdfLabel" htmlFor="pdfKnapp">
-            Skriv ut
-          </label>
-        </div>
+        
 
 
       </div>
 
       
       <div id="gridMedAnnat">
+
+
+      <div id="pdfDiv">
+          <button id="pdfKnapp" onClick={handlePrint}></button>
+          <label id="pdfLabel" htmlFor="pdfKnapp">
+            Skriv ut
+          </label>
+        </div>
         
         
         

@@ -74,9 +74,6 @@ body {
   white-space: nowrap;
 }
 
-.gridInstallning {
-  padding: 10px;
-}
 .namnFält {
   padding: 10px;
   display: flex;
@@ -90,8 +87,8 @@ label {
 
 .gridInstallning {
   display: flex;
-  align-items: center;
-  width: 100%;
+  padding: 10px;
+
 }
 
 #namesInput {
@@ -668,8 +665,8 @@ a .minskaStorlekDiv {
   min-height: 75px;
 }
 
+
 #pdfDiv{
-  display: inline;
-  width: 187px;
-  right: 50%;
+  width: 170px;
+  margin: auto;
 }
