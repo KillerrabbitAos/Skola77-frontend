@@ -491,11 +491,12 @@ button:hover {
 }
 #minskaDiv {
   float: left;
-  left: calc(50% - 37%);
+  margin-left: calc(50% - 37%);
 }
 #höjaDiv {
   float: right;
-  right: calc(50% - 37%);
+  margin-right: calc(50% - 37%);
+
 }
 .storlekDiv {
   position: relative;
@@ -624,11 +625,6 @@ a .minskaStorlekDiv {
   top: 10px;
 }
 
-.helaGriden {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
 
 #backupButton {
   text-align: center;
