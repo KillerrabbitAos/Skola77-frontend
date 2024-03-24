@@ -493,11 +493,11 @@ button:hover {
 }
 #minskaDiv {
   float: left;
-  left: 300px;
+  left: calc(50% - 375px);
 }
 #höjaDiv {
   float: right;
-  right: 300px;
+  right: calc(50% - 375px);
 }
 .storlekDiv {
   position: relative;
@@ -581,9 +581,9 @@ a .minskaStorlekDiv {
 }
 #sparadeNamnKlasser {
   size: 15px;
+  height: 37px;
   position: relative;
   display: grid;
-  height: 22px;
   padding: 0px;
 }
 #sparaNamnSomNy {
@@ -661,4 +661,7 @@ a .minskaStorlekDiv {
   position: relative;
   float: left;
   left: 50%;
+}
+#sparaNamnSettings{
+  margin-bottom: 10px;
 }
