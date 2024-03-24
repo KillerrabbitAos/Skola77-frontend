@@ -612,11 +612,7 @@ a .minskaStorlekDiv {
     background-color: gray;
   }
 }
-#yberKebab {
-  float: right;
-  position: relative;
-  right: 7%;
-}
+
 .schackPjäs svg {
   height: 100%;
   width: auto;
