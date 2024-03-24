@@ -491,11 +491,11 @@ button:hover {
 }
 #minskaDiv {
   float: left;
-  left: calc(50% - 375px);
+  left: calc(50% - 37%);
 }
 #höjaDiv {
   float: right;
-  right: calc(50% - 375px);
+  right: calc(50% - 37%);
 }
 .storlekDiv {
   position: relative;
