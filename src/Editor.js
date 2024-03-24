@@ -581,6 +581,7 @@ const Editor = () => {
       setGridGroupName={setGridGroupName}
       readCookieValues={readCookieValues}
       setFixaCounter={setFixaCounter}
+      defaultGroup={defaultGroup}
     />
   );
   const sparningsLösning = (
