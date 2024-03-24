@@ -417,8 +417,9 @@ const Grid = ({
         </div>
       </div>
 
-      
+      {!filledBoxes[0] && <h2>Klicka på en ruta för att placera ut en bänk!</h2>}
       <div id="ovanförGrid">
+      
       <span id="uppe">{uppe}</span>
       <div id="kebabWrap" style={{left:"68%", marginBottom: "5px"}}>
             <div style={{ display: "block" }}>
@@ -479,7 +480,7 @@ const Grid = ({
             </div>
           </div>
           </div>
-          {!filledBoxes[0] && <h2>Klicka på en ruta för att placera ut en bänk!</h2>}
+          
 
       <div
         id="grid"
