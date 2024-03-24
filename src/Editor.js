@@ -793,7 +793,7 @@ const Editor = () => {
                 className="sparaNamnKnapp"
                 id="sparaNamnKnapp"
               >
-                spara
+                Spara klassrum
               </button>
               {gridGroupName === defaultGroup ? (
                 ""
@@ -918,7 +918,7 @@ const Editor = () => {
                 className="sparaNamnKnapp"
                 id="sparaNamnKnapp"
               >
-                spara
+                spara klass
               </button>
               {nameGroupName === defaultGroup ? (
                 ""
