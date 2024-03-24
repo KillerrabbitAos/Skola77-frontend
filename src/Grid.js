@@ -366,7 +366,7 @@ const Grid = ({
       }}
     >
       <h1 id="placeringsTitel">{groupName}</h1>
-
+      
       <div
         style={{ display: "inline-block", width: "100%" }}
         className="helaGriden"
@@ -445,7 +445,9 @@ const Grid = ({
                       )
                   )}
               </select>
+              
             </div>
+            
             <div style={{ display: "flex" }}>
               <button
                 onClick={handleSaveGrid}
@@ -477,6 +479,7 @@ const Grid = ({
             </div>
           </div>
           </div>
+          {!filledBoxes[0] && <h2>Klicka på en ruta för att placera ut en bänk!</h2>}
 
       <div
         id="grid"
