@@ -473,8 +473,6 @@ button:hover {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-.storkleksÄndring {
-}
 
 #ökaStorlek {
   background-image: url(plus.png);
@@ -489,6 +487,7 @@ button:hover {
   background-position: center;
   height: 60px;
 }
+
 #minskaDiv {
   float: left;
   margin-left: calc(50% - 37%);
@@ -657,4 +656,9 @@ a .minskaStorlekDiv {
 #ovanförGrid{
   display: inline;
   width: 100%;
+}
+
+
+.infoDiven {
+  min-height: 90px;
 }

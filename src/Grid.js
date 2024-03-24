@@ -417,7 +417,9 @@ const Grid = ({
         </div>
       </div>
 
-      {!filledBoxes[0] && <h2>Klicka på en ruta för att placera ut en bänk!</h2>}
+      <div className="infoDiven">
+        {!filledBoxes[0] ? <h2 style={{ display: 'block' }}>Klicka på en ruta för att placera ut en bänk!</h2> : null}
+      </div>
       <div id="ovanförGrid">
       
       <span id="uppe">{uppe}</span>
