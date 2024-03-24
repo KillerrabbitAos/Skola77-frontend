@@ -117,14 +117,7 @@ label {
   font-size: 75%;
 }
 
-ul {
-  position: relative;
-  display: table;
-  margin: 0 auto;
-  text-align: left;
-  margin-bottom: 40px;
-  list-style-type: none;
-}
+
 li button {
   width: 100px;
 }
@@ -414,6 +407,11 @@ button:hover {
 #namn {
   width: 100%;
   height: auto;
+}
+
+#namn ul{
+  list-style-type: none;
+
 }
 
 .låsKnappBox {

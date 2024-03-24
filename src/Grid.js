@@ -153,7 +153,7 @@ const Grid = ({
   };
   const handleDrop = async (e) => {
     e.preventDefault();
-    e.target.classList.remove("dragging");
+    e.target.classList.remove("dragging");;
     let target = e.target;
     while (
       target &&
@@ -195,6 +195,7 @@ const Grid = ({
     const draggedBoxOriginalId = JSON.parse(
       JSON.stringify(e.dataTransfer.getData("boxId").split("original: ")[1])
     );
+    const targetId = JSON.parse(JSON.stringify(target.id));
     const targetId = JSON.parse(JSON.stringify(target.id));
     const targetOriginalId = JSON.parse(
       JSON.stringify(target.getAttribute("data-originalid"))
@@ -255,6 +256,7 @@ const Grid = ({
   };
   const handleDragOver = (e) => {
     e.preventDefault();
+    e.preventDefault();
   };
   const generateGrid = () => {
     const gridItems = [];
@@ -276,6 +278,10 @@ const Grid = ({
           style={{
             width: `${cellSize}px`,
             height: `${cellSize}px`,
+            outline:
+              showBorders && groupName !== "schack"
+                ? "1px solid black"
+                : "none",
             outline:
               showBorders && groupName !== "schack"
                 ? "1px solid black"
@@ -337,6 +343,7 @@ const Grid = ({
               showContextMenu={contextMenu.includes(`box-${i}`)}
               setContextMenu={setContextMenu}
               contextMenu={contextMenu}
+              editingMode={editingMode}
             />
           )}
         </div>
@@ -482,6 +489,11 @@ const Grid = ({
           gridTemplateColumns: `repeat(${columns}, 1fr)`,
           gridTemplateRows: `repeat(${rows}, 1fr)`,
           gap: groupName === "schack" ? "0px" : "10px",
+          width: `${
+            groupName === "schack"
+              ? columns * cellSize
+              : columns * cellSize + (columns - 1) * 10
+          }px`,
           width: `${
             groupName === "schack"
               ? columns * cellSize

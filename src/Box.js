@@ -5,6 +5,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { ImUnlocked } from "react-icons/im";
 import { ImLock } from "react-icons/im";
 import { isTablet } from "react-device-detect";
+import { editingMode } from "./Grid";
 
 function findValueByKey(list, key) {
   if (list === "tom") {
@@ -38,6 +39,7 @@ const Box = ({
   setBoxNames,
   filledBoxes,
   setFilledBoxes,
+  editingMode,
 }) => {
   const [isFilled, setIsFilled] = useState(false);
   const [nameValue, setNameValue] = useState("tom");
@@ -110,14 +112,28 @@ const Box = ({
     }
   };
   const handleBoxClick = () => {
-    if (!isFilled) {
-      const newName = "tom";
-      console.log(boxNames[id]);
-      if (newName) {
-        setIsFilled(true);
-        setFilledBoxes([...filledBoxes, id]);
+
+
+    if (editingMode){
+
+      if (!isFilled) {
+        const newName = "tom";
+        console.log(boxNames[id]);
+        if (newName) {
+          setIsFilled(true);
+          setFilledBoxes([...filledBoxes, id]);
+        }
       }
+
+
     }
+
+    else{
+      return;
+    }
+
+
+    
   };
   const handleRemoveBox = () => {
     setIsFilled(false);
@@ -189,7 +205,7 @@ const Box = ({
       className={`box ${färg ? färg : ""}`}
       onMouseUp={handleBoxClick}
       onDragStart={handleDragStart}
-      draggable={isFilled ? true : false}
+      draggable={isFilled && editingMode}
       id={id}
       data-originalid={originalid}
       style={{ gridArea: position }}
