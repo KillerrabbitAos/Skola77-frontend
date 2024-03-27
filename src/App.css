@@ -269,7 +269,18 @@ button:hover {
   height: 60px;
 }
 
+#pdfInfo{
+  font-weight: bold;
+}
 
+#pdfKnapp:disabled{
+  background-color: gray;
+  color: cyan;
+}
+
+#pdfKnapp:disabled:hover{
+  animation-name: none;
+}
 
 .box.filled.vit {
   background-color: white;
@@ -670,3 +681,18 @@ a .minskaStorlekDiv {
   width: 170px;
   margin: auto;
 }
+
+#rader{
+  width: 60px;
+  height: 30px;
+  font-size: 20px;
+  margin-right: 40px;
+}
+
+
+#kolumner{
+  width: 60px;
+  height: 30px;
+  font-size: 20px;
+}
+

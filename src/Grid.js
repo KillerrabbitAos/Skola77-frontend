@@ -74,12 +74,9 @@ const Grid = ({
   
 }) => {
   const [contextMenu, setContextMenu] = useState(["tom"]);
-  const handleRowsInputChange = (e) => {
-    const value = e.target.value;
-    setRowsInput(value);
-    setRows(isNaN(value) || value === "" ? 0 : parseInt(value, 10));
-    fixa();
-  };
+
+
+ 
   const ökaStorlek = () => {
     if (cellSize >= 150) {
       console.log("för stor:" + cellSize);
@@ -145,11 +142,56 @@ const Grid = ({
       }
     }
   };
+
+
+  const disableSkrivUt = () =>  {
+
+
+    if (rows >= 15) {
+
+      document.getElementById("pdfKnapp").disabled = true;
+      document.getElementById("pdfInfo").innerHTML = "Skriv ut är avaktiverad för att ditt klassrum är för stort. Minska antalet rader och försök igen.";
+
+
+    }
+
+    else if (columns >= 12)  {
+      document.getElementById("pdfKnapp").disabled = true;
+      document.getElementById("pdfInfo").innerHTML = "Skriv ut är avaktiverad för att ditt klassrum är för stort. Minska antalet kolumner och försök igen.";
+
+    }
+
+    else  {
+
+      document.getElementById("pdfKnapp").disabled = false;
+      document.getElementById("pdfInfo").innerHTML = "";
+
+
+    }
+
+    
+
+  }
+
+
+  const handleRowsInputChange = (e) => {
+    const value = e.target.value;
+    setRowsInput(value);
+    setRows(isNaN(value) || value === "" ? 0 : parseInt(value, 10));
+    fixa();
+    disableSkrivUt()
+
+
+
+  };
+
   const handleColumnsInputChange = (e) => {
     const value = e.target.value;
     setColumnsInput(value);
     setColumns(isNaN(value) || value === "" ? 0 : parseInt(value, 10));
     fixa();
+    disableSkrivUt()
+
   };
   const handleDrop = async (e) => {
     e.preventDefault();
@@ -398,6 +440,7 @@ const Grid = ({
             max="50"
             value={rowsInput}
             onChange={handleRowsInputChange}
+            id="rader"
           />
           <label>Kolumner:</label>
           <input
@@ -405,6 +448,7 @@ const Grid = ({
             max="50"
             value={columnsInput}
             onChange={handleColumnsInputChange}
+            id="kolumner"
           />
           <div id="minskaDiv" className="storlekDiv">
             <button

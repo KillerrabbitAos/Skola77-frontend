@@ -376,7 +376,10 @@ const Editor = () => {
   };
 
   const handlePrint = () => {
-    window.print();
+    
+
+    window.print()
+    
   };
 
   const handleMassImportNames = () => {
@@ -729,6 +732,8 @@ const Editor = () => {
           <label id="pdfLabel" htmlFor="pdfKnapp">
             Skriv ut
           </label>
+
+          <p id="pdfInfo"></p>
         </div>
         
         
