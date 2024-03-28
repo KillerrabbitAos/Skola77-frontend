@@ -492,6 +492,7 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
   background-repeat: no-repeat;
   background-position: center;
   height: 60px;
+  
 }
 
 #minskaStorlek {
@@ -499,21 +500,28 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
   background-repeat: no-repeat;
   background-position: center;
   height: 60px;
+
 }
 
 #minskaDiv {
   float: left;
-  margin-left: calc(50% - 20%);
+  margin-left: calc(50% - 30%);
+  overflow: hidden;
+
 }
 #höjaDiv {
   float: right;
-  margin-right: calc(50% - 20%);
+  margin-right: calc(50% - 30%);
+  overflow: hidden;
+
 
 }
 .storlekDiv {
   position: relative;
   width: 150px;
   display: block;
+  position: relative;
+
 }
 .storkleksÄndring {
   width: 300px;
