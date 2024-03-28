@@ -163,7 +163,7 @@ li button {
   margin-top: 30px;
 }
 
-button {
+button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass, #sparaSomNy, #sparaNamnSomNy, #raderaNamnKlass, .papperskorg, #sparaNamnKnapp {
   color: white;
   background-color: rgb(56, 180, 56);
   border-style: none;
@@ -213,11 +213,7 @@ button {
   }
 }
 
-button:hover {
-  animation-name: allaKnappar;
-  animation-duration: 0.3s;
-  animation-fill-mode: forwards;
-}
+
 
 #slumpaKnappen {
   background-image: url(./random.png);
@@ -614,7 +610,7 @@ a .minskaStorlekDiv {
   right: 100%;
 }
 #raderaNamnKlass {
-  padding: 1px;
+  padding: 10px;
   width: auto;
   margin: 0px;
   position: relative;
