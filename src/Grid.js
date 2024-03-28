@@ -431,7 +431,7 @@ const Grid = ({
               id="ökaStorlek"
               className="storlek"
             ></button>
-            <label htmlFor="ökaStorlek">Öka Storlek</label>
+            <label htmlFor="ökaStorlek">Öka storlek</label>
           </div>
 
           <label>Rader:</label>
