@@ -28,7 +28,14 @@ const Support = () => {
   
        </div>
   
+       <div class="material">
   
+  <p>Vårat forum:</p>
+
+  <a class="pdfLänk" href="https://forum.skola77.com/">Skola77:s forum</a>
+
+
+</div>
       </div>
 
       <hr/>
