@@ -19,6 +19,7 @@ import { IoIosArrowRoundDown, IoIosArrowRoundForward } from "react-icons/io";
 import { IoIosArrowDropright, IoIosArrowDropdownCircle } from "react-icons/io";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import DownloadJSON from "./laddaNed.js";
+import Namn from "./ettNamn.js";
 
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
@@ -356,8 +357,7 @@ const Editor = () => {
   const handleRemoveName = (index) => {
     console.log(index);
     const updatedNames = [...names];
-    updatedNames[index] = "";
-
+    updatedNames.splice(index, 1);
     setNames(updatedNames);
 
     // Update the 'boxNames' array with the 'value' property replaced with 0 for matching items
@@ -435,12 +435,30 @@ const Editor = () => {
   };
 
   const handleMixNames = async () => {
-    // Call the first constant function and wait for it to complete
-    await firstConstantFunction();
+    let antalRiktigaNamn = names.length;
+    antalRiktigaNamn = antalRiktigaNamn - 1;
 
-    // Once the first function completes, call the second one
+    if (filledBoxes.length == 0)  {
+      alert("Klicka på en ruta för att placera ut en bänk!")
+    }
+    else if (antalRiktigaNamn > filledBoxes.length)  {
+      
+      const confirmResult = window.confirm("Du har för få bänkar utsatta för att få plats med alla namn. Vill du fortsätta utan att placera alla namn?");
+      if (confirmResult) {
+
+      } else {
+
+        return;
+
+      }
+    }
+
+
+    await firstConstantFunction();
     fixa();
   };
+
+
   const handleGroupChange = async (event) => {
     const selectedGroup = event.target.value;
     setGroupName(selectedGroup);
