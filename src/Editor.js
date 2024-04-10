@@ -439,7 +439,7 @@ const Editor = () => {
     antalRiktigaNamn = antalRiktigaNamn - 1;
 
     if (filledBoxes.length == 0)  {
-      return;
+      alert("Klicka på en ruta för att placera ut en bänk!")
     }
     else if (antalRiktigaNamn > filledBoxes.length)  {
       
