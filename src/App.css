@@ -488,7 +488,7 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
 
 
 #ökaStorlek {
-  background-image: url(plus.png);
+  background-image: url(pluss.svg);
   background-repeat: no-repeat;
   background-position: center;
   height: 60px;
@@ -496,7 +496,7 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
 }
 
 #minskaStorlek {
-  background-image: url(minus.png);
+  background-image: url(minus.svg);
   background-repeat: no-repeat;
   background-position: center;
   height: 60px;
