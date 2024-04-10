@@ -344,7 +344,10 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
   }
 
   .gridSize {
-    display: none;
+    position: relative;
+    width: 710px;
+    bottom: 0px;
+    margin: auto;
   }
 
   .namnFält{
@@ -507,13 +510,11 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
 
 #minskaDiv {
   float: left;
-  margin-left: calc(50% - 30%);
   overflow: hidden;
 
 }
 #höjaDiv {
   float: right;
-  margin-right: calc(50% - 30%);
   overflow: hidden;
 
 
