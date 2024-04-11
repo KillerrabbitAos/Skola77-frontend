@@ -99,6 +99,7 @@ const Editor = () => {
   const [nameGroupName, setNameGroupName] = useState(defaultGroup);
   const [gridGroupName, setGridGroupName] = useState(defaultGroup);
   const [visaNamn, setVisaNamn] = useState(true);
+  const [oldFilledBoxes, setOldBoxes] = useState("");
 
   const [backup1, setBackup1] = useState();
 
@@ -441,16 +442,32 @@ const Editor = () => {
     if (filledBoxes.length == 0)  {
       alert("Klicka på en ruta för att placera ut en bänk!")
     }
-    else if (antalRiktigaNamn > filledBoxes.length)  {
-      
-      const confirmResult = window.confirm("Du har för få bänkar utsatta för att få plats med alla namn. Vill du fortsätta utan att placera alla namn?");
-      if (confirmResult) {
 
-      } else {
+    else if (antalRiktigaNamn > filledBoxes.length)  {
+
+      if (oldFilledBoxes == filledBoxes)  {
+        
+      }
+
+      else{
+
+        const confirmResult = window.confirm("Du har för få bänkar utsatta för att få plats med alla namn. Vill du fortsätta utan att placera alla namn?");
+        if (confirmResult) {
+
+          setOldBoxes(filledBoxes);
+
+
+        }
+        
+        else {
 
         return;
 
       }
+
+
+      }
+      
     }
 
 
