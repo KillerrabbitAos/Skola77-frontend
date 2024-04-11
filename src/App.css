@@ -343,10 +343,7 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
   }
 
   .gridSize {
-    position: relative !important;
-    width: 710px !important;
-    bottom: 0px !important;
-    margin: auto !important;
+    display: none;
   }
 
   .namnFält{
