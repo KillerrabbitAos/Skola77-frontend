@@ -175,11 +175,29 @@ const Grid = ({
 
 
   const handleRowsInputChange = (e) => {
+
+
+
     const value = e.target.value;
+    console.log(value);
+
+    if (value > 30) {
+
+      setRowsInput(30);
+      setRows(isNaN(30) || value === "" ? 0 : parseInt(30, 10));
+      fixa();
+      disableSkrivUt()
+
+    }
+
+    else  {
+
     setRowsInput(value);
     setRows(isNaN(value) || value === "" ? 0 : parseInt(value, 10));
     fixa();
     disableSkrivUt()
+    }
+
 
 
 
@@ -187,10 +205,23 @@ const Grid = ({
 
   const handleColumnsInputChange = (e) => {
     const value = e.target.value;
-    setColumnsInput(value);
-    setColumns(isNaN(value) || value === "" ? 0 : parseInt(value, 10));
-    fixa();
-    disableSkrivUt()
+
+    if (value > 30)  {
+      setColumnsInput(30);
+      setColumns(isNaN(30) || value === "" ? 0 : parseInt(30, 10));
+      fixa();
+      disableSkrivUt()
+    }
+
+    else{
+
+      setColumnsInput(value);
+      setColumns(isNaN(value) || value === "" ? 0 : parseInt(value, 10));
+      fixa();
+      disableSkrivUt()
+
+    }
+    
 
   };
   const handleDrop = async (e) => {
