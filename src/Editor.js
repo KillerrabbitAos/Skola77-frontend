@@ -451,7 +451,7 @@ const Editor = () => {
 
       else{
 
-        const confirmResult = window.confirm("Du har för få bänkar utsatta för att få plats med alla namn. Vill du fortsätta utan att placera alla namn?");
+        const confirmResult = window.confirm("Du har för få bänkar utsatta för att få plats med alla namn. Du har " + (antalRiktigaNamn - filledBoxes.length) + " bänk/bänkar för lite. Vill du fortsätta utan att placera alla namn?");
         if (confirmResult) {
 
           setOldBoxes(filledBoxes);
