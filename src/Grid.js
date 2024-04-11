@@ -419,10 +419,8 @@ const Grid = ({
           className="gridSize"
           style={{
             position: "relative",
-            width: "100%",
-            float: "left",
-            bottom: "0px",
-            marginBottom: "10px",
+            width: "710px",
+            margin: "auto"
           }}
         >
           <div id="höjaDiv" className="storlekDiv">
