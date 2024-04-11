@@ -623,7 +623,7 @@ const Editor = () => {
     />
   );
   const sparningsLösning = (
-    <div id="sparaSettings">
+  <div id="sparaSettings">
       {showSavedMessage && (
         <div>
           <b>Sparat!</b>
@@ -733,8 +733,8 @@ const Editor = () => {
       
       <div className="gridInstallning">
       
-        {sparningsLösning}
-        <div id="backupDiv">
+        
+        
           {Cookies.get && (
             <DownloadJSON
               data={JSON.stringify(
@@ -751,7 +751,8 @@ const Editor = () => {
               fileName={`backup skola77`}
             />
           )}
-        </div>
+          {sparningsLösning}
+        
 
         
 

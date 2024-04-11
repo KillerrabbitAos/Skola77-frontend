@@ -86,8 +86,7 @@ label {
 }
 
 .gridInstallning {
-  display: flex;
-  padding: 10px;
+  display: inline;
 
 }
 
@@ -651,25 +650,34 @@ a .minskaStorlekDiv {
 
 #backupButton {
   text-align: center;
+  width: 100%;
+  margin: 0;
+  margin-bottom: 4px;
+  font-weight: bolder;
 }
 
 
 
 #div2 {
-  display: grid;
+  width: 170px;
+ display: block; 
 }
 
 #sparaGridContainer {
   display: contents;
 }
-
-#backupDiv {
-  display: inline;
-  width: 252.5px;
+#backupDiv{
+  width: 180px;
+  background-color: rgb(194, 249, 194);
+  padding: 10px;
+  border-radius: 10px;
+  outline: black solid 1px;
   position: relative;
-  float: left;
-  left: 50%;
+  float: right;
+  top: 0px;
+  margin: 10px;
 }
+
 #sparaNamnSettings{
   margin-bottom: 10px;
 }
