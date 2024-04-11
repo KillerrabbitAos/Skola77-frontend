@@ -872,8 +872,8 @@ const Editor = () => {
             <div style={{ display: "flex" }}>
               <button
                 onClick={handleSaveNames}
-                className="sparaNamnKnapp"
-                id="sparaNamnKnapp"
+                className="sparaNamnKnapp2"
+                id="sparaNamnKnapp2"
               >
                 spara klass
               </button>

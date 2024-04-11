@@ -579,16 +579,28 @@ a .minskaStorlekDiv {
 }
 #sparaNamnKnapp {
   padding: 1px;
-  width: auto;
+  width: 70px;
+  margin: 0px;
+  margin-left: 10px;
+  position: relative;
+  float: left;
+  background-color: rgb(56, 180, 56);
+  border-radius: 1; 
+}
+
+#sparaNamnKnapp2 {
+  padding: 1px;
+  height: 37px;
+  
   margin: 0px;
   position: relative;
   float: left;
-  background-color: grey;
-  border-radius: 0;
-  border-style: outset;
-  :hover {
-    background-color: gray;
-  }
+  background-color: rgb(56, 180, 56);
+  border-radius: 1;
+  width: 70px;
+  margin-left: 10px;
+
+
 }
 #kebabWrap {
   display: flex;
@@ -599,8 +611,6 @@ a .minskaStorlekDiv {
 #sparadeNamnKlasser {
   size: 15px;
   height: 100%;
-  position: relative;
-  display: grid;
   padding: 0px;
 }
 #sparaNamnSomNy {
@@ -622,12 +632,10 @@ a .minskaStorlekDiv {
   margin: 0px;
   position: relative;
   float: left;
-  background-color: grey;
-  border-radius: 0;
-  border-style: outset;
-  :hover {
-    background-color: gray;
-  }
+  background-color: rgb(56, 180, 56);;
+  border-radius: 1;
+  margin-left: 5px;
+
 }
 
 .schackPjäs svg {
@@ -681,6 +689,7 @@ a .minskaStorlekDiv {
 #ovanförGrid{
   display: inline;
   width: 100%;
+  margin-bottom: 40px;
 }
 
 
