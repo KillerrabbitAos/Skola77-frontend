@@ -438,12 +438,11 @@ const Editor = () => {
   const handleMixNames = async () => {
     let antalRiktigaNamn = names.length;
     antalRiktigaNamn = antalRiktigaNamn - 1;
-
     if (filledBoxes.length == 0)  {
       alert("Klicka på en ruta för att placera ut en bänk!")
     }
 
-    else if (antalRiktigaNamn > filledBoxes.length)  {
+    else if (antalRiktigaNamn > (filledBoxes.length - låstaNamn.length))  {
 
       if (oldFilledBoxes == filledBoxes)  {
         
@@ -451,7 +450,7 @@ const Editor = () => {
 
       else{
 
-        const confirmResult = window.confirm("Du har för få bänkar utsatta för att få plats med alla namn. Du har " + (antalRiktigaNamn - filledBoxes.length) + " bänk/bänkar för lite. Vill du fortsätta utan att placera alla namn?");
+        const confirmResult = window.confirm("Du har för få bänkar utsatta för att få plats med alla namn. Du har " + (antalRiktigaNamn - (filledBoxes.length - låstaNamn.length)) + " bänk/bänkar för lite. Vill du fortsätta utan att placera alla namn?");
         if (confirmResult) {
 
           setOldBoxes(filledBoxes);
