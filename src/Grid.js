@@ -495,7 +495,6 @@ const Grid = ({
       </div>
       <div id="ovanförGrid">
       
-      <span id="uppe">{uppe}</span>
       <div id="kebabWrap" style={{left:"68%", marginBottom: "5px"}}>
             <div style={{ display: "block" }}>
               <select
@@ -524,6 +523,8 @@ const Grid = ({
               
             </div>
             
+            
+
             <div style={{ display: "flex" }}>
               <button
                 onClick={handleSaveGrid}
@@ -556,6 +557,7 @@ const Grid = ({
           </div>
           </div>
           
+          <span id="uppe">{uppe}</span>
 
       <div
         id="grid"
