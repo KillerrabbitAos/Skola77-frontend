@@ -436,13 +436,13 @@ const Grid = ({
         padding: "0px",
       }}
     >
-      <h1 id="placeringsTitel">{groupName}</h1>
       
       <div
         style={{ display: "inline-block", width: "100%" }}
         className="helaGriden"
       >
         <div id="sparaGridContainer">{GridSparningsLösning}</div>
+      <h1 id="placeringsTitel">{groupName}</h1>
 
         <div
           className="gridSize"
