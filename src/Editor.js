@@ -111,6 +111,7 @@ const Editor = () => {
     setWindowHeight(window.innerHeight);
   };
   useEffect(() => {
+
     fixa();
   }, [cellSize]);
 
@@ -402,6 +403,7 @@ const Editor = () => {
   const toggleBorders = () => {
     setShowBorders(!showBorders);
     setEditingMode(!editingMode);
+
   };
 
   const fixa = () => {
@@ -616,9 +618,11 @@ const Editor = () => {
       setRows={setRows}
       setColumns={setColumns}
       setGridGroupName={setGridGroupName}
+      gridGroupName={gridGroupName}
       readCookieValues={readCookieValues}
       setFixaCounter={setFixaCounter}
       defaultGroup={defaultGroup}
+      raderaGrid={raderaGrid}
     />
   );
   const sparningsLösning = (

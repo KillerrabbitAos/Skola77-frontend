@@ -168,9 +168,6 @@ const Grid = ({
 
 
     }
-
-    
-
   }
 
 
@@ -330,6 +327,7 @@ const Grid = ({
     e.preventDefault();
     e.preventDefault();
   };
+
   const generateGrid = () => {
     const gridItems = [];
     var x = baklänges;
@@ -533,15 +531,14 @@ const Grid = ({
               >
                 Spara klassrum
               </button>
-              {gridGroupName === defaultGroup ? (
-                ""
-              ) : (
-                <div className="raderaNamnKlassDiv">
-                  <button onMouseDown={raderaGrid} id="raderaNamnKlass">
-                    <RiDeleteBin6Line />
-                  </button>
-                </div>
+              {gridGroupName !== defaultGroup && (
+              <div className="raderaNamnKlassDiv">
+              <button onMouseDown={raderaGrid} id="raderaNamnKlass">
+              <RiDeleteBin6Line />
+              </button>
+              </div>
               )}
+              
               {
                 //{
                 //(nameGroupName === defaultGroup)
