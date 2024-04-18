@@ -495,6 +495,9 @@ const Editor = () => {
       setCellSize(70);
       setFixaCounter(0);
       setLåstaNamn([]);
+      var selectElement = document.getElementById("sparadeNamnKlasser");
+      selectElement.selectedIndex = 0;
+
     } else {
       var values = schackBräde;
       nere = "Svart";
@@ -528,6 +531,9 @@ const Editor = () => {
       }
       await new Promise((resolve) => setTimeout(resolve, 10));
       fixa();
+
+      var selectElement = document.getElementById("sparadeNamnKlasser");
+      selectElement.selectedIndex = 0;
     }
   };
 
