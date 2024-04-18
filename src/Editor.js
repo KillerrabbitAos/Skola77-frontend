@@ -438,13 +438,17 @@ const Editor = () => {
   };
 
   const handleMixNames = async () => {
-    let antalRiktigaNamn = names.length;
-    antalRiktigaNamn = antalRiktigaNamn - 1;
+    let antalRiktigaNamn = (names.length - 1);
+    let realLåstaNamn = låstaNamn.filter(item => !isNaN(item));
+    let låstaBoxar = låstaNamn.filter(item => typeof item === 'string' && item.startsWith("box"));
+    
+    let antalFåBänkar = (antalRiktigaNamn - realLåstaNamn.length) - (filledBoxes.length - låstaBoxar.length)
+    
     if (filledBoxes.length == 0)  {
       alert("Klicka på en ruta för att placera ut en bänk!")
     }
 
-    else if (antalRiktigaNamn > (filledBoxes.length - låstaNamn.length))  {
+    else if ((antalRiktigaNamn - realLåstaNamn) > (filledBoxes.length - låstaBoxar.length))  {
 
       if (oldFilledBoxes == filledBoxes)  {
         
@@ -452,7 +456,7 @@ const Editor = () => {
 
       else{
 
-        const confirmResult = window.confirm("Du har för få bänkar utsatta för att få plats med alla namn. Du har " + (antalRiktigaNamn - (filledBoxes.length - låstaNamn.length)) + " bänk/bänkar för lite. Vill du fortsätta utan att placera alla namn?");
+        const confirmResult = window.confirm("Du har för få bänkar utsatta för att få plats med alla namn. Du har " + (antalFåBänkar) + " bänk/bänkar för lite. Vill du fortsätta utan att placera alla namn?");
         if (confirmResult) {
 
           setOldBoxes(filledBoxes);
