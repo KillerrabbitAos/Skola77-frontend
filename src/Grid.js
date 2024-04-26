@@ -130,6 +130,9 @@ const Grid = ({
       setFilledBoxes([]);
       setCellSize(70);
       setFixaCounter(0);
+
+
+      
     } else {
       const values = readCookieValues(selectedGridGroup);
       if (values) {
@@ -140,6 +143,10 @@ const Grid = ({
         setKeyChange(values.keyChange);
         setLåstaNamn(values.låstaNamn || []);
       }
+
+      var selectElement = document.getElementById("sparadeKlasser");
+      selectElement.selectedIndex = 0;
+
     }
   };
 
@@ -496,7 +503,7 @@ const Grid = ({
       <div id="kebabWrap" style={{left:"68%", marginBottom: "5px"}}>
             <div style={{ display: "block" }}>
               <select
-                id="sparadeNamnKlasser"
+                id="sparadeGridKlasser"
                 defaultValue={groupName}
                 onChange={handleGridGroupChange}
               >

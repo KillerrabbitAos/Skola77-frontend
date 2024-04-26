@@ -613,6 +613,13 @@ a .minskaStorlekDiv {
   height: 100%;
   padding: 0px;
 }
+
+#sparadeGridKlasser {
+  size: 15px;
+  height: 100%;
+  padding: 0px;
+}
+
 #sparaNamnSomNy {
   padding: 1px;
   width: auto;

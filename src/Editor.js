@@ -497,6 +497,11 @@ const Editor = () => {
       setLåstaNamn([]);
       var selectElement = document.getElementById("sparadeNamnKlasser");
       selectElement.selectedIndex = 0;
+      var selectElement = document.getElementById("sparadeGridKlasser");
+      selectElement.selectedIndex = 0;
+
+      setNameGroupName(defaultGroup);
+      setGridGroupName(defaultGroup);
 
     } else {
       var values = schackBräde;
