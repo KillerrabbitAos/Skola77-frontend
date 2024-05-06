@@ -308,9 +308,11 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
   }
   #gridPdfSak * {
     visibility: visible; /* Gör #gridPdfSak och dess barn synliga */
+    backround-color: white;
   }
   #kebabWrap * {
     visibility: hidden;
+    backround-color: white;
   }
   .box.filled {
     visibility: visible !important;
@@ -325,9 +327,11 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
     height: auto;
     margin: 0mm auto;
     box-shadow: none; /* Tar bort skuggan för en renare utskrift */
+    backround-color: white;
   }
   #grid {
     zoom: 0.8;
+    backround-color: white;
   }
   #placeringsTitel {
     visibility: visible !important;
