@@ -117,12 +117,22 @@ const Editor = () => {
 
   const ändraPerspektiv = () => {
     setBaklänges(!baklänges);
+    if (groupName = "schack"){
+      if (!baklänges) {
+      setNere("Vit");
+      setUppe("Svart");
+    } else {
+      setNere("Svart");
+      setUppe("Vit");
+    }}
+    else{
     if (!baklänges) {
       setNere("Tavla");
       setUppe("Bak");
     } else {
       setNere("Bak");
       setUppe("Tavla");
+    }
     }
   };
   const handleSaveNames = async () => {
