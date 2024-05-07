@@ -117,6 +117,13 @@ const Editor = () => {
 
   const ändraPerspektiv = () => {
     setBaklänges(!baklänges);
+   if (!baklänges) {
+      setNere("Tavla");
+      setUppe("Bak");
+    } else {
+      setNere("Bak");
+      setUppe("Tavla");
+    }
     if (groupName = "schack"){
       if (!baklänges) {
       setNere("Vit");
@@ -124,14 +131,6 @@ const Editor = () => {
     } else {
       setNere("Svart");
       setUppe("Vit");
-    }
-    } else {
-    if (!baklänges) {
-      setNere("Tavla");
-      setUppe("Bak");
-    } else {
-      setNere("Bak");
-      setUppe("Tavla");
     }
     }
   };
