@@ -124,8 +124,8 @@ const Editor = () => {
     } else {
       setNere("Svart");
       setUppe("Vit");
-    }}
-    else{
+    }
+    } else {
     if (!baklänges) {
       setNere("Tavla");
       setUppe("Bak");
