@@ -111,27 +111,26 @@ const Editor = () => {
     setWindowHeight(window.innerHeight);
   };
   useEffect(() => {
-
     fixa();
   }, [cellSize]);
 
   const ändraPerspektiv = () => {
     setBaklänges(!baklänges);
-   if (!baklänges) {
+    if (!baklänges) {
       setNere("Tavla");
       setUppe("Bak");
     } else {
       setNere("Bak");
       setUppe("Tavla");
     }
-    if (groupName = "schack"){
+    if ((groupName = "schack")) {
       if (!baklänges) {
-      setNere("Vit");
-      setUppe("Svart");
-    } else {
-      setNere("Svart");
-      setUppe("Vit");
-    }
+        setNere("Vit");
+        setUppe("Svart");
+      } else {
+        setNere("Svart");
+        setUppe("Vit");
+      }
     }
   };
   const handleSaveNames = async () => {
@@ -149,7 +148,6 @@ const Editor = () => {
       document.getElementById(`${name}_nameValues`).selected = true;
     }
   };
- 
 
   const handleSaveButtonClick = async () => {
     let finalGroupName = groupName;
@@ -387,10 +385,7 @@ const Editor = () => {
   };
 
   const handlePrint = () => {
-    
-
-    window.print()
-    
+    window.print();
   };
 
   const handleMassImportNames = () => {
@@ -412,7 +407,6 @@ const Editor = () => {
   const toggleBorders = () => {
     setShowBorders(!showBorders);
     setEditingMode(!editingMode);
-
   };
 
   const fixa = () => {
@@ -447,48 +441,41 @@ const Editor = () => {
   };
 
   const handleMixNames = async () => {
-    let antalRiktigaNamn = (names.length - 1);
-    let realLåstaNamn = låstaNamn.filter(item => !isNaN(item));
-    let låstaBoxar = låstaNamn.filter(item => typeof item === 'string' && item.startsWith("box"));
-    
-    let antalFåBänkar = (antalRiktigaNamn - realLåstaNamn.length) - (filledBoxes.length - låstaBoxar.length)
-    
-    if (filledBoxes.length == 0)  {
-      alert("Klicka på en ruta för att placera ut en bänk!")
-    }
+    let antalRiktigaNamn = names.length - 1;
+    let realLåstaNamn = låstaNamn.filter((item) => !isNaN(item));
+    let låstaBoxar = låstaNamn.filter(
+      (item) => typeof item === "string" && item.startsWith("box")
+    );
 
-    else if ((antalRiktigaNamn - realLåstaNamn) > (filledBoxes.length - låstaBoxar.length))  {
+    let antalFåBänkar =
+      antalRiktigaNamn -
+      realLåstaNamn.length -
+      (filledBoxes.length - låstaBoxar.length);
 
-      if (oldFilledBoxes == filledBoxes)  {
-        
-      }
-
-      else{
-
-        const confirmResult = window.confirm("Du har för få bänkar utsatta för att få plats med alla namn. Du har " + (antalFåBänkar) + " bänk/bänkar för lite. Vill du fortsätta utan att placera alla namn?");
+    if (filledBoxes.length == 0) {
+      alert("Klicka på en ruta för att placera ut en bänk!");
+    } else if (
+      antalRiktigaNamn - realLåstaNamn >
+      filledBoxes.length - låstaBoxar.length
+    ) {
+      if (oldFilledBoxes == filledBoxes) {
+      } else {
+        const confirmResult = window.confirm(
+          "Du har för få bänkar utsatta för att få plats med alla namn. Du har " +
+            antalFåBänkar +
+            " bänk/bänkar för lite. Vill du fortsätta utan att placera alla namn?"
+        );
         if (confirmResult) {
-
           setOldBoxes(filledBoxes);
-
-
+        } else {
+          return;
         }
-        
-        else {
-
-        return;
-
       }
-
-
-      }
-      
     }
-
 
     await firstConstantFunction();
     fixa();
   };
-
 
   const handleGroupChange = async (event) => {
     const selectedGroup = event.target.value;
@@ -511,7 +498,6 @@ const Editor = () => {
 
       setNameGroupName(defaultGroup);
       setGridGroupName(defaultGroup);
-
     } else {
       var values = schackBräde;
       nere = "Svart";
@@ -564,8 +550,6 @@ const Editor = () => {
     }
   };
 
-  
-
   const gridConf = (
     <div className="namnFält" id="kebaben">
       <p>Namnimport</p>
@@ -583,20 +567,11 @@ const Editor = () => {
       </button>
       <ExcelToTextConverter setNames={setNames} names={names} />
     </div>
-
-
-
-    
-
-
   );
   const GridSparningsLösning = (
     <div id="sparaNamnSettings">
       <div style={{ display: "block", width: "100%", height: "35px" }}>
-
-        
         <div id="yberKebabGrid">
-          
           <div className="sparaKnappar"></div>
         </div>
       </div>
@@ -649,8 +624,13 @@ const Editor = () => {
       raderaGrid={raderaGrid}
     />
   );
+  const taBortEfternamn = () => {
+    const newNames = names.map((namn) => namn = namn.split(" ")[0]);
+    setNames(newNames)
+    console.log("keb")
+  };
   const sparningsLösning = (
-  <div id="sparaSettings">
+    <div id="sparaSettings">
       {showSavedMessage && (
         <div>
           <b>Sparat!</b>
@@ -718,9 +698,7 @@ const Editor = () => {
   };
   const NamnSparningsLösning = (
     <div id="sparaNamnSettings">
-      <div style={{ display: "block", width: "100%", height: "35px" }}>
-        
-      </div>
+      <div style={{ display: "block", width: "100%", height: "35px" }}></div>
     </div>
   );
   useEffect(() => {
@@ -757,40 +735,29 @@ const Editor = () => {
   return (
     <div className="App prevent-select">
       <div id="bräddMått"></div>
-      
+
       <div className="gridInstallning">
-      
-        
-        
-          {Cookies.get && (
-            <DownloadJSON
-              data={JSON.stringify(
-                Object.keys(Cookies.get()).map((cookieName) => {
-                  if (
-                    cookieName.endsWith("_values") ||
-                    cookieName.endsWith("_gridValues") ||
-                    cookieName.endsWith("_nameValues")
-                  ) {
-                    return `${cookieName}:${Cookies.get(cookieName)}`;
-                  }
-                })
-              )}
-              fileName={`backup skola77`}
-            />
-          )}
-          {sparningsLösning}
-        
-
-        
-
-
+        {Cookies.get && (
+          <DownloadJSON
+            data={JSON.stringify(
+              Object.keys(Cookies.get()).map((cookieName) => {
+                if (
+                  cookieName.endsWith("_values") ||
+                  cookieName.endsWith("_gridValues") ||
+                  cookieName.endsWith("_nameValues")
+                ) {
+                  return `${cookieName}:${Cookies.get(cookieName)}`;
+                }
+              })
+            )}
+            fileName={`backup skola77`}
+          />
+        )}
+        {sparningsLösning}
       </div>
 
-      
       <div id="gridMedAnnat">
-
-
-      <div id="pdfDiv">
+        <div id="pdfDiv">
           <button id="pdfKnapp" onClick={handlePrint}></button>
           <label id="pdfLabel" htmlFor="pdfKnapp">
             Skriv ut
@@ -798,14 +765,9 @@ const Editor = () => {
 
           <p id="pdfInfo"></p>
         </div>
-        
-        
-        
-
 
         {grid}
 
-        
         <div id="meny">
           <div id="redigeringsDiv" className="menySaker"></div>
           <div id="klarDiv" className="menySaker">
@@ -834,8 +796,6 @@ const Editor = () => {
               Byt perspektiv
             </label>
           </div>
-          
-          
 
           <div className="menySaker" id="slumpaDiv">
             <GiPerspectiveDiceSixFacesRandom
@@ -854,7 +814,6 @@ const Editor = () => {
         </div>
       </div>
 
-      
       {gridConf}
       <div>
         <p id="nameHeader" className="prevent-select">
@@ -870,8 +829,10 @@ const Editor = () => {
         </p>
 
         <div id="yberKebab">
+          
           <div id="kebabWrap">
             <div style={{ display: "block" }}>
+
               <select
                 id="sparadeNamnKlasser"
                 defaultValue={groupName}
@@ -924,6 +885,7 @@ const Editor = () => {
                 //)
                 //}
               }
+              <button onClick={taBortEfternamn} className="sparaNamnKnapp2" id="sparaNamnKnapp2">Ta bort efternamn</button>
             </div>
           </div>
 
