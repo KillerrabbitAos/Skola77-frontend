@@ -113,9 +113,7 @@ const Box = ({
   };
   const handleBoxClick = () => {
 
-
     if (editingMode){
-
       if (!isFilled) {
         const newName = "tom";
         console.log(boxNames[id]);
@@ -124,17 +122,11 @@ const Box = ({
           setFilledBoxes([...filledBoxes, id]);
         }
       }
-
-
-    }
-
-    else{
+   }else{
       return;
     }
-
-
-    
   };
+  
   const handleRemoveBox = () => {
     setIsFilled(false);
     if (låstaNamn.includes(id)) {
