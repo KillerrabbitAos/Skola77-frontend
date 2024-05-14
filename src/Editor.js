@@ -628,6 +628,7 @@ const Editor = () => {
     const newNames = names.map((namn) => namn = namn.split(" ")[0]);
     setNames(newNames)
     console.log("keb")
+    fixa();
   };
   const sparningsLösning = (
     <div id="sparaSettings">
