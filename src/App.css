@@ -316,6 +316,7 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
   }
   .box.filled {
     visibility: visible !important;
+    backround-color: gray !important; 
   }
   #gridPdfSak {
     position: absolute;
