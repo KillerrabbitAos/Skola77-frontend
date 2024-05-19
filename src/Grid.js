@@ -151,32 +151,7 @@ const Grid = ({
   };
 
 
-  const disableSkrivUt = () =>  {
-
-
-    if (rows >= 15) {
-
-      document.getElementById("pdfKnapp").disabled = true;
-      document.getElementById("pdfInfo").innerHTML = "Skriv ut är avaktiverad för att ditt klassrum är för stort. Minska antalet rader och försök igen.";
-
-
-    }
-
-    else if (columns >= 12)  {
-      document.getElementById("pdfKnapp").disabled = true;
-      document.getElementById("pdfInfo").innerHTML = "Skriv ut är avaktiverad för att ditt klassrum är för stort. Minska antalet kolumner och försök igen.";
-
-    }
-
-    else  {
-
-      document.getElementById("pdfKnapp").disabled = false;
-      document.getElementById("pdfInfo").innerHTML = "";
-
-
-    }
-  }
-
+  
 
   const handleRowsInputChange = (e) => {
 
@@ -190,7 +165,6 @@ const Grid = ({
       setRowsInput(30);
       setRows(isNaN(30) || value === "" ? 0 : parseInt(30, 10));
       fixa();
-      disableSkrivUt()
 
     }
 
@@ -199,7 +173,6 @@ const Grid = ({
     setRowsInput(value);
     setRows(isNaN(value) || value === "" ? 0 : parseInt(value, 10));
     fixa();
-    disableSkrivUt()
     }
 
 
@@ -214,7 +187,6 @@ const Grid = ({
       setColumnsInput(30);
       setColumns(isNaN(30) || value === "" ? 0 : parseInt(30, 10));
       fixa();
-      disableSkrivUt()
     }
 
     else{
@@ -222,7 +194,6 @@ const Grid = ({
       setColumnsInput(value);
       setColumns(isNaN(value) || value === "" ? 0 : parseInt(value, 10));
       fixa();
-      disableSkrivUt()
 
     }
     
