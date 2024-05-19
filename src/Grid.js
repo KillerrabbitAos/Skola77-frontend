@@ -89,7 +89,7 @@ const Grid = ({
   };
 
   const minskaStorlek = () => {
-    if (cellSize <= 60) {
+    if (cellSize <= 30) {
       console.log("för liten:" + cellSize);
       return;
     }
