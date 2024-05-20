@@ -625,8 +625,7 @@ const Editor = () => {
     />
   );
   const taBortEfternamn = () => {
-    const newNames = names.map((namn) => namn = namn.split(" ")[0]);
-    setNames(newNames)
+    setNames(förraNamn => förraNamn.map((namn) => namn = namn.split(" ")[0]))
     console.log("keb")
     fixa();
   };
