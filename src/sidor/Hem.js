@@ -14,10 +14,10 @@ const Hem = () => {
     <div>
         <p id="bodyTitle">Det här är Skola77:</p>
         <div class="foton">
-        <a href="demobilder/bänkar.png"><img src="demobilder/bänkar.png"></img></a>
-        <a href="demobilder/sparaKlassrum.png"><img src="demobilder/sparaKlassrum.png"></img></a>
-        <a href="demobilder/ändraGridStorlek.png"><img src="demobilder/ändraGridstorlek.png"></img></a>
-        <a href="demobilder/bytPerspektiv.png"><img src="demobilder/bytPerspektiv.png"></img></a>
+        <a href="demobilder/Demobild1.png"><img src="demobilder/Demobild1.png"></img></a>
+        <a href="demobilder/Demobild2.png"><img src="demobilder/Demobild2.png"></img></a>
+        <a href="demobilder/Demobild3.png"><img src="demobilder/Demobild3.png"></img></a>
+        <a href="demobilder/Demobild4.png"><img src="demobilder/Demobild4.png"></img></a>
         <a href="demobilder/klassrum.png"><img src="demobilder/klassrum.png"></img></a>
 
 
