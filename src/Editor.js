@@ -627,7 +627,7 @@ const Editor = () => {
   const taBortEfternamn = () => {
     const efternamnStårFörst = false
     if (efternamnStårFörst){
-     setNames(förraNamn => förraNamn.map((namn) => {if (namn !== (" ")){namn = namn.split(" ")[1]} else{namn = namn}}))
+     setNames(förraNamn => förraNamn.map((namn) => namn = namn.split(" ")[1]))
     }else{
       setNames(förraNamn => förraNamn.map((namn) => namn = namn.split(" ")[0]))
     }
