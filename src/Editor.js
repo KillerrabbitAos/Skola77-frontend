@@ -625,7 +625,12 @@ const Editor = () => {
     />
   );
   const taBortEfternamn = () => {
-    setNames(förraNamn => förraNamn.map((namn) => namn = namn.split(" ")[0]))
+    const efternamnStårFörst = true
+    if (efternamnStårFörst){
+    setNames(förraNamn => förraNamn.map((namn) => namn = namn.split(" ")[1]))
+    }else{
+      setNames(förraNamn => förraNamn.map((namn) => namn = namn.split(" ")[0]))
+    }
     console.log("keb")
     fixa();
   };
