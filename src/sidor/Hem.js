@@ -18,7 +18,7 @@ const Hem = () => {
         <a href="demobilder/Demobild2.png"><img src="demobilder/Demobild2.png"></img></a>
         <a href="demobilder/Demobild3.png"><img src="demobilder/Demobild3.png"></img></a>
         <a href="demobilder/Demobild4.png"><img src="demobilder/Demobild4.png"></img></a>
-        <a href="demobilder/klassrum.png"><img src="demobilder/klassrum.png"></img></a>
+        <a href="demobilder/Demobild5.png"><img src="demobilder/Demobild5.png"></img></a>
 
 
     </div>
