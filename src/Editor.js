@@ -100,6 +100,7 @@ const Editor = () => {
   const [gridGroupName, setGridGroupName] = useState(defaultGroup);
   const [visaNamn, setVisaNamn] = useState(true);
   const [oldFilledBoxes, setOldBoxes] = useState("");
+  const [efternamnStarForst, setEfternamnStarForst] = useState(true)
 
   const [backup1, setBackup1] = useState();
 
@@ -625,15 +626,16 @@ const Editor = () => {
     />
   );
   const taBortEfternamn = () => {
-    const efternamnStårFörst = false
-    if (efternamnStårFörst){
-     setNames(förraNamn => förraNamn.map((namn) => namn = namn.split(" ")[1]))
+
+    if (efternamnStarForst){
+     setNames(förraNamn => förraNamn.map((namn) => namn.split(" ").slice(-1)[0]))
     }else{
-      setNames(förraNamn => förraNamn.map((namn) => namn = namn.split(" ")[0]))
+      setNames(förraNamn => förraNamn.map((namn) => namn.split(" ")[0]))
     }
     console.log("keb")
     fixa();
   };
+  const andraCheckboxvarde = (e) => setEfternamnStarForst(e.target.checked);
   const sparningsLösning = (
     <div id="sparaSettings">
       {showSavedMessage && (
@@ -891,6 +893,11 @@ const Editor = () => {
                 //}
               }
               <button onClick={taBortEfternamn} className="sparaNamnKnapp2" id="sparaNamnKnapp2">Ta bort efternamn</button>
+              <div>
+                <a>Efternamn står först?</a>
+      <input type="checkbox" defaultChecked="true" onChange={andraCheckboxvarde} />
+
+    </div>
             </div>
           </div>
 
