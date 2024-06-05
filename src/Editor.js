@@ -907,8 +907,8 @@ const Editor = () => {
         </div>
       </div>
       <p>
-        <a id="mailTag" href="https://skola77.com">
-          Startsida
+        <a id="mailTag">
+          Skola77: Version 1.2
         </a>
       </p>
     </div>
