@@ -11,8 +11,8 @@ import ExcelToTextConverter from "./ExcelToTextConverter.js";
 import Grid from "./Grid.js";
 import NameList from "./Namn.js";
 
-import backImg from "./back.png";
-import doneImg from "./done.svg";
+import backImg from "./imgs/back.png";
+import doneImg from "./imgs/done.svg";
 import schackBräde from "./schackVärden.js";
 import { set } from "react-ga";
 import { IoIosArrowRoundDown, IoIosArrowRoundForward } from "react-icons/io";
