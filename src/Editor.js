@@ -11,8 +11,8 @@ import ExcelToTextConverter from "./ExcelToTextConverter.js";
 import Grid from "./Grid.js";
 import NameList from "./Namn.js";
 
-import backImg from "./back.png";
-import doneImg from "./done.svg";
+import backImg from "./imgs/back.png";
+import doneImg from "./imgs/done.svg";
 import schackBräde from "./schackVärden.js";
 import { set } from "react-ga";
 import { IoIosArrowRoundDown, IoIosArrowRoundForward } from "react-icons/io";
@@ -918,8 +918,8 @@ const Editor = () => {
         </div>
       </div>
       <p>
-        <a id="mailTag" href="https://skola77.com">
-          Startsida
+        <a id="mailTag">
+          Skola77: Version 1.2
         </a>
       </p>
     </div>
