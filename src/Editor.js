@@ -530,13 +530,11 @@ const Editor = () => {
         setCellSize(values.cellSize || 0);
         setFixaCounter(values.fixaCounter || 0);
         setKeyChange(values.keyChange);
-        // Uppdatera groupName när en grupp väljs
         setGroupName(selectedGroup.replace("_values", ""));
         setUppe(uppe);
         setNere(nere);
         setLåstaNamn(values.låstaNamn || []);
       } else {
-        // Handle the case when values are not available
         console.error(`No values found for group: ${selectedGroup}`);
       }
       await new Promise((resolve) => setTimeout(resolve, 10));
