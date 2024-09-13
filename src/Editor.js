@@ -124,7 +124,7 @@ const Editor = () => {
       setNere("Bak");
       setUppe("Tavla");
     }
-    if ((groupName = "schack")) {
+    if ((groupName == "schack")) {
       if (!baklänges) {
         setNere("Vit");
         setUppe("Svart");
