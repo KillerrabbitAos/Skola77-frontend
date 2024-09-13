@@ -11,8 +11,8 @@ import ExcelToTextConverter from "./ExcelToTextConverter.js";
 import Grid from "./Grid.js";
 import NameList from "./Namn.js";
 
-import backImg from "./back.png";
-import doneImg from "./done.svg";
+import backImg from "./imgs/back.png";
+import doneImg from "./imgs/done.svg";
 import schackBräde from "./schackVärden.js";
 import { set } from "react-ga";
 import { IoIosArrowRoundDown, IoIosArrowRoundForward } from "react-icons/io";
@@ -100,6 +100,7 @@ const Editor = () => {
   const [gridGroupName, setGridGroupName] = useState(defaultGroup);
   const [visaNamn, setVisaNamn] = useState(true);
   const [oldFilledBoxes, setOldBoxes] = useState("");
+  const [efternamnStarForst, setEfternamnStarForst] = useState(true)
 
   const [backup1, setBackup1] = useState();
 
@@ -111,7 +112,6 @@ const Editor = () => {
     setWindowHeight(window.innerHeight);
   };
   useEffect(() => {
-
     fixa();
   }, [cellSize]);
 
@@ -123,6 +123,15 @@ const Editor = () => {
     } else {
       setNere("Bak");
       setUppe("Tavla");
+    }
+    if ((groupName = "schack")) {
+      if (!baklänges) {
+        setNere("Vit");
+        setUppe("Svart");
+      } else {
+        setNere("Svart");
+        setUppe("Vit");
+      }
     }
   };
   const handleSaveNames = async () => {
@@ -140,7 +149,6 @@ const Editor = () => {
       document.getElementById(`${name}_nameValues`).selected = true;
     }
   };
- 
 
   const handleSaveButtonClick = async () => {
     let finalGroupName = groupName;
@@ -409,7 +417,6 @@ const Editor = () => {
   const toggleBorders = () => {
     setShowBorders(!showBorders);
     setEditingMode(!editingMode);
-
   };
 
   const fixa = () => {
@@ -444,48 +451,41 @@ const Editor = () => {
   };
 
   const handleMixNames = async () => {
-    let antalRiktigaNamn = (names.length - 1);
-    let realLåstaNamn = låstaNamn.filter(item => !isNaN(item));
-    let låstaBoxar = låstaNamn.filter(item => typeof item === 'string' && item.startsWith("box"));
-    
-    let antalFåBänkar = (antalRiktigaNamn - realLåstaNamn.length) - (filledBoxes.length - låstaBoxar.length)
-    
-    if (filledBoxes.length == 0)  {
-      alert("Klicka på en ruta för att placera ut en bänk!")
-    }
+    let antalRiktigaNamn = names.length - 1;
+    let realLåstaNamn = låstaNamn.filter((item) => !isNaN(item));
+    let låstaBoxar = låstaNamn.filter(
+      (item) => typeof item === "string" && item.startsWith("box")
+    );
 
-    else if ((antalRiktigaNamn - realLåstaNamn) > (filledBoxes.length - låstaBoxar.length))  {
+    let antalFåBänkar =
+      antalRiktigaNamn -
+      realLåstaNamn.length -
+      (filledBoxes.length - låstaBoxar.length);
 
-      if (oldFilledBoxes == filledBoxes)  {
-        
-      }
-
-      else{
-
-        const confirmResult = window.confirm("Du har för få bänkar utsatta för att få plats med alla namn. Du har " + (antalFåBänkar) + " bänk/bänkar för lite. Vill du fortsätta utan att placera alla namn?");
+    if (filledBoxes.length == 0) {
+      alert("Klicka på en ruta för att placera ut en bänk!");
+    } else if (
+      antalRiktigaNamn - realLåstaNamn >
+      filledBoxes.length - låstaBoxar.length
+    ) {
+      if (oldFilledBoxes == filledBoxes) {
+      } else {
+        const confirmResult = window.confirm(
+          "Du har för få bänkar utsatta för att få plats med alla namn. Du har " +
+            antalFåBänkar +
+            " bänk/bänkar för lite. Vill du fortsätta utan att placera alla namn?"
+        );
         if (confirmResult) {
-
           setOldBoxes(filledBoxes);
-
-
+        } else {
+          return;
         }
-        
-        else {
-
-        return;
-
       }
-
-
-      }
-      
     }
-
 
     await firstConstantFunction();
     fixa();
   };
-
 
   const handleGroupChange = async (event) => {
     const selectedGroup = event.target.value;
@@ -501,6 +501,13 @@ const Editor = () => {
       setCellSize(70);
       setFixaCounter(0);
       setLåstaNamn([]);
+      var selectElement = document.getElementById("sparadeNamnKlasser");
+      selectElement.selectedIndex = 0;
+      var selectElement = document.getElementById("sparadeGridKlasser");
+      selectElement.selectedIndex = 0;
+
+      setNameGroupName(defaultGroup);
+      setGridGroupName(defaultGroup);
     } else {
       var values = schackBräde;
       nere = "Svart";
@@ -534,6 +541,9 @@ const Editor = () => {
       }
       await new Promise((resolve) => setTimeout(resolve, 10));
       fixa();
+
+      var selectElement = document.getElementById("sparadeNamnKlasser");
+      selectElement.selectedIndex = 0;
     }
   };
 
@@ -549,8 +559,6 @@ const Editor = () => {
       }
     }
   };
-
-  
 
   const gridConf = (
     <div className="namnFält" id="kebaben">
@@ -569,20 +577,11 @@ const Editor = () => {
       </button>
       <ExcelToTextConverter setNames={setNames} names={names} />
     </div>
-
-
-
-    
-
-
   );
   const GridSparningsLösning = (
     <div id="sparaNamnSettings">
       <div style={{ display: "block", width: "100%", height: "35px" }}>
-
-        
         <div id="yberKebabGrid">
-          
           <div className="sparaKnappar"></div>
         </div>
       </div>
@@ -635,8 +634,19 @@ const Editor = () => {
       raderaGrid={raderaGrid}
     />
   );
+  const taBortEfternamn = () => {
+
+    if (efternamnStarForst){
+     setNames(förraNamn => förraNamn.map((namn) => namn.split(" ").slice(-1)[0]))
+    }else{
+      setNames(förraNamn => förraNamn.map((namn) => namn.split(" ")[0]))
+    }
+    console.log("keb")
+    fixa();
+  };
+  const andraCheckboxvarde = (e) => setEfternamnStarForst(e.target.checked);
   const sparningsLösning = (
-  <div id="sparaSettings">
+    <div id="sparaSettings">
       {showSavedMessage && (
         <div>
           <b>Sparat!</b>
@@ -704,9 +714,7 @@ const Editor = () => {
   };
   const NamnSparningsLösning = (
     <div id="sparaNamnSettings">
-      <div style={{ display: "block", width: "100%", height: "35px" }}>
-        
-      </div>
+      <div style={{ display: "block", width: "100%", height: "35px" }}></div>
     </div>
   );
   useEffect(() => {
@@ -743,40 +751,29 @@ const Editor = () => {
   return (
     <div className="App prevent-select">
       <div id="bräddMått"></div>
-      
+
       <div className="gridInstallning">
-      
-        
-        
-          {Cookies.get && (
-            <DownloadJSON
-              data={JSON.stringify(
-                Object.keys(Cookies.get()).map((cookieName) => {
-                  if (
-                    cookieName.endsWith("_values") ||
-                    cookieName.endsWith("_gridValues") ||
-                    cookieName.endsWith("_nameValues")
-                  ) {
-                    return `${cookieName}:${Cookies.get(cookieName)}`;
-                  }
-                })
-              )}
-              fileName={`backup skola77`}
-            />
-          )}
-          {sparningsLösning}
-        
-
-        
-
-
+        {Cookies.get && (
+          <DownloadJSON
+            data={JSON.stringify(
+              Object.keys(Cookies.get()).map((cookieName) => {
+                if (
+                  cookieName.endsWith("_values") ||
+                  cookieName.endsWith("_gridValues") ||
+                  cookieName.endsWith("_nameValues")
+                ) {
+                  return `${cookieName}:${Cookies.get(cookieName)}`;
+                }
+              })
+            )}
+            fileName={`backup skola77`}
+          />
+        )}
+        {sparningsLösning}
       </div>
 
-      
       <div id="gridMedAnnat">
-
-
-      <div id="pdfDiv">
+        <div id="pdfDiv">
           <button id="pdfKnapp" onClick={handlePrint}></button>
           <label id="pdfLabel" htmlFor="pdfKnapp">
             Skriv ut
@@ -784,14 +781,9 @@ const Editor = () => {
 
           <p id="pdfInfo"></p>
         </div>
-        
-        
-        
-
 
         {grid}
 
-        
         <div id="meny">
           <div id="redigeringsDiv" className="menySaker"></div>
           <div id="klarDiv" className="menySaker">
@@ -820,8 +812,6 @@ const Editor = () => {
               Byt perspektiv
             </label>
           </div>
-          
-          
 
           <div className="menySaker" id="slumpaDiv">
             <GiPerspectiveDiceSixFacesRandom
@@ -840,7 +830,6 @@ const Editor = () => {
         </div>
       </div>
 
-      
       {gridConf}
       <div>
         <p id="nameHeader" className="prevent-select">
@@ -856,8 +845,10 @@ const Editor = () => {
         </p>
 
         <div id="yberKebab">
+          
           <div id="kebabWrap">
             <div style={{ display: "block" }}>
+
               <select
                 id="sparadeNamnKlasser"
                 defaultValue={groupName}
@@ -910,6 +901,12 @@ const Editor = () => {
                 //)
                 //}
               }
+              <button onClick={taBortEfternamn} className="sparaNamnKnapp2" id="sparaNamnKnapp2">Ta bort efternamn</button>
+              <div>
+                <a>Efternamn står först?</a>
+      <input type="checkbox" defaultChecked="true" onChange={andraCheckboxvarde} />
+
+    </div>
             </div>
           </div>
 
@@ -930,8 +927,8 @@ const Editor = () => {
         </div>
       </div>
       <p>
-        <a id="mailTag" href="https://skola77.com">
-          Startsida
+        <a id="mailTag">
+          Skola77: Version 1.2
         </a>
       </p>
     </div>

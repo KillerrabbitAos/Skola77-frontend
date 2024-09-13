@@ -3,7 +3,7 @@
 }
 
 .spara {
-  background-image: url(./floppydisk.svg);
+  background-image: url(./imgs/floppydisk.svg);
   height: 50px;
   width: 50px;
   background-color: white;
@@ -217,7 +217,7 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
 
 
 #slumpaKnappen {
-  background-image: url(./random.png);
+  background-image: url(./imgs/random.png);
   background-repeat: no-repeat;
   background-size: 50px;
   background-position: center;
@@ -234,7 +234,7 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
 }
 
 #perspektiv {
-  background-image: url(perspektiv.png);
+  background-image: url(imgs/perspektiv.png);
   background-repeat: no-repeat;
   background-position: center;
   height: 50px;
@@ -253,14 +253,14 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
   display: block;
 }
 #redigeringsKnapp {
-  background-image: url(edit.png);
+  background-image: url(imgs/edit.png);
   background-repeat: no-repeat;
   background-position: center;
   height: 50px;
 }
 
 #pdfKnapp {
-  background-image: url(print.png);
+  background-image: url(imgs/print.png);
   background-repeat: no-repeat;
   background-position: center;
   height: 60px;
@@ -308,12 +308,15 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
   }
   #gridPdfSak * {
     visibility: visible;
+    background-color: white;
   }
   #kebabWrap * {
     visibility: hidden;
+    background-color: white;
   }
   .box.filled {
     visibility: visible !important;
+    background-color: gray !important;
   }
   #gridPdfSak {
     position: absolute;
@@ -328,6 +331,7 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
   }
   #grid {
     zoom: 0.8;
+    background-color: white;
   }
   #placeringsTitel {
     visibility: visible !important;
@@ -489,7 +493,7 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
 
 
 #ökaStorlek {
-  background-image: url(pluss.svg);
+  background-image: url(imgs/pluss.svg);
   background-repeat: no-repeat;
   background-position: center;
   height: 60px;
@@ -497,7 +501,7 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
 }
 
 #minskaStorlek {
-  background-image: url(minus.svg);
+  background-image: url(imgs/minus.svg);
   background-repeat: no-repeat;
   background-position: center;
   height: 60px;
@@ -544,13 +548,13 @@ a .minskaStorlekDiv {
 }
 
 #raderaKlass {
-  background-image: url(taBort.png);
+  background-image: url(imgs/taBort.png);
   background-repeat: no-repeat;
   background-position: center;
 }
 
 #sparaSomNy {
-  background-image: url(sparaSom.png);
+  background-image: url(imgs/sparaSom.png);
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -613,6 +617,13 @@ a .minskaStorlekDiv {
   height: 100%;
   padding: 0px;
 }
+
+#sparadeGridKlasser {
+  size: 15px;
+  height: 100%;
+  padding: 0px;
+}
+
 #sparaNamnSomNy {
   padding: 1px;
   width: auto;

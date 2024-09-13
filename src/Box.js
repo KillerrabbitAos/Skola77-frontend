@@ -90,13 +90,10 @@ const Box = ({
     setShowContextMenu(newContextMenu);
   };
 
-  // Existing useEffect and handlers
-
-  // Context menu handlers
   const handleContextMenu = (e) => {
-    e.preventDefault(); // Prevent default right-click menu
-    setShowContextMenu(true); // Show custom context menu
-    // Set position for the context menu
+    e.preventDefault();
+    setShowContextMenu(true);
+
     setContextMenuPosition({
       x: e.clientX,
       y: e.clientY,
@@ -106,16 +103,12 @@ const Box = ({
     e.preventDefault();
   };
   const handleClick = (e) => {
-    // Hide context menu when clicking anywhere else
     if (showContextMenu) {
       setShowContextMenu(false);
     }
   };
   const handleBoxClick = () => {
-
-
-    if (editingMode){
-
+    if (editingMode) {
       if (!isFilled) {
         const newName = "tom";
         console.log(boxNames[id]);
@@ -124,17 +117,11 @@ const Box = ({
           setFilledBoxes([...filledBoxes, id]);
         }
       }
-
-
-    }
-
-    else{
+    } else {
       return;
     }
-
-
-    
   };
+
   const handleRemoveBox = () => {
     setIsFilled(false);
     if (låstaNamn.includes(id)) {
