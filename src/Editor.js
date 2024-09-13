@@ -124,7 +124,7 @@ const Editor = () => {
       setNere("Bak");
       setUppe("Tavla");
     }
-    if ((groupName = "schack")) {
+    if ((groupName == "schack")) {
       if (!baklänges) {
         setNere("Vit");
         setUppe("Svart");
@@ -389,8 +389,17 @@ const Editor = () => {
   };
 
   const handlePrint = () => {
-    window.print();
+    setShowBorders(false); 
+  
+    setTimeout(() => {
+      window.print();
+  
+      setTimeout(() => {
+        setShowBorders(true);
+      }, 100);
+    }, 0);
   };
+  
 
   const handleMassImportNames = () => {
     const textarea = document.getElementById("namesInput");
@@ -534,7 +543,6 @@ const Editor = () => {
        
         
       } else {
-        // Handle the case when values are not available
         console.error(`No values found for group: ${selectedGroup}`);
       }
       await new Promise((resolve) => setTimeout(resolve, 10));
@@ -930,7 +938,7 @@ const Editor = () => {
       </div>
       <p>
         <a id="mailTag">
-          Skola77: Version 1.2
+          Skola77: Version 24.9
         </a>
       </p>
     </div>
