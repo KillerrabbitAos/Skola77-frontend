@@ -378,11 +378,17 @@ const Editor = () => {
   };
 
   const handlePrint = () => {
-    
-
-    window.print()
-    
+    setShowBorders(false); 
+  
+    setTimeout(() => {
+      window.print();
+  
+      setTimeout(() => {
+        setShowBorders(true);
+      }, 100);
+    }, 0);
   };
+  
 
   const handleMassImportNames = () => {
     const textarea = document.getElementById("namesInput");

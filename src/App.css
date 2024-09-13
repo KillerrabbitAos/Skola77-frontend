@@ -304,10 +304,10 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
 
 @media print {
   body * {
-    visibility: hidden; /* Gömmer allt förutom det specifika innehållet du vill skriva ut */
+    visibility: hidden;
   }
   #gridPdfSak * {
-    visibility: visible; /* Gör #gridPdfSak och dess barn synliga */
+    visibility: visible;
   }
   #kebabWrap * {
     visibility: hidden;
@@ -321,10 +321,10 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
     top: 0;
     transform: translateY(0%);
     width: 100%;
-    max-width: 210mm; /* Justera detta beroende på dina marginalinställningar och pappersstorlek */
+    max-width: 210mm;
     height: auto;
     margin: 0mm auto;
-    box-shadow: none; /* Tar bort skuggan för en renare utskrift */
+    box-shadow: none;
   }
   #grid {
     zoom: 0.8;
