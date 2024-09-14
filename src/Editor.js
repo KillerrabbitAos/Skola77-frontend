@@ -135,20 +135,19 @@ const Editor = () => {
     }
   };
   const handleSaveNames = async () => {
-    if (nameGroupName == "ny...") {
-      const name = prompt("Döp din klass: ");
-      setNameGroupName(`${name}_nameValues`);
-    }
-      
+    const name = prompt("Döp din klass: ");
+    if (name) {
+      setNameGroupName(name);
+
       const compressedData = compressData({
         names,
       });
 
-      Cookies.set(`${nameGroupName}`, compressedData, { expires: 365 });
+      Cookies.set(`${name}_nameValues`, compressedData, { expires: 365 });
       await new Promise((resolve) => setTimeout(resolve, 100));
 
-      document.getElementById(`${nameGroupName}`).selected = true;
-    
+      document.getElementById(`${name}_nameValues`).selected = true;
+    }
   };
 
   const handleSaveButtonClick = async () => {
@@ -163,7 +162,6 @@ const Editor = () => {
 
       const finNameGroupName = nameGroupName.replace("_nameValues", "");
       const finGridGroupName = gridGroupName.replace("_gridValues", "");
-
 
       finalGroupName = finNameGroupName + " i " + finGridGroupName;
       setGroupName(finalGroupName);
@@ -184,16 +182,15 @@ const Editor = () => {
         fixaCounter,
         keyChange,
         låstaNamn,
-        nameGroupName,
       });
-      console.log(finalGroupName)
+
       Cookies.set(`${finalGroupName}_values`, compressedData, { expires: 365 });
 
       setShowSavedMessage(true);
       setTimeout(() => {
         setShowSavedMessage(false);
       }, 2000);
-      console.log(`${finalGroupName}_values`)
+
       document.getElementById(`${finalGroupName}_values`).selected = true;
     }
 
@@ -493,7 +490,7 @@ const Editor = () => {
   const handleGroupChange = async (event) => {
     const selectedGroup = event.target.value;
     setGroupName(selectedGroup);
-
+    // Om den valda gruppen är standardgruppen, sätt standardvärden
     if (selectedGroup === defaultGroup) {
       setRows(7);
       setColumns(7);
@@ -537,11 +534,6 @@ const Editor = () => {
         setUppe(uppe);
         setNere(nere);
         setLåstaNamn(values.låstaNamn || []);
-        if(values.nameGroupName){
-          setNameGroupName(values.nameGroupName) 
-        }
-       
-        
       } else {
         console.error(`No values found for group: ${selectedGroup}`);
       }
@@ -551,10 +543,6 @@ const Editor = () => {
       var selectElement = document.getElementById("sparadeNamnKlasser");
       selectElement.selectedIndex = 0;
     }
-    if(nameGroupName){
-      setNameGroupName(values.nameGroupName)
-    }
-  
   };
 
   const handleNameGroupChange = (event) => {
