@@ -112,6 +112,7 @@ const Editor = () => {
     const response = await fetch('http://localhost:3005/home', {
       credentials: 'include'
     });
+   
     const result = await response.json();
   
     if (result.loggedin) {
@@ -119,9 +120,9 @@ const Editor = () => {
       setData(userDataString);
       return userDataString;
     }
-    return "";
+    return null;
   }
-  const waitForValidData = async (maxRetries = 200) => {
+  const waitForValidData = async (maxRetries = 2) => {
     let isValid = false;
     let attempts = 0;
 
@@ -152,7 +153,7 @@ const Editor = () => {
 
       // Wait before the next attempt if not valid yet
       if (!isValid) {
-        await new Promise((resolve) => setTimeout(resolve, 100)); // Delay of 1 second
+        await new Promise((resolve) => setTimeout(resolve, 500)); // Delay of 1 second
       }
       else{
         setLoading(false);
@@ -162,6 +163,7 @@ const Editor = () => {
     if (!isValid) {
       console.log("Max retries reached. Exiting.");
       setError("Max retries reached. Unable to fetch valid data.");
+      window.location.href = "http://localhost:3000/login.html"
     }
   };
 
@@ -245,8 +247,9 @@ const Editor = () => {
         keyChange,
         låstaNamn,
       });
-
-      Cookies.set(`${finalGroupName}_values`, compressedData, { expires: 365 });
+      const loggedInData = JSON.parse(data)
+      loggedInData.push(`${finalGroupName}_values` + ":" + compressedData)
+     
 
       setShowSavedMessage(true);
       setTimeout(() => {
@@ -338,7 +341,7 @@ async function readCookieValues(dataTitle){
     return match;
 }
 
-
+  
   const sparaSomNy = async () => {
     const name = prompt("Döp din placering: ");
     if (name) {
@@ -356,8 +359,9 @@ async function readCookieValues(dataTitle){
         keyChange: keyChange,
         låstaNamn: låstaNamn,
       });
-
-      Cookies.set(`${name}_values`, compressedData, { expires: 365 });
+      const loggedInData = JSON.parse(data)
+      loggedInData.push(`${name}_values` + ":" + compressedData)
+      
       await new Promise((resolve) => setTimeout(resolve, 10));
 
       document.getElementById(`${name}_values`).selected = true;

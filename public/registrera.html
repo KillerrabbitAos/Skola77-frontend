@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./App.css">
+    <title>Inloggning och Registrering</title>
+</head>
+<body>
+
+    <form id="registerForm">
+        <h2>Registrering</h2>
+        <label for="registerUsername">Användarnamn:</label>
+        <input type="text" id="registerUsername" name="registerUsername" required>
+        <br><br>
+        <label for="registerPassword">Lösenord:</label>
+        <input type="password" id="registerPassword" name="registerPassword" required>
+        <br><br>
+        <label for="registerEmail">E-post:</label>
+        <input type="email" id="registerEmail" name="registerEmail" required>
+        <br><br>
+        <button type="submit">Registrera</button>
+        <div id="kontofråga">
+            <a>Har du redan ett konto? <a href="http://localhost:3000/login.html">Logga in</a></a>
+        </div> 
+    </form>
+
+    <div id="registerMessage"></div>
+
+    <script>
+        
+
+        document.getElementById('registerForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('registerUsername').value;
+            const password = document.getElementById('registerPassword').value;
+            const email = document.getElementById('registerEmail').value;
+
+            const response = await fetch('http://192.168.50.10:3005/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password, email }),
+                credentials: 'include'
+            });
+
+            const result = await response.json();
+            document.getElementById('registerMessage').innerText = result.message;
+        });
+    </script>
+</body>
+</html>

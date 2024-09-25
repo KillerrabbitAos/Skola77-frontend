@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./App.css">
+    <title>Inloggning och Registrering</title>
+</head>
+<body>
+    <form id="loginForm">
+        <h2>Inloggning</h2>
+        <label for="username">Användarnamn:</label>
+        <input type="text" id="username" name="username" required>
+        <br><br>
+        <label for="password">Lösenord:</label>
+        <input type="password" id="password" name="password" required>
+        <br><br>
+        <div id="message"></div>
+        <button type="submit">Logga in</button>
+        <div id="kontofråga">
+            <a>Har du inget konto? <a href="http://localhost:3000/registrera.html">Registrera</a></a>
+    </div> 
+    </form>
+    </form>
+
+    
+
+    
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch('http://192.168.50.10:3005/auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: username, password: password }),
+                credentials: 'include'
+            });
+
+            const result = await response.json();
+            document.getElementById('message').innerText = result.message;
+
+            if (result.success) {
+                window.location.href = '/home.html';
+            }
+        });
+
+        
+    </script>
+</body>
+</html>

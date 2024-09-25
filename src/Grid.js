@@ -112,7 +112,9 @@ const Grid = ({
         låstaNamn,
       });
 
-      Cookies.set(`${name}_gridValues`, compressedData, { expires: 365 });
+      const loggedInData = JSON.parse(data)
+      loggedInData.push(`${name}_gridValues` + ":" + compressedData)
+      
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       document.getElementById(`${name}_gridValues`).selected = true;
