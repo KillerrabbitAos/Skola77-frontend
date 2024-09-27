@@ -71,8 +71,9 @@ button:hover {
 }
 
 #message, #registerMessage {
-  margin-top: 10px;
-  color: red;
+  margin: 10px;
+  color: rgb(65, 179, 89);
+
 }
 
 h2 {
