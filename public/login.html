@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./App.css">
-    <title>Inloggning och Registrering</title>
+    <title>Logga in på Skola77</title>
 </head>
 <body>
+
+    <div class="varning">
+        <span class="triangel">⚠️</span>
+        <p>Du måste nu skapa ett konto för att använda Skola77. Men oroa dig inte, alla dina bordsplaceringar <u>kommer att finnas kvar.</u> Läs mer på <a href="https://forum.skola77.com/d/13-viktig-uppdatering-av-skola77-nya-funktioner-och-forbattrad-sakerhet">Skola77:s forum</a>.</p>
+    </div>
+
     <form id="loginForm">
-        <h2>Inloggning</h2>
+        <h2>Logga in</h2>
         <label for="username">Användarnamn:</label>
         <input type="text" id="username" name="username" required>
         <br><br>
@@ -19,14 +25,8 @@
         <button type="submit">Logga in</button>
         <div id="kontofråga">
             <a>Har du inget konto? <a href="http://localhost:3000/registrera.html">Registrera</a></a>
-    </div> 
+        </div> 
     </form>
-    </form>
-
-    
-
-    
-
     <script>
         document.getElementById('loginForm').addEventListener('submit', async function(event) {
             event.preventDefault();
@@ -48,8 +48,6 @@
                 window.location.href = '/editor';
             }
         });
-
-        
     </script>
 </body>
 </html>
