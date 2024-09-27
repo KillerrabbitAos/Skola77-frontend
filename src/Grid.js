@@ -71,7 +71,8 @@ const Grid = ({
   setGridGroupName,
   setFixaCounter,
   readCookieValues,
-  data
+  data,
+  setData
   
 }) => {
   const [contextMenu, setContextMenu] = useState(["tom"]);
@@ -114,6 +115,14 @@ const Grid = ({
 
       const loggedInData = JSON.parse(data)
       loggedInData.push(`${name}_gridValues` + ":" + compressedData)
+      const newData = JSON.stringify(loggedInData)
+      const response = await fetch('https://192.168.50.10:3005/updateData', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newData }),
+        credentials: 'include'
+    });
+    setData(newData)
       
       await new Promise((resolve) => setTimeout(resolve, 100));
 
