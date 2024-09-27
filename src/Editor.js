@@ -109,7 +109,7 @@ const Editor = () => {
   const [backup1, setBackup1] = useState();
   const [error, setError] = useState(null);
   async function checkLoginStatus() {
-    const response = await fetch('http://localhost:3005/home', {
+    const response = await fetch('https://192.168.50.10:3005/home', {
       credentials: 'include'
     });
    
@@ -206,8 +206,8 @@ const Editor = () => {
       const compressedData = compressData({
         names,
       });
-
-      Cookies.set(`${name}_nameValues`, compressedData, { expires: 365 });
+      const loggedInData = JSON.parse(data)
+      loggedInData.push(`${name}_nameValues` + ":" + compressedData)
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       document.getElementById(`${name}_nameValues`).selected = true;
