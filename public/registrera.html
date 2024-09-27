@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="sv">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./App.css">
     <title>Skapa ditt Skola77-konto</title>
 </head>
+
 <body>
 
 
@@ -28,25 +30,41 @@
         <button type="submit">Registrera</button>
         <div id="kontofråga">
             <a>Har du redan ett konto? <a href="/login.html">Logga in</a></a>
-        </div> 
+        </div>
     </form>
 
     <div id="registerMessage"></div>
 
     <script>
-        
+        var getCookies = function () {
+            var pairs = document.cookie.split(";");
+            var cookies = {};
+            for (var i = 0; i < pairs.length; i++) {
+                var pair = pairs[i].split("=");
+                cookies[(pair[0] + '').trim()] = unescape(pair.slice(1).join('='));
+            }
+            return cookies;
+        }
+        var myCookies = getCookies();
+        function decodeCookies(cookieObj) {
+            return Object.entries(cookieObj).map(([key, value]) => {
+                return `${decodeURIComponent(key)}:${decodeURIComponent(value)}`;
+            });
+        }
 
-        document.getElementById('registerForm').addEventListener('submit', async function(event) {
+        document.getElementById('registerForm').addEventListener('submit', async function (event) {
             event.preventDefault();
 
             const username = document.getElementById('registerUsername').value;
             const password = document.getElementById('registerPassword').value;
             const email = document.getElementById('registerEmail').value;
+            const data = JSON.stringify(decodeCookies(getCookies()))
+            console.log(data)
 
             const response = await fetch('https://192.168.50.10:3005/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password, email }),
+                body: JSON.stringify({ username, password, email, data }),
                 credentials: 'include'
             });
 
@@ -55,4 +73,5 @@
         });
     </script>
 </body>
+
 </html>

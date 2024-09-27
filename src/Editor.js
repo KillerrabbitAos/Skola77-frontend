@@ -112,9 +112,9 @@ const Editor = () => {
     const response = await fetch('https://192.168.50.10:3005/home', {
       credentials: 'include'
     });
-   
+
     const result = await response.json();
-  
+
     if (result.loggedin) {
       const userDataString = result.data;
       setData(userDataString);
@@ -131,10 +131,10 @@ const Editor = () => {
       try {
         // Start loading
         setLoading(true);
-        
+
         const data = await checkLoginStatus(); // Await the result of checkLoginStatus
         console.log("Fetched data:", data); // Log fetched data
-        
+
         // Check if data can be split correctly
         const splitData = data.split(":");
         if (splitData) { // Ensure it splits into two parts
@@ -148,14 +148,14 @@ const Editor = () => {
         setError(error); // Set error if it occurs
       } finally {
         // End loading
-        
+
       }
 
       // Wait before the next attempt if not valid yet
       if (!isValid) {
         await new Promise((resolve) => setTimeout(resolve, 500)); // Delay of 1 second
       }
-      else{
+      else {
         setLoading(false);
       }
     }
@@ -176,7 +176,7 @@ const Editor = () => {
   let baconBurger = false;
   let cheeseBurger = false;
 
-  
+
 
 
   const ändraPerspektiv = () => {
@@ -208,6 +208,14 @@ const Editor = () => {
       });
       const loggedInData = JSON.parse(data)
       loggedInData.push(`${name}_nameValues` + ":" + compressedData)
+      const newData = JSON.stringify(loggedInData)
+      const response = await fetch('https://192.168.50.10:3005/updateData', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newData }),
+        credentials: 'include'
+      });
+      setData(newData)
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       document.getElementById(`${name}_nameValues`).selected = true;
@@ -247,9 +255,18 @@ const Editor = () => {
         keyChange,
         låstaNamn,
       });
+
       const loggedInData = JSON.parse(data)
       loggedInData.push(`${finalGroupName}_values` + ":" + compressedData)
-     
+      const newData = JSON.stringify(loggedInData)
+
+      const response = await fetch('https://192.168.50.10:3005/updateData', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newData }),
+        credentials: 'include'
+      });
+      setData(newData)
 
       setShowSavedMessage(true);
       setTimeout(() => {
@@ -273,7 +290,17 @@ const Editor = () => {
         låstaNamn,
       });
 
-      Cookies.set(`${groupName}_values`, compressedData, { expires: 365 });
+      const loggedInData = JSON.parse(data)
+      loggedInData.push(`${groupName}_values` + ":" + compressedData)
+      const newData = JSON.stringify(loggedInData)
+
+      const response = await fetch('https://192.168.50.10:3005/updateData', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newData }),
+        credentials: 'include'
+      });
+      setData(newData)
 
       setShowSavedMessage(true);
       setTimeout(() => {
@@ -301,7 +328,17 @@ const Editor = () => {
             låstaNamn,
           });
 
-          Cookies.set(`${name}_values`, compressedData, { expires: 365 });
+          const loggedInData = JSON.parse(data)
+          loggedInData.push(`${name}_values` + ":" + compressedData)
+          const newData = JSON.stringify(loggedInData)
+
+          const response = await fetch('https://192.168.50.10:3005/updateData', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ newData }),
+            credentials: 'include'
+          });
+          setData(newData)
           await new Promise((resolve) => setTimeout(resolve, 100));
 
           document.getElementById(`${name}_values`).selected = true;
@@ -310,14 +347,14 @@ const Editor = () => {
     }
   };
 
-  
 
 
 
 
- 
 
-async function readCookieValues(dataTitle){
+
+
+  async function readCookieValues(dataTitle) {
     const loggedInData = await checkLoginStatus();
     let match = null
     console.log(loggedInData)
@@ -336,12 +373,12 @@ async function readCookieValues(dataTitle){
       }
     });
     console.log(match)
-    
- 
-    return match;
-}
 
-  
+
+    return match;
+  }
+
+
   const sparaSomNy = async () => {
     const name = prompt("Döp din placering: ");
     if (name) {
@@ -361,10 +398,19 @@ async function readCookieValues(dataTitle){
       });
       const loggedInData = JSON.parse(data)
       loggedInData.push(`${name}_values` + ":" + compressedData)
-      
+      const newData = JSON.stringify(loggedInData)
+
+      const response = await fetch('https://192.168.50.10:3005/updateData', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newData }),
+        credentials: 'include'
+      });
+      setData(newData)
       await new Promise((resolve) => setTimeout(resolve, 10));
 
       document.getElementById(`${name}_values`).selected = true;
+
     }
   };
   const sparaNamnSomNy = async () => {
@@ -383,25 +429,55 @@ async function readCookieValues(dataTitle){
     }
   };
 
-  const raderaKlass = () => {
+  const raderaKlass = async () => {
     setGroupName(defaultGroup);
     document.getElementById("nyKlass").selected = true;
-    const klassAttRadera = `${encodeURI(groupName)}_values`;
-    removeCookie(klassAttRadera);
+    const klassAttRadera = `${groupName}_values`;
+    const loggedInData = JSON.parse(data)
+
+    const newData = JSON.stringify(loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':')))
+
+    const response = await fetch('https://192.168.50.10:3005/updateData', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ newData }),
+      credentials: 'include'
+    });
+    setData(newData)
+
   };
 
-  const raderaNamnKlass = () => {
+  const raderaNamnKlass = async () => {
     setNameGroupName(defaultGroup);
     document.getElementById("nyKlassNamn").selected = true;
     const klassAttRadera = `${encodeURI(nameGroupName)}`;
-    removeCookie(klassAttRadera);
+    const loggedInData = JSON.parse(data)
+
+    const newData = JSON.stringify(loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':')))
+    const response = await fetch('https://192.168.50.10:3005/updateData', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ newData }),
+      credentials: 'include'
+    });
+    setData(newData)
     setNames([""]);
   };
-  const raderaGrid = () => {
+  const raderaGrid = async () => {
     setGridGroupName(defaultGroup);
     document.getElementById("nyGridNamn").selected = true;
-    const klassAttRadera = `${encodeURI(gridGroupName)}`;
-    removeCookie(klassAttRadera);
+    const klassAttRadera = `${gridGroupName}`;
+    const loggedInData = JSON.parse(data)
+
+    const newData = JSON.stringify(loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':')))
+
+    const response = await fetch('https://192.168.50.10:3005/updateData', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ newData }),
+      credentials: 'include'
+    });
+    setData(newData)
     setColumns(9);
     setRows(9);
     setCellSize(70);
@@ -468,17 +544,17 @@ async function readCookieValues(dataTitle){
   };
 
   const handlePrint = () => {
-    setShowBorders(false); 
-  
+    setShowBorders(false);
+
     setTimeout(() => {
       window.print();
-  
+
       setTimeout(() => {
         setShowBorders(true);
       }, 100);
     }, 0);
   };
-  
+
 
   const handleMassImportNames = () => {
     const textarea = document.getElementById("namesInput");
@@ -557,8 +633,8 @@ async function readCookieValues(dataTitle){
       } else {
         const confirmResult = window.confirm(
           "Du har för få bänkar utsatta för att få plats med alla namn. Du har " +
-            antalFåBänkar +
-            " bänk/bänkar för lite. Vill du fortsätta utan att placera alla namn?"
+          antalFåBänkar +
+          " bänk/bänkar för lite. Vill du fortsätta utan att placera alla namn?"
         );
         if (confirmResult) {
           setOldBoxes(filledBoxes);
@@ -592,8 +668,8 @@ async function readCookieValues(dataTitle){
       selectElement.selectedIndex = 0;
 
 
-    
-      
+
+
       setNameGroupName(defaultGroup);
       setGridGroupName(defaultGroup);
     } else {
@@ -721,13 +797,14 @@ async function readCookieValues(dataTitle){
       defaultGroup={defaultGroup}
       raderaGrid={raderaGrid}
       data={data}
+      setData={setData}
     />
   );
   const taBortEfternamn = () => {
 
-    if (efternamnStarForst){
-     setNames(förraNamn => förraNamn.map((namn) => namn.split(" ").slice(-1)[0]))
-    }else{
+    if (efternamnStarForst) {
+      setNames(förraNamn => förraNamn.map((namn) => namn.split(" ").slice(-1)[0]))
+    } else {
       setNames(förraNamn => förraNamn.map((namn) => namn.split(" ")[0]))
     }
     console.log("keb")
@@ -768,7 +845,7 @@ async function readCookieValues(dataTitle){
         {JSON.parse(data).length > 0 &&
           JSON.parse(data).map(
             (item) => item &&
-              
+
               item.split(":")[0].endsWith("_values") && (
                 <option id={item.split(":")[0]} key={item.split(":")[0]} value={item.split(":")[0]}>
                   {item.split(":")[0].replace("_values", "")}
@@ -807,9 +884,9 @@ async function readCookieValues(dataTitle){
       <div style={{ display: "block", width: "100%", height: "35px" }}></div>
     </div>
   );
-  
-  
-  
+
+
+
   return (
     <div className="App prevent-select">
       <div id="bräddMått"></div>
@@ -817,9 +894,9 @@ async function readCookieValues(dataTitle){
       <div className="gridInstallning">
         {Cookies.get && (
           <DownloadJSON
-    data={data} // Sätt data till användardatan
-    fileName={`backup skola77`}
-/>
+            data={data} // Sätt data till användardatan
+            fileName={`backup skola77`}
+          />
 
         )}
         {sparningsLösning}
@@ -898,7 +975,7 @@ async function readCookieValues(dataTitle){
         </p>
 
         <div id="yberKebab">
-          
+
           <div id="kebabWrap">
             <div style={{ display: "block" }}>
 
@@ -910,7 +987,7 @@ async function readCookieValues(dataTitle){
                 <option id="nyKlassNamn" key="ny..." value={defaultGroup}>
                   {defaultGroup}
                 </option>
-              
+
                 {JSON.parse(data).length > 0 &&
                   JSON.parse(data).map(
                     (item) => item &&
@@ -957,9 +1034,9 @@ async function readCookieValues(dataTitle){
               <button onClick={taBortEfternamn} className="sparaNamnKnapp2" id="sparaNamnKnapp2">Ta bort efternamn</button>
               <div>
                 <a>Efternamn står först?</a>
-      <input type="checkbox" defaultChecked="true" onChange={andraCheckboxvarde} />
+                <input type="checkbox" defaultChecked="true" onChange={andraCheckboxvarde} />
 
-    </div>
+              </div>
             </div>
           </div>
 
