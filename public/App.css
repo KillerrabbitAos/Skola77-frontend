@@ -7,6 +7,27 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  flex-direction: column; /* Justera för vertikal riktning */
+}
+
+.varning {
+  background-color: #fff3cd; /* Svag gul bakgrund */
+  color: #856404; /* Mörkare textfärg */
+  padding: 15px;
+  border: 1px solid #ffeeba; /* Gräns för varning */
+  border-radius: 5px;
+  display: flex; /* Flexbox för att centrera innehåll */
+  align-items: center;
+  margin-bottom: 20px; /* Avstånd från formuläret */
+}
+
+.varning a{
+  color: #856404;
+}
+
+.triangel {
+  font-size: 24px; /* Större storlek för varningstriangel */
+  margin-right: 10px; /* Avstånd mellan triangel och text */
 }
 
 form {
@@ -14,24 +35,25 @@ form {
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
   width: 300px;
-  text-align: left; /* Ändra till vänsterjustering för etiketter och fält */
+  text-align: left; 
 }
 
 label {
-  display: block; /* Se till att etiketten är blocknivå för att hamna ovanför inmatningsfälten */
+  display: block; 
   margin-bottom: 5px;
+  text-align: left; /* Vänsterjusterad text */
 }
 
 input[type="text"],
 input[type="password"],
 input[type="email"] {
-  width: 300px; /* Full bredd för inmatningsfälten inom formuläret */
-  padding-bottom: 10px;
+  width: calc(100% - 18px); /* Full bredd minus padding */
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 18px;
+  padding: 8px; /* Mer padding för att göra fälten mer klickvänliga */
 }
 
 button {
@@ -55,13 +77,15 @@ button:hover {
 
 h2 {
   color: #333;
-  text-align: center; /* Centrera rubriken */
+  text-align: center; 
 }
+
 a {
   margin-top: 5px;
-  text-decoration: none;
   color: black;
 }
-#kontofråga{
+
+#kontofråga {
   padding-top: 10px;
+  text-align: center; /* Centrera texten för kontofrågan */
 }
