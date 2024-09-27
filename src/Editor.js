@@ -899,13 +899,7 @@ const Editor = () => {
       <div id="bräddMått"></div>
 
       <div className="gridInstallning">
-        {Cookies.get && (
-          <DownloadJSON
-            data={data} // Sätt data till användardatan
-            fileName={`backup skola77`}
-          />
-
-        )}
+        
         {sparningsLösning}
       </div>
 
