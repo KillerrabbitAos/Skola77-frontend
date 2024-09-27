@@ -1058,7 +1058,7 @@ const Editor = () => {
       </div>
       <p>
         <a id="mailTag">
-          Skola77: Version 24.9
+          Skola77: Version 24.9.2
         </a>
       </p>
     </div>

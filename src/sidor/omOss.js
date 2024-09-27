@@ -12,7 +12,7 @@ const OmOss = () => {
 
         <div id="bodyOmOss">
 
-        <h2><u>Kommer snart...</u></h2>
+        <h2><u>Kommer snalrt...</u></h2>
     
 
         </div>
