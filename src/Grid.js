@@ -113,7 +113,9 @@ const Grid = ({
         låstaNamn,
       });
 
-      const loggedInData = JSON.parse(data)
+      let klassAttRadera = `${name}_gridValues`
+      let loggedInData = JSON.parse(data)
+      loggedInData = loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':'))
       loggedInData.push(`${name}_gridValues` + ":" + compressedData)
       const newData = JSON.stringify(loggedInData)
       const response = await fetch('https://192.168.50.10:3005/updateData', {

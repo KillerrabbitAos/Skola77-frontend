@@ -206,7 +206,9 @@ const Editor = () => {
       const compressedData = compressData({
         names,
       });
-      const loggedInData = JSON.parse(data)
+      let klassAttRadera = `${name}_nameValues`
+      let loggedInData = JSON.parse(data)
+      loggedInData = loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':'))
       loggedInData.push(`${name}_nameValues` + ":" + compressedData)
       const newData = JSON.stringify(loggedInData)
       const response = await fetch('https://192.168.50.10:3005/updateData', {
@@ -256,7 +258,9 @@ const Editor = () => {
         låstaNamn,
       });
 
-      const loggedInData = JSON.parse(data)
+      let klassAttRadera = `${finalGroupName}_values`
+      let loggedInData = JSON.parse(data)
+      loggedInData = loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':'))
       loggedInData.push(`${finalGroupName}_values` + ":" + compressedData)
       const newData = JSON.stringify(loggedInData)
 
@@ -272,7 +276,7 @@ const Editor = () => {
       setTimeout(() => {
         setShowSavedMessage(false);
       }, 2000);
-
+      await new Promise((resolve) => setTimeout(resolve, 100));
       document.getElementById(`${finalGroupName}_values`).selected = true;
     }
 
@@ -289,8 +293,9 @@ const Editor = () => {
         keyChange,
         låstaNamn,
       });
-
-      const loggedInData = JSON.parse(data)
+      let klassAttRadera = `${groupName}_values`
+      let loggedInData = JSON.parse(data)
+      loggedInData = loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':'))
       loggedInData.push(`${groupName}_values` + ":" + compressedData)
       const newData = JSON.stringify(loggedInData)
 
@@ -300,6 +305,7 @@ const Editor = () => {
         body: JSON.stringify({ newData }),
         credentials: 'include'
       });
+      await new Promise((resolve) => setTimeout(resolve, 100));
       setData(newData)
 
       setShowSavedMessage(true);
@@ -328,10 +334,11 @@ const Editor = () => {
             låstaNamn,
           });
 
-          const loggedInData = JSON.parse(data)
+          let klassAttRadera = `${name}_values`
+          let loggedInData = JSON.parse(data)
+          loggedInData = loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':'))
           loggedInData.push(`${name}_values` + ":" + compressedData)
           const newData = JSON.stringify(loggedInData)
-
           const response = await fetch('https://192.168.50.10:3005/updateData', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -434,8 +441,8 @@ const Editor = () => {
     document.getElementById("nyKlass").selected = true;
     const klassAttRadera = `${groupName}_values`;
     const loggedInData = JSON.parse(data)
-
     const newData = JSON.stringify(loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':')))
+
 
     const response = await fetch('https://192.168.50.10:3005/updateData', {
       method: 'POST',

@@ -42,29 +42,58 @@
         var myCookies = getCookies();
         function decodeCookies(cookieObj) {
             return Object.entries(cookieObj).map(([key, value]) => {
-                return `${decodeURIComponent(key)}:${decodeURIComponent(value)}`;
+                if (key.endsWith("alues")) {
+                    return `${decodeURIComponent(key)}:${decodeURIComponent(value)}`;
+                }
             });
         }
 
         document.getElementById('registerForm').addEventListener('submit', async function (event) {
             event.preventDefault();
-
+            let data = null
+            let result = null
             const username = document.getElementById('registerUsername').value;
             const password = document.getElementById('registerPassword').value;
             const email = document.getElementById('registerEmail').value;
-            const data = JSON.stringify(decodeCookies(getCookies()))
-            console.log(data)
+            if (myCookies) {
+                data = JSON.stringify(decodeCookies(getCookies()))
+            }
 
-            const response = await fetch('https://192.168.50.10:3005/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password, email, data }),
-                credentials: 'include'
-            });
+            if (data) {
+                const response = await fetch('https://192.168.50.10:3005/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password, email, data }),
+                    credentials: 'include'
+                });
+                result = await response.json();
+            }
+            else {
+                const response = await fetch('https://192.168.50.10:3005/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password, email, }),
+                    credentials: 'include'
+                });
+                result = await response.json();
+            }
 
-            const result = await response.json();
+
             document.getElementById('registerMessage').innerText = result.message;
+            if (result.message == "Registrering lyckades!") {
+                const response = await fetch('https://192.168.50.10:3005/auth', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: username, password: password }),
+                    credentials: 'include'
+                });
+                const result = await response.json();
+                if (result.success) {
+                    window.location.href = '/editor';
+                }
+            }
         });
+
     </script>
 </body>
 
