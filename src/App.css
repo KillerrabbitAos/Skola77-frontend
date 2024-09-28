@@ -728,3 +728,128 @@ a .minskaStorlekDiv {
   font-size: 20px;
 }
 
+#användardata {
+  border: 1px solid gray;
+  max-width: 700px;
+  margin: 20px;
+  border-radius: 10px;
+}
+
+#användardata p {
+  margin-left: 20px;
+}
+
+#användardata div {
+  border-bottom: 1px solid gray;
+}
+
+#användardata div:last-child {
+  border-bottom: none;
+}
+
+#username, #email, #password {
+  margin: 10px 0; /* Lägg till lite avstånd mellan varje avsnitt */
+}
+
+.data {
+  font-size: 18px;
+  margin-right: 10px; /* Lägg till lite avstånd mellan data och knappen */
+}
+
+#placeholder {
+  color: gray;
+}
+
+#accountButton {
+  color: white;
+  background-color: rgb(56, 180, 56);
+  border-style: none;
+  border-color: rgb(173, 169, 169);
+  padding: 10px;
+  margin: 0;
+  border-radius: 5px;
+  width: 90px;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.account-info {
+  display: flex;
+  align-items: center; /* Justera elementen vertikalt */
+  justify-content: space-between; /* Skapa utrymme mellan elementen */
+}
+
+
+.accountActionButtons{
+  width: 160px;
+}
+
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Halvtransparent bakgrund */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 350px;
+    text-align: center;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+}
+
+.modal-content button {
+    margin: 5px;
+    padding: 8px 16px;
+}
+
+#modalTextInput{
+  margin: auto;
+  max-width: 75%;
+  margin-bottom: 10px;
+}
+
+#description{
+  color: gray;
+}
+
+#removeAccountJa {
+  transition: background-color 0.2s ease;
+}
+
+#removeAccountJa:disabled {
+  background-color: gray;
+}
+
+#removeAccountJa:hover {
+  background-color: red;
+}
+
+#removeAccountJa:disabled:hover {
+  background-color: gray; /* Förhindrar hover-effekt när knappen är disabled */
+}
+
+#removeAccountNej {
+  transition: background-color 0.2s ease;
+}
+
+#removeAccountNej:hover {
+  background-color: rgb(59, 199, 59);
+}
+
+#removeAccountNej:disabled:hover {
+  background-color: gray; /* Förhindrar hover-effekt när knappen är disabled */
+}
