@@ -5,13 +5,13 @@ const MittKonto = () => {
 
 
     const handleLogout = async () => {
-        const response = await fetch('https://192.168.50.10:3005/logout', {
+        const response = await fetch('https://account.skola77.com:3005/logout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
           });
 
-          window.location.replace("https://www.skola77.com");
+          window.location.replace("/editor");
 
 
         

@@ -109,7 +109,7 @@ const Editor = () => {
   const [backup1, setBackup1] = useState();
   const [error, setError] = useState(null);
   async function checkLoginStatus() {
-    const response = await fetch('https://192.168.50.10:3005/home', {
+    const response = await fetch('https://account.skola77.com:3005/home', {
       credentials: 'include'
     });
 
@@ -211,7 +211,7 @@ const Editor = () => {
       loggedInData = loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':'))
       loggedInData.push(`${name}_nameValues` + ":" + compressedData)
       const newData = JSON.stringify(loggedInData)
-      const response = await fetch('https://192.168.50.10:3005/updateData', {
+      const response = await fetch('https://account.skola77.com:3005/updateData', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ newData }),
@@ -264,7 +264,7 @@ const Editor = () => {
       loggedInData.push(`${finalGroupName}_values` + ":" + compressedData)
       const newData = JSON.stringify(loggedInData)
 
-      const response = await fetch('https://192.168.50.10:3005/updateData', {
+      const response = await fetch('https://account.skola77.com:3005/updateData', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ newData }),
@@ -299,7 +299,7 @@ const Editor = () => {
       loggedInData.push(`${groupName}_values` + ":" + compressedData)
       const newData = JSON.stringify(loggedInData)
 
-      const response = await fetch('https://192.168.50.10:3005/updateData', {
+      const response = await fetch('https://account.skola77.com:3005/updateData', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ newData }),
@@ -339,7 +339,7 @@ const Editor = () => {
           loggedInData = loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':'))
           loggedInData.push(`${name}_values` + ":" + compressedData)
           const newData = JSON.stringify(loggedInData)
-          const response = await fetch('https://192.168.50.10:3005/updateData', {
+          const response = await fetch('https://account.skola77.com:3005/updateData', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ newData }),
@@ -407,7 +407,7 @@ const Editor = () => {
       loggedInData.push(`${name}_values` + ":" + compressedData)
       const newData = JSON.stringify(loggedInData)
 
-      const response = await fetch('https://192.168.50.10:3005/updateData', {
+      const response = await fetch('https://account.skola77.com:3005/updateData', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ newData }),
@@ -444,7 +444,7 @@ const Editor = () => {
     const newData = JSON.stringify(loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':')))
 
 
-    const response = await fetch('https://192.168.50.10:3005/updateData', {
+    const response = await fetch('https://account.skola77.com:3005/updateData', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ newData }),
@@ -461,7 +461,7 @@ const Editor = () => {
     const loggedInData = JSON.parse(data)
 
     const newData = JSON.stringify(loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':')))
-    const response = await fetch('https://192.168.50.10:3005/updateData', {
+    const response = await fetch('https://account.skola77.com:3005/updateData', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ newData }),
@@ -478,7 +478,7 @@ const Editor = () => {
 
     const newData = JSON.stringify(loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':')))
 
-    const response = await fetch('https://192.168.50.10:3005/updateData', {
+    const response = await fetch('https://account.skola77.com:3005/updateData', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ newData }),
