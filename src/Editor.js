@@ -163,7 +163,7 @@ const Editor = () => {
     if (!isValid) {
       console.log("Max retries reached. Exiting.");
       setError("Max retries reached. Unable to fetch valid data.");
-      window.location.href = "http://localhost:3000/login.html"
+      window.location.href = "https://www.skola77.com/login.html"
     }
   };
 
