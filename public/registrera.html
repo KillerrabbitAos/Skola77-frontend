@@ -82,7 +82,6 @@
             const password = document.getElementById('registerPassword').value;
             const email = document.getElementById('registerEmail').value;
             const hashedPassword = await hashPassword(password);
-            console.log(REcaptchaResponse);
 
             if (myCookies) {
                 data = JSON.stringify(decodeCookies(getCookies()));
