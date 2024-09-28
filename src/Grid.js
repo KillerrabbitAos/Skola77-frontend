@@ -71,6 +71,8 @@ const Grid = ({
   setGridGroupName,
   setFixaCounter,
   readCookieValues,
+  data,
+  setData
   
 }) => {
   const [contextMenu, setContextMenu] = useState(["tom"]);
@@ -111,13 +113,25 @@ const Grid = ({
         låstaNamn,
       });
 
-      Cookies.set(`${name}_gridValues`, compressedData, { expires: 365 });
+      let klassAttRadera = `${name}_gridValues`
+      let loggedInData = JSON.parse(data)
+      loggedInData = loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':'))
+      loggedInData.push(`${name}_gridValues` + ":" + compressedData)
+      const newData = JSON.stringify(loggedInData)
+      const response = await fetch('https://account.skola77.com:3005/updateData', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newData }),
+        credentials: 'include'
+    });
+    setData(newData)
+      
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       document.getElementById(`${name}_gridValues`).selected = true;
     }
   };
-  const handleGridGroupChange = (event) => {
+  const handleGridGroupChange = async (event) => {
     const selectedGridGroup = event.target.value;
     setGridGroupName(selectedGridGroup);
     setLåstaNamn([]);
@@ -134,7 +148,7 @@ const Grid = ({
 
       
     } else {
-      const values = readCookieValues(selectedGridGroup);
+      const values = await readCookieValues(selectedGridGroup);
       if (values) {
         setColumns(values.columns);
         setRows(values.rows);
@@ -482,16 +496,16 @@ const Grid = ({
                   {defaultGroup}
                 </option>
 
-                {Object.keys(Cookies.get()).length > 0 &&
-                  Object.keys(Cookies.get()).map(
-                    (cookieName) =>
-                      cookieName.endsWith("gridValues") && (
+                {JSON.parse(data).length > 0 &&
+                  JSON.parse(data).map(
+                    (item) => item &&
+                      item.split(":")[0].endsWith("gridValues") && (
                         <option
-                          id={cookieName}
-                          key={cookieName}
-                          value={cookieName}
+                          id={item.split(":")[0]}
+                          key={item.split(":")[0]}
+                          value={item.split(":")[0]}
                         >
-                          {cookieName.replace("_gridValues", "")}
+                          {item.split(":")[0].replace("_gridValues", "")}
                         </option>
                       )
                   )}

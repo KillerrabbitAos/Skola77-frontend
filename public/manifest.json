@@ -8,11 +8,7 @@
       "type": "image/svg+xml",
       "purpose": "any"
     },
-    {
-      "src": "Skola77.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
+    
     {
       "src": "demobilder/klassrum.png",
       "type": "image/png",
@@ -46,6 +42,15 @@
     },
     {
       "src" : "/richard.html"
+    },
+    {
+      "src" : "/login.html"
+    },
+    {
+      "src" : "app.css"
+    },
+    {
+      "src" : "/registrera.html"
     }
 
   ],

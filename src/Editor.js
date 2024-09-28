@@ -20,6 +20,7 @@ import { IoIosArrowDropright, IoIosArrowDropdownCircle } from "react-icons/io";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import DownloadJSON from "./laddaNed.js";
 import Namn from "./ettNamn.js";
+import { write } from "xlsx";
 
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));
@@ -27,7 +28,7 @@ function compressData(data) {
 
 function orm() {
   //bästa funktionen 2024
-  alert(orm);
+  alert("orm");
 }
 
 // Function to decompress data retrieved from cookies
@@ -63,7 +64,9 @@ function fitTextToContainer(container, element, maxFontSizePx) {
   }
 }
 
+
 const Editor = () => {
+  const [loading, setLoading] = useState(true);
   const [groupName, setGroupName] = useState("ny...");
   const [keyChange, setKeyChange] = useState("tom");
   const [rows, setRows] = useState(8);
@@ -87,6 +90,7 @@ const Editor = () => {
   const [showBorders, setShowBorders] = useState(true);
   const [editingMode, setEditingMode] = useState(true);
   const [knappStatus, setKnappStatus] = useState(true);
+  const [data, setData] = useState(null);
   const [låstaNamn, setLåstaNamn] = useState([]);
   const [updateFixa, setUpdateFixa] = useState(false);
   const [namnRader, setNamnRader] = useState(
@@ -101,19 +105,79 @@ const Editor = () => {
   const [visaNamn, setVisaNamn] = useState(true);
   const [oldFilledBoxes, setOldBoxes] = useState("");
   const [efternamnStarForst, setEfternamnStarForst] = useState(true)
-
+  const [userData, setUserData] = useState()
   const [backup1, setBackup1] = useState();
+  const [error, setError] = useState(null);
+  async function checkLoginStatus() {
+    const response = await fetch('https://account.skola77.com:3005/home', {
+      credentials: 'include'
+    });
 
+    const result = await response.json();
+
+    if (result.loggedin) {
+      const userDataString = result.data;
+      setData(userDataString);
+      return userDataString;
+    }
+    return null;
+  }
+  const waitForValidData = async (maxRetries = 2) => {
+    let isValid = false;
+    let attempts = 0;
+
+    while (!isValid && attempts < maxRetries) {
+      attempts++;
+      try {
+        // Start loading
+        setLoading(true);
+
+        const data = await checkLoginStatus(); // Await the result of checkLoginStatus
+        console.log("Fetched data:", data); // Log fetched data
+
+        // Check if data can be split correctly
+        const splitData = data.split(":");
+        if (splitData) { // Ensure it splits into two parts
+          console.log("Data is valid:", splitData);
+          isValid = true; // Set flag to true if data is valid
+        } else {
+          console.log("Data is invalid, retrying...");
+        }
+      } catch (error) {
+        console.log("Error fetching data:", error);
+        setError(error); // Set error if it occurs
+      } finally {
+        // End loading
+
+      }
+
+      // Wait before the next attempt if not valid yet
+      if (!isValid) {
+        await new Promise((resolve) => setTimeout(resolve, 500)); // Delay of 1 second
+      }
+      else {
+        setLoading(false);
+      }
+    }
+
+    if (!isValid) {
+      console.log("Max retries reached. Exiting.");
+      setError("Max retries reached. Unable to fetch valid data.");
+      window.location.href = "http://localhost:3000/login.html"
+    }
+  };
+
+  useEffect(() => {
+    waitForValidData(); // Call the function when the component mounts
+  }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   let baconBurger = false;
   let cheeseBurger = false;
 
-  let resizeWindow = () => {
-    setWindowWidth(window.innerWidth);
-    setWindowHeight(window.innerHeight);
-  };
-  useEffect(() => {
-    fixa();
-  }, [cellSize]);
+
+
 
   const ändraPerspektiv = () => {
     setBaklänges(!baklänges);
@@ -142,8 +206,18 @@ const Editor = () => {
       const compressedData = compressData({
         names,
       });
-
-      Cookies.set(`${name}_nameValues`, compressedData, { expires: 365 });
+      let klassAttRadera = `${name}_nameValues`
+      let loggedInData = JSON.parse(data)
+      loggedInData = loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':'))
+      loggedInData.push(`${name}_nameValues` + ":" + compressedData)
+      const newData = JSON.stringify(loggedInData)
+      const response = await fetch('https://account.skola77.com:3005/updateData', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newData }),
+        credentials: 'include'
+      });
+      setData(newData)
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       document.getElementById(`${name}_nameValues`).selected = true;
@@ -184,13 +258,25 @@ const Editor = () => {
         låstaNamn,
       });
 
-      Cookies.set(`${finalGroupName}_values`, compressedData, { expires: 365 });
+      let klassAttRadera = `${finalGroupName}_values`
+      let loggedInData = JSON.parse(data)
+      loggedInData = loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':'))
+      loggedInData.push(`${finalGroupName}_values` + ":" + compressedData)
+      const newData = JSON.stringify(loggedInData)
+
+      const response = await fetch('https://account.skola77.com:3005/updateData', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newData }),
+        credentials: 'include'
+      });
+      setData(newData)
 
       setShowSavedMessage(true);
       setTimeout(() => {
         setShowSavedMessage(false);
       }, 2000);
-
+      await new Promise((resolve) => setTimeout(resolve, 100));
       document.getElementById(`${finalGroupName}_values`).selected = true;
     }
 
@@ -207,8 +293,20 @@ const Editor = () => {
         keyChange,
         låstaNamn,
       });
+      let klassAttRadera = `${groupName}_values`
+      let loggedInData = JSON.parse(data)
+      loggedInData = loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':'))
+      loggedInData.push(`${groupName}_values` + ":" + compressedData)
+      const newData = JSON.stringify(loggedInData)
 
-      Cookies.set(`${groupName}_values`, compressedData, { expires: 365 });
+      const response = await fetch('https://account.skola77.com:3005/updateData', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newData }),
+        credentials: 'include'
+      });
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      setData(newData)
 
       setShowSavedMessage(true);
       setTimeout(() => {
@@ -236,7 +334,18 @@ const Editor = () => {
             låstaNamn,
           });
 
-          Cookies.set(`${name}_values`, compressedData, { expires: 365 });
+          let klassAttRadera = `${name}_values`
+          let loggedInData = JSON.parse(data)
+          loggedInData = loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':'))
+          loggedInData.push(`${name}_values` + ":" + compressedData)
+          const newData = JSON.stringify(loggedInData)
+          const response = await fetch('https://account.skola77.com:3005/updateData', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ newData }),
+            credentials: 'include'
+          });
+          setData(newData)
           await new Promise((resolve) => setTimeout(resolve, 100));
 
           document.getElementById(`${name}_values`).selected = true;
@@ -245,21 +354,37 @@ const Editor = () => {
     }
   };
 
-  function useBeforeUnload(message) {
-    useEffect(() => {
-      const handler = (event) => {
-        event.preventDefault();
-        event.returnValue = message;
-        return message;
-      };
-      window.addEventListener("beforeunload", handler);
-      return () => window.removeEventListener("beforeunload", handler);
-    }, [message]);
+
+
+
+
+
+
+
+  async function readCookieValues(dataTitle) {
+    const loggedInData = await checkLoginStatus();
+    let match = null
+    console.log(loggedInData)
+    JSON.parse(loggedInData).map((item) => {
+      console.log(item);
+      if (item) {
+        console.log("hej");
+        if (item.split(":")[0] === dataTitle) {
+          console.log("då");
+          console.log(item);
+          match = item.split(":")[1];
+          console.log(match);
+          match = decompressData(match);
+          console.log(match);
+        }
+      }
+    });
+    console.log(match)
+
+
+    return match;
   }
 
-  useBeforeUnload(
-    "Är du säker på att du vill lämna sidan? Eventuella osparade ändringar kan gå förlorade."
-  );
 
   const sparaSomNy = async () => {
     const name = prompt("Döp din placering: ");
@@ -278,11 +403,21 @@ const Editor = () => {
         keyChange: keyChange,
         låstaNamn: låstaNamn,
       });
+      const loggedInData = JSON.parse(data)
+      loggedInData.push(`${name}_values` + ":" + compressedData)
+      const newData = JSON.stringify(loggedInData)
 
-      Cookies.set(`${name}_values`, compressedData, { expires: 365 });
+      const response = await fetch('https://account.skola77.com:3005/updateData', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newData }),
+        credentials: 'include'
+      });
+      setData(newData)
       await new Promise((resolve) => setTimeout(resolve, 10));
 
       document.getElementById(`${name}_values`).selected = true;
+
     }
   };
   const sparaNamnSomNy = async () => {
@@ -301,25 +436,55 @@ const Editor = () => {
     }
   };
 
-  const raderaKlass = () => {
+  const raderaKlass = async () => {
     setGroupName(defaultGroup);
     document.getElementById("nyKlass").selected = true;
-    const klassAttRadera = `${encodeURI(groupName)}_values`;
-    removeCookie(klassAttRadera);
+    const klassAttRadera = `${groupName}_values`;
+    const loggedInData = JSON.parse(data)
+    const newData = JSON.stringify(loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':')))
+
+
+    const response = await fetch('https://account.skola77.com:3005/updateData', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ newData }),
+      credentials: 'include'
+    });
+    setData(newData)
+
   };
 
-  const raderaNamnKlass = () => {
+  const raderaNamnKlass = async () => {
     setNameGroupName(defaultGroup);
     document.getElementById("nyKlassNamn").selected = true;
     const klassAttRadera = `${encodeURI(nameGroupName)}`;
-    removeCookie(klassAttRadera);
+    const loggedInData = JSON.parse(data)
+
+    const newData = JSON.stringify(loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':')))
+    const response = await fetch('https://account.skola77.com:3005/updateData', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ newData }),
+      credentials: 'include'
+    });
+    setData(newData)
     setNames([""]);
   };
-  const raderaGrid = () => {
+  const raderaGrid = async () => {
     setGridGroupName(defaultGroup);
     document.getElementById("nyGridNamn").selected = true;
-    const klassAttRadera = `${encodeURI(gridGroupName)}`;
-    removeCookie(klassAttRadera);
+    const klassAttRadera = `${gridGroupName}`;
+    const loggedInData = JSON.parse(data)
+
+    const newData = JSON.stringify(loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':')))
+
+    const response = await fetch('https://account.skola77.com:3005/updateData', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ newData }),
+      credentials: 'include'
+    });
+    setData(newData)
     setColumns(9);
     setRows(9);
     setCellSize(70);
@@ -341,7 +506,7 @@ const Editor = () => {
     }
   }
 
-  const readCookieValues = (group) => {
+  const adadsads = (group) => {
     // Läser värden från cookie
     const cookieName = `${group}`;
     console.log("Attempting to get cookie:", cookieName);
@@ -386,17 +551,17 @@ const Editor = () => {
   };
 
   const handlePrint = () => {
-    setShowBorders(false); 
-  
+    setShowBorders(false);
+
     setTimeout(() => {
       window.print();
-  
+
       setTimeout(() => {
         setShowBorders(true);
       }, 100);
     }, 0);
   };
-  
+
 
   const handleMassImportNames = () => {
     const textarea = document.getElementById("namesInput");
@@ -451,6 +616,9 @@ const Editor = () => {
   };
 
   const handleMixNames = async () => {
+
+
+
     let antalRiktigaNamn = names.length - 1;
     let realLåstaNamn = låstaNamn.filter((item) => !isNaN(item));
     let låstaBoxar = låstaNamn.filter(
@@ -472,8 +640,8 @@ const Editor = () => {
       } else {
         const confirmResult = window.confirm(
           "Du har för få bänkar utsatta för att få plats med alla namn. Du har " +
-            antalFåBänkar +
-            " bänk/bänkar för lite. Vill du fortsätta utan att placera alla namn?"
+          antalFåBänkar +
+          " bänk/bänkar för lite. Vill du fortsätta utan att placera alla namn?"
         );
         if (confirmResult) {
           setOldBoxes(filledBoxes);
@@ -506,6 +674,9 @@ const Editor = () => {
       var selectElement = document.getElementById("sparadeGridKlasser");
       selectElement.selectedIndex = 0;
 
+
+
+
       setNameGroupName(defaultGroup);
       setGridGroupName(defaultGroup);
     } else {
@@ -517,7 +688,7 @@ const Editor = () => {
       if (selectedGroup !== "schack") {
         var uppe = "Tavla";
         var nere = "Bak";
-        values = readCookieValues(selectedGroup);
+        values = await readCookieValues(selectedGroup);
       }
       console.log(values);
       if (values) {
@@ -545,13 +716,15 @@ const Editor = () => {
     }
   };
 
-  const handleNameGroupChange = (event) => {
+
+  const handleNameGroupChange = async (event) => {
     const selectedNameGroup = event.target.value;
     setNameGroupName(selectedNameGroup);
     if (selectedNameGroup === defaultGroup) {
       setNames([""]);
     } else {
-      const values = readCookieValues(selectedNameGroup);
+      const values = await readCookieValues(selectedNameGroup);
+      console.log(values)
       if (values) {
         setNames(values.names);
       }
@@ -630,13 +803,15 @@ const Editor = () => {
       setFixaCounter={setFixaCounter}
       defaultGroup={defaultGroup}
       raderaGrid={raderaGrid}
+      data={data}
+      setData={setData}
     />
   );
   const taBortEfternamn = () => {
 
-    if (efternamnStarForst){
-     setNames(förraNamn => förraNamn.map((namn) => namn.split(" ").slice(-1)[0]))
-    }else{
+    if (efternamnStarForst) {
+      setNames(förraNamn => förraNamn.map((namn) => namn.split(" ").slice(-1)[0]))
+    } else {
       setNames(förraNamn => förraNamn.map((namn) => namn.split(" ")[0]))
     }
     console.log("keb")
@@ -674,12 +849,13 @@ const Editor = () => {
         )}
         {/* Lista alla grupper som finns sparade i cookies */}
 
-        {Object.keys(Cookies.get()).length > 0 &&
-          Object.keys(Cookies.get()).map(
-            (cookieName) =>
-              cookieName.endsWith("_values") && (
-                <option id={cookieName} key={cookieName} value={cookieName}>
-                  {cookieName.replace("_values", "")}
+        {JSON.parse(data).length > 0 &&
+          JSON.parse(data).map(
+            (item) => item &&
+
+              item.split(":")[0].endsWith("_values") && (
+                <option id={item.split(":")[0]} key={item.split(":")[0]} value={item.split(":")[0]}>
+                  {item.split(":")[0].replace("_values", "")}
                 </option>
               )
           )}
@@ -715,58 +891,15 @@ const Editor = () => {
       <div style={{ display: "block", width: "100%", height: "35px" }}></div>
     </div>
   );
-  useEffect(() => {
-    fixa();
-    setTimeout(() => {
-      console.log("fixade igen");
-      fixa();
-    }, 10);
-    console.log("fixade");
-  }, [updateFixa, cellSize]);
-  useEffect(() => {
-    fixa();
-  });
 
-  useEffect(() => {
-    window.addEventListener("resize", resizeWindow);
-    return () => window.removeEventListener("resize", resizeWindow);
-  }, []);
-  useEffect(() => {
-    setNamnRader(
-      (
-        document.getElementById("bräddMått").getBoundingClientRect().width / 260
-      ).toFixed(0)
-    );
-    while (
-      !document.getElementById("bräddMått").getBoundingClientRect().width
-    ) {
-      setNamnRader(
-        document.getElementById("bräddMått").getBoundingClientRect().width / 260
-      ).toFixed(0);
-    }
-  }, [windowWidth]);
+
 
   return (
     <div className="App prevent-select">
       <div id="bräddMått"></div>
 
       <div className="gridInstallning">
-        {Cookies.get && (
-          <DownloadJSON
-            data={JSON.stringify(
-              Object.keys(Cookies.get()).map((cookieName) => {
-                if (
-                  cookieName.endsWith("_values") ||
-                  cookieName.endsWith("_gridValues") ||
-                  cookieName.endsWith("_nameValues")
-                ) {
-                  return `${cookieName}:${Cookies.get(cookieName)}`;
-                }
-              })
-            )}
-            fileName={`backup skola77`}
-          />
-        )}
+        
         {sparningsLösning}
       </div>
 
@@ -843,7 +976,7 @@ const Editor = () => {
         </p>
 
         <div id="yberKebab">
-          
+
           <div id="kebabWrap">
             <div style={{ display: "block" }}>
 
@@ -856,16 +989,16 @@ const Editor = () => {
                   {defaultGroup}
                 </option>
 
-                {Object.keys(Cookies.get()).length > 0 &&
-                  Object.keys(Cookies.get()).map(
-                    (cookieName) =>
-                      cookieName.endsWith("nameValues") && (
+                {JSON.parse(data).length > 0 &&
+                  JSON.parse(data).map(
+                    (item) => item &&
+                      item.split(":")[0].endsWith("nameValues") && (
                         <option
-                          id={cookieName}
-                          key={cookieName}
-                          value={cookieName}
+                          id={item.split(":")[0]}
+                          key={item.split(":")[0]}
+                          value={item.split(":")[0]}
                         >
-                          {cookieName.replace("_nameValues", "")}
+                          {item.split(":")[0].replace("_nameValues", "")}
                         </option>
                       )
                   )}
@@ -902,9 +1035,9 @@ const Editor = () => {
               <button onClick={taBortEfternamn} className="sparaNamnKnapp2" id="sparaNamnKnapp2">Ta bort efternamn</button>
               <div>
                 <a>Efternamn står först?</a>
-      <input type="checkbox" defaultChecked="true" onChange={andraCheckboxvarde} />
+                <input type="checkbox" defaultChecked="true" onChange={andraCheckboxvarde} />
 
-    </div>
+              </div>
             </div>
           </div>
 
@@ -926,7 +1059,7 @@ const Editor = () => {
       </div>
       <p>
         <a id="mailTag">
-          Skola77: Version 24.9
+          Skola77: Version 24.9.2
         </a>
       </p>
     </div>
@@ -934,3 +1067,8 @@ const Editor = () => {
 };
 
 export default Editor;
+
+
+
+
+
