@@ -194,6 +194,22 @@ const Editor = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const originalConsoleError = console.error;
+
+    console.error = (...args) => {
+        if (args.length > 0 && typeof args[0] === 'string' && args[0].includes('CORS')) {
+            window.location.reload();
+        }
+        originalConsoleError.apply(console, args);
+    };
+
+    return () => {
+        console.error = originalConsoleError; // Återställ originalfunktionen
+    };
+}, []);
+
+
 
 
   if (loading) {
@@ -205,6 +221,8 @@ const Editor = () => {
   let cheeseBurger = false;
 
 
+
+ 
 
 
   const ändraPerspektiv = () => {
