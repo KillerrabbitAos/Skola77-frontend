@@ -170,36 +170,11 @@ const Editor = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://account.skola77.com:3005/home', {
-          credentials: 'include'
-        });
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        // Hantera din data här
-      } catch (error) {
-        if (error.message.includes('CORS')) {
-          window.location.reload();
-        } else {
-          console.error('Det inträffade ett fel:', error);
-        }
-      }
-
-      waitForValidData()
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
     const originalConsoleError = console.error;
 
     console.error = (...args) => {
         if (args.length > 0 && typeof args[0] === 'string' && args[0].includes('CORS')) {
-            window.location.reload();
+            window.location.reload(true);
         }
         originalConsoleError.apply(console, args);
     };
@@ -207,6 +182,7 @@ const Editor = () => {
     return () => {
         console.error = originalConsoleError; // Återställ originalfunktionen
     };
+
 }, []);
 
 
