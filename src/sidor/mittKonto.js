@@ -118,6 +118,7 @@ const MittKonto = () => {
                 });
             } else {
                 setLoginMessage(result.message);
+                window.location.replace("/login.html"); // Lägg till denna rad för att omdirigera till inloggning
             }
         } catch (error) {
             console.error('An error occurred while checking login status:', error);
@@ -214,18 +215,27 @@ const MittKonto = () => {
             {showEmailModal && (
                 <div className={`modal ${showEmailModal ? 'show' : ''}`}>
                     <div className="modal-content">
-                        <h2>Uppdatera e-postadress</h2>
-                        <p id='description'>Ändra e-postadressen kopplad till ditt konto.</p>
-                        <input
-                            type="email"
-                            value={newEmail}
-                            onChange={(e) => setNewEmail(e.target.value)}
-                            placeholder="Ny e-postadress"
-                            id="modalTextInput"
-                        />
-                        <p id='status'>{statusMessage}</p>
-                        <button onClick={() => handleUpdateUser('email', newEmail)}>Spara</button>
-                        <button onClick={closeModals}>Avbryt</button>
+                    <h2>Uppdatera e-postadress</h2>
+<p id='description'>Ändra e-postadressen kopplad till ditt konto.</p>
+<form onSubmit={(e) => {
+    e.preventDefault(); 
+    handleUpdateUser('email', newEmail);
+}}>
+
+    <input
+        type="email"
+        value={newEmail}
+        onChange={(e) => setNewEmail(e.target.value)}
+        placeholder="Ny e-postadress"
+        id="modalTextInput"
+        required
+    />
+    <p id='status'>{statusMessage}</p>
+    <button type='submit'>Spara</button>
+    <button type='button' onClick={closeModals}>Avbryt</button>
+
+</form>
+
                     </div>
                 </div>
             )}

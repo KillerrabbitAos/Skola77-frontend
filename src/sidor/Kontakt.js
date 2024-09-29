@@ -2,7 +2,7 @@ const Kontakt = () => {
     return (
     <body>
 
-        <div class="mail">
+        <div className="mail">
     
             <h1 id="mailHead">Kontakt via E-post:</h1>
             <p id="mailorm">För feedback:</p>

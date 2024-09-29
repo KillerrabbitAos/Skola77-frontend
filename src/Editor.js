@@ -108,6 +108,8 @@ const Editor = () => {
   const [userData, setUserData] = useState()
   const [backup1, setBackup1] = useState();
   const [error, setError] = useState(null);
+
+
   async function checkLoginStatus() {
     const response = await fetch('https://account.skola77.com:3005/home', {
       credentials: 'include'
@@ -172,6 +174,8 @@ const Editor = () => {
   }, []);
   if (loading) {
     return <div>Loading...</div>;
+    window.location.reload();
+
   }
   let baconBurger = false;
   let cheeseBurger = false;

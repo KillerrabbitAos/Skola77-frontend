@@ -14,7 +14,7 @@ const Hem = () => {
     return (
     <div>
         <p id="bodyTitle">Det här är Skola77:</p>
-        <div class="foton">
+        <div className="foton">
         <a href="demobilder/Demobild1.png"><img src="demobilder/Demobild1.png"></img></a>
         <a href="demobilder/Demobild2.png"><img src="demobilder/Demobild2.png"></img></a>
         <a href="demobilder/Demobild3.png"><img src="demobilder/Demobild3.png"></img></a>
@@ -32,7 +32,7 @@ const Hem = () => {
         <h2 id="info">Klicka på "Editor" i menyn uppe till vänster för att ta dig till betan</h2>
         
 
-        <div class="about">
+        <div className="about">
     
             <h1>Varför Skola77?</h1>
     
@@ -46,7 +46,7 @@ const Hem = () => {
     
             </ul>
 
-            <div class="trustpilot-widget" data-locale="sv-SE" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="65f1cff6b025711eadb979d8" data-style-height="52px" data-style-width="100%">
+            <div className="trustpilot-widget" data-locale="sv-SE" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="65f1cff6b025711eadb979d8" data-style-height="52px" data-style-width="100%">
             <a href="https://se.trustpilot.com/review/skola77.com" target="_blank" rel="noopener">Trustpilot</a>
             </div>
     

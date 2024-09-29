@@ -1,38 +1,38 @@
 const Support = () => {
     return (<body>
 
-      <div class="supportHead">
+      <div className="supportHead">
   
           <h1>Välkommen till Support!</h1>
           <p>Här finner du material och guider för användning av Skola77</p>
   
       </div>
   
-      <div class="pdfs">
+      <div className="pdfs">
   
-          <div class="material">
+          <div className="material">
   
               <p>Snabbguide:</p>
   
-              <a class="pdfLänk" href="/PDFs/Skola77 Snabbguide.pdf">Skola77:s snabbguide</a>
+              <a className="pdfLänk" href="/PDFs/Skola77 Snabbguide.pdf">Skola77:s snabbguide</a>
   
   
           </div>
   
-          <div class="material">
+          <div className="material">
   
            <p>Vilkor och integritetspolicy:</p>
   
-           <a class="pdfLänk" href="/PDFs/Skola77 vilkor och integritetspolicy.pdf">Skola77:s policy</a>
+           <a className="pdfLänk" href="/PDFs/Skola77 vilkor och integritetspolicy.pdf">Skola77:s policy</a>
   
   
        </div>
   
-       <div class="material">
+       <div className="material">
   
   <p>Vårat forum:</p>
 
-  <a class="pdfLänk" href="https://forum.skola77.com/">Skola77:s forum</a>
+  <a className="pdfLänk" href="https://forum.skola77.com/">Skola77:s forum</a>
 
 
 </div>
