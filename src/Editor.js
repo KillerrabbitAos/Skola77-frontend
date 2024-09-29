@@ -122,7 +122,7 @@ const Editor = () => {
     }
     return null;
   }
-  const waitForValidData = async (maxRetries = 2) => {
+  const waitForValidData = async (maxRetries = 5) => {
     let isValid = false;
     let attempts = 0;
 
