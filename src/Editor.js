@@ -185,12 +185,15 @@ const Editor = () => {
 
 }, []);
 
+useEffect(() => {
+  waitForValidData(); // Call the function when the component mounts
+}, []);
+
 
 
 
   if (loading) {
     return <div>Loading...</div>;
-    window.location.reload();
 
   }
   let baconBurger = false;
