@@ -14,7 +14,7 @@
     <div class="varning">
         <span class="triangel">⚠️</span>
         <p>Du måste nu skapa ett konto för att använda Skola77. Men oroa dig inte, alla dina bordsplaceringar <u>kommer att finnas kvar.</u> Läs mer på <a
-                href="https://forum.skola77.com/d/13-viktig-uppdatering-av-skola77-nya-funktioner-och-forbattrad-sakerhet">Skola77:s
+                href="https://forum.skola77.com/d/13-viktig-uppdatering-av-skola77-nya-funktioner-och-forbattrad-sakerhet" target="_blank">Skola77:s
                 forum</a>.</p>
     </div>
 
@@ -29,9 +29,14 @@
         <label for="registerEmail">E-post:</label>
         <input type="email" id="registerEmail" name="registerEmail" required>
         <br><br>
-        <div class="g-recaptcha" data-sitekey="6LfX7FEqAAAAAPr7fKVtnwKsLFCyD_dMPr5qBPkC"></div>
+        <div class="recaptcha-container">
+            <div class="g-recaptcha" data-sitekey="6LfX7FEqAAAAAPr7fKVtnwKsLFCyD_dMPr5qBPkC"></div>
+        </div>
         <br>
         <button type="submit">Registrera</button>
+        <p id="policy">Genom att registrera dig godkänner du våra <a href="/terms-of-service" target="_blank">användarvillkor</a> & <a href="/policy" target="_blank">integritetspolicy</a></p>
+
+
         <div id="kontofråga">
             <a>Har du redan ett konto? <a href="/login.html">Logga in</a></a>
         </div>

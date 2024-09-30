@@ -10,7 +10,9 @@ import Support from "./sidor/Support";
 import NoPage from "./sidor/NoPage";
 import Kontakt from './sidor/Kontakt.js';
 import OmOss from './sidor/omOss.js';
-import Cookies from './sidor/cookies.js';
+import Policy from './sidor/policy.js';
+import Användarvillkor from './sidor/villkor.js';
+
 import MittKonto from './sidor/mittKonto.js';
 
 
@@ -24,7 +26,9 @@ export default function App() {
           <Route path="Support" element={<Support />} />
           <Route path="Kontakt" element={<Kontakt />} />
           <Route path="OmOss" element={<OmOss />} />
-          <Route path="cookies" element={<Cookies />} />
+          <Route path="policy" element={<Policy />} />
+          <Route path="terms-of-service" element={<Användarvillkor />} />
+
           <Route path="mittKonto" element={<MittKonto />} />
 
 

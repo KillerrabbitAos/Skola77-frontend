@@ -14,25 +14,38 @@ const Support = () => {
   
               <p>Snabbguide:</p>
   
-              <a className="pdfLänk" href="/PDFs/Skola77 Snabbguide.pdf">Skola77:s snabbguide</a>
+              <a className="pdfLänk" href="/PDFs/Skola77 Snabbguide.pdf" target="_blank">Skola77:s snabbguide</a>
   
   
           </div>
   
           <div className="material">
   
-           <p>Vilkor och integritetspolicy:</p>
+           <p>Vilkor:</p>
   
-           <a className="pdfLänk" href="/PDFs/Skola77 vilkor och integritetspolicy.pdf">Skola77:s policy</a>
-  
-  
+           <a className="pdfLänk" href="/terms-of-service" target="_blank">Skola77:s vilkor</a>
        </div>
+
+
+
+       
+       <div className="material">
+  
+  <p>Integritetspolicy:</p>
+
+  <a className="pdfLänk" href="/policy" target="_blank">Skola77:s policy</a>
+</div>
+       
+
+       
+
+
   
        <div className="material">
   
   <p>Vårat forum:</p>
 
-  <a className="pdfLänk" href="https://forum.skola77.com/">Skola77:s forum</a>
+  <a className="pdfLänk" href="https://forum.skola77.com/" target="_blank">Skola77:s forum</a>
 
 
 </div>

@@ -226,12 +226,20 @@ html {
 
 }
 
-.pdfs div{
+@media (max-width: 980px) {
+  .pdfs {
+    flex-direction: column;
+    align-items: center;
+  }
 
-
-  margin-right: 50px;
-
+  .pdfs div {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
 }
+
+
+
 
 
 .navbar ul {
