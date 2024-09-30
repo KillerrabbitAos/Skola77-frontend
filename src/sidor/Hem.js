@@ -41,7 +41,6 @@ const Hem = () => {
                 <li>Supersmidiga namnimporter med Excel</li>
                 <li>Enkelt Gränssnitt</li>
                 <li>Skräddarsydd för MacBook, iMac och iPad</li>
-                <li>Slipp inloggningar - allt sparas lokalt på din dator</li>
     
     
             </ul>
