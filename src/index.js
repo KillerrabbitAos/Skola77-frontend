@@ -12,6 +12,8 @@ import Kontakt from './sidor/Kontakt.js';
 import OmOss from './sidor/omOss.js';
 import Policy from './sidor/policy.js';
 import Användarvillkor from './sidor/villkor.js';
+import ResetPassword from './sidor/ResetPassword.js';
+
 
 import MittKonto from './sidor/mittKonto.js';
 
@@ -28,6 +30,7 @@ export default function App() {
           <Route path="OmOss" element={<OmOss />} />
           <Route path="policy" element={<Policy />} />
           <Route path="terms-of-service" element={<Användarvillkor />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           <Route path="mittKonto" element={<MittKonto />} />
 
