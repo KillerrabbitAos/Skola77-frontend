@@ -153,12 +153,29 @@ const MittKonto = () => {
             alert('Något gick fel vid nedladdningen.');
         }
     };
+
+    const handleRefresh = () => {
+        if (!sessionStorage.getItem('refreshed')) {
+          sessionStorage.setItem('refreshed', 'true');
+          window.location.reload();
+        }
+      };
+      
     
     
 
     useEffect(() => {
         checkLoginStatus();
     }, []);
+
+    useEffect(() => {
+
+        // Kör handleRefresh endast när sidan laddas om för första gången i sessionen
+        if (!sessionStorage.getItem('refreshed')) {
+          handleRefresh();
+        }
+      }, []);
+      
 
     return (
         <div className="container">

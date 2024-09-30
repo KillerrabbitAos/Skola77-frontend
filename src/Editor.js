@@ -191,27 +191,27 @@ useEffect(() => {
   setTimeout(() => {
     setLoading(false);
   }, 1000);
-}, []);
 
+  // Kör handleRefresh endast när sidan laddas om för första gången i sessionen
+  if (!sessionStorage.getItem('refreshed')) {
+    handleRefresh();
+  }
+}, []);
 
 useEffect(() => {
   waitForValidData(); // Call the function when the component mounts
 }, []);
 
 const handleRefresh = () => {
-  if (!localStorage.getItem('refreshed')) {
-    localStorage.setItem('refreshed', 'true');
+  if (!sessionStorage.getItem('refreshed')) {
+    sessionStorage.setItem('refreshed', 'true');
     window.location.reload();
-  } else {
-    localStorage.removeItem('refreshed');
   }
 };
 
 
 
   if (loading) {
-
-    handleRefresh()
     return <div>Loading...</div>;
 
   }
