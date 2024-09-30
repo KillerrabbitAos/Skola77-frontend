@@ -113,6 +113,8 @@
                 return;
             }
 
+            document.getElementById('emailMessage').innerText = "Vänta....";
+
             const response = await fetch('https://account.skola77.com:3005/requestPasswordReset', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
