@@ -41,6 +41,8 @@ function ResetPassword() {
 
         if (data.success) {
             setMessage('Lösenordet har återställts!');
+            window.location.href = "/login.html";
+
         } else {
             setMessage(data.message);
         }
