@@ -4,7 +4,7 @@ const TermsOfService = () => {
   return (
     <div className="policy-container">
       <h1>Användarvillkor för Skola77</h1>
-      <p>Senast uppdaterad: [2024-09-30]</p>
+      <p><strong>Senast uppdaterad:</strong> [2024-09-30]</p>
 
       <p>
         Välkommen till <strong>Skola77</strong>. Genom att använda vår tjänst godkänner du dessa
