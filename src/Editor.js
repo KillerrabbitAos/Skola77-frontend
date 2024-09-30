@@ -1103,7 +1103,7 @@ const handleRefresh = () => {
       </div>
       <p>
         <a id="mailTag">
-          Skola77: Version 24.9.3
+          Skola77: Version 24.9.4
         </a>
       </p>
     </div>
