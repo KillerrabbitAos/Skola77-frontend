@@ -185,14 +185,33 @@ const Editor = () => {
 
 }, []);
 
+
+useEffect(() => {
+  // Simulera en laddningstid
+  setTimeout(() => {
+    setLoading(false);
+  }, 1000);
+}, []);
+
+
 useEffect(() => {
   waitForValidData(); // Call the function when the component mounts
 }, []);
 
+const handleRefresh = () => {
+  if (!localStorage.getItem('refreshed')) {
+    localStorage.setItem('refreshed', 'true');
+    window.location.reload();
+  } else {
+    localStorage.removeItem('refreshed');
+  }
+};
 
 
 
   if (loading) {
+
+    handleRefresh()
     return <div>Loading...</div>;
 
   }
