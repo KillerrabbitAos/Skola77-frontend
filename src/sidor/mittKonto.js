@@ -206,9 +206,13 @@ const MittKonto = () => {
             ) : (
                 <p className="text">{loginMessage}</p>
             )}
+
+            <div id='KontoButtons'>
             <button onClick={handleLogout} id='signOut' className='accountActionButtons'>Logga ut</button>
             <button className='accountActionButtons' onClick={() => setShowDeleteAccountModal(true)}>Ta bort mitt konto</button>
             <button className='accountActionButtons' onClick={downloadUserData}>Ladda ned min data</button>
+            </div>
+           
 
             {showUsernameModal && (
                 <div className={`modal ${showUsernameModal ? 'show' : ''}`}>

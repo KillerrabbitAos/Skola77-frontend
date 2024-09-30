@@ -853,3 +853,8 @@ a .minskaStorlekDiv {
 #removeAccountNej:disabled:hover {
   background-color: gray; /* Förhindrar hover-effekt när knappen är disabled */
 }
+
+#KontoButtons{
+  margin-left: 10px;
+  
+}
