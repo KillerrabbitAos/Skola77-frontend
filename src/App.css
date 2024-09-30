@@ -858,3 +858,61 @@ a .minskaStorlekDiv {
   margin-left: 10px;
   
 }
+
+#reset-password-container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+h2 {
+  text-align: center;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  border-color: #4caf50; /* Grön färg vid fokus */
+  outline: none;
+}
+
+#submit-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50; /* Grön bakgrund */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: auto;
+}
+
+#submit-button:hover {
+  background-color: #45a049; /* Mörkare grön vid hover */
+}
+
+#message {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: #e53935; /* Röd färg för felmeddelanden */
+}

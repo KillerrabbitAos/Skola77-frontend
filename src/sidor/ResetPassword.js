@@ -47,34 +47,35 @@ function ResetPassword() {
     };
 
     return (
-        <div>
+        <div id="reset-password-container">
             <h2>Återställ lösenord</h2>
             <form onSubmit={handleSubmit}>
-                <label>
+                <label className="form-label">
                     Nytt lösenord:
                     <input
                         type="password"
+                        className="form-input"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
                         required
                     />
                 </label>
                 <br />
-                <label>
+                <label className="form-label">
                     Bekräfta lösenord:
                     <input
                         type="password"
+                        className="form-input"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                     />
                 </label>
                 <br />
-                <button type="submit">Återställ lösenord</button>
+                <button id="submit-button" type="submit">Återställ lösenord</button>
             </form>
-            {message && <p>{message}</p>}
+            {message && <p id="message">{message}</p>}
         </div>
     );
 }
-
 export default ResetPassword;

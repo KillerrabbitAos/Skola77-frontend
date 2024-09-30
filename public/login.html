@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./App.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <title>Logga in på Skola77</title>
 </head>
 <body>
@@ -38,6 +40,9 @@
             <h2>Återställ lösenord</h2>
             <label for="email">Ange din E-postadress:</label>
             <input type="email" id="resetEmail" name="resetEmail" required>
+            <div class="recaptcha-container">
+                <div class="g-recaptcha" data-sitekey="6LfX7FEqAAAAAPr7fKVtnwKsLFCyD_dMPr5qBPkC"></div>
+            </div>
             <br><br>
             <button id="sendEmailBtn">Skicka</button>
             <div id="emailMessage"></div>
@@ -56,9 +61,11 @@
         document.getElementById('loginForm').addEventListener('submit', async function(event) {
             event.preventDefault();
 
+
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             const hashedPassword = await hashPassword(password);
+
 
             const response = await fetch('https://account.skola77.com:3005/auth', {
                 method: 'POST',
@@ -75,11 +82,13 @@
             }
         });
 
+       
         // Hantering av modal för glömt lösenord
         const modal = document.getElementById("forgotPasswordModal");
         const forgotPasswordLink = document.getElementById("forgotPassword");
         const closeModal = document.querySelector(".close");
         const sendEmailBtn = document.getElementById("sendEmailBtn");
+
 
         forgotPasswordLink.onclick = function() {
             modal.style.display = "block";
@@ -97,11 +106,17 @@
 
         sendEmailBtn.addEventListener('click', async function() {
             const email = document.getElementById('resetEmail').value;
+            
+            const REcaptchaResponse = grecaptcha.getResponse();
+            if (!REcaptchaResponse) {
+                document.getElementById('emailMessage').innerText = "Vänligen slutför reCAPTCHA.";
+                return;
+            }
 
             const response = await fetch('https://account.skola77.com:3005/requestPasswordReset', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email })
+                body: JSON.stringify({ email: email, REcaptchaResponse: REcaptchaResponse })
             });
 
             const result = await response.json();
