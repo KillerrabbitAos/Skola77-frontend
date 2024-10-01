@@ -12,6 +12,9 @@ const MittKonto = () => {
     const [newPassword, setNewPassword] = useState('');
     const [statusMessage, setStatusMessage] = useState('');
     const [confirmationText, setConfirmationText] = useState('');
+    const [banUsername, setBanUsername] = useState('');
+    const [unBanUsername, setUnBanUsername] = useState('');
+
 
     const hashPassword = async (password) => {
         const msgUint8 = new TextEncoder().encode(password);
@@ -20,6 +23,7 @@ const MittKonto = () => {
         const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         return hashHex;
     };
+
 
     const handleLogout = async () => {
         try {
@@ -114,14 +118,15 @@ const MittKonto = () => {
                 setUserData({
                     username: result.username,
                     email: result.email,
-                    data: result.data
+                    data: result.data,
+                    admin: result.admin // Hämta admin-status här
                 });
             } else {
                 setLoginMessage(result.message);
-                window.location.replace("/login.html"); // Lägg till denna rad för att omdirigera till inloggning
+                window.location.replace("/login.html");
             }
         } catch (error) {
-            console.error('An error occurred while checking login status:', error);
+            console.error('Ett fel inträffade vid kontroll av inloggningsstatus:', error);
         }
     };
 
@@ -162,6 +167,44 @@ const MittKonto = () => {
       };
       
     
+      const handleBanUser = () => {
+        fetch('https://account.skola77.com:3005/banUser', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ username: banUsername })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Användaren har blivit spärrad!');
+                setBanUsername("");
+
+            } else {
+                alert(data.message);
+                
+            }
+        });
+    };
+
+    const handleUnBanUser = () => {
+        fetch('https://account.skola77.com:3005/unBanUser', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ username: unBanUsername })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Användaren har blivit avspärrad!');
+                setUnBanUsername("");
+
+            } else {
+                alert(data.message);
+            }
+        });
+    };
     
 
     useEffect(() => {
@@ -212,7 +255,29 @@ const MittKonto = () => {
             <button className='accountActionButtons' onClick={() => setShowDeleteAccountModal(true)}>Ta bort mitt konto</button>
             <button className='accountActionButtons' onClick={downloadUserData}>Ladda ned min data</button>
             </div>
-           
+
+{userData && userData.admin === 1 && (
+    <div>
+                            <h3>Adminpanel</h3>
+                            <input
+                                type="text"
+                                placeholder="Skriv in användarnamn:"
+                                value={banUsername}
+                                onChange={e => setBanUsername(e.target.value)}
+                            />
+                              <input
+                                type="text"
+                                placeholder="Skriv in användarnamn unabn:"
+                                value={unBanUsername}
+                                onChange={e => setUnBanUsername(e.target.value)}
+                            />
+                            <button onClick={handleBanUser}>Spärra användare</button>
+                            <button onClick={handleUnBanUser}>Avspärra användare</button>
+
+                            
+                        </div>
+)}
+
 
             {showUsernameModal && (
                 <div className={`modal ${showUsernameModal ? 'show' : ''}`}>
