@@ -2,6 +2,7 @@
 KEBABISH
 JAG ÄR HÄR!
 sannerilihermn
+beta
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 fyfan
 ## Available Scripts
