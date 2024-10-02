@@ -13,7 +13,6 @@ const MittKonto = () => {
     const [statusMessage, setStatusMessage] = useState('');
     const [confirmationText, setConfirmationText] = useState('');
     const [banUsername, setBanUsername] = useState('');
-    const [unBanUsername, setUnBanUsername] = useState('');
 
 
     const hashPassword = async (password) => {
@@ -165,47 +164,35 @@ const MittKonto = () => {
           window.location.reload();
         }
       };
-      
-    
-      const handleBanUser = () => {
-        fetch('https://account.skola77.com:3005/banUser', {
+
+      const handleUserAction = (actionType) => {
+        const url = actionType === 'ban' 
+            ? 'https://account.skola77.com:3005/banUser' 
+            : 'https://account.skola77.com:3005/unBanUser';
+        
+        fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify({ username: banUsername })
+            body: JSON.stringify({ username: banUsername })  // Använd samma input för båda actions
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('Användaren har blivit spärrad!');
-                setBanUsername("");
-
+                const actionMessage = actionType === 'ban' ? 'spärrad' : 'avspärrad';
+                alert(`Användaren har blivit ${actionMessage}!`);
+                setBanUsername('');  // Rensa inputfältet efteråt
             } else {
                 alert(data.message);
-                
             }
-        });
-    };
-
-    const handleUnBanUser = () => {
-        fetch('https://account.skola77.com:3005/unBanUser', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-            body: JSON.stringify({ username: unBanUsername })
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Användaren har blivit avspärrad!');
-                setUnBanUsername("");
-
-            } else {
-                alert(data.message);
-            }
+        .catch(error => {
+            console.error(`Ett fel inträffade vid ${actionType}:`, error);
+            alert('Något gick fel. Försök igen senare.');
         });
     };
-    
+  
+  
 
     useEffect(() => {
         checkLoginStatus();
@@ -257,25 +244,21 @@ const MittKonto = () => {
             </div>
 
 {userData && userData.admin === 1 && (
-    <div>
-                            <h3>Adminpanel</h3>
-                            <input
-                                type="text"
-                                placeholder="Skriv in användarnamn:"
-                                value={banUsername}
-                                onChange={e => setBanUsername(e.target.value)}
-                            />
-                              <input
-                                type="text"
-                                placeholder="Skriv in användarnamn unabn:"
-                                value={unBanUsername}
-                                onChange={e => setUnBanUsername(e.target.value)}
-                            />
-                            <button onClick={handleBanUser}>Spärra användare</button>
-                            <button onClick={handleUnBanUser}>Avspärra användare</button>
+    <div id="adminPanel">
+    <h2>Adminpanel</h2>
+    <input
+        type="text"
+        placeholder="Skriv in användarnamn"
+        id="banInput"
+        value={banUsername}
+        onChange={(e) => setBanUsername(e.target.value)}
+    />
 
-                            
-                        </div>
+    <button class="adminButton" onClick={() => handleUserAction('ban')}>Spärra användare</button>
+    <button class="adminButton" onClick={() => handleUserAction('unban')}>Avspärra användare</button>
+</div>
+
+
 )}
 
 
