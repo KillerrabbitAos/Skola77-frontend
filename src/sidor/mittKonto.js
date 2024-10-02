@@ -13,6 +13,8 @@ const MittKonto = () => {
     const [statusMessage, setStatusMessage] = useState('');
     const [confirmationText, setConfirmationText] = useState('');
     const [banUsername, setBanUsername] = useState('');
+    const [users, setUsers] = useState('unavailable')
+    const [loading, setLoading] = useState(true)
 
 
     const hashPassword = async (password) => {
@@ -128,6 +130,23 @@ const MittKonto = () => {
             console.error('Ett fel inträffade vid kontroll av inloggningsstatus:', error);
         }
     };
+    const getUsers = async () => {
+        try {
+            const response = await fetch('https://account.skola77.com:3005/getUsers', {
+                credentials: 'include'
+            });
+            const result = await response.json();
+            if (result) {
+                setUsers(
+                    result.users
+                );
+            } else {
+                window.location.replace("/login.html");
+            }
+        } catch (error) {
+            console.error('Ett fel inträffade vid kontroll av inloggningsstatus:', error);
+        }
+    };
 
     const downloadUserData = async () => {
         try {
@@ -161,7 +180,8 @@ const MittKonto = () => {
     const handleRefresh = () => {
         if (!sessionStorage.getItem('refreshed')) {
           sessionStorage.setItem('refreshed', 'true');
-          window.location.reload();
+            
+            window.location.reload();
         }
       };
 
@@ -193,7 +213,47 @@ const MittKonto = () => {
     };
   
   
-
+    const waitForValidData = async (maxRetries = 2) => {
+        let isValid = false;
+        let attempts = 0;
+    
+        while (!isValid && attempts < maxRetries) {
+          attempts++;
+          try {
+            // Start loading
+            setLoading(true);
+    
+            const data = users; // Await the result of checkLoginStatus
+            console.log("Fetched data:", data); // Log fetched data
+    
+            // Check if data can be split correctly
+          
+            if (users != "unavailable") { // Ensure it splits into two parts
+              console.log("Data is valid:", users);
+              isValid = true; // Set flag to true if data is valid
+            } else {
+              console.log("Data is invalid, retrying...");
+            }
+          } catch (error) {
+            console.log("Error fetching data:", error);
+          
+          } finally {
+            // End loading
+    
+          }
+    
+          // Wait before the next attempt if not valid yet
+          if (!isValid) {
+            await new Promise((resolve) => setTimeout(resolve, 500)); // Delay of 1 second
+          }
+          else {
+            setLoading(false);
+          }
+        }
+    }
+    useEffect(() => {
+        waitForValidData(); // Call the function when the component mounts
+      }, []);
     useEffect(() => {
         checkLoginStatus();
     }, []);
@@ -205,8 +265,11 @@ const MittKonto = () => {
           handleRefresh();
         }
       }, []);
-      
-
+      useEffect(() => {
+        if (userData && userData.admin === 1) {
+            getUsers(); // Anropa getUsers om användaren är en admin
+        }
+    }, [userData]);
     return (
         <div className="container">
             {userData ? (
@@ -246,14 +309,37 @@ const MittKonto = () => {
 {userData && userData.admin === 1 && (
     <div id="adminPanel">
     <h2>Adminpanel</h2>
+    
     <input
         type="text"
         placeholder="Skriv in användarnamn"
         id="banInput"
         value={banUsername}
         onChange={(e) => setBanUsername(e.target.value)}
+    
     />
+   <div id='adminRulle'>
+   <ol>
+    {users !== 'unavailable' ? (
+        users
+            .filter(user => (user.name + user.id).toLowerCase().includes(banUsername.toLowerCase()))  // Filtrera användarnamnen oberoende av stora/små bokstäver
+            .map((user, index) => (
+                <ul
+                    className='adminViewName'
+                    key={index}
+                    onClick={() => setBanUsername(user.name)}  // Uppdatera banUsername när man klickar på användarnamnet
+                >
+                    {user.id} {user.name} {user.spärrat ? "spärrad" : ""}
+                </ul>  // Rendera varje matchande användarnamn
+            ))
+    ) : (
+        <li>Laddar...</li>
+    )}
+</ol>
 
+</div>
+
+            
     <button class="adminButton" onClick={() => handleUserAction('ban')}>Spärra användare</button>
     <button class="adminButton" onClick={() => handleUserAction('unban')}>Avspärra användare</button>
 </div>
@@ -357,6 +443,7 @@ const MittKonto = () => {
             )}
         </div>
     );
-};
+    }
+
 
 export default MittKonto;

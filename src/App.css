@@ -932,15 +932,25 @@ h2 {
 #banInput::placeholder {
   color: #999;
 }
+#adminRulle{
+  height: 50%;
+  overflow-y: scroll;
+  
+}
+.adminViewName:hover{
+  border: 1px solid gray;
+}
 
 #adminPanel {
   max-width: 400px;
   padding: 20px;
+  height: 353px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #f9f9f9;
   margin: 40px;
 }
+
 
 #adminPanel h2 {
   text-align: center;

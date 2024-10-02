@@ -8,3 +8,8 @@ penna:
 
 random:
 
+{users.map((user) => {
+                return <ul>{user.name}</ul>
+            })}
+        
+
