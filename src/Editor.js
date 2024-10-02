@@ -243,7 +243,26 @@ const handleRefresh = () => {
     }
   };
   const handleSaveNames = async () => {
-    const name = prompt("Döp din klass: ");
+    if (nameGroupName !== "ny..."){
+      const compressedData = compressData({
+        names,
+      });
+      let klassAttRadera = `${nameGroupName}`
+      let loggedInData = JSON.parse(data)
+      loggedInData = loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':'))
+      loggedInData.push(`${nameGroupName}` + ":" + compressedData)
+      const newData = JSON.stringify(loggedInData)
+      const response = await fetch('https://account.skola77.com:3005/updateData', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newData }),
+        credentials: 'include'
+      });
+      setData(newData)
+    }
+    
+    else{
+      const name = prompt("Döp din klass: ");
     if (name) {
       setNameGroupName(name);
 
@@ -266,8 +285,8 @@ const handleRefresh = () => {
 
       document.getElementById(`${name}_nameValues`).selected = true;
     }
-  };
-
+  }
+  }
   const handleSaveButtonClick = async () => {
     let finalGroupName = groupName;
 
