@@ -39,8 +39,8 @@ const Namn = ({
   };
 
   const handleChange = (e) => {
-    const newName = e.target.value;
-    setEditedName(newName);
+    const newName = editedName;
+   
 
     const newNames = [...names];  // Skapa en kopia av names
     newNames[originalIndex] = newName;  // Uppdatera det specifika namnet
@@ -65,7 +65,8 @@ const Namn = ({
         <div style={{ width: "134px", display: "contents" }} className="namnTxt">
           <input
             value={editedName}
-            onChange={handleChange} // Använd handleChange för att uppdatera namnet
+            onChange={(e) => {setEditedName(e.target.value)}}
+            onBlur={handleChange}
           />
         </div>
         <button className="låsKnapp" onClick={handleLåsaNamn}>
