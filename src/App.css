@@ -378,10 +378,16 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
   animation-fill-mode: none;
 }
 .namnILista.upplåst {
-  span {
-    display: contents;
+  input {
     font-weight: bolder;
     color: black;
+    background-color: transparent;
+    border-style:none;
+    width: 90px;
+    overflow: scroll;
+    text-align: center;
+    font-size: medium;
+
   }
   button {
     padding: 0%;
@@ -401,10 +407,17 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
   }
 }
 .namnILista.låst {
-  span {
-    display: contents;
+  input {
     font-weight: bolder;
-    color: gray;
+    color: grey;
+    background-color: transparent;
+    border-style:none;
+    width: 90px;
+    overflow: scroll;
+    text-align: center;
+    font-size: medium;
+
+    
   }
   button {
     padding: 0%;

@@ -1,6 +1,6 @@
 import React from 'react';
 import Namn from './ettNamn';
-const NameList = ({ names, handleRemoveName, låstaNamn, setLåstaNamn, namnRader, visaNamn}) => {
+const NameList = ({ names, handleRemoveName, låstaNamn, setLåstaNamn, namnRader, visaNamn, setNames}) => {
   const rader = namnRader
   const namesDeepCopy = JSON.parse(JSON.stringify(names));
   var newNames = namesDeepCopy
@@ -36,6 +36,8 @@ const NameList = ({ names, handleRemoveName, låstaNamn, setLåstaNamn, namnRade
                 handleRemoveName={handleRemoveName}
                 låstaNamn={låstaNamn}
                 setLåstaNamn={setLåstaNamn}
+                names={names}
+                setNames={setNames}
               />
             ))}
           </ul>

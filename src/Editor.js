@@ -1098,12 +1098,13 @@ const handleRefresh = () => {
             låstaNamn={låstaNamn}
             setLåstaNamn={setLåstaNamn}
             namnRader={namnRader}
+            setNames={setNames}
           ></NameList>
         </div>
       </div>
       <p>
         <a id="mailTag">
-          Skola77: Version 24.9.4
+          Skola77: Version 24.10.1
         </a>
       </p>
     </div>
