@@ -743,9 +743,9 @@ a .minskaStorlekDiv {
 
 #användardata {
   border: 1px solid gray;
-  max-width: 700px;
-  margin: 20px;
-  border-radius: 10px;
+  width: 100%;
+  position: relative;
+  border-radius: 10px 10px 0px 0px;
 }
 
 #användardata p {
@@ -868,7 +868,10 @@ a .minskaStorlekDiv {
 }
 
 #KontoButtons{
-  margin-left: 10px;
+  border: 1px solid gray;
+  width: 100%;
+  border-top: none;
+  border-radius: 0px 0px 10px 10px;
   
 }
 
@@ -957,11 +960,15 @@ h2 {
 #adminPanel {
   max-width: 400px;
   padding: 20px;
-  height: 353px;
+  height: auto;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #f9f9f9;
-  margin: 40px;
+  margin-left: 10px;
+
+
+  position: relative;
+
 }
 
 
@@ -991,5 +998,17 @@ h2 {
 
 .adminButton:active {
   background-color: #00ff66;
+}
+
+.mittKonto{
+  display: flex;
+  width: 100%;
+  margin-top: 40px;
+  height: 419px;
+}
+#användare{
+  margin-left: 10px;
+  max-width: 705px;
+
 }
 

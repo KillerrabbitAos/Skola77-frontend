@@ -271,8 +271,11 @@ const MittKonto = () => {
         }
     }, [userData]);
     return (
-        <div className="container">
+        
+        <div className="mittKonto">
+            <div id='användare'>
             {userData ? (
+                
                 <div id='användardata'>
                     <div id='username'>
                         <p id='placeholder'>Användarnamn:</p>
@@ -299,13 +302,13 @@ const MittKonto = () => {
             ) : (
                 <p className="text">{loginMessage}</p>
             )}
-
-            <div id='KontoButtons'>
+           
+<div id='KontoButtons'>
             <button onClick={handleLogout} id='signOut' className='accountActionButtons'>Logga ut</button>
             <button className='accountActionButtons' onClick={() => setShowDeleteAccountModal(true)}>Ta bort mitt konto</button>
             <button className='accountActionButtons' onClick={downloadUserData}>Ladda ned min data</button>
             </div>
-
+            </div>
 {userData && userData.admin === 1 && (
     <div id="adminPanel">
     <h2>Adminpanel</h2>
@@ -329,7 +332,7 @@ const MittKonto = () => {
                     key={index}
                     onClick={() => setBanUsername(user.name)}  // Uppdatera banUsername när man klickar på användarnamnet
                 >
-                    {user.id} {user.name} {user.spärrat ? "spärrad" : ""}
+                    {user.id} {user.name} {user.spärrat ? <b>spärrad</b> : ""}
                 </ul>  // Rendera varje matchande användarnamn
             ))
     ) : (
@@ -399,7 +402,7 @@ const MittKonto = () => {
                 <div className={`modal ${showPasswordModal ? 'show' : ''}`}>
                     <div className="modal-content">
                         <h2>Ändra lösenord</h2>
-                        <p id='description'>Ändra lösenordet kopplat till ditt konto.</p>
+                        <p id='description'>Ändra lösenordet kopplat till ditt konto. <u>Vi rekommenderar ett lösenord på minst 6 teckeln.</u></p>
                         <input
                             type="password"
                             value={newPassword}
