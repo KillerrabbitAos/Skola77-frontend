@@ -105,10 +105,10 @@ const Editor = () => {
   const [visaNamn, setVisaNamn] = useState(true);
   const [oldFilledBoxes, setOldBoxes] = useState("");
   const [efternamnStarForst, setEfternamnStarForst] = useState(true)
-  const [userData, setUserData] = useState()
+  const [userData, setUserData] = useState();
   const [backup1, setBackup1] = useState();
   const [error, setError] = useState(null);
-
+  const [easterCounter, setEasterCounter] = useState(0);
 
   async function checkLoginStatus() {
     const response = await fetch('https://account.skola77.com:3005/home', {
@@ -958,7 +958,9 @@ const handleRefresh = () => {
 
 
   return (
-    <div className="App prevent-select">
+    <div className="App prevent-select"   style={{ 
+      backgroundImage: easterCounter > 9 ? "url('/kyckling.jpg')" : "none"
+    }} >
       <div id="bräddMått"></div>
 
       <div className="gridInstallning">
@@ -1122,7 +1124,7 @@ const handleRefresh = () => {
         </div>
       </div>
       <p>
-        <a id="mailTag">
+        <a id="mailTag" onClick={() => {setEasterCounter(easterCounter + 1)}}>
           Version 1.12.2 "kyckling"
         </a>
       </p>
