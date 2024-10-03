@@ -332,7 +332,7 @@ const MittKonto = () => {
                     key={index}
                     onClick={() => setBanUsername(user.name)}  // Uppdatera banUsername när man klickar på användarnamnet
                 >
-                    {user.id} {user.name} {user.spärrat ? <b>spärrad</b> : ""} {user.created_at}
+                    {user.id} {user.name} skapades: {user.created_at} {user.spärrat ? <b>spärrad</b> : ""} 
                 </ul>  // Rendera varje matchande användarnamn
             ))
     ) : (
