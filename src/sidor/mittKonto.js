@@ -322,23 +322,35 @@ const MittKonto = () => {
     
     />
    <div id='adminRulle'>
-   <ol>
-    {users !== 'unavailable' ? (
-        users
-            .filter(user => (user.name + user.id).toLowerCase().includes(banUsername.toLowerCase()))  // Filtrera användarnamnen oberoende av stora/små bokstäver
-            .map((user, index) => (
-                <ul
-                    className='adminViewName'
-                    key={index}
-                    onClick={() => setBanUsername(user.name)}  // Uppdatera banUsername när man klickar på användarnamnet
-                >
-                    {user.id} {user.name + " skapades: " + user.created_at} {user.spärrat ? <b>spärrad</b> : ""} 
-                </ul>  // Rendera varje matchande användarnamn
-            ))
-    ) : (
-        <li>Laddar...</li>
-    )}
-</ol>
+   <table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Namn</th>
+            <th>Skapad</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {users !== 'unavailable' ? (
+            users
+                .filter(user => (user.name + user.id).toLowerCase().includes(banUsername.toLowerCase())) // Filtrera användarnamn oberoende av stora/små bokstäver
+                .map((user, index) => (
+                    <tr key={index} onClick={() => setBanUsername(user.name)}>
+                        <td>{user.id}</td>
+                        <td>{user.name}</td>
+                        <td>{user.created_at}</td>
+                        <td>{user.spärrat ? <b>spärrad</b> : ""}</td>
+                    </tr>
+                ))
+        ) : (
+            <tr>
+                <td colSpan="4">Laddar...</td>
+            </tr>
+        )}
+    </tbody>
+</table>
+
 
 </div>
 

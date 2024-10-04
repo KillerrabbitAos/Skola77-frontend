@@ -971,6 +971,13 @@ h2 {
 
 }
 
+#adminRulle{
+  border: 1px solid gray;
+  border-radius: 10px;
+  list-style: none;
+  
+}
+
 
 #adminPanel h2 {
   text-align: center;
@@ -982,7 +989,6 @@ h2 {
   display: inline-block;
   width: 46%;
   padding: 10px;
-  margin: 10px 5px;
   font-size: 16px;
   color: #fff;
   background-color: #2dd660;
