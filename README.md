@@ -11,7 +11,7 @@ In the project directory, you can run:
 
 ### `npm install html2pdf`
 
-w
+worm
 ### `npm start`
 
 Runs the app in the development mode.\
