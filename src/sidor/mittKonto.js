@@ -339,7 +339,7 @@ const MittKonto = () => {
                     <tr key={index} onClick={() => setBanUsername(user.name)}>
                         <td>{user.id}</td>
                         <td>{user.name}</td>
-                        <td>{user.created_at}</td>
+                        <td>{user.created_at.split("T")[0]}</td>
                         <td>{user.spärrat ? <b>spärrad</b> : ""}</td>
                     </tr>
                 ))
