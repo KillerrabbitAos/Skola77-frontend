@@ -1,0 +1,20 @@
+/* Grid.css */
+.grid-container {
+    display: grid;
+    margin: 20px;
+  }
+  
+
+  .grid-item {
+    width: 100px;
+    height: 100px;
+    padding: 20px;
+    background-color: lightblue;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+  }
+  
