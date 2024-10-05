@@ -17,7 +17,7 @@ const shuffleArray = (array) => {
 };
 
 // Sortable Item Component
-const SortableItem = ({ item, names, isPlaceholder, activeId, items }) => {
+const SortableItem = ({ item, names, isPlaceholder, activePerson, items, isActive, overId }) => {
   const { id } = item; // Each item has id and person
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
@@ -35,13 +35,15 @@ const SortableItem = ({ item, names, isPlaceholder, activeId, items }) => {
     >
       {!isPlaceholder ? (
         <>
-          <div>ID: {id} </div>
           <h2>{names[item.person]}</h2>
         </>
+      ) : isActive ? (
+        <div className="placeholder-content">
+        <h2>{names[overId]}</h2>
+        </div>
       ) : (
         <div className="placeholder-content">
-        <div>ID: {items[activeId].id}</div>
-        <h2>{names[items[activeId].person]}</h2>
+        <h2>{activePerson}</h2>
         </div>
       )}
     </div>
@@ -65,7 +67,7 @@ const Grid2 = () => {
   };
 
   const [items, setItems] = useState(loadInitialItems);
-  const [activeId, setActiveId] = useState(null); // Track the active item
+  const [activePerson, setActivePerson] = useState(null); // Track the active item
   const [overId, setOverId] = useState(null); // Track the ID of the item being hovered over
 
   // Update the 'saved' constant whenever the grid items are updated
@@ -87,7 +89,7 @@ const Grid2 = () => {
   };
 
   const handleDragStart = (event) => {
-    setActiveId(event.active.id); // Set the active item ID
+    setActivePerson(event.active.id); // Set the active item ID
   };
 
   const handleDragEnd = (event) => {
@@ -109,8 +111,8 @@ const Grid2 = () => {
     }
 
     // Clear the active item and hovered item
-    setActiveId(null);
-    setOverId(null);
+    setActivePerson("");
+    setOverId("");
   };
 
   const handleDragOver = (event) => {
@@ -145,9 +147,11 @@ const Grid2 = () => {
                 key={item.id}
                 item={item}
                 items={items}
-                activeId={activeId}
+                activePerson={names[activePerson]}
                 names={names}
-                isPlaceholder={overId === item.id && activeId !== null}
+                isPlaceholder={overId === item.id || activePerson === item.id}
+                overId={overId}
+                isActive={item.id === activePerson}
               />
             ))}
           </div>
