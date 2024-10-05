@@ -140,6 +140,7 @@ const Box = ({
 
   const handleDragStart = (e) => {
     const idInfo = { ny: id, original: originalid };
+    
     e.dataTransfer.setData("boxId", "ny: " + id + "original: " + originalid);
   };
 

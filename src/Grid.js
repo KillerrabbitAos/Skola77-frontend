@@ -214,6 +214,7 @@ const Grid = ({
 
   };
   const handleDrop = async (e) => {
+    
     e.preventDefault();
     e.target.classList.remove("dragging");;
     let target = e.target;

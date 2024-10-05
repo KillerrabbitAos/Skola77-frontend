@@ -93,6 +93,8 @@ const Grid2 = () => {
 
   const handleDragStart = (event) => {
     setActivePerson(event.active.id); // Set the active item ID
+    document.body.style.overflow = 'hidden';
+
   };
 
   const handleDragEnd = (event) => {

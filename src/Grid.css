@@ -33,9 +33,10 @@
     transition: transform 0.1s ease; /* Smooth movement */
 }
 body{
-    overflow: hidden;
+    
     height: 100%;
 }
+
 
 #clone{
     position: absolute;
