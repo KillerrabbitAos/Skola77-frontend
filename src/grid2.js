@@ -18,9 +18,10 @@ const shuffleArray = (array) => {
 
 // Sortable Item Component
 const SortableItem = ({ item, names, isPlaceholder, activePerson, items, isActive, overId }) => {
-  const { id } = item; // Each item has id and person
+  const { id } = item; 
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
+    
   const style = {
 
   };
@@ -44,7 +45,7 @@ const SortableItem = ({ item, names, isPlaceholder, activePerson, items, isActiv
         </div>
       ) : (
         <div className="placeholder-content">
-        <h2>{activePerson}</h2>
+        <h2>{names[item.person]}</h2>
         </div>
       )}
     </div>
@@ -52,16 +53,17 @@ const SortableItem = ({ item, names, isPlaceholder, activePerson, items, isActiv
 };
 
 const Grid2 = () => {
-  const rows = 4;
-  const columns = 4;
+  const rader = 9;
+  const kolumner = 7;
   const names = ["", "bing", "hej", "kebab", "hoho"];
 
+ 
   // Load saved order from the 'saved' constant or default to sequential order
   const loadInitialItems = () => {
     if (saved) {
       return saved;
     }
-    return Array.from({ length: rows * columns }, (_, index) => ({
+    return Array.from({ length: rader * kolumner }, (_, index) => ({
       id: index + 1,
       person: 0,
     }));
@@ -95,7 +97,7 @@ const Grid2 = () => {
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
-
+  
     if (active.id !== over.id) {
       setItems((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
@@ -138,9 +140,14 @@ const Grid2 = () => {
             style={{
               display: 'grid',
               width: '200px',
-              gridTemplateColumns: `repeat(${columns}, 1fr)`,
               gap: '10px',
               margin: 'auto',
+              display: "grid",
+            margin: "20px",
+             width: "400px",
+            height: "400px",
+            gridTemplateColumns: `repeat(${kolumner}, 1fr)`,
+            gridTemplateRows: `repeat(${rader}, 1fr)`
             }}
           >
             {items.map((item) => (
