@@ -22,13 +22,14 @@ const SortableItem = ({ item, names, isPlaceholder, activePerson, items, isActiv
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
   const style = {
-   
+
   };
 
   return (
-    <div
+    <div 
+      id={id}
       ref={setNodeRef}
-      className={`grid-item ${isPlaceholder ? 'placeholder' : ''}`}
+      className={`grid-item ${isPlaceholder ? 'placeholder' : isActive ? 'dragging' : ''}`}
       style={style}
       {...attributes}
       {...listeners}
@@ -121,7 +122,7 @@ const Grid2 = () => {
       setOverId(over.id); // Update the hovered item ID
     }
   };
-
+  
   return (
     <>
       <button onClick={shuffle}>Shuffle Person Values</button>
@@ -155,6 +156,7 @@ const Grid2 = () => {
               />
             ))}
           </div>
+          
         </SortableContext>
       </DndContext>
     </>

@@ -21,3 +21,12 @@
     transform: scale(1.05); /* Slightly enlarge the item when dragging */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow to the dragging item */
   }
+  #floating-element {
+    position: absolute;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    pointer-events: none; /* Prevents the element from interfering with mouse events */
+    transition: transform 0.1s ease; /* Smooth movement */
+}
