@@ -319,10 +319,17 @@ html {
   font-size: 20px;
 }
 
+#bodyOmOss h2{
+  text-align: left;
+}
+
+
 .users-container {
   display: flex;
   justify-content: space-around;
   margin-top: 50px;
+  border: 2px solid gray;
+  padding: 30px;
 }
 
 .user-container {
@@ -334,7 +341,7 @@ html {
 .user-icon {
   width: 100px;
   height: 100px;
-  background-color: #ccc;
+  background-color: #37a049;
   border-radius: 50%;
   display: flex;
   justify-content: center;
