@@ -93,11 +93,18 @@ const GridCell = ({ rowIndex, colIndex, cell, grid, setGrid }) => {
   // Handle clicking on an empty cell to add a draggable item
   const handleCellClick = () => {
     if (!cell.id) {
-      const personValue = 0; // Prompt for person value
       const newGrid = grid.map(row => row.map(c => ({ ...c })));
-      newGrid[rowIndex][colIndex] = { id: `item-${Date.now()}`, person: Number(personValue) }; // Assign person value
+      // Set a default person value (e.g., 1) for the new item
+      newGrid[rowIndex][colIndex] = { id: `item-${Date.now()}`, person: 1 }; // Default person value set to 1
       setGrid(newGrid);
     }
+  };
+
+  // Function to remove an item
+  const removeItem = () => {
+    const newGrid = grid.map(row => row.map(c => ({ ...c }))); // Deep copy
+    newGrid[rowIndex][colIndex] = { id: null, person: 0 }; // Reset cell to empty state
+    setGrid(newGrid); // Update grid
   };
 
   return (
@@ -107,13 +114,13 @@ const GridCell = ({ rowIndex, colIndex, cell, grid, setGrid }) => {
       onClick={handleCellClick}
       className={`grid-cell ${cell.id ? 'active' : ''}`} // Use CSS classes
     >
-      {cell.id ? <DraggableItem id={`${rowIndex}-${colIndex}`} person={cell.person} /> : null} {/* Show person value */}
+      {cell.id ? <DraggableItem id={`${rowIndex}-${colIndex}`} person={cell.person} removeItem={removeItem} /> : null} {/* Show person value */}
     </div>
   );
 };
 
 // DraggableItem component represents the item that can be dragged around
-const DraggableItem = ({ id, person }) => {
+const DraggableItem = ({ id, person, removeItem }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,  // The unique id for the draggable item
   });
@@ -135,6 +142,7 @@ const DraggableItem = ({ id, person }) => {
       }}
     >
       {person} {/* Display the person value */}
+      <button className="removeButton" onClick={(e) => { e.stopPropagation(); removeItem(); }} style={{ marginLeft: '5px' }}>Remove</button> {/* Button to remove item */}
     </div>
   );
 };
