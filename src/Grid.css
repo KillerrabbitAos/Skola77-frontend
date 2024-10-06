@@ -19,7 +19,7 @@
 
 .draggable-item {
   background-color: white;
-  color: white;
+  color: black;
   border: 1px solid black;
   width: 100px;
   height: 100px;
@@ -33,10 +33,11 @@
   padding: 0px;
   margin: 0px !important;
   left: 0px;
-
+  
   position: relative;
 }
 .buttons{
+  z-index: 1000;
   height: 50%;
   width: 100%;
 }

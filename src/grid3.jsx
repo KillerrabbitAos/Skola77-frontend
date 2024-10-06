@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { DndContext, useSensor, useSensors, MouseSensor, TouchSensor } from '@dnd-kit/core';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { ImUnlocked } from "react-icons/im";
-import { ImLock } from "react-icons/im";
 import './Grid.css'; // Import the CSS file
-
+const names = ["", "bing", "hej", "kebab", "hoho"];
 // Function to create an initial grid with empty cells
 const initialGrid = (rows, cols) => {
   return Array.from({ length: rows }, () =>
@@ -15,9 +13,11 @@ const initialGrid = (rows, cols) => {
 
 // Main Grid Component
 const Grid3 = () => {
+    console.log("Grid3 component rendered"); // Add this line
   const [rows, setRows] = useState(3);
   const [cols, setCols] = useState(3);
   const [grid, setGrid] = useState(initialGrid(3, 3));
+  
 
   const sensors = useSensors(
     useSensor(MouseSensor), // Mouse for desktop
@@ -89,11 +89,9 @@ const Grid3 = () => {
 
 // GridCell component represents each cell in the grid
 const GridCell = ({ rowIndex, colIndex, cell, grid, setGrid }) => {
-    
   const { setNodeRef } = useDroppable({
     id: `${rowIndex}-${colIndex}`,  // Unique ID for each cell
   });
-  [updated, setUpdated] = useState(false)
 
   // Handle clicking on an empty cell to add a draggable item
   const handleCellClick = () => {
@@ -107,10 +105,10 @@ const GridCell = ({ rowIndex, colIndex, cell, grid, setGrid }) => {
 
   // Function to remove an item
   const removeItem = () => {
+    console.log('Remove Item called'); // Log to check if function is called
     const newGrid = grid.map(row => row.map(c => ({ ...c }))); // Deep copy
     newGrid[rowIndex][colIndex] = { id: null, person: 0 }; // Reset cell to empty state
     setGrid(newGrid); // Update grid
-    setUpdated(true)
   };
 
   return (
@@ -127,31 +125,46 @@ const GridCell = ({ rowIndex, colIndex, cell, grid, setGrid }) => {
 
 // DraggableItem component represents the item that can be dragged around
 const DraggableItem = ({ id, person, removeItem }) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id,  // The unique id for the draggable item
-  });
-
-  const style = {
-    transform: transform
-      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
-      : undefined,
+    const { attributes, listeners, setNodeRef, transform } = useDraggable({
+      id,  // The unique id for the draggable item
+    });
+  
+    const style = {
+      transform: transform
+        ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+        : undefined,
+    };
+  
+    return (
+      <div
+        ref={setNodeRef}
+        {...listeners}
+        {...attributes}
+        className="draggable-item" // Use CSS class
+        style={{
+          ...style,
+        }}
+      >
+        <div className='buttons'>
+          <button 
+            className="removeButton" 
+            onClick={(e) => { 
+              console.log("Button clicked"); // This should log when the button is clicked
+              e.stopPropagation(); // Prevent event from bubbling up
+              removeItem(); // Call removeItem to remove the item
+              console.log("beng"); // Log to check if function is called
+            }}
+          >
+            <RiDeleteBin6Line />
+          </button>
+          <button onClick={() => console.log("Test Button Clicked")}>
+  Test Button
+</button>
+        </div>
+        <div className='nameTag'><h2>{names[person]}</h2></div>
+      </div>
+    );
   };
-
-  return (
-    <div
-      ref={setNodeRef}
-      {...listeners}
-      {...attributes}
-      className="draggable-item" // Use CSS class
-      style={{
-        ...style,
-      }}
-    >
-        <div className='buttons'><button className="removeButton" onClick={(e) => { e.stopPropagation(); removeItem(); }} style={{ marginLeft: '5px' }}><RiDeleteBin6Line /></button> {/* Button to remove item */}</div>
-      <div className='nameTag'>{person}</div> 
-      
-    </div>
-  );
-};
+  
 
 export default Grid3;
