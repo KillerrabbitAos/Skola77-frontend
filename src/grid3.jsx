@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { DndContext, useSensor, useSensors, MouseSensor, TouchSensor } from '@dnd-kit/core';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
-import './Grid.css'; // Import the CSS file
+import './Grid.css'; 
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { ImUnlocked } from "react-icons/im";
+import { ImLock } from "react-icons/im";
 
 // Function to create an initial grid with empty cells
 const initialGrid = (rows, cols) => {
@@ -132,6 +135,7 @@ const DraggableItem = ({ id, person, removeItem }) => {
   };
 
   return (
+    
     <div
       ref={setNodeRef}
       {...listeners}
@@ -141,8 +145,10 @@ const DraggableItem = ({ id, person, removeItem }) => {
         ...style,
       }}
     >
-      {person} {/* Display the person value */}
-      <button className="removeButton" onClick={(e) => { e.stopPropagation(); removeItem(); }} style={{ marginLeft: '5px' }}>Remove</button> {/* Button to remove item */}
+        <div className='buttons'><button className="removeButton" onClick={(e) => { e.stopPropagation(); removeItem(); }} style={{ marginLeft: '5px' }}><RiDeleteBin6Line /></button> {/* Button to remove item */}</div>
+    
+      <div className='nameTag'><span>{person}</span></div>
+      
     </div>
   );
 };
