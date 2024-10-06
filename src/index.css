@@ -328,7 +328,6 @@ html {
   display: flex;
   justify-content: space-around;
   margin-top: 50px;
-  border: 2px solid gray;
   padding: 30px;
 }
 
