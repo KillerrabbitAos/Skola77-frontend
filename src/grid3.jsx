@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { DndContext, useSensor, useSensors, MouseSensor, TouchSensor } from '@dnd-kit/core';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
-import './Grid.css'; 
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { ImUnlocked } from "react-icons/im";
 import { ImLock } from "react-icons/im";
+import './Grid.css'; // Import the CSS file
 
 // Function to create an initial grid with empty cells
 const initialGrid = (rows, cols) => {
@@ -89,9 +89,11 @@ const Grid3 = () => {
 
 // GridCell component represents each cell in the grid
 const GridCell = ({ rowIndex, colIndex, cell, grid, setGrid }) => {
+    
   const { setNodeRef } = useDroppable({
     id: `${rowIndex}-${colIndex}`,  // Unique ID for each cell
   });
+  [updated, setUpdated] = useState(false)
 
   // Handle clicking on an empty cell to add a draggable item
   const handleCellClick = () => {
@@ -108,6 +110,7 @@ const GridCell = ({ rowIndex, colIndex, cell, grid, setGrid }) => {
     const newGrid = grid.map(row => row.map(c => ({ ...c }))); // Deep copy
     newGrid[rowIndex][colIndex] = { id: null, person: 0 }; // Reset cell to empty state
     setGrid(newGrid); // Update grid
+    setUpdated(true)
   };
 
   return (
@@ -135,7 +138,6 @@ const DraggableItem = ({ id, person, removeItem }) => {
   };
 
   return (
-    
     <div
       ref={setNodeRef}
       {...listeners}
@@ -146,8 +148,7 @@ const DraggableItem = ({ id, person, removeItem }) => {
       }}
     >
         <div className='buttons'><button className="removeButton" onClick={(e) => { e.stopPropagation(); removeItem(); }} style={{ marginLeft: '5px' }}><RiDeleteBin6Line /></button> {/* Button to remove item */}</div>
-    
-      <div className='nameTag'><span>{person}</span></div>
+      <div className='nameTag'>{person}</div> 
       
     </div>
   );
