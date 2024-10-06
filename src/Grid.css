@@ -1,11 +1,10 @@
 /* Grid.css */
 .grid-container {
     display: grid;
-    margin: 20px;
-    width: 400px; 
-    height: 400px; 
-    grid-template-columns: repeat(7, 1fr); 
-    grid-template-rows: repeat(5, 1fr); 
+    flex-direction: column;
+    margin: auto;
+    width: 70%;
+    position: relative; 
 }
   
 
@@ -33,7 +32,7 @@
     transition: transform 0.1s ease; /* Smooth movement */
 }
 body{
-    
+  touch-action: none;
     height: 100%;
 }
 

@@ -3,6 +3,7 @@ import { DndContext, closestCenter } from '@dnd-kit/core';
 import { SortableContext, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import './Grid.css';
+import Bänk from './Bänk';
 
 // Simulating persistent storage with a constant variable
 let saved = null;
@@ -16,48 +17,12 @@ const shuffleArray = (array) => {
   return array;
 };
 
-// Sortable Item Component
-const SortableItem = ({ item, names, isPlaceholder, activePerson, items, isActive, overId }) => {
-  const { id } = item; 
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
-
-    
-  const style = {
-
-  };
-
-  return (
-    <div 
-      id={id}
-      ref={setNodeRef}
-      className={`grid-item ${isPlaceholder ? 'placeholder' : isActive ? 'dragging' : ''}`}
-      style={style}
-      {...attributes}
-      {...listeners}
-    >
-      {!isPlaceholder ? (
-        <>
-          <h2>{names[item.person]}</h2>
-        </>
-      ) : isActive ? (
-        <div className="placeholder-content">
-        <h2>{names[overId]}</h2>
-        </div>
-      ) : (
-        <div className="placeholder-content">
-        <h2>{names[item.person]}</h2>
-        </div>
-      )}
-    </div>
-  );
-};
-
 const Grid2 = () => {
-  const rader = 9;
-  const kolumner = 7;
-  const names = ["", "bing", "hej", "kebab", "hoho"];
 
- 
+  const names = ["", "bing", "hej", "kebab", "hoho"];
+  const [spegelvänt, setSpegelvänt] = useState(false)
+  const [rader, setRader] = useState(9)
+  const [kolumner, setKolumner] = useState(7)
   // Load saved order from the 'saved' constant or default to sequential order
   const loadInitialItems = () => {
     if (saved) {
@@ -72,6 +37,7 @@ const Grid2 = () => {
   const [items, setItems] = useState(loadInitialItems);
   const [activePerson, setActivePerson] = useState(null); // Track the active item
   const [overId, setOverId] = useState(null); // Track the ID of the item being hovered over
+  
 
   // Update the 'saved' constant whenever the grid items are updated
   useEffect(() => {
@@ -126,10 +92,35 @@ const Grid2 = () => {
       setOverId(over.id); // Update the hovered item ID
     }
   };
-  
+  const klassrum = () => {
+    const klassrum = []
+    const x = spegelvänt
+    const startIndex = x ? rader * kolumner - 1 : 0;
+    const endIndex = x ? -1 : rader * kolumner;
+    const step = x ? -1 : 1;
+    console.log("items: " + items)
+    for (let i = startIndex; i !== endIndex; i += step) {
+      let item = items[i] 
+      klassrum.push(<Bänk
+        key={item.id}
+        item={item}
+        items={items}
+        activePerson={names[activePerson]}
+        names={names}
+        isPlaceholder={overId === item.id || activePerson === item.id}
+        overId={overId}
+        isActive={item.id === activePerson}></Bänk>)
+    };
+    console.log(klassrum)
+    return(
+      klassrum
+    )
+  }
   return (
     <>
       <button onClick={shuffle}>Shuffle Person Values</button>
+      <button onClick={() => {setKolumner(kolumner + 1)}}><h2>+</h2></button>
+      <button onClick={() => {setKolumner(kolumner - 1)}}><h2>-</h2></button>
       <DndContext
         collisionDetection={closestCenter}
         onDragStart={handleDragStart}
@@ -140,30 +131,12 @@ const Grid2 = () => {
           <div
             className="grid-container"
             style={{
-              display: 'grid',
-              width: '200px',
-              gap: '10px',
-              margin: 'auto',
-              display: "grid",
-            margin: "20px",
-             width: "400px",
-            height: "400px",
+              
             gridTemplateColumns: `repeat(${kolumner}, 1fr)`,
             gridTemplateRows: `repeat(${rader}, 1fr)`
             }}
           >
-            {items.map((item) => (
-              <SortableItem
-                key={item.id}
-                item={item}
-                items={items}
-                activePerson={names[activePerson]}
-                names={names}
-                isPlaceholder={overId === item.id || activePerson === item.id}
-                overId={overId}
-                isActive={item.id === activePerson}
-              />
-            ))}
+            {klassrum()}
           </div>
           
         </SortableContext>
