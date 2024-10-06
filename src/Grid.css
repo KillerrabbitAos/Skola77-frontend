@@ -1,42 +1,26 @@
 /* Grid.css */
-.grid-container {
-    display: grid;
-    flex-direction: column;
-    margin: auto;
-    width: 70%;
-    position: relative; 
+
+.grid {
+  display: grid;
+  gap: 10px;
 }
+
+.grid-cell {
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.grid-cell.active {
   
-
-  .grid-item {
-    width: 10px;
-    height: 10px;
-    padding: 20px;
-    background-color: lightblue;
-    border: 1px solid #ccc;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
-  }
-  .grid-item.dragging {
-    transform: scale(1.05); /* Slightly enlarge the item when dragging */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow to the dragging item */
-  }
-  #floating-element {
-    position: absolute;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    pointer-events: none; /* Prevents the element from interfering with mouse events */
-    transition: transform 0.1s ease; /* Smooth movement */
-}
-body{
-  touch-action: none;
-    height: 100%;
 }
 
-
-#clone{
-    position: absolute;
+.draggable-item {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  text-align: center;
+  line-height: 50px;
 }

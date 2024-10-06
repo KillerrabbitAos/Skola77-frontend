@@ -1,85 +1,69 @@
 import React, { useState } from 'react';
 import { DndContext, useSensor, useSensors, MouseSensor, TouchSensor } from '@dnd-kit/core';
-import { useDroppable, useDraggable } from '@dnd-kit/core';
+import { useDraggable, useDroppable } from '@dnd-kit/core';
+import './Grid.css'; // Import the CSS file
 
-const initialGrid = (rows, cols) =>
-  Array.from({ length: rows }, () => Array.from({ length: cols }, () => ({ id: null, person: 0 })));
+// Function to create an initial grid with empty cells
+const initialGrid = (rows, cols) => {
+  return Array.from({ length: rows }, () =>
+    Array.from({ length: cols }, () => ({ id: null, person: 0 }))
+  );
+};
 
-const Grid = () => {
+// Main Grid Component
+const Grid3 = () => {
   const [rows, setRows] = useState(3);
   const [cols, setCols] = useState(3);
   const [grid, setGrid] = useState(initialGrid(3, 3));
 
-  // Use both Mouse and Touch sensors for desktop and touch device compatibility
   const sensors = useSensors(
-    useSensor(MouseSensor), // Mouse sensor for desktops
-    useSensor(TouchSensor)  // Touch sensor for touch-enabled devices like iPads
+    useSensor(MouseSensor), // Mouse for desktop
+    useSensor(TouchSensor)  // Touch for mobile/tablet
   );
 
+  // Increase the number of rows in the grid
   const increaseRows = () => {
     setGrid([...grid, Array(cols).fill({ id: null, person: 0 })]);
     setRows(rows + 1);
   };
 
+  // Increase the number of columns in the grid
   const increaseCols = () => {
     setGrid(grid.map(row => [...row, { id: null, person: 0 }]));
     setCols(cols + 1);
   };
 
-  const saveToJson = () => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(grid));
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", "grid-data.json");
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-  };
-
-  const loadFromJson = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const loadedGrid = JSON.parse(e.target.result);
-      setGrid(loadedGrid);
-    };
-    reader.readAsText(file);
-  };
-
-  // Define handleDrop function to manage the swapping of items between cells
+  // Handle drag-and-drop event
   const handleDrop = (event) => {
     const { active, over } = event;
-    if (!over) return; // If not dropped over a valid area, exit early
 
-    // Ensure active.id and over.id are both strings (e.g., "cell-1-2")
-    const activeId = String(active.id); // Force it to string if needed
-    const overId = String(over.id);     // Force it to string if needed
+    if (!over || active.id === over.id) return; // Return if no valid drop
 
-    const [activeRow, activeCol] = activeId.split('-').slice(1).map(Number);
-    const [overRow, overCol] = overId.split('-').slice(1).map(Number);
+    const [activeRow, activeCol] = active.id.split('-').map(Number);
+    const [overRow, overCol] = over.id.split('-').map(Number);
 
-    if (activeId !== overId) {
-      const newGrid = [...grid];
-      // Swap the items in both cells
-      [newGrid[activeRow][activeCol], newGrid[overRow][overCol]] = [newGrid[overRow][overCol], newGrid[activeRow][activeCol]];
-      setGrid(newGrid);
-    }
+    const newGrid = grid.map(row => row.map(cell => ({ ...cell }))); // Deep copy
+
+    // Swap active and over items in the grid
+    [newGrid[activeRow][activeCol], newGrid[overRow][overCol]] = [
+      newGrid[overRow][overCol],
+      newGrid[activeRow][activeCol]
+    ];
+
+    setGrid(newGrid); // Update grid with swapped cells
   };
 
   return (
     <div>
       <button onClick={increaseRows}>Increase Rows</button>
       <button onClick={increaseCols}>Increase Columns</button>
-      <button onClick={saveToJson}>Save Grid to JSON</button>
-      <input type="file" onChange={loadFromJson} accept="application/json" />
-      
+
       <DndContext sensors={sensors} onDragEnd={handleDrop}>
         <div
+          className="grid"
           style={{
-            display: 'grid',
             gridTemplateColumns: `repeat(${cols}, 100px)`,
             gridTemplateRows: `repeat(${rows}, 100px)`,
-            gap: '10px',
           }}
         >
           {grid.map((row, rowIndex) =>
@@ -100,15 +84,18 @@ const Grid = () => {
   );
 };
 
+// GridCell component represents each cell in the grid
 const GridCell = ({ rowIndex, colIndex, cell, grid, setGrid }) => {
   const { setNodeRef } = useDroppable({
-    id: `cell-${rowIndex}-${colIndex}`,  // Use string IDs like "cell-1-2"
+    id: `${rowIndex}-${colIndex}`,  // Unique ID for each cell
   });
 
+  // Handle clicking on an empty cell to add a draggable item
   const handleCellClick = () => {
     if (!cell.id) {
-      const newGrid = [...grid];
-      newGrid[rowIndex][colIndex] = { id: `cell-${rowIndex}-${colIndex}`, person: 0 };  // Ensure id is a string
+      const personValue = 0; // Prompt for person value
+      const newGrid = grid.map(row => row.map(c => ({ ...c })));
+      newGrid[rowIndex][colIndex] = { id: `item-${Date.now()}`, person: Number(personValue) }; // Assign person value
       setGrid(newGrid);
     }
   };
@@ -116,23 +103,20 @@ const GridCell = ({ rowIndex, colIndex, cell, grid, setGrid }) => {
   return (
     <div
       ref={setNodeRef}
-      id={`cell-${rowIndex}-${colIndex}`}
+      id={`${rowIndex}-${colIndex}`}
       onClick={handleCellClick}
-      style={{
-        border: '1px solid black',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: cell.id ? 'lightblue' : 'white',
-      }}
+      className={`grid-cell ${cell.id ? 'active' : ''}`} // Use CSS classes
     >
-      {cell.id ? <DraggableItem id={cell.id} /> : null}
+      {cell.id ? <DraggableItem id={`${rowIndex}-${colIndex}`} person={cell.person} /> : null} {/* Show person value */}
     </div>
   );
 };
 
-const DraggableItem = ({ id }) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
+// DraggableItem component represents the item that can be dragged around
+const DraggableItem = ({ id, person }) => {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id,  // The unique id for the draggable item
+  });
 
   const style = {
     transform: transform
@@ -145,18 +129,14 @@ const DraggableItem = ({ id }) => {
       ref={setNodeRef}
       {...listeners}
       {...attributes}
+      className="draggable-item" // Use CSS class
       style={{
         ...style,
-        width: '50px',
-        height: '50px',
-        backgroundColor: 'orange',
-        textAlign: 'center',
-        lineHeight: '50px',
       }}
     >
-      {id}
+      {person} {/* Display the person value */}
     </div>
   );
 };
 
-export default Grid;
+export default Grid3;
