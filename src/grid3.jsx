@@ -148,18 +148,13 @@ const DraggableItem = ({ id, person, removeItem }) => {
         <div className='buttons'>
           <button 
             className="removeButton" 
-            onClick={(e) => { 
-              console.log("Button clicked"); // This should log when the button is clicked
-              e.stopPropagation(); // Prevent event from bubbling up
-              removeItem(); // Call removeItem to remove the item
-              console.log("beng"); // Log to check if function is called
+            onMouseDown={(e) => { 
+              e.stopPropagation(); 
+              removeItem()
             }}
           >
             <RiDeleteBin6Line />
           </button>
-          <button onClick={() => console.log("Test Button Clicked")}>
-  Test Button
-</button>
         </div>
         <div className='nameTag'><h2>{names[person]}</h2></div>
       </div>
