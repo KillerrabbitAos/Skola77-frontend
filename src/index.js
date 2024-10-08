@@ -26,7 +26,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Hem />} />
           <Route path="Editor" element={<Editor />} />
-          <Route path='grid2' element={<Grid3 />}></Route>
+          <Route path='Klassrum' element={<Grid3 />}></Route>
           <Route path="Support" element={<Support />} />
           <Route path="Kontakt" element={<Kontakt />} />
           <Route path="OmOss" element={<OmOss />} />

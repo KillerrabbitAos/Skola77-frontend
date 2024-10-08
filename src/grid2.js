@@ -17,9 +17,8 @@ const shuffleArray = (array) => {
   return array;
 };
 
-const Grid2 = () => {
+const Grid2 = (names) => {
 
-  const names = ["", "bing", "hej", "kebab", "hoho"];
   const [spegelvänt, setSpegelvänt] = useState(false)
   const [rader, setRader] = useState(9)
   const [kolumner, setKolumner] = useState(7)
