@@ -23,6 +23,7 @@
   border: 1px solid black;
   width: 100px;
   height: 100px;
+  z-index: 10;
   cursor: move; /* Change cursor when dragging */
 }
 .removeButton{
