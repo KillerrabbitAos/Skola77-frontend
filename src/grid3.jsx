@@ -157,9 +157,7 @@ const DraggableItem = ({ id, person, removeItem }) => {
           >
             <RiDeleteBin6Line />
           </button>
-          <button onClick={() => console.log("Test Button Clicked")}>
-  Test Button
-</button>
+          
         </div>
         <div className='nameTag'><h2>{names[person]}</h2></div>
       </div>
