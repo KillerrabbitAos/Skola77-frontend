@@ -32,8 +32,8 @@ const Grid3 = () => {
 
   
   const ändraRader = (e) => {
-    const newRows = parseInt(e.target.value);
-  
+    let newRows = parseInt(e.target.value);
+    
     // Store removed items from the previous grid
     const removedItems = [];
     const newGrid = [];
@@ -94,6 +94,9 @@ const Grid3 = () => {
   // Increase the number of columns in the grid
   const ändraKolumner = (e) => {
     const newCols = parseInt(e.target.value);
+    if (newCols < 1 || !newCols){
+      newCols = 1
+    }
     const newGrid = grid.map((row, rowIndex) => {
       if (newCols > cols) {
         for (let colIndex = cols; colIndex < newCols; colIndex++) {
@@ -149,8 +152,8 @@ const Grid3 = () => {
   };
   return (
     <div>
-      <input type="text" value={rows} onChange={ändraRader} />
-      <input type="text" value={cols} onChange={ändraKolumner} />
+      <input type="number" value={rows} onChange={ändraRader} />
+      <input type="number" value={cols} onChange={ändraKolumner} />
       <button onClick={spara}>spara</button>
       <DndContext sensors={sensors} onDragEnd={handleDrop}>
         <div
