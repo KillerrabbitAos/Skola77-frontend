@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoIosLock } from "react-icons/io";
 import { IoIosUnlock } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { Editor } from "./Editor";
 
 const Namn = ({
   name,
@@ -12,7 +13,8 @@ const Namn = ({
   setLåstaNamn,
   handleUpdateName, // Lägg till en funktion för att hantera namnuppdateringar
   names,
-  setNames
+  setNames,
+  fixa
 }) => {
   const [editedName, setEditedName] = useState(name);
 
@@ -37,17 +39,18 @@ const Namn = ({
       setLåstaNamn(newLåstaNamn);
     }
   };
-
   const handleChange = (e) => {
     const newName = editedName;
-   
-
+  
     const newNames = [...names];  // Skapa en kopia av names
     newNames[originalIndex] = newName;  // Uppdatera det specifika namnet
     setNames(newNames);
   
+    setTimeout(() => {
+      fixa();
+    }, 200);
   };
-
+  
   return (
     <li key={index}>
       <div
