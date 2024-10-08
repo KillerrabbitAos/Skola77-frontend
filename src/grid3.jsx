@@ -5,6 +5,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import './Grid.css'; // Import the CSS file
 const names = ["", "bing", "hej", "kebab", "hoho"];
 // Function to create an initial grid with empty cells
+const värden = JSON.parse('{"grid":[[{"id":null,"person":0},{"id":null,"person":0},{"id":null,"person":0},{"id":null,"person":0},{"id":null,"person":0},{"id":"item-1728395558391","person":1},{"id":"item-1728395558639","person":1}],[{"id":null,"person":0},{"id":null,"person":0},{"id":null,"person":0},{"id":"item-1728395560144","person":1},{"id":null,"person":0},{"id":null,"person":0},{"id":null,"person":0}],[{"id":null,"person":0},{"id":null,"person":0},{"id":"item-1728395557488","person":1},{"id":null,"person":0},{"id":null,"person":0},{"id":null,"person":0},{"id":null,"person":0}],[{"id":null,"person":0},{"id":null,"person":0},{"id":null,"person":0},{"id":null,"person":0},{"id":null,"person":0},{"id":null,"person":0},{"id":null,"person":0}],[{"id":"item-1728395563304","person":1},{"id":"item-1728395562912","person":1},{"id":"item-1728395557831","person":1},{"id":null,"person":0},{"id":null,"person":0},{"id":"item-1728395562504","person":1},{"id":"item-1728395559832","person":1}],[{"id":null,"person":0},{"id":"item-1728395561288","person":1},{"id":"item-1728395560888","person":1},{"id":null,"person":0},{"id":null,"person":0},{"id":null,"person":0},{"id":null,"person":0}]],"cols":7,"rows":6}')
 const initialGrid = (rows, cols) => {
   return Array.from({ length: rows }, () =>
     Array.from({ length: cols }, () => ({ id: null, person: 0 }))
@@ -14,9 +15,9 @@ const initialGrid = (rows, cols) => {
 // Main Grid Component
 const Grid3 = () => {
     console.log("Grid3 component rendered"); // Add this line
-  const [rows, setRows] = useState(3);
-  const [cols, setCols] = useState(3);
-  const [grid, setGrid] = useState(initialGrid(3, 3));
+  const [rows, setRows] = useState(värden.rows);
+  const [cols, setCols] = useState(värden.cols);
+  const [grid, setGrid] = useState(värden.grid);
   
 
   const sensors = useSensors(
@@ -55,12 +56,14 @@ const Grid3 = () => {
 
     setGrid(newGrid); // Update grid with swapped cells
   };
-
+  const spara = () => {
+    console.log(JSON.stringify({grid: grid, cols: cols, rows: rows}))
+  }
   return (
     <div>
       <button onClick={increaseRows}>Increase Rows</button>
       <button onClick={increaseCols}>Increase Columns</button>
-
+      <button onClick={spara}>spara</button>
       <DndContext sensors={sensors} onDragEnd={handleDrop}>
         <div
           className="grid"
