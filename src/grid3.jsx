@@ -33,41 +33,53 @@ const Grid3 = () => {
   
   const ändraRader = (e) => {
     const newRows = parseInt(e.target.value);
-    const newGrid = grid.map((row, rowIndex) => {
-      if (newRows > rows) {
-        // Add new empty rows
-        for (let i = rows; i < newRows; i++) {
-          row.push({ id: null, person: 0 });
-        }
+  
+    // Store removed items from the previous grid
+    const removedItems = [];
+    const newGrid = [];
+  
+    // Create new grid based on the new number of rows
+    for (let rowIndex = 0; rowIndex < newRows; rowIndex++) {
+      if (rowIndex < rows) {
+        // Copy existing rows
+        newGrid.push(grid[rowIndex]);
       } else {
-        // Remove excess rows and store them in deletedItems
-        const removedItems = row.slice(newRows).map((cell, colIndex) => ({
-          ...cell,
-          rowIndex,
-          colIndex: colIndex,
-        }));
-        setDeletedItems((prev) => [...prev, ...removedItems]);
-        row = row.slice(0, newRows);
+        // Initialize new rows with empty cells
+        newGrid.push(Array.from({ length: cols }, () => ({ id: null, person: 0 })));
       }
-      return row;
-    });
-
-    // Restore deleted items in the newly added rows
-    if (newRows > rows) {
-      newGrid.forEach((row, rowIndex) => {
-        if (deletedItems.length > 0 && rowIndex >= rows) {
-          deletedItems.forEach((item) => {
-            if (item.rowIndex === rowIndex) {
-              row.push({ id: item.id, person: item.person });
-            }
-          });
-        }
-      });
     }
-
+  
+    // If reducing the number of rows, collect removed rows
+    if (newRows < rows) {
+      for (let rowIndex = newRows; rowIndex < rows; rowIndex++) {
+        // Store the entire row with its original index
+        const removedRow = { index: rowIndex, data: grid[rowIndex] };
+        removedItems.push(removedRow);
+      }
+      // Update deleted items with whole rows
+      setDeletedItems((prev) => [...prev, ...removedItems]);
+    }
+  
+    // If increasing the number of rows, restore deleted rows if the index matches
+    if (newRows > rows) {
+      // Restore entire deleted rows into the new empty rows if available
+      for (let rowIndex = rows; rowIndex < newRows; rowIndex++) {
+        // Find a deleted row that matches the current row index
+        const matchingDeletedRow = deletedItems.find(item => item.index === rowIndex);
+  
+        // If a matching deleted row exists, restore it
+        if (matchingDeletedRow) {
+          newGrid[rowIndex] = [...matchingDeletedRow.data]; // Create a copy to prevent reference issues
+        }
+      }
+    }
+  
+    // Update grid and row count
     setGrid(newGrid);
     setRows(newRows);
   };
+  
+  
 
   // Increase the number of columns in the grid
   const ändraKolumner = (e) => {
