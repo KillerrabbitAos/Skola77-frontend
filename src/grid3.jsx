@@ -26,45 +26,77 @@ const Grid3 = () => {
   const [rows, setRows] = useState(data.rows);
   const [cols, setCols] = useState(data.cols);
   const [grid, setGrid] = useState(data.grid);
+  const [deletedItems, setDeletedItems] = useState([]);
 
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
   
   const ändraRader = (e) => {
     const newRows = parseInt(e.target.value);
-    
-    // Uppdatera varje rad så att antalet kolumner matchar newCols
-    const newGrid = grid.map((col) => {
+    const newGrid = grid.map((row, rowIndex) => {
       if (newRows > rows) {
-        // Lägg till tomma kolumner om newCols är större än det nuvarande antalet kolumner
-        return [...col, ...Array(newRows - rows).fill({ id: null, person: 0 })];
-      } else if (newRows < rows) {
-        // Ta bort kolumner om newCols är mindre än det nuvarande antalet kolumner
-        return col.slice(0, newRows);
+        // Add new empty rows
+        for (let i = rows; i < newRows; i++) {
+          row.push({ id: null, person: 0 });
+        }
+      } else {
+        // Remove excess rows and store them in deletedItems
+        const removedItems = row.slice(newRows).map((cell, colIndex) => ({
+          ...cell,
+          rowIndex,
+          colIndex: colIndex,
+        }));
+        setDeletedItems((prev) => [...prev, ...removedItems]);
+        row = row.slice(0, newRows);
       }
-      return col; // Behåll samma om newCols är lika med cols
+      return row;
     });
-  
+
+    // Restore deleted items in the newly added rows
+    if (newRows > rows) {
+      newGrid.forEach((row, rowIndex) => {
+        if (deletedItems.length > 0 && rowIndex >= rows) {
+          deletedItems.forEach((item) => {
+            if (item.rowIndex === rowIndex) {
+              row.push({ id: item.id, person: item.person });
+            }
+          });
+        }
+      });
+    }
+
     setGrid(newGrid);
-    setCols(newRows);
+    setRows(newRows);
   };
 
   // Increase the number of columns in the grid
   const ändraKolumner = (e) => {
     const newCols = parseInt(e.target.value);
-    
-    // Uppdatera varje rad så att antalet kolumner matchar newCols
-    const newGrid = grid.map((row) => {
+    const newGrid = grid.map((row, rowIndex) => {
       if (newCols > cols) {
-        // Lägg till tomma kolumner om newCols är större än det nuvarande antalet kolumner
-        return [...row, ...Array(newCols - cols).fill({ id: null, person: 0 })];
-      } else if (newCols < cols) {
-        // Ta bort kolumner om newCols är mindre än det nuvarande antalet kolumner
-        return row.slice(0, newCols);
+        for (let colIndex = cols; colIndex < newCols; colIndex++) {
+          const restoredItem = deletedItems.find(
+            (item) => item.rowIndex === rowIndex && item.colIndex === colIndex
+          );
+          if (restoredItem) {
+            row.push({ id: restoredItem.id, person: restoredItem.person });
+          } else {
+            row.push({ id: null, person: 0 });
+          }
+        }
+      } else {
+        // Remove excess columns and store them in deletedItems
+        const removedItems = row.slice(newCols).map((cell, colIndex) => ({
+          ...cell,
+          rowIndex,
+          colIndex: colIndex + newCols,
+        }));
+        setDeletedItems((prev) => [...prev, ...removedItems]);
+        row = row.slice(0, newCols);
       }
-      return row; // Behåll samma om newCols är lika med cols
+      return row;
     });
-  
+
     setGrid(newGrid);
     setCols(newCols);
   };
