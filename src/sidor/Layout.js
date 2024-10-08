@@ -14,7 +14,7 @@ const Layout = () => {
             <NavLink to="/Editor" activeClassName="active">Editor</NavLink>
           </li>
           <li className="header">
-            <NavLink to="/Klassrum" activeClassName="active">Klassrum</NavLink>
+            <NavLink to="/Placeringar" activeClassName="active">Placeringar</NavLink>
           </li>
           <li className="header">
             <NavLink to="/Support" activeClassName="active">Hjälp</NavLink>

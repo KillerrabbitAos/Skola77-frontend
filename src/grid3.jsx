@@ -249,7 +249,7 @@ const DraggableItem = ({ id, person, removeItem, names }) => {
       <div className="buttons">
         <button
           className="removeButton"
-          onMouseDown={(e) => {
+          onMouseUp={(e) => {
             e.stopPropagation();
             removeItem();
           }}
@@ -257,7 +257,7 @@ const DraggableItem = ({ id, person, removeItem, names }) => {
           <RiDeleteBin6Line />
         </button>
       </div>
-      <h2>{names[person]}</h2>
+      <h2>{names[0]}</h2>
     </div>
   );
 };
