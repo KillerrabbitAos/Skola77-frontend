@@ -8,6 +8,7 @@ fyfan
 ## Available Scripts
 
 In the project directory, you can run:
+apan
 
 ### `npm install html2pdf`
 
