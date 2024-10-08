@@ -1,5 +1,7 @@
 .grid {
   display: grid;
+  margin: auto;
+  width: fit-content;
   gap: 5px; /* Space between cells */
   z-index: -7;
 }

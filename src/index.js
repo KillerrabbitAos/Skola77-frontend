@@ -13,8 +13,6 @@ import OmOss from './sidor/omOss.js';
 import Policy from './sidor/policy.js';
 import Användarvillkor from './sidor/villkor.js';
 import ResetPassword from './sidor/ResetPassword.js';
-import Grid2 from './grid2.js';
-
 
 import MittKonto from './sidor/mittKonto.js';
 import Grid from './Grid.js';
