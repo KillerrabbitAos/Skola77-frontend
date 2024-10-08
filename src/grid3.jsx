@@ -69,7 +69,16 @@ const Grid3 = () => {
   
         // If a matching deleted row exists, restore it
         if (matchingDeletedRow) {
-          newGrid[rowIndex] = [...matchingDeletedRow.data]; // Create a copy to prevent reference issues
+          let restoredRow = [...matchingDeletedRow.data]; // Create a copy to prevent reference issues
+  
+          // If the restored row is too short, add missing cells
+          if (restoredRow.length < cols) {
+            const missingCells = Array.from({ length: cols - restoredRow.length }, () => ({ id: null, person: 0 }));
+            restoredRow = [...restoredRow, ...missingCells]; // Append missing cells
+          }
+  
+          // Assign the restored (and possibly extended) row to the grid
+          newGrid[rowIndex] = restoredRow;
         }
       }
     }
@@ -78,6 +87,7 @@ const Grid3 = () => {
     setGrid(newGrid);
     setRows(newRows);
   };
+  
   
   
 
