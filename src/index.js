@@ -13,9 +13,12 @@ import OmOss from './sidor/omOss.js';
 import Policy from './sidor/policy.js';
 import Användarvillkor from './sidor/villkor.js';
 import ResetPassword from './sidor/ResetPassword.js';
+import Grid2 from './grid2.js';
 
 
 import MittKonto from './sidor/mittKonto.js';
+import Grid from './Grid.js';
+import Grid3 from './grid3.jsx';
 
 
 export default function App() {
@@ -25,6 +28,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Hem />} />
           <Route path="Editor" element={<Editor />} />
+          <Route path='grid2' element={<Grid3 />}></Route>
           <Route path="Support" element={<Support />} />
           <Route path="Kontakt" element={<Kontakt />} />
           <Route path="OmOss" element={<OmOss />} />
