@@ -155,6 +155,7 @@ const DraggableItem = ({ id, person, removeItem }) => {
           >
             <RiDeleteBin6Line />
           </button>
+          
         </div>
         <div className='nameTag'><h2>{names[person]}</h2></div>
       </div>

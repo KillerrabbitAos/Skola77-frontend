@@ -1,11 +1,13 @@
 .grid {
   display: grid;
   gap: 5px; /* Space between cells */
+  z-index: -7;
 }
 
 .grid-cell {
   width: 100px;
   height: 100px;
+  z-index: 0;
   border: 1px solid #ccc;
   display: block;
   justify-content: center;
@@ -23,6 +25,7 @@
   border: 1px solid black;
   width: 100px;
   height: 100px;
+  z-index: 1;
   cursor: move; /* Change cursor when dragging */
 }
 .removeButton{
@@ -37,7 +40,7 @@
   position: relative;
 }
 .buttons{
-  z-index: 1000;
+  z-index: 3;
   height: 50%;
   width: 100%;
 }
