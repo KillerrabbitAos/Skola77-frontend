@@ -37,7 +37,7 @@ const OmOss = () => {
         <div class="user-icon">O</div>
         <div class="user-info">
             <div class="user-name">Oscar Brännström</div>
-            <div class="user-role">Arbetare</div>
+            <div class="user-role">Kommunikationsansvarig</div>
         </div>
     </div>
 
@@ -45,7 +45,7 @@ const OmOss = () => {
         <div class="user-icon">S</div>
         <div class="user-info">
             <div class="user-name">Samuel Nordin</div>
-            <div class="user-role">Arbetare</div>
+            <div class="user-role">Dokumentationsansvarig</div>
         </div>
     </div>
 </div>
