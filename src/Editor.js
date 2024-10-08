@@ -567,6 +567,7 @@ const handleRefresh = () => {
 
       fitTextToContainer(container, element, 25);
     }
+    console.log("obama")
   }
 
   const adadsads = (group) => {
@@ -1120,6 +1121,7 @@ const handleRefresh = () => {
             setLåstaNamn={setLåstaNamn}
             namnRader={namnRader}
             setNames={setNames}
+            fixa={fixa}
           ></NameList>
         </div>
       </div>
