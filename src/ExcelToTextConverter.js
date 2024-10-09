@@ -1,5 +1,6 @@
 import React from "react";
 import * as XLSX from "xlsx";
+import './styles.css'
 
 const ExcelToTextConverter = ({ setNames, names }) => {
   const convertExcelToText = async (file) => {
@@ -59,8 +60,8 @@ const ExcelToTextConverter = ({ setNames, names }) => {
 
   return (
     <div>
-      <div>
-        <p>Importera namn från Excel (.xlsx):</p>
+      <div id="importeraNamn">
+        <h2>Importera namn från Excel (.xlsx):</h2>
       </div>
       <input type="file" onChange={handleFileChange} />
     </div>

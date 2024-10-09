@@ -17,6 +17,7 @@ import ResetPassword from './sidor/ResetPassword.js';
 import MittKonto from './sidor/mittKonto.js';
 import Grid from './Grid.js';
 import Grid3 from './grid3.jsx';
+import NameList from './Namn.js';
 
 
 export default function App() {
@@ -26,7 +27,8 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Hem />} />
           <Route path="Editor" element={<Editor />} />
-          <Route path='Placeringar' element={<Grid3 />}></Route>
+          <Route path='Placeringar' element={<Grid3 />}/>
+          <Route path="Klasser" element={<NameList />}/>
           <Route path="Support" element={<Support />} />
           <Route path="Kontakt" element={<Kontakt />} />
           <Route path="OmOss" element={<OmOss />} />

@@ -1,0 +1,130 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    top: 0;
+  }
+  
+
+  .inputSection {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: fit-content;
+  }
+
+  .namnFält {
+    margin-right: 0;
+    padding: 0;
+  }
+  
+
+  textarea {
+    width: 298px !important;
+    height: 148px !important; 
+    margin: 0;
+    padding: 0;
+    border-radius: 0 !important;
+    overflow-y: scroll; 
+    scrollbar-width: none; 
+  }
+  #importeraNamn{
+
+  }
+
+  textarea::-webkit-scrollbar {
+    display: none; 
+  }
+  
+  #namesInput {
+    margin: 0;
+    border-radius: 0 !important;
+  }
+
+  .addButtonSection {
+    margin-left: 0;
+    height: fit-content;
+  }
+  
+  .addButton {
+    font-weight: bolder;
+    font-size: 20px;
+    width: 300px;
+    height: 150px;
+    border-radius: 0 20px 20px 0;
+    margin: 0;
+  }
+  
+button{
+    margin: 0;
+}
+  .excelSection {
+    margin-left: 20px;
+  }
+
+  .nameList {
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .column {
+    flex: 1;
+  }
+  input{
+    color: white;
+  background-color: rgb(56, 180, 56);
+  border-style: none;
+  border-color: rgb(173, 169, 169);
+  padding: 15px;
+  border-radius: 10px;
+  width: 130px;
+  cursor: pointer;
+  }
+  .excelSection input{
+    font-weight: bolder;
+    font-size: 20px;
+    width: 300px;
+    border-radius: 20px;
+    margin-left: 0;
+  }
+
+#efternamnStarForst {
+    display: none; 
+}
+
+.custom-checkbox {
+    display: inline-block;
+    width: 20px; 
+    height: 20px; 
+    border-radius: 5px; 
+    background-color: #f0f0f0; 
+    border: 2px solid #ccc; 
+    position: relative; 
+    cursor: pointer;
+}
+
+
+#efternamnStarForst:checked + .custom-checkbox {
+    background-color: #4CAF50; 
+    border-color: #4CAF50; 
+}
+
+
+#efternamnStarForst:checked + .custom-checkbox::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white; 
+    border-width: 0 2px 2px 0; 
+    transform: rotate(45deg); 
+}
+#sparaNamnKnapp2{
+    font-weight: bold;
+    border-radius: 0 5px 5px 0;
+    border: solid black;
+}

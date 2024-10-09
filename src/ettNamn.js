@@ -6,72 +6,56 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 const Namn = ({
   name,
   originalIndex,
-  index,
   handleRemoveName,
   låstaNamn,
   setLåstaNamn,
-  handleUpdateName, // Lägg till en funktion för att hantera namnuppdateringar
   names,
-  setNames
+  setNames,
+  placeringsVy
 }) => {
   const [editedName, setEditedName] = useState(name);
 
   useEffect(() => {
-    setEditedName(name); // Uppdatera den redigerade texten om 'name' ändras
+    setEditedName(name); // Update edited name when 'name' prop changes
   }, [name]);
-
-  const handleDragStart = (e) => {
-    e.dataTransfer.setData("namn", originalIndex);
-  };
 
   const handleLåsaNamn = () => {
     if (!låstaNamn.includes(originalIndex)) {
       setLåstaNamn((prevLåstaNamn) => [...prevLåstaNamn, originalIndex]);
     } else {
-      const newLåstaNamn = [];
-      for (let i = 0; i < låstaNamn.length; i++) {
-        if (låstaNamn[i] !== originalIndex) {
-          newLåstaNamn.push(låstaNamn[i]);
-        }
-      }
+      const newLåstaNamn = låstaNamn.filter((index) => index !== originalIndex);
       setLåstaNamn(newLåstaNamn);
     }
   };
 
-  const handleChange = (e) => {
-    const newName = editedName;
-   
-
-    const newNames = [...names];  // Skapa en kopia av names
-    newNames[originalIndex] = newName;  // Uppdatera det specifika namnet
+  const handleChange = () => {
+    const newNames = [...names]; 
+    newNames[originalIndex] = editedName; 
     setNames(newNames);
-  
   };
 
   return (
-    <li key={index}>
+    <li key={originalIndex}>
       <div
         id={originalIndex}
-        draggable="true"
-        onDragStart={handleDragStart}
         className={`namnILista ${
           låstaNamn.includes(originalIndex) ? "låst" : "upplåst"
         }`}
       >
         <div className="grå"></div>
-        <button className="bin" onClick={() => handleRemoveName(originalIndex)}>
+        <button className="bin" style={{marginTop: "10px"}} onClick={() => handleRemoveName(originalIndex)}>
           <RiDeleteBin6Line />
         </button>
         <div style={{ width: "134px", display: "contents" }} className="namnTxt">
           <input
             value={editedName}
-            onChange={(e) => {setEditedName(e.target.value)}}
+            onChange={(e) => setEditedName(e.target.value)}
             onBlur={handleChange}
           />
         </div>
-        <button className="låsKnapp" onClick={handleLåsaNamn}>
+        {placeringsVy &&<button className="låsKnapp" onClick={handleLåsaNamn}>
           {låstaNamn.includes(originalIndex) ? <IoIosLock /> : <IoIosUnlock />}
-        </button>
+        </button>}
       </div>
     </li>
   );
