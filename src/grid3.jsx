@@ -32,71 +32,47 @@ const Grid3 = () => {
 
   
   const ändraRader = (e) => {
-    let newRows = parseInt(e.target.value);
-    
-    // Store removed items from the previous grid
+    const inputValue = e.target.value === "" ? "" : parseInt(e.target.value, 10);
+    let newRows = isNaN(inputValue) || inputValue === "" ? "" : Math.max(1, inputValue);
+  
+    if (newRows === "") {
+      setRows("");
+      return;
+    }
+  
     const removedItems = [];
     const newGrid = [];
   
-    // Create new grid based on the new number of rows
     for (let rowIndex = 0; rowIndex < newRows; rowIndex++) {
       if (rowIndex < rows) {
-        // Copy existing rows
         newGrid.push(grid[rowIndex]);
       } else {
-        // Initialize new rows with empty cells
         newGrid.push(Array.from({ length: cols }, () => ({ id: null, person: 0 })));
       }
     }
   
-    // If reducing the number of rows, collect removed rows
     if (newRows < rows) {
       for (let rowIndex = newRows; rowIndex < rows; rowIndex++) {
-        // Store the entire row with its original index
         const removedRow = { index: rowIndex, data: grid[rowIndex] };
         removedItems.push(removedRow);
       }
-      // Update deleted items with whole rows
       setDeletedItems((prev) => [...prev, ...removedItems]);
     }
   
-    // If increasing the number of rows, restore deleted rows if the index matches
-    if (newRows > rows) {
-      // Restore entire deleted rows into the new empty rows if available
-      for (let rowIndex = rows; rowIndex < newRows; rowIndex++) {
-        // Find a deleted row that matches the current row index
-        const matchingDeletedRow = deletedItems.find(item => item.index === rowIndex);
-  
-        // If a matching deleted row exists, restore it
-        if (matchingDeletedRow) {
-          let restoredRow = [...matchingDeletedRow.data]; // Create a copy to prevent reference issues
-  
-          // If the restored row is too short, add missing cells
-          if (restoredRow.length < cols) {
-            const missingCells = Array.from({ length: cols - restoredRow.length }, () => ({ id: null, person: 0 }));
-            restoredRow = [...restoredRow, ...missingCells]; // Append missing cells
-          }
-  
-          // Assign the restored (and possibly extended) row to the grid
-          newGrid[rowIndex] = restoredRow;
-        }
-      }
-    }
-  
-    // Update grid and row count
     setGrid(newGrid);
     setRows(newRows);
   };
   
   
-  
-
-  // Increase the number of columns in the grid
   const ändraKolumner = (e) => {
-    const newCols = parseInt(e.target.value);
-    if (newCols < 1 || !newCols){
-      newCols = 1
+    const inputValue = e.target.value === "" ? "" : parseInt(e.target.value, 10);
+    let newCols = isNaN(inputValue) || inputValue === "" ? "" : Math.max(1, inputValue);
+  
+    if (newCols === "") {
+      setCols("");
+      return;
     }
+  
     const newGrid = grid.map((row, rowIndex) => {
       if (newCols > cols) {
         for (let colIndex = cols; colIndex < newCols; colIndex++) {
@@ -110,7 +86,6 @@ const Grid3 = () => {
           }
         }
       } else {
-        // Remove excess columns and store them in deletedItems
         const removedItems = row.slice(newCols).map((cell, colIndex) => ({
           ...cell,
           rowIndex,
@@ -121,11 +96,12 @@ const Grid3 = () => {
       }
       return row;
     });
-
+  
     setGrid(newGrid);
     setCols(newCols);
   };
-
+  
+  
   // Handle drag-and-drop event
   const handleDrop = (event) => {
     const { active, over } = event;
@@ -152,8 +128,20 @@ const Grid3 = () => {
   };
   return (
     <div>
-      <input type="number" value={rows} onChange={ändraRader} />
-      <input type="number" value={cols} onChange={ändraKolumner} />
+<input
+  type="number"
+  min="1"
+  value={rows === "" ? "" : rows}
+  onChange={ändraRader}
+/>
+<input
+  type="number"
+  min="1"
+  value={cols === "" ? "" : cols}
+  onChange={ändraKolumner}
+/>
+
+
       <button onClick={spara}>spara</button>
       <DndContext sensors={sensors} onDragEnd={handleDrop}>
         <div

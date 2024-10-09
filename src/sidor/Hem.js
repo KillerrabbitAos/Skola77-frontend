@@ -19,7 +19,12 @@ const Hem = () => {
         height: '100vh', 
         userSelect: 'none'  // Prevent text selection
     }}>
-        <h1>Skola77 2 alfa</h1>
+      <text>
+      <h1>Skola77 2 alfa</h1>{"\n"}
+      <p>20241009</p>
+
+      </text>
+
     </div>
     
   );
