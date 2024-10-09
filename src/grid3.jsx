@@ -58,6 +58,28 @@ const Grid3 = () => {
       }
       setDeletedItems((prev) => [...prev, ...removedItems]);
     }
+
+    if (newRows > rows) {
+      // Restore entire deleted rows into the new empty rows if available
+      for (let rowIndex = rows; rowIndex < newRows; rowIndex++) {
+        // Find a deleted row that matches the current row index
+        const matchingDeletedRow = deletedItems.find(item => item.index === rowIndex);
+  
+        // If a matching deleted row exists, restore it
+        if (matchingDeletedRow) {
+          let restoredRow = [...matchingDeletedRow.data]; // Create a copy to prevent reference issues
+  
+          // If the restored row is too short, add missing cells
+          if (restoredRow.length < cols) {
+            const missingCells = Array.from({ length: cols - restoredRow.length }, () => ({ id: null, person: 0 }));
+            restoredRow = [...restoredRow, ...missingCells]; // Append missing cells
+          }
+  
+          // Assign the restored (and possibly extended) row to the grid
+          newGrid[rowIndex] = restoredRow;
+        }
+      }
+    }
   
     setGrid(newGrid);
     setRows(newRows);
