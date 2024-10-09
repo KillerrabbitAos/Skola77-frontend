@@ -59,8 +59,8 @@ const ExcelToTextConverter = ({ setNames, names }) => {
   };
 
   return (
-    <div>
-      <div id="importeraNamn">
+    <div id="importeraNamn">
+      <div>
         <h2>Importera namn från Excel (.xlsx):</h2>
       </div>
       <input type="file" onChange={handleFileChange} />

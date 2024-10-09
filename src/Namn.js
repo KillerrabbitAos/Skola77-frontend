@@ -134,27 +134,29 @@ const NameList = () => {
             Lägg till...
           </button>
         </div>
-        
-        <div>
+
+        {false && <div id="knappar">
           <button
             onClick={taBortEfternamn}
             className="sparaNamnKnapp2"
             id="sparaNamnKnapp2"
           >
-            Ta bort efternamn
+            Efternamn står först?
           </button>
-          
-          <label>
-            <input
+          <div id="chek">
+            
+            <label>
+              <input
                 id="efternamnStarForst"
                 type="checkbox"
                 defaultChecked={true}
                 onChange={andraCheckboxvarde}
-                style={{ display: 'none' }} // Hide the default checkbox
-            />
-            <span className="custom-checkbox"></span>
-        </label>
-        </div>
+                style={{ display: "none" }} // Hide the default checkbox
+              />
+              <span className="custom-checkbox"></span>
+            </label>
+          </div>
+        </div>}
 
         <div className="excelSection">
           <ExcelToTextConverter setNames={setNames} names={names} />
