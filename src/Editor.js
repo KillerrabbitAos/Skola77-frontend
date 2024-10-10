@@ -676,7 +676,7 @@ const handleRefresh = () => {
         boxNames
       )
     );
-    await new Promise((resolve) => setTimeout(resolve, 200));
+    await new Promise((resolve) => setTimeout(resolve, 300));
   };
 
   const handleMixNames = async () => {
