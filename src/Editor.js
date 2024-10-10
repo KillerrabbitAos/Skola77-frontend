@@ -676,6 +676,7 @@ const handleRefresh = () => {
         boxNames
       )
     );
+    await new Promise((resolve) => setTimeout(resolve, 200));
   };
 
   const handleMixNames = async () => {
@@ -713,6 +714,8 @@ const handleRefresh = () => {
         }
       }
     }
+
+    await firstConstantFunction();
     setTimeout(() => {
       fixa();
     }, 500);
@@ -1134,7 +1137,6 @@ const handleRefresh = () => {
 };
 
 export default Editor;
-
 
 
 
