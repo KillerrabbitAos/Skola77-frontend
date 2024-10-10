@@ -676,7 +676,7 @@ const handleRefresh = () => {
         boxNames
       )
     );
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 200));
   };
 
   const handleMixNames = async () => {
@@ -716,8 +716,10 @@ const handleRefresh = () => {
     }
 
     await firstConstantFunction();
-    fixa();
-  };
+    setTimeout(() => {
+      fixa();
+    }, 500);
+  }
 
   const handleGroupChange = async (event) => {
     const selectedGroup = event.target.value;
