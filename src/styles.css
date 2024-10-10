@@ -1,4 +1,10 @@
 
+.excelSection{
+  width: 400px;
+  height: 148px;
+  top: 0;
+  margin-top: 0 !important;
+}
 .container {
     display: flex;
     flex-direction: column;
@@ -62,7 +68,7 @@ button{
     margin: 0;
 }
   .excelSection {
-    margin-left: 20px;
+    margin-left: 15px;
   }
 
   .nameList {

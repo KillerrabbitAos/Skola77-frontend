@@ -21,9 +21,9 @@ const Support = () => {
   
           <div className="material">
   
-           <p>Vilkor:</p>
+           <p>Villkor:</p>
   
-           <a className="pdfLänk" href="/terms-of-service" target="_blank">Skola77:s vilkor</a>
+           <a className="pdfLänk" href="/terms-of-service" target="_blank">Skola77:s villkor</a>
        </div>
 
 
