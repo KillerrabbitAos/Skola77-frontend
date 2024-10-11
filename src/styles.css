@@ -1,10 +1,4 @@
 
-.excelSection{
-  width: 400px;
-  height: 148px;
-  top: 0;
-  margin-top: 0 !important;
-}
 .container {
     display: flex;
     flex-direction: column;
@@ -15,7 +9,8 @@
   
 
   .inputSection {
-    display: flex;
+    display: inline-block;
+    width: 600px;
     align-items: center;
     justify-content: flex-start;
     height: fit-content;
@@ -34,6 +29,8 @@
     padding: 0;
     border-radius: 0 !important;
     overflow-y: scroll; 
+    border: 1px solid black;
+    border-width: 1px 0 0 1px;
     scrollbar-width: none; 
   }
   #importeraNamn input{
@@ -61,7 +58,9 @@
     height: 150px;
     border-radius: 0;
     margin: 0;
-    border-radius: 0 20px 20px 0;
+    border-radius: 0 20px 0 0;
+    border: 1px solid black;
+    border-width: 1px 1px 0 1px;
   }
   
 button{
@@ -94,7 +93,7 @@ button{
     font-weight: bolder;
     font-size: 20px;
     width: 100%;
-    border-radius: 20px;
+    border-radius: 11px;
     margin-left: 0;
   }
 
@@ -166,4 +165,44 @@ button{
 }
 #checklabel span{
   margin: auto;
+}
+/* Hide the default file input */
+input[type="file"] {
+  display: none;
+}
+
+/* Style the custom button */
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #38b438;
+  color: white;
+  border: 1px solid black;
+  border-radius: 0 0 5px 5px;
+
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Add hover effects for the custom button */
+.custom-file-upload:hover {
+  background-color: #38b438;
+}
+
+.file-input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 599px;
+}
+
+#file-name {
+  font-size: 14px;
+  color: #666;
+}
+
+label{
+  text-align: center;
+  font-weight: bold;
+  font-size: medium;
 }
