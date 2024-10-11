@@ -384,24 +384,28 @@ const NameList = () => {
     <div className="container">
       <div className="inputSection">
         <div style={{ display: "flex" }}>
-          <textarea
-            id="namesInput"
-            rows="10"
-            cols="30"
-            placeholder="Ett namn per rad"
-          ></textarea>
+          <div>
+            <div style={{ display: "flex", width: "600px" }}>
+              <textarea
+                id="namesInput"
+                rows="10"
+                cols="30"
+                placeholder="Ett namn per rad"
+              ></textarea>
 
-          <div className="addButtonSection">
-            <button className="addButton" onClick={läggTillNamn}>
-              Lägg till...
-            </button>
+              <div className="addButtonSection">
+                <button className="addButton" onClick={läggTillNamn}>
+                  Lägg till...
+                </button>
+              </div>
+            </div>
+            <ExcelToTextConverter setNames={setNames} names={names} />
           </div>
-
           <ul
             style={{
               overflowY: "scroll",
               width: "200px",
-              height: "140px",
+              height: "186px",
               border: "1px solid black",
               marginTop: "5px",
               marginBottom: "0px",
@@ -461,8 +465,6 @@ const NameList = () => {
             Efternamn står först?
           </button>
         )}
-
-        <ExcelToTextConverter setNames={setNames} names={names} />
       </div>
       {klassnamn && (
         <h2 style={{ textAlign: "center", margin: "auto" }}>{klassnamn}</h2>

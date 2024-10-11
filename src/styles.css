@@ -207,17 +207,18 @@ label{
 }
 
 /* Hover effect for desktop only */
-@media only screen and (min-width: 1025px) {
+/*@media only screen and (min-width: 1025px) {
   li:hover {
     background-color: lightgray;
   }
-}
+}*/
 ul{
   border-radius: 5px;
 }
-li{
+
+/*li{
   border-radius: 5px;
-}
+}*/
 .nameList {
   display: flex;
   justify-content: center; /* Horizontally center the content */
