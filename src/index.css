@@ -190,33 +190,36 @@ html {
 .material a:hover {
   background-color: #45a049;
 }
-
 .navbar {
   display: flex;
+  justify-content: space-between; /* Separerar huvudnavigeringen och kontonavigeringen */
   align-items: center;
   background-color: #ffffff;
   padding: 20px;
-  margin: 0;
   height: 70px;
-  justify-content: space-between; /* Lägger till för att fördela utrymme */
 }
 
-.nav-links {
-  display: flex; 
+.nav-links, .nav-account {
+  display: flex;
   list-style-type: none;
   padding: 0;
   margin: 0;
-  align-items: center;
 }
 
+.nav-links li, .nav-account li {
+  margin-right: 20px;
+}
 .nav-account {
-  margin-left: auto; /* Skjuter "Mitt konto" till höger */
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+  margin-left: auto; /* Flyttar kontodelen till höger */
 }
 
+#mittKonto {
+  font-weight: bold;
+}
 
+.active {
+  text-decoration: underline; /* Markerar aktiv länk med understrykning */
+}
 
 .pdfs{
 
@@ -280,32 +283,73 @@ html {
   margin-bottom: 80px;
 }
 
-.frågorOchSvar{
-  font-size: 25px;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 20px;
+  height: 70px;
+}
+
+.nav-links, .nav-account {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li, .nav-account li {
+  margin-right: 20px;
+}
+
+.nav-account {
+  margin-left: auto;
+}
+
+#mittKonto {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Viktigt för att placera tooltipen */
+  transition: all 0.3s ease;
+}
+
+#mittKonto.active {
+  border: 2px solid black;
+  width: 70px;
+  height: 70px;
+}
+
+#mittKonto:hover::after {
+  content: "Mitt konto"; /* Texten som visas vid hover */
+  position: absolute;
+  top: 80px; /* Justerar var tooltipen visas */
+  left: 50%;
+  transform: translateX(-50%); /* Centrerar texten */
+  background-color: #333;
   color: white;
-
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap; /* Gör så att texten inte bryts */
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  opacity: 1;
 }
 
-#fråga{
-  margin-left: 40px;
-  width: 800px;
-  background-color: rgb(138, 133, 133);
-  padding: 20px;
-  text-align: center;
-  border-radius: 50px 50px 50px 5px;
-  margin-top: 190px;
-}
 
-#svar{
-  float: right;
-  margin-right: 40px;
-  width: 800px;
-  background-color: rgb(23, 23, 253);
-  padding: 20px;
-  text-align: center;
-  border-radius: 50px 50px 5px;
-}
 
+
+.konto-ikon {
+  width: 30px; /* Anpassa ikonens storlek */
+  height: 30px;
+  border-radius: 50%; /* Gör ikonen rund om det behövs */
+}
 #mail{
   color: white;
 }

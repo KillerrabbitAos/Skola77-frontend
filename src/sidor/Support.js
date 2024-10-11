@@ -4,8 +4,8 @@ const Support = () => {
       <div className="supportHead">
   
           <h1>Välkommen till Support!</h1>
-          <p>Här finner du material och guider för användning av Skola77</p>
-  
+          <p>Här finner du material, guider och information för användning av Skola77</p>
+
       </div>
   
       <div className="pdfs">
@@ -73,6 +73,39 @@ const Support = () => {
 
 
       </div>
+
+
+
+      <div id="omTitle">
+
+<h1 id="omOssHead">Om oss</h1>
+
+
+</div>
+
+
+<div id="bodyOmOss">
+
+<h2><u>Skola77 är ett bordsplaceringsprogram utvecklat av en grupp ungdomar. Vi tycker det är självklart att lärare ska ha tillgång till välgjorda och effektiva verktyg för att kunna skapa trygghet och arbetsro i klassrummen. Det är därför vårt bordsplaceringsprogram är utvecklat med lärare i åtanke. Dessutom är vår hemsida helt gratis och utan reklam. 
+</u></h2>
+
+
+</div>
+
+
+      <div className="mail">
+
+
+    
+    <h1 id="mailHead">Kontakt via E-post:</h1>
+    <p id="mailorm">För feedback:</p>
+    <a href="mailto:feedback@skola77.com" id="feedbackMail">feedback@skola77.com</a>
+    <p>Övrigt:</p>
+    <a href="mailto:support@skola77.com">support@skola77.com</a>
+
+
+</div>
+
       
   </body>);
   };

@@ -6,29 +6,32 @@ const Layout = () => {
       <div className="navbar">
         <ul className="nav-links">
           <li className="header" id="main">
-            <NavLink to="/" activeClassName="active">
-              <img src="/skola77logga.png" alt='Skola77' id="kebbe" />
+            <NavLink to="/">
+              <img src="/skola77logga.png" alt="Skola77" id="kebbe" />
             </NavLink>
           </li>
           <li className="header">
-            <NavLink to="/Placeringar" activeClassName="active">Placeringar</NavLink>
+            <NavLink to="/Placeringar" className={({ isActive }) => (isActive ? "active" : "")}>
+              Placeringar
+            </NavLink>
           </li>
           <li className="header">
-            <NavLink to="/Klasser" activeClassName="active">Klasser</NavLink>
+            <NavLink to="/Klasser" className={({ isActive }) => (isActive ? "active" : "")}>
+              Klasser
+            </NavLink>
           </li>
           <li className="header">
-            <NavLink to="/Support" activeClassName="active">Hjälp</NavLink>
-          </li>
-          <li className="header">
-            <NavLink to="/Kontakt" activeClassName="active">Kontakt</NavLink>
-          </li>
-          <li className="header">
-            <NavLink to="/OmOss" activeClassName="active">Om</NavLink>
+            <NavLink to="/Support" className={({ isActive }) => (isActive ? "active" : "")}>
+              Hjälp
+            </NavLink>
           </li>
         </ul>
+
         <ul className="nav-account">
           <li className="header">
-            <NavLink to="/mittKonto" activeClassName="active" id="mittKonto">Mitt konto</NavLink>
+            <NavLink to="/mittKonto" className={({ isActive }) => (isActive ? "active" : "")} id="mittKonto">
+              <img src="/account.svg" alt="Mitt konto" className="konto-ikon" />
+            </NavLink>
           </li>
         </ul>
       </div>

@@ -80,12 +80,13 @@ button{
     flex: 1;
   }
   input{
-    color: white;
-  background-color: rgb(56, 180, 56);
-  border-style: none;
-  border-color: rgb(173, 169, 169);
-  padding: 15px;
-  border-radius: 10px;
+    color: black;
+  border-color: rgb(34, 172, 16);
+  border-style: solid;
+  padding: 3px;
+  font-size: 20px;
+  border-radius: 4px;
+  margin: 10px;
   width: 130px;
   cursor: pointer;
   }
@@ -124,9 +125,7 @@ button{
     background-color: #4CAF50; 
     border-color: black; 
 }
-#beng{
 
-}
 label{
   padding: 0;
   width: 100%;
