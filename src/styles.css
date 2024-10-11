@@ -10,7 +10,6 @@
 
   .inputSection {
     display: inline-block;
-    width: 600px;
     align-items: center;
     justify-content: flex-start;
     height: fit-content;
@@ -205,4 +204,23 @@ label{
   text-align: center;
   font-weight: bold;
   font-size: medium;
+}
+
+/* Hover effect for desktop only */
+@media only screen and (min-width: 1025px) {
+  li:hover {
+    background-color: lightgray;
+  }
+}
+ul{
+  border-radius: 5px;
+}
+li{
+  border-radius: 5px;
+}
+.nameList {
+  display: flex;
+  justify-content: center; /* Horizontally center the content */
+  margin: auto;            /* Center within the container */
+  padding: 10px;
 }
