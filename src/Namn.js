@@ -122,45 +122,32 @@ const NameList = () => {
   return (
     <div className="container">
       <div className="inputSection">
+        <div style={{display: "flex"}}>
         <textarea
           id="namesInput"
           rows="10"
           cols="30"
           placeholder="Ett namn per rad"
         ></textarea>
-
+        
         <div className="addButtonSection">
           <button className="addButton" onClick={läggTillNamn}>
             Lägg till...
           </button>
         </div>
+        </div>
 
-        {false && <div id="knappar">
-          <button
+        {false && <button
             onClick={taBortEfternamn}
             className="sparaNamnKnapp2"
             id="sparaNamnKnapp2"
           >
             Efternamn står först?
-          </button>
-          <div id="chek">
-            
-            <label>
-              <input
-                id="efternamnStarForst"
-                type="checkbox"
-                defaultChecked={true}
-                onChange={andraCheckboxvarde}
-                style={{ display: "none" }} // Hide the default checkbox
-              />
-              <span className="custom-checkbox"></span>
-            </label>
-          </div>
-        </div>}
+          </button>}
 
-        <div className="excelSection">
+        
           <ExcelToTextConverter setNames={setNames} names={names} />
-        </div>
+        
       </div>
 
       <div className="nameList">
