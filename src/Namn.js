@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Namn from "./ettNamn";
 import ExcelToTextConverter from "./ExcelToTextConverter";
-import "./styles.css";
 import { isMobile, isTablet } from "react-device-detect";
 
 function fitTextToContainer(container, element, maxFontSizePx) {
@@ -31,6 +30,7 @@ function fitTextToContainer(container, element, maxFontSizePx) {
     element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
   }
 }
+
 const NameList = () => {
   const [data, setData] = useState({
     klassrum: [
@@ -264,32 +264,20 @@ const NameList = () => {
     updatedNames.splice(index, 1);
     setNames(updatedNames);
   };
+
   function applyFontSizesToClass(className) {
     const elements = document.getElementsByClassName(className);
-
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i];
       const container = element.parentElement;
-
       fitTextToContainer(container, element, 25);
     }
   }
+
   const fixa = () => {
     applyFontSizesToClass("name");
-    //const elements = document.getElementsByClassName('namnTxt')
-    //for (let i = 0; i < elements.length; i++) {
-    //const element = elements[i];
-    // console.log(element)
-    // const container = element.parentElement;
-    // const containerWidth = container.clientWidth;
-    //const elementWidth = element.offsetWidth;
-    // console.log(elementWidth)
-    // console.log(containerWidth)
-    // if (elementWidth > containerWidth){
-    //// fitTextToContainer(container, element);
-    // }
-    // }
   };
+
   const läggTillNamn = () => {
     const textarea = document.getElementById("namesInput");
     const textareaContent = textarea.value
@@ -300,15 +288,13 @@ const NameList = () => {
     setNames((prevNames) => [...prevNames, ...textareaContent]);
     textarea.value = "";
   };
+
   const taBortEfternamn = () => {
-    if (efternamnStarForst) {
-      setNames((förraNamn) =>
-        förraNamn.map((namn) => namn.split(" ").slice(-1)[0])
-      );
-    } else {
-      setNames((förraNamn) => förraNamn.map((namn) => namn.split(" ")[0]));
-    }
-    console.log("keb");
+    setNames((förraNamn) =>
+      förraNamn.map((namn) =>
+        efternamnStarForst ? namn.split(" ").slice(-1)[0] : namn.split(" ")[0]
+      )
+    );
     fixa();
   };
 
@@ -321,7 +307,6 @@ const NameList = () => {
 
     handleResize();
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -331,32 +316,15 @@ const NameList = () => {
     .sort((a, b) => a.name.localeCompare(b.name));
 
   const columnSize = Math.ceil(sortedNamesWithIndex.length / columns);
-
   const columnsArray = Array.from({ length: columns }, (_, columnIndex) =>
     sortedNamesWithIndex.slice(
       columnIndex * columnSize,
       (columnIndex + 1) * columnSize
     )
   );
-  const beng = [
-    {
-      namn: "tom klass",
-      personer: [""],
-    },
-    {
-      namn: "tom klass",
-      personer: [""],
-    },
-    {
-      namn: "tom klass",
-      personer: [""],
-    },
-    {
-      namn: "tom klass",
-      personer: [""],
-    },
-  ];
+
   const andraCheckboxvarde = (e) => setEfternamnStarForst(e.target.checked);
+
   const sparaNamn = () => {
     if (klassnamn) {
       const updatedData = data.klasser.map((klass) => {
@@ -383,96 +351,70 @@ const NameList = () => {
   return (
     <div className="container">
       <div className="inputSection">
-        <div style={{ display: "flex" }}>
-          <div>
-            <div style={{ display: "flex", width: "600px" }}>
-              <textarea
-                id="namesInput"
-                rows="10"
-                cols="30"
-                placeholder="Ett namn per rad"
-              ></textarea>
+        <div className="flex flex-col items-start">
+          <div className="flex items-start">
+            <textarea
+              id="namesInput"
+              rows="10"
+              className="rounded-md w-80"
+              placeholder="Ett namn per rad"
+            ></textarea>
 
-              <div className="addButtonSection">
-                <button className="addButton" onClick={läggTillNamn}>
-                  Lägg till...
-                </button>
-              </div>
-            </div>
-            <ExcelToTextConverter setNames={setNames} names={names} />
-          </div>
-          <ul
-            style={{
-              overflowY: "scroll",
-              width: "200px",
-              height: "186px",
-              border: "1px solid black",
-              marginTop: "5px",
-              marginBottom: "0px",
-              marginLeft: "5px",
-              userSelect: "none",
-            }}
-          >
-            <li
-              style={{ fontSize: "25px", padding: "2px" }}
-              onClick={() => {
-                setNames([""]);
-                setKlassnamn(null);
-              }}
+            <button
+              className="addButton ml-2" // Original button styling
+              onClick={läggTillNamn}
             >
-              ny klass...
-            </li>
-            {data.klasser
-              .slice()
-              .reverse()
-              .map((klass) => {
-                return (
-                  <li
-                    id={klass.namn}
-                    style={{
-                      fontSize: "25px",
-                      padding: "2px",
-                      ...(isTablet &&
-                        klass.namn === klassnamn && {
-                          backgroundColor: "lightgray",
-                        }),
-                    }}
-                    onClick={() => {
-                      setNames(klass.personer);
-                      setKlassnamn(klass.namn);
-                    }}
-                  >
-                    {klass.namn}
-                  </li>
-                );
-              })}
-          </ul>
+              Lägg till...
+            </button>
+          </div>
 
-          <button
-            style={{ position: "absolute", right: "0px" }}
-            onClick={sparaNamn}
-          >
-            Spara
-          </button>
+          {/* ExcelToTextConverter below the textarea and button */}
+          <ExcelToTextConverter setNames={setNames} names={names} />
         </div>
 
-        {false && (
-          <button
-            onClick={taBortEfternamn}
-            className="sparaNamnKnapp2"
-            id="sparaNamnKnapp2"
+        {/* Additional content, like the class list */}
+        <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
+          <li
+            className="font-bold text-xl p-2 cursor-pointer"
+            onClick={() => {
+              setNames([""]);
+              setKlassnamn(null);
+            }}
           >
-            Efternamn står först?
-          </button>
-        )}
+            ny klass...
+          </li>
+          {data.klasser
+            .slice()
+            .reverse()
+            .map((klass) => (
+              <li
+                key={klass.namn}
+                className="font-bold text-xl p-2 cursor-pointer"
+                onClick={() => {
+                  setNames(klass.personer);
+                  setKlassnamn(klass.namn);
+                }}
+              >
+                {klass.namn}
+              </li>
+            ))}
+        </ul>
+
+        <button
+          className="mt-2 bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600 transition"
+          style={{ position: "absolute", right: "0px" }}
+          onClick={sparaNamn}
+        >
+          Spara
+        </button>
       </div>
-      {klassnamn && (
-        <h2 style={{ textAlign: "center", margin: "auto" }}>{klassnamn}</h2>
-      )}
+
+      {klassnamn && <h2 className="text-center mt-4">{klassnamn}</h2>}
+
       <div className="nameList">
         {columnsArray.map((column, columnIndex) => (
           <div key={columnIndex} className="column">
-            <ul style={{ listStyleType: "none" }}>
+            <ul className="list-none">
               {column.map(({ name, originalIndex }) => (
                 <Namn
                   key={originalIndex}
