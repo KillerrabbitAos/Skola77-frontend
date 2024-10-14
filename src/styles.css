@@ -183,7 +183,7 @@ input[type="file"] {
   background-color: #38b438;
   color: white;
   border: 1px solid black;
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 0;
 
   cursor: pointer;
   font-size: 16px;
@@ -231,4 +231,33 @@ ul{
   justify-content: center; /* Horizontally center the content */
   margin: auto;            /* Center within the container */
   padding: 10px;
+}
+.custom-button {
+  width: 196px;
+  height: 196px;
+  background-color: #38b438;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0; 
+  border: 1px solid black;
+  border-width: 1px 0 1px 1px;
+}
+
+.custom-button:hover {
+  opacity: 0.9;
+}
+
+.custom-button:active {
+  opacity: 0.8;
+}
+
+.custom-button:focus {
+  outline: none;
+  ring: 2px solid green;
+  ring-color: #38b438;
 }

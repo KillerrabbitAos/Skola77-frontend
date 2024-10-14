@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Namn from "./ettNamn";
 import ExcelToTextConverter from "./ExcelToTextConverter";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isMobile, isTablet } from "react-device-detect";
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
 function fitTextToContainer(container, element, maxFontSizePx) {
   for (let i = 0; i < 20; i++) {
@@ -353,26 +355,28 @@ const NameList = () => {
       <div className="inputSection">
         <div className="flex flex-col items-start">
           <div className="flex items-start">
-            <textarea
-              id="namesInput"
-              rows="10"
-              className="rounded-md w-80"
-              placeholder="Ett namn per rad"
-            ></textarea>
-
-            <button
-              className="addButton ml-2" // Original button styling
-              onClick={läggTillNamn}
-            >
-              Lägg till...
+            <button className="custom-button w-[196px] h-[196px]  bg-[#38b438] text-white font-bold shadow-lg hover:opacity-90 active:opacity-80 focus:outline-none focus:ring-2 focus:ring-green-300 transition-all flex items-center justify-center border-b border-b-1 border-black">
+              <FontAwesomeIcon icon={faFloppyDisk} size="4x" />
             </button>
-          </div>
 
-          {/* ExcelToTextConverter below the textarea and button */}
-          <ExcelToTextConverter setNames={setNames} names={names} />
+            <div className="m-auto">
+              <div class="w-[600px] h-[150px] flex">
+                <textarea
+                  id="namesInput"
+                  rows="10"
+                  className="rounded-md w-80"
+                  placeholder="Ett namn per rad"
+                ></textarea>
+
+                <button className="addButton ml-2" onClick={läggTillNamn}>
+                  Lägg till...
+                </button>
+              </div>
+              <ExcelToTextConverter setNames={setNames} names={names} />
+            </div>
+          </div>
         </div>
 
-        {/* Additional content, like the class list */}
         <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
           <li
             className="font-bold text-xl p-2 cursor-pointer"
@@ -399,19 +403,15 @@ const NameList = () => {
               </li>
             ))}
         </ul>
-
-        <button
-          className="mt-2 bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600 transition"
-          style={{ position: "absolute", right: "0px" }}
-          onClick={sparaNamn}
-        >
-          Spara
-        </button>
       </div>
 
-      {klassnamn && <h2 className="text-center mt-4">{klassnamn}</h2>}
+      {klassnamn && (
+        <h2 className="text-center mt-4 w-full font-bold text-xl">
+          {klassnamn}
+        </h2>
+      )}
 
-      <div className="nameList">
+      <div className="nameList gap-10">
         {columnsArray.map((column, columnIndex) => (
           <div key={columnIndex} className="column">
             <ul className="list-none">
