@@ -1,1 +1,1 @@
-Escuela setente y siéte
+Escuela setenta y siete
