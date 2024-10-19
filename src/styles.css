@@ -27,13 +27,13 @@
 
   textarea {
     width: 298px !important;
-    height: 150px !important; 
+    height: 200px !important; 
     margin: 0;
     padding: 0;
     border-radius: 0 !important;
     overflow-y: scroll; 
     border: 1px solid black;
-    border-width: 1px 0 0 1px ;
+    border-width: 1px 0 1px 1px ;
     scrollbar-width: none; 
   }
   #importeraNamn input{
@@ -58,14 +58,13 @@
     font-weight: bolder;
     font-size: 20px;
     width: 300px;
-    height: 150px;
-    border-radius: 0;
+    height: 200px;
     background-color: #38b438;
     color: white;
     margin: 0;
-    border-radius: 0 20px 0 0;
+    border-radius: 0 20px 20px 0;
     border: 1px solid black;
-    border-width: 1px 1px 0 1px;
+    border-width: 1px 1px 1px 1px;
   }
   
 button{
@@ -233,8 +232,7 @@ ul{
   padding: 10px;
 }
 .custom-button {
-  width: 196px;
-  height: 196px;
+
   background-color: #38b438;
   color: white;
   font-weight: bold;
@@ -246,6 +244,8 @@ ul{
   border-radius: 0; 
   border: 1px solid black;
   border-width: 1px 0 1px 1px;
+
+
 }
 
 .custom-button:hover {
@@ -256,8 +256,8 @@ ul{
   opacity: 0.8;
 }
 
-.custom-button:focus {
-  outline: none;
-  ring: 2px solid green;
-  ring-color: #38b438;
+.ejEfternamn{
+  border: 1px solid black;
 }
+
+
