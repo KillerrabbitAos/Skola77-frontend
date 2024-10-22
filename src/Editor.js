@@ -69,13 +69,6 @@ function fitTextToContainer(container, element, maxFontSizePx) {
 const Editor = () => {
 
 
-
-
-  const socket = io('https://account.skola77.com:3005', {
-    transports: ['websocket']
-});
-
-
   const [loading, setLoading] = useState(true);
   const [groupName, setGroupName] = useState("ny...");
   const [keyChange, setKeyChange] = useState("tom");
