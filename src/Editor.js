@@ -71,7 +71,7 @@ const Editor = () => {
 
 
 
-  const socket = io('https://account.skola77.com');
+  const socket = io('https://account.skola77.com:3005');
 
 
   const [loading, setLoading] = useState(true);
