@@ -1,10 +1,17 @@
 // Klassrum.js
-import React from "react";
+import React, { useState } from "react";
 import { DndContext } from "@dnd-kit/core";
 import "./Grid.css"; // Import the CSS file
 import GridCell from "./GridCell"; // Ensure this path is correct
 
-const Klassrum = ({ rows, columns, grid, setGrid, names }) => {
+const Klassrum = ({
+  rows=5,
+  columns=5,
+  grid,
+  setGrid,
+  names=[]
+}) => {
+  
   const handleDrop = (event) => {
     const { active, over } = event;
 
@@ -34,18 +41,20 @@ const Klassrum = ({ rows, columns, grid, setGrid, names }) => {
           gridTemplateRows: `repeat(${rows}, 100px)`,
         }}
       >
-        {grid.map((row, rowIndex) =>
-          row.slice(0, columns).map((cell, colIndex) => (
-            <GridCell
-              key={`${rowIndex}-${colIndex}`}
-              rowIndex={rowIndex}
-              colIndex={colIndex}
-              cell={cell}
-              grid={grid}
-              names={names}
-              setGrid={setGrid}
-            />
-          ))
+        {grid.slice(0, rows).map((row, rowIndex) =>
+          row
+            .slice(0, columns)
+            .map((cell, colIndex) => (
+              <GridCell
+                key={`${rowIndex}-${colIndex}`}
+                rowIndex={rowIndex}
+                colIndex={colIndex}
+                cell={cell}
+                grid={grid}
+                names={names}
+                setGrid={setGrid}
+              />
+            ))
         )}
       </div>
     </DndContext>

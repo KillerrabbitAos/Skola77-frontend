@@ -1,8 +1,9 @@
 // GridCell.js
 import React from "react";
-import "./Grid.css"; // Import the CSS file
+
 import { useDroppable, useDraggable } from "@dnd-kit/core";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { height } from "@fortawesome/free-solid-svg-icons/fa0";
 
 const GridCell = ({ rowIndex, colIndex, cell, names, setGrid, grid }) => {
   const { setNodeRef } = useDroppable({
@@ -33,6 +34,10 @@ const GridCell = ({ rowIndex, colIndex, cell, names, setGrid, grid }) => {
     transform: transform
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
       : undefined,
+      width: "90%",
+      height: "90%",
+      backgroundColor: "white",
+      border: "1px solid black",
   };
 
   return (
@@ -41,11 +46,11 @@ const GridCell = ({ rowIndex, colIndex, cell, names, setGrid, grid }) => {
       onClick={handleCellClick}
       className={`grid-cell ${cell.id ? "active" : ""}`}
       style={{
-        border: "1px solid black",
+        border: "0.5px solid gray",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: cell.id ? "lightblue" : "white",
+        backgroundColor: "#f2f2f2",
       }}
     >
       {cell.id ? (
@@ -64,7 +69,7 @@ const GridCell = ({ rowIndex, colIndex, cell, names, setGrid, grid }) => {
           <h2>{names[cell.person]}</h2> {/* Display person name from names array */}
         </div>
       ) : (
-        <span>Empty</span> // Indicate empty cell
+       ""
       )}
     </div>
   );

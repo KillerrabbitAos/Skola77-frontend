@@ -14,8 +14,9 @@ import ResetPassword from './sidor/ResetPassword.js';
 
 import MittKonto from './sidor/mittKonto.js';
 import Grid from './Grid.js';
-import Grid3 from './grid3.jsx';
+import Grid3 from './SkapaKlassrum.jsx';
 import NameList from './Namn.js';
+import SkapaPlaceringar from './Placeringar.js';
 
 
 export default function App() {
@@ -25,7 +26,8 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Hem />} />
           <Route path="Editor" element={<Editor />} />
-          <Route path='Placeringar' element={<Grid3 />}/>
+          <Route path='Placeringar' element={<SkapaPlaceringar />}/>
+          <Route path='Klassrum' element={<Grid3 />}/>
           <Route path="Klasser" element={<NameList />}/>
           <Route path="Support" element={<Support />} />
           <Route path="policy" element={<Policy />} />
