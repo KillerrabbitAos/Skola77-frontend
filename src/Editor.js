@@ -172,17 +172,6 @@ const Editor = () => {
     }
   };
 
-  socket.on('dataUpdated', (data) => {
-    // Här kan du hantera uppdateringen i din frontend
-    console.log('Data har uppdaterats:', data);
-    // Du kan uppdatera UI eller göra en API-förfrågan för att få den senaste datan
-});
-
-// Skicka uppdateringar när data ändras
-function updateData(newData) {
-    socket.emit('updateData', newData);
-}
-
   useEffect(() => {
     const originalConsoleError = console.error;
 
