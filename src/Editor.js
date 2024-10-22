@@ -5,6 +5,7 @@ import { useCookies } from "react-cookie";
 import { isTablet } from "react-device-detect";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import "./App.css";
+import { io } from 'socket.io-client';
 
 import generateCombinedList from "./CombinedListGenerator.js";
 import ExcelToTextConverter from "./ExcelToTextConverter.js";
@@ -66,6 +67,13 @@ function fitTextToContainer(container, element, maxFontSizePx) {
 
 
 const Editor = () => {
+
+
+
+
+  const socket = io('https://account.skola77.com');
+
+
   const [loading, setLoading] = useState(true);
   const [groupName, setGroupName] = useState("ny...");
   const [keyChange, setKeyChange] = useState("tom");
@@ -168,6 +176,17 @@ const Editor = () => {
       window.location.href = "https://www.skola77.com/login.html"
     }
   };
+
+  socket.on('dataUpdated', (data) => {
+    // Här kan du hantera uppdateringen i din frontend
+    console.log('Data har uppdaterats:', data);
+    // Du kan uppdatera UI eller göra en API-förfrågan för att få den senaste datan
+});
+
+// Skicka uppdateringar när data ändras
+function updateData(newData) {
+    socket.emit('updateData', newData);
+}
 
   useEffect(() => {
     const originalConsoleError = console.error;
