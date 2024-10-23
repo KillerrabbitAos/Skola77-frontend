@@ -21,7 +21,7 @@ import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import DownloadJSON from "./laddaNed.js";
 import Namn from "./ettNamn.js";
 import { write } from "xlsx";
-import Grid3 from "./grid3.jsx";
+import Grid3 from "./SkapaKlassrum.jsx";
 
 function compressData(data) {
   return LZString.compressToEncodedURIComponent(JSON.stringify(data));

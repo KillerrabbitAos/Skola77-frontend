@@ -1,3 +1,8 @@
+body{
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
 .grid {
   display: grid;
   margin: auto;
@@ -15,6 +20,27 @@
   justify-content: center;
   align-items: center;
   position: relative; /* For positioning items inside */
+}
+.grid-cell .content {
+  width: 90%; /* Set content width to 90% of the cell */
+  height: 90%; /* Set content height to 90% of the cell */
+  display: flex; /* Use flexbox to align children */
+  align-items: center; /* Center children vertically */
+  justify-content: center; /* Center children horizontally */
+  background-color: lightblue; /* Background color when filled */
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 100px); /* Adjust according to your desired cell size */
+  grid-template-rows: repeat(auto-fill, 100px); /* Same as above */
+  gap: 0; /* Ensure no gap between cells */
+}
+
+.grid-cell {
+  border: 1px solid black; /* This is optional if you want borders around cells */
+  padding: 0; /* No padding */
+  margin: 0; /* No margin */
+  box-sizing: border-box; /* Include border and padding in the element's total width and height */
 }
 
 .active {

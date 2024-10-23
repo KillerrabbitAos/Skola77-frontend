@@ -16,6 +16,11 @@ const Layout = () => {
             </NavLink>
           </li>
           <li className="header">
+            <NavLink to="/Klassrum" className={({ isActive }) => (isActive ? "active" : "")}>
+              Klassrum
+            </NavLink>
+          </li>
+          <li className="header">
             <NavLink to="/Klasser" className={({ isActive }) => (isActive ? "active" : "")}>
               Klasser
             </NavLink>
