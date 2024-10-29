@@ -1,11 +1,47 @@
-import { useState } from 'react';
-import Klassrum from './Klassrum';
-import { data } from './data';
+import { useState } from "react";
+import Klassrum from "./Klassrum";
+import { data } from "./data";
+import NameList from "./Namn";
 
 const SkapaPlaceringar = () => {
-    const [grid, setGrid] = useState(data.klassrum[0].grid)
-  
-    return(<Klassrum grid={grid} setGrid={setGrid}/>)
-}
+	const [grid, setGrid] = useState(data.klassrum[0].grid);
+	const [Klassnamn, setKlassnamn] = useState(null);
+	const [namn, setNamn] = useState(["", "orm"]);
+	const slumpa = () => {
+		grid.map((rad) => {
+			rad.map((plats) => {});
+				if (plats.id){
+				Math.floor(Math.random() * 10)
+				}
+			});
+	};
+	return (
+		<div>
+			<Klassrum
+				edit={false}
+				grid={grid}
+				setGrid={setGrid}
+				names={namn}
+			/>
+			{data.klasser
+				.slice()
+				.reverse()
+				.map((klass) => (
+					<li
+						key={klass.namn}
+						className="font-bold text-xl p-2 cursor-pointer"
+						onClick={() => {
+							setNamn(klass.personer);
+							setKlassnamn(
+								klass.namn
+							);
+						}}
+					>
+						{klass.namn}
+					</li>
+				))}
+		</div>
+	);
+};
 
 export default SkapaPlaceringar;

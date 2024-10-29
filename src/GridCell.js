@@ -5,12 +5,11 @@ import { useDroppable, useDraggable } from "@dnd-kit/core";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { height } from "@fortawesome/free-solid-svg-icons/fa0";
 
-const GridCell = ({ rowIndex, colIndex, cell, names, setGrid, grid }) => {
+const GridCell = ({ edit, rowIndex, colIndex, cell, names, setGrid, grid }) => {
   const { setNodeRef } = useDroppable({
     id: `${rowIndex}-${colIndex}`, // Unique ID for each droppable cell
   });
 
-  // Handle clicking on an empty cell to add a draggable item
   const handleCellClick = () => {
     if (!cell.id) {
       const newGrid = grid.map((row) => row.map((c) => ({ ...c })));
@@ -19,7 +18,6 @@ const GridCell = ({ rowIndex, colIndex, cell, names, setGrid, grid }) => {
     }
   };
 
-  // Function to remove an item
   const removeItem = () => {
     const newGrid = grid.map((row) => row.map((c) => ({ ...c })));
     newGrid[rowIndex][colIndex] = { id: null, person: 0 }; // Reset cell to empty
@@ -38,6 +36,8 @@ const GridCell = ({ rowIndex, colIndex, cell, names, setGrid, grid }) => {
       height: "90%",
       backgroundColor: "white",
       border: "1px solid black",
+	touchAction: "none",
+
   };
 
   return (
@@ -51,11 +51,12 @@ const GridCell = ({ rowIndex, colIndex, cell, names, setGrid, grid }) => {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#f2f2f2",
+	zIndex: "1",
       }}
     >
       {cell.id ? (
         <div ref={draggableRef} {...listeners} {...attributes} style={style}>
-          <div className="buttons">
+         <div className="buttons">
             <button
               className="removeButton"
               onMouseUp={(e) => {
@@ -66,7 +67,7 @@ const GridCell = ({ rowIndex, colIndex, cell, names, setGrid, grid }) => {
               <RiDeleteBin6Line />
             </button>
           </div>
-          <h2>{names[cell.person]}</h2> {/* Display person name from names array */}
+          <h2>{names[cell.person]}</h2> 
         </div>
       ) : (
        ""
