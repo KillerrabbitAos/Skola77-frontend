@@ -8,12 +8,30 @@ const SkapaPlaceringar = () => {
 	const [Klassnamn, setKlassnamn] = useState(null);
 	const [namn, setNamn] = useState(["", "orm"]);
 	const slumpa = () => {
+		const nyGrid = [];
+		const användaNummer = [];
 		grid.map((rad) => {
-			rad.map((plats) => {});
-				if (plats.id){
-				Math.floor(Math.random() * 10)
+			const nyRad = rad.map((plats, kolumn) => {
+				if (plats.id && namn.length > 5 && kolumn < 5) {
+					let nummer = Math.floor(
+						Math.random() * namn.length
+					);
+					while (
+						nummer == 0 ||
+						användaNummer.includes(nummer)
+					) {nummer = Math.random() * namn.length}
+
+					return {
+						id: plats.id,
+						person: nummer,
+					};
+				} else {
+					return plats;
 				}
 			});
+			nyGrid.push(nyRad);
+		});
+		setGrid(nyGrid);
 	};
 	return (
 		<div>
@@ -22,7 +40,8 @@ const SkapaPlaceringar = () => {
 				grid={grid}
 				setGrid={setGrid}
 				names={namn}
-			/>
+			/>{" "}
+			<button onClick={slumpa}>Slumpa</button>
 			{data.klasser
 				.slice()
 				.reverse()
