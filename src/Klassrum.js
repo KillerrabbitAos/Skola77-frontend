@@ -13,14 +13,16 @@ const Klassrum = ({
   names=[""],
 edit=true
 }) => {
-  const [dragging, setDragging] = useState("y-x")
+ const [activePerson, setActivePerson] = useState(null)
+	const [dragging, setDragging] = useState("y-x")
+const [overId, setOverId] = useState(null)
   const handleDrop = (event) => {
     const { active, over } = event;
-	
+setActivePerson(active.person)	
     if (!over || active.id === over.id) return;
     const [activeRow, activeCol] = active.id.split("-").map(Number);
     const [overRow, overCol] = over.id.split("-").map(Number);
-	
+
     const newGrid = grid.map((row) => row.map((cell) => ({ ...cell }))); 
 
     [newGrid[activeRow][activeCol], newGrid[overRow][overCol]] = [
@@ -32,7 +34,7 @@ edit=true
   };
   
 	return (
-    <DndContext onDragEnd={handleDrop} onDragStart={(e) => {const { active, over } = e; setDragging(active.id);}}>
+    <DndContext onDragEnd={handleDrop}  onDragStart={(e) => {const { active, over } = e; setDragging(active.id);}} onDragOver={(e) => {const { over } = e; setOverId(over.id)}}>
       <div
         className="grid"
         style={{
@@ -52,12 +54,14 @@ edit=true
                 key={`${rowIndex}-${colIndex}`}
                 rowIndex={rowIndex}
                 colIndex={colIndex}
+		over={overId == `${rowIndex}-${colIndex}` ? true : false}
+		activePerson={activePerson}
                 cell={cell}
                 grid={grid}
                 names={names}
                 setGrid={setGrid}
 		edit={edit}
-		   dragging={dragging == `${rowIndex}-${colIndex}` ? true : false}
+	 dragging={dragging == `${rowIndex}-${colIndex}` ? true : false}
               />
             ))
         )}

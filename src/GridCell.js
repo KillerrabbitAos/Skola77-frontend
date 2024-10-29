@@ -9,6 +9,8 @@ const GridCell = ({
 	dragging,
 	edit,
 	rowIndex,
+	over,
+	activePerson,
 	colIndex,
 	cell,
 	names,
@@ -91,7 +93,8 @@ const GridCell = ({
 							<RiDeleteBin6Line />
 						</button>
 					</div>
-					<h2>{names[cell.person]}</h2>
+					//inte klart än<h2>{}</h2>
+				
 				</div>
 			) : (
 				""
