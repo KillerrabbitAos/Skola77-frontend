@@ -10,6 +10,8 @@ const GridCell = ({
 	edit,
 	rowIndex,
 	over,
+	overId,
+	overPerson,
 	activePerson,
 	colIndex,
 	cell,
@@ -70,6 +72,8 @@ const GridCell = ({
 				border: "0.5px solid gray",
 				display: "flex",
 				alignItems: "center",
+					
+				display: "content",
 				justifyContent: "center",
 				backgroundColor: "#f2f2f2",
 				zIndex: dragging ? "99" : "1",
@@ -93,12 +97,13 @@ const GridCell = ({
 							<RiDeleteBin6Line />
 						</button>
 					</div>
-					//inte klart än<h2>{}</h2>
-				
+					<h2>{names[cell.person]}</h2>
 				</div>
 			) : (
 				""
 			)}
+		<div style={{backgroundColor: "green", width:"100%", height:"100%"}}><h2>{names[overPerson]}</h2></div>
+	
 		</div>
 	);
 };
