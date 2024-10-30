@@ -363,3 +363,41 @@ html {
   font-size: 20px;
 }
 
+.users-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+
+.user-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-icon {
+  width: 100px;
+  height: 100px;
+  background-color: #ccc;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.user-info {
+  text-align: center;
+}
+
+.user-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.user-role {
+  font-size: 14px;
+  color: #666;
+}
