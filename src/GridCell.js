@@ -1,9 +1,6 @@
-// GridCell.js
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDroppable, useDraggable } from "@dnd-kit/core";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { height } from "@fortawesome/free-solid-svg-icons/fa0";
 
 const GridCell = ({
 	dragging,
@@ -13,15 +10,35 @@ const GridCell = ({
 	overId,
 	overPerson,
 	activePerson,
+	activeId,
 	colIndex,
 	cell,
 	names,
 	setGrid,
 	grid,
+	cords,
 }) => {
 	const { setNodeRef } = useDroppable({
 		id: `${rowIndex}-${colIndex}`, // Unique ID for each droppable cell
 	});
+
+	const [position, setPosition] = useState({ x: 0, y: 0 });
+
+	useEffect(() => {
+		// Only update position if `over` is true and `overId` is not equal to `activeId`
+		if (over && overId !== activeId && activePerson) {
+			const targetElement = document.getElementById(activePerson);
+			if (targetElement) {
+				const rect = targetElement.getBoundingClientRect();
+				setPosition({
+					x: rect.left + window.scrollX,
+					y: rect.top + window.scrollY,
+				});
+			}
+		} else {
+			setPosition({ x: 0, y: 0 });
+		}
+	}, [over, overId, activeId, activePerson]);
 
 	const handleCellClick = () => {
 		if (!cell.id) {
@@ -54,17 +71,20 @@ const GridCell = ({
 	const style = {
 		transform: transform
 			? `translate3d(${transform.x}px, ${transform.y}px, 0)`
-			: undefined,
+			: `translate3d(${position.x}px, ${position.y}px, 0)`,
 		width: "90%",
 		height: "90%",
 		backgroundColor: "white",
 		border: "1px solid black",
 		touchAction: "none",
-		zIndex: "99",
+		zIndex: dragging ? "99" : "1",
+		position: over ? "absolute" : "relative",
+		
 	};
 
 	return (
 		<div
+			id={cords}
 			ref={setNodeRef}
 			onClick={handleCellClick}
 			className={`grid-cell ${cell.id ? "active" : ""}`}
@@ -72,11 +92,10 @@ const GridCell = ({
 				border: "0.5px solid gray",
 				display: "flex",
 				alignItems: "center",
-					
-				display: "content",
 				justifyContent: "center",
 				backgroundColor: "#f2f2f2",
 				zIndex: dragging ? "99" : "1",
+			
 			}}
 		>
 			{cell.id ? (
@@ -94,7 +113,7 @@ const GridCell = ({
 								removeItem();
 							}}
 						>
-							<RiDeleteBin6Line />
+							<RiDeleteBin6Line style={{color: "white"}} />
 						</button>
 					</div>
 					<h2>{names[cell.person]}</h2>
@@ -102,8 +121,6 @@ const GridCell = ({
 			) : (
 				""
 			)}
-		<div style={{backgroundColor: "green", width:"100%", height:"100%"}}><h2>{names[overPerson]}</h2></div>
-	
 		</div>
 	);
 };

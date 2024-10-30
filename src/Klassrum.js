@@ -14,7 +14,7 @@ const Klassrum = ({
   edit = true
 }) => {
   const [activePerson, setActivePerson] = useState(null)
-  const [dragging, setDragging] = useState("y-x")
+  const [dragging, setDragging] = useState(null)
   const [overId, setOverId] = useState(null)
   const [overPerson, setOverPerson] = useState(null)
 
@@ -23,7 +23,7 @@ const Klassrum = ({
     const { active, over } = event;
     if (!over || active.id === over.id) return;
     setDragging(null);
-    setActivePerson(over.person);
+    setActivePerson(active.id);
   
     const [activeRow, activeCol] = active.id.split("-").map(Number);
     const [overRow, overCol] = over.id.split("-").map(Number);
@@ -41,18 +41,14 @@ const Klassrum = ({
 
 
   return (
+    <>
     <DndContext 
   onDragEnd={handleDrop} 
   onDragStart={(e) => { const { active } = e; setDragging(active.id); }} 
   onDragOver={(e) => { 
     const { over } = e; 
-    if (over) { 
       setOverId(over.id); 
-      setOverPerson(over.Person); 
-    } else { 
-      setOverId(null); 
-      setOverPerson(null); 
-    } 
+      console.log(over.id)
   }}
 >
       <div
@@ -66,17 +62,20 @@ const Klassrum = ({
           gridTemplateRows: `repeat(${rows}, 100px)`,
         }}
       >
+
         {(grid ? grid : data.klassrum[0].grid).slice(0, rows).map((row, rowIndex) =>
           row
             .slice(0, columns)
             .map((cell, colIndex) => (<>
               <GridCell
                 key={`${rowIndex}-${colIndex}`}
+                cords={`${rowIndex}-${colIndex}`}
                 rowIndex={rowIndex}
                 colIndex={colIndex}
                 overId={overId}
                 over={overId == `${rowIndex}-${colIndex}` ? true : false}
-                activePerson={activePerson}
+                activeId={dragging}
+                activePerson={dragging}
                 cell={cell}
                 grid={grid}
                 names={names}
@@ -90,8 +89,14 @@ const Klassrum = ({
             </>))
         )}
       </div>
-
+      
     </DndContext>
+    
+    <div id="norrbys lilla debuganordning" style={{display: "flex", margin: "auto"}}>
+    {overId && <div style={{backgroundColor: "white", width:"100px", height:"100px", marginRight: "2px"}}><h2>{overId}</h2></div>}
+    {dragging && <div style={{backgroundColor: "white", width:"100px", height:"100px"}}><h2>{dragging}</h2></div>}
+    </div>
+    </>
   );
 };
 
