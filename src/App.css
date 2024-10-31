@@ -126,18 +126,7 @@ li button {
   color: black;
 }
 
-#uppe {
-  border-bottom: solid;
-  font-size: 20px;
-  width: 50px;
-  margin: auto;
-  margin-bottom: 20px;
-}
 
-#nere {
-  border-top: solid;
-  font-size: 20px;
-}
 
 #sparaSettings {
   display: flex;

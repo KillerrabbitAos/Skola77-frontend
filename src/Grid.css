@@ -43,9 +43,6 @@ body{
   box-sizing: border-box; /* Include border and padding in the element's total width and height */
 }
 
-.active {
-
-}
 
 .draggable-item {
   background-color: white;
