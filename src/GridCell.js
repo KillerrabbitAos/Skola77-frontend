@@ -132,7 +132,7 @@ const GridCell = ({
                 removeItem();
               }}
             >
-              <RiDeleteBin6Line style={{ color: "white" }} />
+              <RiDeleteBin6Line style={{ color: "white", textAlign: "center", margin: "auto" }} />
             </button>
           </div>
           <h2>{names[cell.person]}</h2>

@@ -35,7 +35,7 @@ export const DraggableItem = ({ id, person, removeItem, names }) => {
           <RiDeleteBin6Line />
         </button>
       </div>
-      <h2>{names[person]}</h2>
+      <h2 id="namnText">{names[person]}</h2>
     </div>
   );
 };
