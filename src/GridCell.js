@@ -3,7 +3,6 @@ import { useDroppable, useDraggable } from "@dnd-kit/core";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import "./Grid.css"; // Import the CSS file
 
-
 const GridCell = ({
   dragging,
   edit,
@@ -20,6 +19,8 @@ const GridCell = ({
   setGrid,
   grid,
   cords,
+  låstaBänkar,
+  setLåstaBänkar,
 }) => {
   const { setNodeRef } = useDroppable({
     id: `${rowIndex}-${colIndex}`, // Unique ID for each droppable cell
@@ -53,7 +54,13 @@ const GridCell = ({
       setGrid(newGrid);
     }
   };
-
+  const lås = () => {
+    !låstaBänkar.includes(cell.id)
+      ? setLåstaBänkar(cell.person ? [...låstaBänkar, cell.id, cell.person] : [...låstaBänkar, cell.id])
+      : setLåstaBänkar(
+          låstaBänkar.filter((sak) => sak !== cell.id && sak !== cell.person)
+        );
+  };
   const removeItem = () => {
     const newGrid = grid.map((row) => row.map((c) => ({ ...c })));
     newGrid[rowIndex][colIndex] = { id: null, person: 0 }; // Reset cell to empty
@@ -123,15 +130,30 @@ const GridCell = ({
           <h2>{overNamn}</h2>
         </div>
       )}
-    
+
       {cell.id ? (
-        <div ref={draggableRef} {...listeners} {...attributes} style={style} className="rounded-xl">
+        <div
+          ref={draggableRef}
+          {...listeners}
+          {...attributes}
+          style={style}
+          className="rounded-xl"
+        >
           <div className="buttons">
             <button
               className="removeButton rounded-xl"
               onMouseUp={(e) => {
                 e.stopPropagation();
                 removeItem();
+              }}
+            >
+              <RiDeleteBin6Line style={{ color: "white", margin: "auto" }} />
+            </button>
+            <button
+              className="removeButton rounded-xl"
+              onMouseUp={(e) => {
+                e.stopPropagation();
+                lås();
               }}
             >
               <RiDeleteBin6Line style={{ color: "white", margin: "auto" }} />
