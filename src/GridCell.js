@@ -79,6 +79,15 @@ const GridCell = ({
     zIndex: dragging ? "99" : "1",
     position: over ? "absolute" : "relative",
   };
+  const style2 = {
+    width: "90%",
+    height: "90%",
+    backgroundColor: "white",
+    border: "1px solid black",
+    touchAction: "none",
+    zIndex: dragging ? "99" : "1",
+    position: over ? "absolute" : "relative",
+  };
 
   return (
     <div
@@ -92,11 +101,27 @@ const GridCell = ({
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#f2f2f2",
-		width: "100%",
+        width: "100%",
         zIndex: dragging ? "99" : "1",
       }}
     >
-      <div>{overNamn && dragging && overId !== cords && <h2>{overNamn}</h2>}</div>
+      {overNamn && overId && dragging && overId !== cords && (
+        <div style={style2}>
+          <div className="buttons">
+            <button
+              className="removeButton"
+              onMouseUp={(e) => {
+                e.stopPropagation();
+                removeItem();
+              }}
+            >
+              <RiDeleteBin6Line style={{ color: "white" }} />
+            </button>
+          </div>
+          <h2>{overNamn}</h2>
+        </div>
+      )}
+    
       {cell.id ? (
         <div ref={draggableRef} {...listeners} {...attributes} style={style}>
           <div className="buttons">
