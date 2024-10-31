@@ -19,6 +19,7 @@ const GridCell = ({
   setGrid,
   grid,
   cords,
+  columns,
   låstaBänkar,
   overbench,
   setLåstaBänkar,
@@ -26,9 +27,20 @@ const GridCell = ({
   const { setNodeRef } = useDroppable({
     id: `${rowIndex}-${colIndex}`, // Unique ID for each droppable cell
   });
-
+  const [fontSize, setFontSize] = useState("1rem");
   const [position, setPosition] = useState({ x: 0, y: 0 });
-
+  useEffect(() => {
+    const handleResize = () => {
+      const cell = document.getElementById(cords);
+      if (cell) {
+        const cellWidth = cell.offsetWidth;
+        setFontSize(`${cellWidth * 0.3}px`); // Adjust scale as needed
+      }
+    };
+    handleResize(); // Set on mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [columns]);
   useEffect(() => {
     // Only update position if `over` is true and `overId` is not equal to `activeId`
     if (over && overId !== activeId && activePerson) {
@@ -57,7 +69,11 @@ const GridCell = ({
   };
   const lås = () => {
     !låstaBänkar.includes(cell.id)
-      ? setLåstaBänkar(cell.person ? [...låstaBänkar, cell.id, cell.person] : [...låstaBänkar, cell.id])
+      ? setLåstaBänkar(
+          cell.person
+            ? [...låstaBänkar, cell.id, cell.person]
+            : [...låstaBänkar, cell.id]
+        )
       : setLåstaBänkar(
           låstaBänkar.filter((sak) => sak !== cell.id && sak !== cell.person)
         );
@@ -102,7 +118,6 @@ const GridCell = ({
     borderRadius: "10px",
     textAllign: "center",
     margin: "auto",
- 
   };
 
   return (
@@ -112,7 +127,7 @@ const GridCell = ({
       onClick={handleCellClick}
       className={`grid-cell ${cell.id ? "active" : ""}`}
       style={{
-        border: !cell.id || dragging ? "2px solid black": "1px solid black",
+        border: !cell.id || dragging ? "2px solid black" : "1px solid black",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -120,35 +135,64 @@ const GridCell = ({
         width: "90%",
         height: "90%",
         zIndex: dragging ? "99" : "1",
-        borderRadius: "15px",
-
+        borderRadius: "12px",
       }}
     >
-      {!overNamn.some(row => row.includes(null)) && overId && dragging && overId !== cords && (
-        <div style={style2}>
-          <div className="buttons">
-            <button
-              className="removeButton rounded-tl-xl rounded-tr-none rounded-br-none rounded-bl-none"
-              onMouseUp={(e) => {
-                e.stopPropagation();
-                removeItem();
-              }}
-            >
-              <RiDeleteBin6Line style={{ color: "white", margin: "auto"}} />
-            </button>
-            <button
-              className="removeButton rounded-tl-none rounded-tr-xl rounded-bl-none !rounded-br-none !bg-gray-400"
-              onMouseUp={(e) => {
-                e.stopPropagation();
-                lås();
-              }}
-            >
-              <RiDeleteBin6Line style={{ color: "white", margin: "auto" }} />
-            </button>
+      {!overNamn.some((row) => row.includes(null)) &&
+        overId &&
+        dragging &&
+        overId !== cords && (
+          <div style={style2}>
+            <div className="buttons">
+              <button
+                className="removeButton rounded-tl-xl rounded-tr-none rounded-br-none rounded-bl-none"
+                onMouseUp={(e) => {
+                  e.stopPropagation();
+                  removeItem();
+                }}
+              >
+                <RiDeleteBin6Line
+                  style={{
+                    height: "75%",
+                    width: "75%",
+                    color: "white",
+                    margin: "auto",
+                  }}
+                />
+              </button>
+              <button
+                className="removeButton rounded-tl-none rounded-tr-xl rounded-bl-none !rounded-br-none !bg-gray-400"
+                onMouseUp={(e) => {
+                  e.stopPropagation();
+                  lås();
+                }}
+              >
+                <RiDeleteBin6Line
+                  style={{
+                    height: "75%",
+                    width: "75%",
+                    color: "white",
+                    margin: "auto",
+                  }}
+                />
+              </button>
+            </div>
+            <h2
+            style={{
+              fontSize: "2vw",
+              textAlign: "center",
+              width: "100%",
+              height: "100%",
+              margin: 0,
+          
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {overNamn}
+          </h2>
           </div>
-          <h2>{overNamn}</h2>
-        </div>
-      )}
+        )}
 
       {cell.id ? (
         <div
@@ -166,7 +210,14 @@ const GridCell = ({
                 removeItem();
               }}
             >
-              <RiDeleteBin6Line style={{ color: "white", margin: "auto" }} />
+              <RiDeleteBin6Line
+                style={{
+                  height: "75%",
+                  width: "75%",
+                  color: "white",
+                  margin: "auto",
+                }}
+              />
             </button>
             <button
               className="removeButton rounded-tl-none rounded-tr-xl rounded-bl-none !rounded-br-none !bg-gray-400"
@@ -175,10 +226,23 @@ const GridCell = ({
                 lås();
               }}
             >
-              <RiDeleteBin6Line style={{ color: "white", margin: "auto" }} />
+              <RiDeleteBin6Line
+                style={{
+                  height: "75%",
+                  width: "75%",
+                  color: "white",
+                  margin: "auto",
+                }}
+              />
             </button>
           </div>
-          <h2>{names[cell.person]}</h2>
+          <h2
+            style={{
+              fontSize
+            }}
+          >
+            {names[cell.person]}
+          </h2>
         </div>
       ) : (
         ""

@@ -74,8 +74,8 @@ const Klassrum = ({
             display: "grid",
             overflow: "hidden",
             zIndex: "100",
-            gridTemplateColumns: `repeat(${columns}, ${window.screen.width/(columns > 9 ? columns : 9) - 10 }px)`,
-            gridTemplateRows: `repeat(${rows}, ${window.screen.width/(columns > 9 ? columns : 9) - 10 }px )`,
+            gridTemplateColumns: `repeat(${columns}, ${window.innerWidth/(columns > 9 ? columns : 9)}px)`,
+            gridTemplateRows: `repeat(${rows}, ${window.innerWidth/(columns > 9 ? columns : 9)}px )`,
           }}
         >
           {(grid ? grid : data.klassrum[0].grid)
@@ -106,6 +106,7 @@ const Klassrum = ({
                   setLåstaBänkar={setLåstaBänkar}
                   setGrid={setGrid}
                   edit={edit}
+                  columns={columns}
                   overPerson={overPerson}
                   dragging={dragging === `${rowIndex}-${colIndex}`}
                 />

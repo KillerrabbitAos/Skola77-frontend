@@ -70,4 +70,7 @@ body{
   width: 100%;
 }
 
+.container {
+  font-size: clamp(12px, 2vw, 24px); /* Adjust minimum, scaling, and maximum font sizes */
+}
 
