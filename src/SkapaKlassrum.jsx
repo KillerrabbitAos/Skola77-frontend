@@ -9,6 +9,7 @@ const Grid3 = () => {
   const [rows, setRows] = useState(data.klassrum[0].rows);
   const [cols, setCols] = useState(data.klassrum[0].cols);
   const [grid, setGrid] = useState(data.klassrum[0].grid);
+  const [gridData, setGridData] = useState("");
 
   const ändraRader = (e) => {
     const inputValue = e.target.value === "" ? "" : parseInt(e.target.value, 10);
@@ -51,10 +52,10 @@ const Grid3 = () => {
   };
 
   const spara = () => {
-    console.log(
-      JSON.stringify({ grid: grid, cols: cols, rows: rows, names: names })
-    );
-  };
+    const dataToSave = JSON.stringify({ grid: grid, cols: cols, rows: rows, names: names });
+    setGridData(dataToSave);
+    console.log("griddata: " + dataToSave);
+};
 
   return (
     <div>
