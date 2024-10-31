@@ -125,16 +125,16 @@ const GridCell = ({
         <div style={style2}>
           <div className="buttons">
             <button
-              className="removeButton"
+              className="removeButton rounded-tl-xl rounded-tr-none rounded-br-none rounded-bl-xl"
               onMouseUp={(e) => {
                 e.stopPropagation();
                 removeItem();
               }}
             >
-              <RiDeleteBin6Line style={{ color: "white" , textAlign: "center", margin: "auto"}} />
+              <RiDeleteBin6Line style={{ color: "white", margin: "auto"}} />
             </button>
             <button
-              className="removeButton rounded-xl"
+              className="removeButton rounded-tl-none rounded-tr-xl rounded-br-xl rounded-bl-none"
               onMouseUp={(e) => {
                 e.stopPropagation();
                 lås();
@@ -166,7 +166,7 @@ const GridCell = ({
               <RiDeleteBin6Line style={{ color: "white", margin: "auto" }} />
             </button>
             <button
-              className="removeButton rounded-tl-none rounded-tr-xl rounded-br-xl rounded-bl-none"
+              className="removeButton rounded-tl-none rounded-tr-xl rounded-br-xl rounded-bl-none !bg-gray-400"
               onMouseUp={(e) => {
                 e.stopPropagation();
                 lås();
