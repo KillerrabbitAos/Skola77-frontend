@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDroppable, useDraggable } from "@dnd-kit/core";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import "./Grid.css"; // Import the CSS file
+
 
 const GridCell = ({
   dragging,
@@ -123,10 +125,10 @@ const GridCell = ({
       )}
     
       {cell.id ? (
-        <div ref={draggableRef} {...listeners} {...attributes} style={style}>
+        <div ref={draggableRef} {...listeners} {...attributes} style={style} className="rounded-xl">
           <div className="buttons">
             <button
-              className="removeButton"
+              className="removeButton rounded-xl"
               onMouseUp={(e) => {
                 e.stopPropagation();
                 removeItem();

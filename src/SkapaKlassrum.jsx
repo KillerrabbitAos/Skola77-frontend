@@ -71,7 +71,7 @@ const Grid3 = () => {
         onChange={ändraKolumner}
       />
 
-      <button onClick={spara}>spara</button>
+      <button onClick={spara} className="bg-green-500 h-10 text-white float-end mr-10 mt-3">Spara</button>
       <Klassrum
        rows={rows}
        columns={cols}
