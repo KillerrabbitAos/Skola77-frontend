@@ -18,6 +18,7 @@ const GridCell = ({
   names,
   setGrid,
   grid,
+  klar,
   cords,
   columns,
   låstaBänkar,
@@ -100,7 +101,7 @@ const GridCell = ({
     width: "100%",
     height: "100%",
     backgroundColor: "white",
-    border: "1px solid black",
+    border: dragging ? "1px solid black" : "none",
     touchAction: "none",
     zIndex: dragging ? "99" : "1",
     position: over ? "absolute" : "relative",
@@ -125,9 +126,9 @@ const GridCell = ({
       id={cords}
       ref={setNodeRef}
       onClick={handleCellClick}
-      className={`grid-cell ${cell.id ? "active" : ""}`}
+      className={`grid-cell ${cell.id ? "active" : ""} rounded-xl`}
       style={{
-        border: !cell.id || dragging ? "2px solid black" : "1px solid black",
+        border: over ? "2px solid gray" : "2px solid black",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -135,7 +136,6 @@ const GridCell = ({
         width: "90%",
         height: "90%",
         zIndex: dragging ? "99" : "1",
-        borderRadius: "12px",
       }}
     >
       {!overNamn.some((row) => row.includes(null)) &&
@@ -157,6 +157,7 @@ const GridCell = ({
                     width: "75%",
                     color: "white",
                     margin: "auto",
+                    
                   }}
                 />
               </button>
@@ -195,7 +196,7 @@ const GridCell = ({
           style={style}
           className="rounded-xl"
         >
-          <div className="buttons">
+          {!klar && <div className="buttons">
             <button
               className="removeButton rounded-tl-xl rounded-tr-none rounded-br-none rounded-bl-none"
               onMouseUp={(e) => {
@@ -209,6 +210,7 @@ const GridCell = ({
                   width: "75%",
                   color: "white",
                   margin: "auto",
+                  
                 }}
               />
             </button>
@@ -228,10 +230,11 @@ const GridCell = ({
                 }}
               />
             </button>
-          </div>
+          </div>}
           <h2
             style={{
               fontSize,
+              
             }}
           >
             {names[cell.person]}

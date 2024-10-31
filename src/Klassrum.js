@@ -12,6 +12,7 @@ const Klassrum = ({
   setGrid,
   names = [""],
   låstaBänkar,
+  klar,
   setLåstaBänkar,
   edit = true,
 }) => {
@@ -73,7 +74,7 @@ const Klassrum = ({
           style={{
             display: "grid",
             overflow: "hidden",
-            zIndex: "100",
+            zIndex: "115",
             gridTemplateColumns: `repeat(${columns}, ${window.innerWidth/(columns > 9 ? columns : 9)}px)`,
             gridTemplateRows: `repeat(${rows}, ${window.innerWidth/(columns > 9 ? columns : 9)}px )`,
           }}
@@ -107,6 +108,7 @@ const Klassrum = ({
                   setGrid={setGrid}
                   edit={edit}
                   columns={columns}
+                  klar={klar}
                   overPerson={overPerson}
                   dragging={dragging === `${rowIndex}-${colIndex}`}
                 />

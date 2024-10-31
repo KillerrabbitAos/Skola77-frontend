@@ -8,7 +8,7 @@ const SkapaPlaceringar = () => {
   const [Klassnamn, setKlassnamn] = useState(null);
   const [namn, setNamn] = useState(["", "orm"]);
   const [låstaBänkar, setLåstaBänkar] = useState([]);
-
+  const [klar, setKlar] = useState(false)
   const slumpa = () => {
     const nyGrid = [];
     const användaNummer = [];
@@ -74,6 +74,7 @@ const SkapaPlaceringar = () => {
         setLåstaBänkar={setLåstaBänkar}
         grid={grid}
         setGrid={setGrid}
+        klar={klar}
         names={namn}
       />{" "}
       <button onClick={slumpa}>Slumpa</button>
