@@ -15,15 +15,22 @@ const SkapaPlaceringar = () => {
       const nyRad = rad.map((plats, kolumn) => {
         if (plats.id && namn.length > 5 && kolumn < 5) {
           let nummer = Math.floor(Math.random() * (namn.length - 1)) + 1;
-          while (användaNummer.includes(nummer)) {
-            console.log("has")
+          let orm = false;
+          let i = 0;
+          while (användaNummer.includes(nummer) && i < 1000) {
+            console.log("has");
             nummer = Math.floor(Math.random() * (namn.length - 1)) + 1;
-            if (användaNummer == namn.length - 1) {
+            if (användaNummer.length === (namn.length - 1)) {
               nummer = 0;
-              break;
+              console.log(användaNummer);
+              
+
             }
+            i++
           }
-          användaNummer.push(nummer)
+          if (nummer !== 0) {
+            användaNummer.push(nummer);
+          }
           return {
             id: plats.id,
             person: nummer,
