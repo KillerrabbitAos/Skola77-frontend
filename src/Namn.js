@@ -241,7 +241,6 @@ const NameList = () => {
         namn: "7G",
         personer: [
           "",
-          "",
           "henry",
           "Kalle",
           "Fredrik",
