@@ -241,7 +241,6 @@ const NameList = () => {
         namn: "7G",
         personer: [
           "",
-          "henry",
           "",
           "henry",
           "Kalle",
@@ -338,12 +337,13 @@ const NameList = () => {
       setData({ ...data, klasser: updatedData });
     } else {
       const nyttKlassnamn = prompt("Vad ska klassen heta?");
-      if (nyttKlassnamn && names.length > 0) {
+      if (nyttKlassnamn && names.length > 1) {
         const updatedData = {
           ...data,
           klasser: [...data.klasser, { namn: nyttKlassnamn, personer: names }],
         };
         setData(updatedData);
+        console.log(updatedData);
       } else {
         alert("Klassen måste ha ett namn och personer.");
       }
@@ -355,7 +355,7 @@ const NameList = () => {
       <div className="inputSection">
         <div className="flex flex-col items-start">
           <div className="flex items-start">
-            <button className="rounded-none border border-black border-t border-l border-b-0 border-r-0 custom-button w-[196px] h-[200px]  bg-[#38b438] text-white font-bold shadow-lg hover:opacity-90 active:opacity-80 focus:outline-none focus:ring-2 focus:ring-green-300 transition-all flex items-center justify-center">
+            <button className="rounded-none border border-black border-t border-l border-b-0 border-r-0 custom-button w-[196px] h-[200px]  bg-[#38b438] text-white font-bold shadow-lg hover:opacity-90 active:opacity-80 focus:outline-none focus:ring-2 focus:ring-green-300 transition-all flex items-center justify-center" onClick={sparaNamn}>
               <FontAwesomeIcon icon={faFloppyDisk} size="4x" />
             </button>
 

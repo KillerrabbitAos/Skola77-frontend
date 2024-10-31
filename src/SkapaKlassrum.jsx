@@ -72,7 +72,13 @@ const Grid3 = () => {
       />
 
       <button onClick={spara}>spara</button>
-      <Klassrum rows={rows} columns={cols} grid={grid} setGrid={setGrid} names={names} />
+      <Klassrum
+       rows={rows}
+       columns={cols}
+       grid={grid}
+       setGrid={setGrid}
+       names={names}
+       />
     </div>
   );
 };
