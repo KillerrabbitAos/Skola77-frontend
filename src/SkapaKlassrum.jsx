@@ -23,10 +23,7 @@ const Grid3 = () => {
     const newGrid = Array.from({ length: newRows }, (_, rowIndex) =>
       grid[rowIndex] ? grid[rowIndex] : Array.from({ length: cols }, () => ({ id: null, person: 0 }))
     );
-    if (newRows > rows){
-      setGrid(newGrid);
-    }
-    
+    setGrid(newGrid);
     setRows(newRows);
   };
 
@@ -43,7 +40,7 @@ const Grid3 = () => {
       if (newCols > cols) {
         return [...row, ...Array.from({ length: newCols - cols }, () => ({ id: null, person: 0 }))];
       } else {
-        return row
+        return row.slice(0, newCols);
       }
     });
 
@@ -52,10 +49,11 @@ const Grid3 = () => {
   };
 
   const spara = () => {
-    const dataToSave = JSON.stringify({ grid: grid, cols: cols, rows: rows, names: names });
+    const dataToSave = JSON.stringify({ grid: grid, cols: cols, rows: rows });
     setGridData(dataToSave);
     console.log("griddata: " + dataToSave);
-};
+  };
+  
 
   return (
     <div>
@@ -74,12 +72,39 @@ const Grid3 = () => {
 
       <button onClick={spara} className="bg-green-500 h-10 text-white float-end mr-10 mt-3">Spara</button>
       <Klassrum
-       rows={rows}
-       columns={cols}
-       grid={grid}
-       setGrid={setGrid}
-       names={names}
-       />
+        rows={rows}
+        columns={cols}
+        grid={grid}
+        setGrid={setGrid}
+        names={names}
+      />
+
+<ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
+  <li
+    className="font-bold text-xl p-2 cursor-pointer"
+    onClick={() => {
+      setGrid(Array.from({ length: rows }, () => Array.from({ length: cols }, () => ({ id: null, person: 0 }))));
+    }}
+  >
+    ny klass...
+  </li>
+
+  {data.klassrum.map((klassrum, index) => (
+    <li
+      key={klassrum.name || index}
+      className="font-bold text-xl p-2 cursor-pointer"
+      onClick={() => {
+        setGrid(klassrum.grid);
+        setRows(klassrum.rows);
+        setCols(klassrum.cols);
+      }}
+    >
+      {klassrum.name}
+    </li>
+  ))}
+</ul>
+
+
     </div>
   );
 };

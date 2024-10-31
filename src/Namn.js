@@ -103,7 +103,6 @@ const NameList = () => {
         namn: "peters klass",
         personer: [
           "",
-          "",
           "8A",
           "8B",
           "8C",
