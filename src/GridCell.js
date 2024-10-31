@@ -147,7 +147,7 @@ const GridCell = ({
         >
           <div className="buttons">
             <button
-              className="removeButton rounded-xl"
+              className="removeButton rounded-tl-xl rounded-tr-none rounded-br-none rounded-bl-xl"
               onMouseUp={(e) => {
                 e.stopPropagation();
                 removeItem();
@@ -156,7 +156,7 @@ const GridCell = ({
               <RiDeleteBin6Line style={{ color: "white", margin: "auto" }} />
             </button>
             <button
-              className="removeButton rounded-xl"
+              className="removeButton rounded-tl-none rounded-tr-xl rounded-br-xl rounded-bl-none"
               onMouseUp={(e) => {
                 e.stopPropagation();
                 lås();
