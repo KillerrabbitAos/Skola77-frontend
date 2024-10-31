@@ -217,10 +217,6 @@ html {
   font-weight: bold;
 }
 
-.active {
-  text-decoration: underline; /* Markerar aktiv länk med understrykning */
-}
-
 .pdfs{
 
   text-align: center;

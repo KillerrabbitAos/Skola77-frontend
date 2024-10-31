@@ -13,7 +13,7 @@ export const DraggableItem = ({ id, person, removeItem, names }) => {
     transform: transform
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
       : undefined,
-	  zIndex: "99";
+	  zIndex: "99"
   };
 
   return (

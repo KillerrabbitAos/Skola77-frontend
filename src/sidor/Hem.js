@@ -20,7 +20,7 @@ const Hem = () => {
         userSelect: 'none'  // Prevent text selection
     }}>
       <h1>Skola77 2 alfa</h1>{"\n"}
-      <p>20241011</p>
+      <p>20241031</p>
 
 
     </div>

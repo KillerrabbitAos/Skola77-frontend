@@ -2,6 +2,23 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities'; 
 
+
+#uppe {
+  border-bottom: solid;
+  font-size: 20px;
+  width: 44px;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+#nere {
+  border-top: solid;
+  font-size: 20px;
+  width: 30px;
+  margin: auto;
+  margin-top: 20px;
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -9,6 +26,7 @@
     justify-content: flex-start;
     top: 0;
   }
+
   
 
   .inputSection {

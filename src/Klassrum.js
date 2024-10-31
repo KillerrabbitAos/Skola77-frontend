@@ -58,6 +58,14 @@ const Klassrum = ({
           }
         }}
       >
+
+
+        <div>
+        <p id="uppe">Tavla</p>
+
+
+        </div>
+
         <div
           className="grid"
           style={{
@@ -100,6 +108,14 @@ const Klassrum = ({
             )}
         </div>
       </DndContext>
+
+      <div>
+
+      <p id="nere">Bak</p>
+
+      </div>
+
+
 
       <div
         id="norrbys lilla debuganordning"

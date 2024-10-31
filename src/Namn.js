@@ -103,7 +103,6 @@ const NameList = () => {
         namn: "peters klass",
         personer: [
           "",
-          "",
           "8A",
           "8B",
           "8C",
@@ -241,7 +240,6 @@ const NameList = () => {
         namn: "7G",
         personer: [
           "",
-          "",
           "henry",
           "Kalle",
           "Fredrik",
@@ -330,12 +328,16 @@ const NameList = () => {
     if (klassnamn) {
       const updatedData = data.klasser.map((klass) => {
         if (klass.namn === klassnamn) {
+          console.log({ ...klass, personer: names })
           return { ...klass, personer: names };
+          
         }
         return klass;
       });
       setData({ ...data, klasser: updatedData });
+      console.log(data)
     } else {
+      console.log("free")
       const nyttKlassnamn = prompt("Vad ska klassen heta?");
       if (nyttKlassnamn && names.length > 1) {
         const updatedData = {
