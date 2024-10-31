@@ -205,8 +205,6 @@ export const data = {
         personer: [
           "",
           "henry",
-          "",
-          "henry",
           "Kalle",
           "Fredrik",
           "carl",

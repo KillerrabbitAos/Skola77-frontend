@@ -7,19 +7,9 @@ const SkapaPlaceringar = () => {
   const [grid, setGrid] = useState(data.klassrum[0].grid);
   const [Klassnamn, setKlassnamn] = useState(null);
   const [namn, setNamn] = useState(["", "orm"]);
-  const slumpa = () => {
-    console.log(grid);
-namn.map((namn, index) =>
-    setGrid(
-      grid.map((rad) =>
-        rad.map((plats) =>
-          plats.id
-            ? { id: plats.id, person: index }
-            : { id: plats.id, person: plats.person }
-        )
-      )
-    ))
-  };
+
+  const slumpa = () => {}
+
   return (
     <div>
       <Klassrum edit={false} grid={grid} setGrid={setGrid} names={namn} />{" "}
