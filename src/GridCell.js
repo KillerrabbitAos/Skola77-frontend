@@ -20,6 +20,7 @@ const GridCell = ({
   grid,
   cords,
   låstaBänkar,
+  overbench,
   setLåstaBänkar,
 }) => {
   const { setNodeRef } = useDroppable({
@@ -120,7 +121,7 @@ const GridCell = ({
         zIndex: dragging ? "99" : "1",
       }}
     >
-      {overNamn && overId && dragging && overId !== cords && (
+      {!overNamn.some(row => row.includes(null)) && overId && dragging && overId !== cords && (
         <div style={style2}>
           <div className="buttons">
             <button
@@ -130,7 +131,16 @@ const GridCell = ({
                 removeItem();
               }}
             >
-              <RiDeleteBin6Line style={{ color: "white" }} />
+              <RiDeleteBin6Line style={{ color: "white" , textAlign: "center", margin: "auto"}} />
+            </button>
+            <button
+              className="removeButton rounded-xl"
+              onMouseUp={(e) => {
+                e.stopPropagation();
+                lås();
+              }}
+            >
+              <RiDeleteBin6Line style={{ color: "white", margin: "auto" }} />
             </button>
           </div>
           <h2>{overNamn}</h2>
