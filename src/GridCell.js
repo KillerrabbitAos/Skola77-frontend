@@ -178,19 +178,12 @@ const GridCell = ({
               </button>
             </div>
             <h2
-            style={{
-              fontSize: "2vw",
-              textAlign: "center",
-              width: "100%",
-              height: "100%",
-              margin: 0,
-          
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {overNamn}
-          </h2>
+              style={{
+                fontSize,
+              }}
+            >
+              {overNamn}
+            </h2>
           </div>
         )}
 
@@ -238,7 +231,7 @@ const GridCell = ({
           </div>
           <h2
             style={{
-              fontSize
+              fontSize,
             }}
           >
             {names[cell.person]}
