@@ -81,8 +81,8 @@ const GridCell = ({
     transform: transform
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
       : `translate3d(${position.x}px, ${position.y}px, 0)`,
-    width: "90%",
-    height: "90%",
+    width: "100%",
+    height: "100%",
     backgroundColor: "white",
     border: "1px solid black",
     touchAction: "none",
@@ -92,10 +92,10 @@ const GridCell = ({
     margin: "auto",
   };
   const style2 = {
-    width: "90%",
-    height: "90%",
+    width: "100%",
+    height: "100%",
     backgroundColor: "white",
-    border: "1px solid black",
+    border: "none",
     touchAction: "none",
     zIndex: dragging ? "99" : "1",
     position: "absolute",
@@ -112,13 +112,16 @@ const GridCell = ({
       onClick={handleCellClick}
       className={`grid-cell ${cell.id ? "active" : ""}`}
       style={{
-        border: "0.5px solid gray",
+        border: !cell.id || dragging ? "2px solid black": "1px solid black",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#f2f2f2",
-        width: "100%",
+        width: "90%",
+        height: "90%",
         zIndex: dragging ? "99" : "1",
+        borderRadius: "15px",
+
       }}
     >
       {!overNamn.some(row => row.includes(null)) && overId && dragging && overId !== cords && (

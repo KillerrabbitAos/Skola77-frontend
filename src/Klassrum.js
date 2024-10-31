@@ -11,6 +11,8 @@ const Klassrum = ({
   grid,
   setGrid,
   names = [""],
+  låstaBänkar,
+  setLåstaBänkar,
   edit = true,
 }) => {
   const [activePerson, setActivePerson] = useState(null);
@@ -100,6 +102,8 @@ const Klassrum = ({
                   cell={cell}
                   grid={grid}
                   names={names}
+                  låstaBänkar={låstaBänkar}
+                  setLåstaBänkar={setLåstaBänkar}
                   setGrid={setGrid}
                   edit={edit}
                   overPerson={overPerson}
@@ -118,34 +122,7 @@ const Klassrum = ({
 
 
 
-      <div
-        id="norrbys lilla debuganordning"
-        style={{ display: "flex", margin: "auto" }}
-      >
-        {overId && (
-          <div
-            style={{
-              backgroundColor: "white",
-              width: "100px",
-              height: "100px",
-              marginRight: "2px",
-            }}
-          >
-            <h2>{overId}</h2>
-          </div>
-        )}
-        {dragging && (
-          <div
-            style={{
-              backgroundColor: "white",
-              width: "100px",
-              height: "100px",
-            }}
-          >
-            <h2>{dragging}</h2>
-          </div>
-        )}
-      </div>
+      
     </>
   );
 };

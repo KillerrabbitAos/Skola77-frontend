@@ -9,6 +9,7 @@ const Grid3 = () => {
   const [rows, setRows] = useState(data.klassrum[0].rows);
   const [cols, setCols] = useState(data.klassrum[0].cols);
   const [grid, setGrid] = useState(data.klassrum[0].grid);
+  const [låstaBänkar, setLåstaBänkar] = useState([])
   const [gridData, setGridData] = useState("");
 
   const ändraRader = (e) => {
@@ -75,6 +76,8 @@ const Grid3 = () => {
       <button onClick={spara} className="bg-green-500 h-10 text-white float-end mr-10 mt-3">Spara</button>
       <Klassrum
         rows={rows}
+        låstaBänkar={låstaBänkar}
+        setLåstaBänkar={setLåstaBänkar}
         columns={cols}
         grid={grid}
         setGrid={setGrid}
