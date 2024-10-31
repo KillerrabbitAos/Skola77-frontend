@@ -28,7 +28,7 @@ const Grid3 = () => {
     
     setRows(newRows);
   };
-
+  
   const ändraKolumner = (e) => {
     const inputValue = e.target.value === "" ? "" : parseInt(e.target.value, 10);
     let newCols = isNaN(inputValue) || inputValue === "" ? "" : Math.max(1, inputValue);

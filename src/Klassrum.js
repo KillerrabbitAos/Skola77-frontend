@@ -10,6 +10,8 @@ const Klassrum = ({
   columns = 5,
   grid,
   setGrid,
+  låstaBänkar,
+  setLåstaBänkar,
   names = [""],
   edit = true,
 }) => {
@@ -85,6 +87,8 @@ const Klassrum = ({
                   cords={`${rowIndex}-${colIndex}`}
                   rowIndex={rowIndex}
                   colIndex={colIndex}
+                  låstaBänkar={låstaBänkar}
+                  setLåstaBänkar={setLåstaBänkar}
                   overId={overId}
                   over={overId === `${rowIndex}-${colIndex}`}
                   overNamn={(grid ? grid : data.klassrum[0].grid)
