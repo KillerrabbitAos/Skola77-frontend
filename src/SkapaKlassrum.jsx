@@ -19,11 +19,13 @@ const Grid3 = () => {
       setRows("");
       return;
     }
-    
+    if (newRows > grid.length){
     const newGrid = Array.from({ length: newRows }, (_, rowIndex) =>
       grid[rowIndex] ? grid[rowIndex] : Array.from({ length: cols }, () => ({ id: null, person: 0 }))
     );
     setGrid(newGrid);
+  }
+    
     setRows(newRows);
   };
 
@@ -40,7 +42,7 @@ const Grid3 = () => {
       if (newCols > cols) {
         return [...row, ...Array.from({ length: newCols - cols }, () => ({ id: null, person: 0 }))];
       } else {
-        return row.slice(0, newCols);
+        return(row)
       }
     });
 
