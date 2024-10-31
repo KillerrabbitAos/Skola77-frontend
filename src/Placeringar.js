@@ -8,7 +8,34 @@ const SkapaPlaceringar = () => {
   const [Klassnamn, setKlassnamn] = useState(null);
   const [namn, setNamn] = useState(["", "orm"]);
 
-  const slumpa = () => {}
+  const slumpa = () => {
+    const nyGrid = [];
+    const användaNummer = [];
+    grid.map((rad) => {
+      const nyRad = rad.map((plats, kolumn) => {
+        if (plats.id && namn.length > 5 && kolumn < 5) {
+          let nummer = Math.floor(Math.random() * (namn.length - 1)) + 1;
+          while (användaNummer.includes(nummer)) {
+            console.log("has")
+            nummer = Math.floor(Math.random() * (namn.length - 1)) + 1;
+            if (användaNummer == namn.length - 1) {
+              nummer = 0;
+              break;
+            }
+          }
+          användaNummer.push(nummer)
+          return {
+            id: plats.id,
+            person: nummer,
+          };
+        } else {
+          return plats;
+        }
+      });
+      nyGrid.push(nyRad);
+    });
+    setGrid(nyGrid);
+  };
 
   return (
     <div>
