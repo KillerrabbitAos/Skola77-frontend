@@ -125,7 +125,7 @@ const GridCell = ({
         <div style={style2}>
           <div className="buttons">
             <button
-              className="removeButton rounded-tl-xl rounded-tr-none rounded-br-none rounded-bl-xl"
+              className="removeButton rounded-tl-xl rounded-tr-none rounded-br-none rounded-bl-none"
               onMouseUp={(e) => {
                 e.stopPropagation();
                 removeItem();
@@ -134,7 +134,7 @@ const GridCell = ({
               <RiDeleteBin6Line style={{ color: "white", margin: "auto"}} />
             </button>
             <button
-              className="removeButton rounded-tl-none rounded-tr-xl rounded-br-xl rounded-bl-none"
+              className="removeButton rounded-tl-none rounded-tr-xl rounded-bl-none !rounded-br-none !bg-gray-400"
               onMouseUp={(e) => {
                 e.stopPropagation();
                 lås();
@@ -157,7 +157,7 @@ const GridCell = ({
         >
           <div className="buttons">
             <button
-              className="removeButton rounded-tl-xl rounded-tr-none rounded-br-none rounded-bl-xl"
+              className="removeButton rounded-tl-xl rounded-tr-none rounded-br-none rounded-bl-none"
               onMouseUp={(e) => {
                 e.stopPropagation();
                 removeItem();
@@ -166,7 +166,7 @@ const GridCell = ({
               <RiDeleteBin6Line style={{ color: "white", margin: "auto" }} />
             </button>
             <button
-              className="removeButton rounded-tl-none rounded-tr-xl rounded-br-xl rounded-bl-none !bg-gray-400"
+              className="removeButton rounded-tl-none rounded-tr-xl rounded-bl-none !rounded-br-none !bg-gray-400"
               onMouseUp={(e) => {
                 e.stopPropagation();
                 lås();
