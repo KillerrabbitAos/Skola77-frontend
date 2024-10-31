@@ -74,8 +74,8 @@ const Klassrum = ({
             display: "grid",
             overflow: "hidden",
             zIndex: "100",
-            gridTemplateColumns: `repeat(${columns}, 100px)`,
-            gridTemplateRows: `repeat(${rows}, 100px)`,
+            gridTemplateColumns: `repeat(${columns}, ${window.screen.width/(columns > 9 ? columns : 9) - 10 }px)`,
+            gridTemplateRows: `repeat(${rows}, ${window.screen.width/(columns > 9 ? columns : 9) - 10 }px )`,
           }}
         >
           {(grid ? grid : data.klassrum[0].grid)
