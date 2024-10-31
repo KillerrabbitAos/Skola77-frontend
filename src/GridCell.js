@@ -80,6 +80,8 @@ const GridCell = ({
     touchAction: "none",
     zIndex: dragging ? "99" : "1",
     position: over ? "absolute" : "relative",
+    textAllign: "center",
+    margin: "auto",
   };
   const style2 = {
     width: "90%",
@@ -88,7 +90,11 @@ const GridCell = ({
     border: "1px solid black",
     touchAction: "none",
     zIndex: dragging ? "99" : "1",
-    position: over ? "absolute" : "relative",
+    position: "absolute",
+    borderRadius: "10px",
+    textAllign: "center",
+    margin: "auto",
+ 
   };
 
   return (

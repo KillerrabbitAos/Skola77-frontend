@@ -11,6 +11,7 @@ body{
   z-index: -7;
 }
 
+
 .grid-cell {
   width: 100px;
   height: 100px;
@@ -68,3 +69,4 @@ body{
   height: 50%;
   width: 100%;
 }
+
