@@ -71,3 +71,35 @@ body{
 }
 
 
+.höjKnapp, .sänkKnapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  width: 60px;
+  height: 50px;
+  margin: 0 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #f3f3f3;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.höjKnapp:hover, .sänkKnapp:hover {
+  background-color: #e0e0e0;
+}
+
+.höjKnapp button, .sänkKnapp button {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 20px;
+  color: #333;
+  cursor: pointer;
+}
+
+#skola77ärbra{
+  width: 100px;
+  text-align: center;
+}
