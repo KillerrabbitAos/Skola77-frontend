@@ -61,7 +61,6 @@ body{
   padding: 0px;
   margin: 0px !important;
   left: 0px;
-  
   position: relative;
 }
 .buttons{
@@ -70,6 +69,9 @@ body{
   width: 100%;
 }
 
+.container {
+  font-size: clamp(12px, 2vw, 24px); /* Adjust minimum, scaling, and maximum font sizes */
+}
 
 .höjKnapp, .sänkKnapp {
   display: flex;
