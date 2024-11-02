@@ -20,7 +20,7 @@ const Klassrum = ({
   const [dragging, setDragging] = useState(null);
   const [overId, setOverId] = useState(null);
   const [overPerson, setOverPerson] = useState(null);
-  const [reverse, setReverse] = useState(true)
+  const [reverse, setReverse] = useState(false)
 
   const handleDrop = (event) => {
     setDragging(null);
