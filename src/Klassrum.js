@@ -20,6 +20,7 @@ const Klassrum = ({
   const [dragging, setDragging] = useState(null);
   const [overId, setOverId] = useState(null);
   const [overPerson, setOverPerson] = useState(null);
+  const [reverse, setReverse] = useState(true)
 
   const handleDrop = (event) => {
     setDragging(null);
@@ -61,12 +62,8 @@ const Klassrum = ({
           }
         }}
       >
-
-
         <div>
-        <p id="uppe">Tavla</p>
-
-
+          <p id="uppe">Tavla</p>
         </div>
 
         <div
@@ -75,57 +72,64 @@ const Klassrum = ({
             display: "grid",
             overflow: "hidden",
             zIndex: "115",
-            gridTemplateColumns: `repeat(${columns}, ${window.innerWidth/(columns > 9 ? columns : 9)}px)`,
-            gridTemplateRows: `repeat(${rows}, ${window.innerWidth/(columns > 9 ? columns : 9)}px )`,
+            gridTemplateColumns: `repeat(${columns}, ${
+              window.innerWidth / (columns > 9 ? columns : 9)
+            }px)`,
+            gridTemplateRows: `repeat(${rows}, ${
+              window.innerWidth / (columns > 9 ? columns : 9)
+            }px )`,
           }}
         >
-          {(grid ? grid : data.klassrum[0].grid)
-            .slice(0, rows)
-            .map((row, rowIndex) =>
-              row.slice(0, columns).map((cell, colIndex) => (
-                <GridCell
-                  key={`${rowIndex}-${colIndex}`}
-                  cords={`${rowIndex}-${colIndex}`}
-                  rowIndex={rowIndex}
-                  colIndex={colIndex}
-                  overId={overId}
-                  over={overId === `${rowIndex}-${colIndex}`}
-                  overNamn={(grid ? grid : data.klassrum[0].grid)
-                    .slice(0, rows)
-                    .map((row, rowIndex) =>
-                      row.slice(0, columns).map((cell, colIndex) => (
-                        `${rowIndex}-${colIndex}` === overId && cell.id && names[cell.person]
-                      ))
-                    )}
-                   
-                  activeId={dragging}
-                  activePerson={dragging}
-                  cell={cell}
-                  grid={grid}
-                  names={names}
-                  låstaBänkar={låstaBänkar}
-                  setLåstaBänkar={setLåstaBänkar}
-                  setGrid={setGrid}
-                  edit={edit}
-                  columns={columns}
-                  klar={klar}
-                  overPerson={overPerson}
-                  dragging={dragging === `${rowIndex}-${colIndex}`}
-                />
-              ))
-            )}
+          {(reverse
+            ? (grid ? grid : data.klassrum[0].grid).slice(0, rows).reverse()
+            : (grid ? grid : data.klassrum[0].grid).slice(0, rows)
+          ).map((row, rowIndex) =>
+            (reverse
+              ? row.slice(0, columns).reverse()
+              : row.slice(0, columns)
+            ).map((cell, colIndex) => (
+              <GridCell
+                key={`${rowIndex}-${colIndex}`}
+                cords={`${rowIndex}-${colIndex}`}
+                rowIndex={rowIndex}
+                colIndex={colIndex}
+                overId={overId}
+                over={overId === `${rowIndex}-${colIndex}`}
+                overNamn={(grid ? grid : data.klassrum[0].grid)
+                  .slice(0, rows)
+                  .map((row, rowIndex) =>
+                    row
+                      .slice(0, columns)
+                      .map(
+                        (cell, colIndex) =>
+                          `${rowIndex}-${colIndex}` === overId &&
+                          cell.id &&
+                          names[cell.person]
+                      )
+                  )}
+                activeId={dragging}
+                activePerson={dragging}
+                cell={cell}
+                grid={grid}
+                names={names}
+                låstaBänkar={låstaBänkar}
+                setLåstaBänkar={setLåstaBänkar}
+                setGrid={setGrid}
+                edit={edit}
+                columns={columns}
+                klar={klar}
+                overPerson={overPerson}
+                dragging={dragging === `${rowIndex}-${colIndex}`}
+              />
+            ))
+          )}
         </div>
       </DndContext>
 
       <div>
-
-      <p id="nere">Bak</p>
-
+        <p id="nere">Bak</p>
+        <button onClick={() => {setReverse(reverse ? false : true)}}>spegelvänd</button>
       </div>
-
-
-
-      
     </>
   );
 };
