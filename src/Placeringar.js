@@ -5,6 +5,8 @@ import NameList from "./Namn";
 
 const SkapaPlaceringar = () => {
   const [grid, setGrid] = useState(data.klassrum[0].grid);
+  const [rows, setRows] = useState(data.klassrum[0].rows);
+  const [cols, setCols] = useState(data.klassrum[0].cols);
   const [Klassnamn, setKlassnamn] = useState(null);
   const [namn, setNamn] = useState(["", "orm"]);
   const [låstaBänkar, setLåstaBänkar] = useState([]);
@@ -23,8 +25,8 @@ const SkapaPlaceringar = () => {
       const nyRad = rad.map((plats, kolumn) => {
         if (
           plats.id &&
-          namn.length > 5 &&
-          kolumn < 5 &&
+          namn.length > cols &&
+          kolumn < cols &&
           !låstaBänkar.includes(plats.id)
         ) {
           let nummer = Math.floor(Math.random() * (namn.length - 1)) + 1;
@@ -93,6 +95,33 @@ const SkapaPlaceringar = () => {
             {klass.namn}
           </li>
         ))}
+
+
+    <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
+        <li
+          className="font-bold text-xl p-2 cursor-pointer"
+          onClick={() => {
+            setGrid(Array.from({ length: rows }, () => Array.from({ length: cols }, () => ({ id: null, person: 0 }))));
+          }}
+        >
+          ny klass...
+        </li>
+        {data.klassrum.map((klassrum, index) => (
+          <li
+            key={klassrum.name || index}
+            className="font-bold text-xl p-2 cursor-pointer"
+            onClick={() => {
+              setGrid(klassrum.grid);
+              setRows(klassrum.rows);
+              setCols(klassrum.cols);
+            }}
+          >
+            {klassrum.name}
+          </li>
+        ))}
+      </ul>
+
+
     </div>
   );
 };
