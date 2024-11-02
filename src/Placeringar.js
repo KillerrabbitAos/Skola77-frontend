@@ -75,6 +75,8 @@ const SkapaPlaceringar = () => {
         låstaBänkar={låstaBänkar}
         setLåstaBänkar={setLåstaBänkar}
         grid={grid}
+        columns={cols}
+        rows={rows}
         setGrid={setGrid}
         klar={klar}
         names={namn}
@@ -98,14 +100,7 @@ const SkapaPlaceringar = () => {
 
 
     <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
-        <li
-          className="font-bold text-xl p-2 cursor-pointer"
-          onClick={() => {
-            setGrid(Array.from({ length: rows }, () => Array.from({ length: cols }, () => ({ id: null, person: 0 }))));
-          }}
-        >
-          ny klass...
-        </li>
+        
         {data.klassrum.map((klassrum, index) => (
           <li
             key={klassrum.name || index}
