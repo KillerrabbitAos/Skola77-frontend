@@ -73,10 +73,10 @@ const Klassrum = ({
             overflow: "hidden",
             zIndex: "115",
             gridTemplateColumns: `repeat(${columns}, ${
-              window.innerWidth / (columns > 9 ? columns : 9)
+              window.innerWidth / (columns > 14 ? columns : 14)
             }px)`,
             gridTemplateRows: `repeat(${rows}, ${
-              window.innerWidth / (columns > 9 ? columns : 9)
+              window.innerWidth / (columns > 14 ? columns : 14)
             }px )`,
           }}
         >
