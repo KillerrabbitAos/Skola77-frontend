@@ -5,6 +5,7 @@ import "./Grid.css";
 import "./Klassrum.css";
 import GridCell from "./GridCell";
 import { data } from "./data.js";
+
 const Klassrum = ({
   rows = 5,
   columns = 5,
@@ -15,12 +16,13 @@ const Klassrum = ({
   klar,
   setLåstaBänkar,
   edit = true,
+  omvänd = false,
 }) => {
   const [activePerson, setActivePerson] = useState(null);
   const [dragging, setDragging] = useState(null);
   const [overId, setOverId] = useState(null);
   const [overPerson, setOverPerson] = useState(null);
-  const [reverse, setReverse] = useState(false)
+  const [reverse, setReverse] = useState(omvänd)  
 const rum = ((grid ? grid : data.klassrum[0].grid).slice(0, rows)
 .map((row, rowIndex) =>
   (
@@ -102,7 +104,7 @@ const rum = ((grid ? grid : data.klassrum[0].grid).slice(0, rows)
         }}
       >
         <div>
-          <p id="uppe">Tavla</p>
+          <p id="uppe">{reverse ? "bak" : "tavla"}</p>
         </div>
 
         <div
@@ -124,7 +126,7 @@ const rum = ((grid ? grid : data.klassrum[0].grid).slice(0, rows)
       </DndContext>
 
       <div>
-        <p id="nere">Bak</p>
+        <p id="nere">{reverse ? "tavla" : "bak"}</p>
         <button onClick={() => {setReverse(reverse ? false : true)}}>spegelvänd</button>
       </div>
     </>
