@@ -35,10 +35,10 @@ const GridCell = ({
       const cell = document.getElementById(cords);
       if (cell) {
         const cellWidth = cell.offsetWidth;
-        setFontSize(`${cellWidth * 0.3}px`); // Adjust scale as needed
+        setFontSize(`${cellWidth * 0.3}px`);
       }
     };
-    handleResize(); // Set on mount
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [columns]);
@@ -64,7 +64,7 @@ const GridCell = ({
       newGrid[rowIndex][colIndex] = {
         id: `item-${Date.now()}`,
         person: 0,
-      }; // Default person index to 0
+      };
       setGrid(newGrid);
     }
   };
@@ -91,7 +91,7 @@ const GridCell = ({
     setNodeRef: draggableRef,
     transform,
   } = useDraggable({
-    id: `${rowIndex}-${colIndex}`, // Unique ID for the draggable item
+    id: `${rowIndex}-${colIndex}`,
   });
 
   const style = {
@@ -101,7 +101,10 @@ const GridCell = ({
     width: "100%",
     height: "100%",
     background: "black",
-    background: låstaBänkar.includes(cell.id) && cell.person === 0 ?  "repeating-linear-gradient(45deg, #b3b3b34d, #0003 10px, #0000004d 0, #0000004d 20px)" : "white",
+    background:
+      låstaBänkar.includes(cell.id) && cell.person === 0
+        ? "repeating-linear-gradient(45deg, #b3b3b34d, #0003 10px, #0000004d 0, #0000004d 20px)"
+        : "white",
     border: dragging ? "1px solid black" : "none",
     touchAction: "none",
     zIndex: dragging ? "99" : "1",
@@ -137,7 +140,6 @@ const GridCell = ({
         width: "90%",
         height: "90%",
         zIndex: dragging ? "99" : "1",
-        
       }}
     >
       {!overNamn.some((row) => row.includes(null)) &&
@@ -171,29 +173,26 @@ const GridCell = ({
               >
                 {!låstaBänkar.includes(dragging) ? (
                   <svg
-                  style={{ height: "80%", marginLeft: "5%", margin: "auto" }}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                >
-                  <path
-                    d="M144 144c0-44.2 35.8-80 80-80c31.9 0 59.4 18.6 72.3 45.7c7.6 16 26.7 22.8 42.6 15.2s22.8-26.7 15.2-42.6C331 33.7 281.5 0 224 0C144.5 0 80 64.5 80 144l0 48-16 0c-35.3 0-64 28.7-64 64L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-192c0-35.3-28.7-64-64-64l-240 0 0-48z"
-                    fill="white"
-                  />
-                </svg>
-
+                    style={{ height: "80%", marginLeft: "5%", margin: "auto" }}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                  >
+                    <path
+                      d="M144 144c0-44.2 35.8-80 80-80c31.9 0 59.4 18.6 72.3 45.7c7.6 16 26.7 22.8 42.6 15.2s22.8-26.7 15.2-42.6C331 33.7 281.5 0 224 0C144.5 0 80 64.5 80 144l0 48-16 0c-35.3 0-64 28.7-64 64L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-192c0-35.3-28.7-64-64-64l-240 0 0-48z"
+                      fill="white"
+                    />
+                  </svg>
                 ) : (
-                
-                <svg
-                  style={{ height: "80%", marginLeft: "5%", margin: "auto"}}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                >
-                  <path
-                    d="M144 144l0 48 160 0 0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192l0-48C80 64.5 144.5 0 224 0s144 64.5 144 144l0 48 16 0c35.3 0 64 28.7 64 64l0 192c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 256c0-35.3 28.7-64 64-64l16 0z"
-                    fill="white"
-                  />
-                </svg>
-                
+                  <svg
+                    style={{ height: "80%", marginLeft: "5%", margin: "auto" }}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                  >
+                    <path
+                      d="M144 144l0 48 160 0 0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192l0-48C80 64.5 144.5 0 224 0s144 64.5 144 144l0 48 16 0c35.3 0 64 28.7 64 64l0 192c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 256c0-35.3 28.7-64 64-64l16 0z"
+                      fill="white"
+                    />
+                  </svg>
                 )}
               </button>
             </div>
@@ -242,29 +241,26 @@ const GridCell = ({
               >
                 {!låstaBänkar.includes(cell.id) ? (
                   <svg
-                  style={{ height: "80%", marginLeft: "5%", margin: "auto" }}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                >
-                  <path
-                    d="M144 144c0-44.2 35.8-80 80-80c31.9 0 59.4 18.6 72.3 45.7c7.6 16 26.7 22.8 42.6 15.2s22.8-26.7 15.2-42.6C331 33.7 281.5 0 224 0C144.5 0 80 64.5 80 144l0 48-16 0c-35.3 0-64 28.7-64 64L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-192c0-35.3-28.7-64-64-64l-240 0 0-48z"
-                    fill="white"
-                  />
-                </svg>
-
+                    style={{ height: "80%", marginLeft: "5%", margin: "auto" }}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                  >
+                    <path
+                      d="M144 144c0-44.2 35.8-80 80-80c31.9 0 59.4 18.6 72.3 45.7c7.6 16 26.7 22.8 42.6 15.2s22.8-26.7 15.2-42.6C331 33.7 281.5 0 224 0C144.5 0 80 64.5 80 144l0 48-16 0c-35.3 0-64 28.7-64 64L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-192c0-35.3-28.7-64-64-64l-240 0 0-48z"
+                      fill="white"
+                    />
+                  </svg>
                 ) : (
-                
-                <svg
-                  style={{ height: "80%", marginLeft: "5%", margin: "auto"}}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                >
-                  <path
-                    d="M144 144l0 48 160 0 0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192l0-48C80 64.5 144.5 0 224 0s144 64.5 144 144l0 48 16 0c35.3 0 64 28.7 64 64l0 192c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 256c0-35.3 28.7-64 64-64l16 0z"
-                    fill="white"
-                  />
-                </svg>
-                
+                  <svg
+                    style={{ height: "80%", marginLeft: "5%", margin: "auto" }}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                  >
+                    <path
+                      d="M144 144l0 48 160 0 0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192l0-48C80 64.5 144.5 0 224 0s144 64.5 144 144l0 48 16 0c35.3 0 64 28.7 64 64l0 192c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 256c0-35.3 28.7-64 64-64l16 0z"
+                      fill="white"
+                    />
+                  </svg>
                 )}
               </button>
             </div>
