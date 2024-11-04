@@ -2,6 +2,10 @@ aa# Getting Started with Create React App
 KEBABISHff
 JAG ÄR HÄR!
 asdsa
+
+hgukguijhgjkih
+
+samuel nordin fågelsångsvägen 14 19144 sollentuina
 sannerilihermn
 beta
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
