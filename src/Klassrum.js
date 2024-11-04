@@ -17,7 +17,7 @@ const Klassrum = ({
   setLåstaBänkar,
   edit = true,
   omvänd = false,
-  skrivUt = true,
+  skrivUt = false,
 }) => {
   const [activePerson, setActivePerson] = useState(null);
   const [dragging, setDragging] = useState(null);
