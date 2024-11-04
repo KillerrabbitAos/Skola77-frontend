@@ -80,13 +80,49 @@ const Klassrum = ({
             }px )`,
           }}
         >
-          {(reverse
-            ? (grid ? grid : data.klassrum[0].grid).slice(0, rows).reverse()
-            : (grid ? grid : data.klassrum[0].grid).slice(0, rows)
-          ).map((row, rowIndex) =>
-            (reverse
-              ? row.slice(0, columns).reverse()
-              : row.slice(0, columns)
+          {reverse ? (grid ? grid : data.klassrum[0].grid).slice(0, rows)
+          .map((row, rowIndex) =>
+            (
+              row.slice(0, columns)
+            ).map((cell, colIndex) => (
+              <GridCell
+                key={`${rowIndex}-${colIndex}`}
+                cords={`${rowIndex}-${colIndex}`}
+                rowIndex={rowIndex}
+                colIndex={colIndex}
+                overId={overId}
+                over={overId === `${rowIndex}-${colIndex}`}
+                overNamn={(grid ? grid : data.klassrum[0].grid)
+                  .slice(0, rows)
+                  .map((row, rowIndex) =>
+                    row
+                      .slice(0, columns)
+                      .map(
+                        (cell, colIndex) =>
+                          `${rowIndex}-${colIndex}` === overId &&
+                          cell.id &&
+                          names[cell.person]
+                      )
+                  )}
+                activeId={dragging}
+                activePerson={dragging}
+                cell={cell}
+                grid={grid}
+                names={names}
+                låstaBänkar={låstaBänkar}
+                setLåstaBänkar={setLåstaBänkar}
+                setGrid={setGrid}
+                edit={edit}
+                columns={columns}
+                klar={klar}
+                overPerson={overPerson}
+                dragging={dragging === `${rowIndex}-${colIndex}`}
+              />
+            ))
+          ).reverse().map(row => row.reverse()) : (grid ? grid : data.klassrum[0].grid).slice(0, rows)
+          .map((row, rowIndex) =>
+            (
+              row.slice(0, columns)
             ).map((cell, colIndex) => (
               <GridCell
                 key={`${rowIndex}-${colIndex}`}
