@@ -104,7 +104,7 @@ const GridCell = ({
       låstaBänkar.includes(cell.id) && cell.person === 0
         ? "repeating-linear-gradient(45deg, #b3b3b34d, #0003 10px, #0000004d 0, #0000004d 20px)"
         : "white",
-    border: dragging ? "1px solid black" : "none",
+    border: dragging ? "2px solid black" : "none",
     touchAction: "none",
     zIndex: dragging ? "99" : "1",
     position: over ? "absolute" : "relative",
@@ -148,7 +148,7 @@ const GridCell = ({
           <div style={style2}>
             <div className="buttons">
               <button
-                className="removeButton rounded-tl-xl rounded-tr-none rounded-br-none rounded-bl-none"
+                className="removeButton rounded-tr-none rounded-br-none rounded-bl-none"
                 onMouseUp={(e) => {
                   e.stopPropagation();
                   removeItem();
@@ -164,7 +164,7 @@ const GridCell = ({
                 />
               </button>
               <button
-                className="removeButton rounded-tl-none rounded-tr-xl rounded-bl-none !rounded-br-none !bg-gray-400"
+                className="removeButton rounded-tl-none rounded-bl-none !rounded-br-none !bg-gray-400"
                 onMouseUp={(e) => {
                   e.stopPropagation();
                   lås();
@@ -216,7 +216,7 @@ const GridCell = ({
           {!klar && (
             <div className="buttons">
               <button
-                className="removeButton rounded-tl-xl rounded-tr-none rounded-br-none rounded-bl-none"
+                className="removeButton rounded-tr-none rounded-br-none rounded-bl-none"
                 onMouseUp={(e) => {
                   e.stopPropagation();
                   removeItem();
@@ -232,7 +232,7 @@ const GridCell = ({
                 />
               </button>
               <button
-                className="removeButton rounded-tl-none rounded-tr-xl rounded-bl-none !rounded-br-none !bg-gray-400"
+                className="removeButton rounded-tl-none rounded-bl-none !rounded-br-none !bg-gray-400"
                 onMouseUp={(e) => {
                   e.stopPropagation();
                   lås();
