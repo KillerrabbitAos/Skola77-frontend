@@ -148,7 +148,7 @@ const GridCell = ({
           <div style={style2}>
             <div className="buttons">
               <button
-                className="removeButton rounded-tl-xl rounded-tr-none rounded-br-none rounded-bl-none"
+                className="removeButton rounded-tr-none rounded-br-none rounded-bl-none"
                 onMouseUp={(e) => {
                   e.stopPropagation();
                   removeItem();
@@ -164,7 +164,7 @@ const GridCell = ({
                 />
               </button>
               <button
-                className="removeButton rounded-tl-none rounded-tr-xl rounded-bl-none !rounded-br-none !bg-gray-400"
+                className="removeButton rounded-tl-none rounded-bl-none !rounded-br-none !bg-gray-400"
                 onMouseUp={(e) => {
                   e.stopPropagation();
                   lås();
