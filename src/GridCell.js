@@ -43,7 +43,6 @@ const GridCell = ({
     return () => window.removeEventListener("resize", handleResize);
   }, [columns]);
   useEffect(() => {
-    // Only update position if `over` is true and `overId` is not equal to `activeId`
     if (over && overId !== activeId && activePerson) {
       const targetElement = document.getElementById(activePerson);
       if (targetElement) {
