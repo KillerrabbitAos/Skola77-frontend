@@ -17,6 +17,7 @@ const Klassrum = ({
   setLåstaBänkar,
   edit = true,
   omvänd = false,
+  skrivUt = true,
 }) => {
   const [activePerson, setActivePerson] = useState(null);
   const [dragging, setDragging] = useState(null);
@@ -115,10 +116,18 @@ const Klassrum = ({
             overflow: "hidden",
             zIndex: "115",
             gridTemplateColumns: `repeat(${columns}, ${
-              window.outerWidth / (columns > 14 ? columns : 14)
+              skrivUt
+                ? window.outerWidth / columns > window.outerHeight / rows
+                  ? window.outerHeight / rows
+                  : window.outerWidth / columns
+                : window.outerWidth / (columns > 14 ? columns : 14)
             }px)`,
             gridTemplateRows: `repeat(${rows}, ${
-              window.outerWidth / (columns > 14 ? columns : 14)
+              skrivUt
+                ? window.outerWidth / columns > window.outerHeight / rows
+                  ? window.outerHeight / rows
+                  : window.outerWidth / columns
+                : window.outerWidth / (columns > 14 ? columns : 14)
             }px )`,
           }}
         >
