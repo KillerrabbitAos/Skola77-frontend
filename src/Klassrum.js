@@ -114,10 +114,10 @@ const rum = ((grid ? grid : data.klassrum[0].grid).slice(0, rows)
             overflow: "hidden",
             zIndex: "115",
             gridTemplateColumns: `repeat(${columns}, ${
-              window.innerWidth / (columns > 14 ? columns : 14)
+              window.outerWidth / (columns > 14 ? columns : 14)
             }px)`,
             gridTemplateRows: `repeat(${rows}, ${
-              window.innerWidth / (columns > 14 ? columns : 14)
+              window.outerWidth / (columns > 14 ? columns : 14)
             }px )`,
           }}
         >
