@@ -30,6 +30,8 @@ const GridCell = ({
   });
   const [fontSize, setFontSize] = useState("1rem");
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+
   useEffect(() => {
     const handleResize = () => {
       const cell = document.getElementById(cords);
@@ -56,6 +58,33 @@ const GridCell = ({
       setPosition({ x: 0, y: 0 });
     }
   }, [over, overId, activeId, activePerson]);
+
+  const musenNer = (e) => {
+    setStartPos({ x: e.clientX, y: e.clientY });
+  };
+
+  const musenUpp = (e) => {
+    const dx = Math.abs(e.clientX - startPos.x);
+    const dy = Math.abs(e.clientY - startPos.y);
+    const dragLängd = 5;
+
+    if (dx < dragLängd && dy < dragLängd) {
+      e.stopPropagation();
+      removeItem();
+    }
+  };
+
+  const musenUppTaBort = (e) => {
+    const dx = Math.abs(e.clientX - startPos.x);
+    const dy = Math.abs(e.clientY - startPos.y);
+    const dragLängd = 5;
+
+    if (dx < dragLängd && dy < dragLängd) {
+      e.stopPropagation();
+      lås();
+    }
+  };
+
 
   const handleCellClick = () => {
     if (!cell.id) {
@@ -104,7 +133,7 @@ const GridCell = ({
       låstaBänkar.includes(cell.id) && cell.person === 0
         ? "repeating-linear-gradient(45deg, #b3b3b34d, #0003 10px, #0000004d 0, #0000004d 20px)"
         : "white",
-    border: dragging ? "1px solid black" : "none",
+    border: dragging ? "2px solid black" : "none",
     touchAction: "none",
     zIndex: dragging ? "99" : "1",
     position: over ? "absolute" : "relative",
@@ -148,7 +177,7 @@ const GridCell = ({
           <div style={style2}>
             <div className="buttons">
               <button
-                className="removeButton rounded-tl-xl rounded-tr-none rounded-br-none rounded-bl-none"
+                className="removeButton rounded-tr-none rounded-br-none rounded-bl-none"
                 onMouseUp={(e) => {
                   e.stopPropagation();
                   removeItem();
@@ -164,7 +193,7 @@ const GridCell = ({
                 />
               </button>
               <button
-                className="removeButton rounded-tl-none rounded-tr-xl rounded-bl-none !rounded-br-none !bg-gray-400"
+                className="removeButton rounded-tl-none rounded-bl-none !rounded-br-none !bg-gray-400"
                 onMouseUp={(e) => {
                   e.stopPropagation();
                   lås();
@@ -216,11 +245,9 @@ const GridCell = ({
           {!klar && (
             <div className="buttons">
               <button
-                className="removeButton rounded-tl-xl rounded-tr-none rounded-br-none rounded-bl-none"
-                onMouseUp={(e) => {
-                  e.stopPropagation();
-                  removeItem();
-                }}
+                className="removeButton rounded-tr-none rounded-br-none rounded-bl-none"
+                onMouseDown={musenNer}
+                onMouseUp={musenUpp}
               >
                 <RiDeleteBin6Line
                   style={{
@@ -232,11 +259,9 @@ const GridCell = ({
                 />
               </button>
               <button
-                className="removeButton rounded-tl-none rounded-tr-xl rounded-bl-none !rounded-br-none !bg-gray-400"
-                onMouseUp={(e) => {
-                  e.stopPropagation();
-                  lås();
-                }}
+                className="removeButton rounded-tl-none rounded-bl-none !rounded-br-none !bg-gray-400"
+                onMouseDown={musenNer}
+                onMouseUp={musenUppTaBort}
               >
                 {!låstaBänkar.includes(cell.id) ? (
                   <svg
