@@ -30,6 +30,8 @@ const GridCell = ({
   });
   const [fontSize, setFontSize] = useState("1rem");
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+
   useEffect(() => {
     const handleResize = () => {
       const cell = document.getElementById(cords);
@@ -56,6 +58,33 @@ const GridCell = ({
       setPosition({ x: 0, y: 0 });
     }
   }, [over, overId, activeId, activePerson]);
+
+  const musenNer = (e) => {
+    setStartPos({ x: e.clientX, y: e.clientY });
+  };
+
+  const musenUpp = (e) => {
+    const dx = Math.abs(e.clientX - startPos.x);
+    const dy = Math.abs(e.clientY - startPos.y);
+    const dragLängd = 5;
+
+    if (dx < dragLängd && dy < dragLängd) {
+      e.stopPropagation();
+      removeItem();
+    }
+  };
+
+  const musenUppTaBort = (e) => {
+    const dx = Math.abs(e.clientX - startPos.x);
+    const dy = Math.abs(e.clientY - startPos.y);
+    const dragLängd = 5;
+
+    if (dx < dragLängd && dy < dragLängd) {
+      e.stopPropagation();
+      lås();
+    }
+  };
+
 
   const handleCellClick = () => {
     if (!cell.id) {
@@ -217,10 +246,8 @@ const GridCell = ({
             <div className="buttons">
               <button
                 className="removeButton rounded-tr-none rounded-br-none rounded-bl-none"
-                onMouseUp={(e) => {
-                  e.stopPropagation();
-                  removeItem();
-                }}
+                onMouseDown={musenNer}
+                onMouseUp={musenUpp}
               >
                 <RiDeleteBin6Line
                   style={{
@@ -233,10 +260,8 @@ const GridCell = ({
               </button>
               <button
                 className="removeButton rounded-tl-none rounded-bl-none !rounded-br-none !bg-gray-400"
-                onMouseUp={(e) => {
-                  e.stopPropagation();
-                  lås();
-                }}
+                onMouseDown={musenNer}
+                onMouseUp={musenUppTaBort}
               >
                 {!låstaBänkar.includes(cell.id) ? (
                   <svg
