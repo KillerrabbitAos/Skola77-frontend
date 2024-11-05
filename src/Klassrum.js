@@ -117,16 +117,18 @@ const Klassrum = ({
             zIndex: "115",
             gridTemplateColumns: `repeat(${columns}, ${
               skrivUt
-                ? window.outerWidth / columns > window.outerHeight / rows
-                  ? window.outerHeight / rows
-                  : window.outerWidth / columns
+                ? Math.min(
+                    window.outerWidth / columns,
+                    window.outerHeight / rows
+                  )
                 : window.outerWidth / (columns > 14 ? columns : 14)
             }px)`,
             gridTemplateRows: `repeat(${rows}, ${
               skrivUt
-                ? window.outerWidth / columns > window.outerHeight / rows
-                  ? window.outerHeight / rows
-                  : window.outerWidth / columns
+                ? Math.min(
+                    window.outerWidth / columns,
+                    window.outerHeight / rows
+                  )
                 : window.outerWidth / (columns > 14 ? columns : 14)
             }px )`,
           }}
