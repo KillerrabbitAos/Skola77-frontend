@@ -1131,7 +1131,7 @@ const handleRefresh = () => {
       </div>
       <p>
         <a id="mailTag" onClick={() => {setEasterCounter(easterCounter + 1)}}>
-          Version 1.12.6 "kyckling"
+          Version 1.13 "kyckling"
         </a>
       </p>
     </div>
