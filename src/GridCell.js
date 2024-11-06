@@ -220,7 +220,7 @@ const GridCell = ({
     return () => {
       window.removeEventListener("resize", adjustFontSize);
     };
-  }, [cell.person, columns, rows]);
+  }, [cell.person, columns, rows, overNamn]);
   return (
     <div
       id={cords}
