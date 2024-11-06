@@ -40,11 +40,13 @@ const GridCell = ({
   overNamn,
   colIndex,
   cell,
+  högerklicksmeny,
   names,
   setGrid,
   grid,
   klar,
   rows,
+  setHögerklicksmeny,
   cords,
   columns,
   låstaBänkar,
@@ -52,7 +54,7 @@ const GridCell = ({
   setLåstaBänkar,
 }) => {
   const { setNodeRef } = useDroppable({
-    id: `${rowIndex}-${colIndex}`, // Unique ID for each droppable cell
+    id: `${rowIndex}-${colIndex}`,
   });
   const [fontSize, setFontSize] = useState("1rem");
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -61,6 +63,17 @@ const GridCell = ({
   const textRef = useRef(null);
   const previewRef = useRef(null);
   const previewDivRef = useRef(null);
+
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const visaHögerklicksmeny = (event) => {
+    event.preventDefault();
+    const rect = event.target.getBoundingClientRect();
+    const offsetX = event.clientX - rect.left;
+    const offsetY = event.clientY - rect.top;
+
+    setMousePosition({ x: offsetX, y: offsetY });
+    setHögerklicksmeny(cell.id);
+  };
 
   useEffect(() => {
     if (over && overId !== activeId && activePerson) {
@@ -152,7 +165,7 @@ const GridCell = ({
         : "white",
     border: dragging ? "2px solid black" : "none",
     touchAction: "none",
-    zIndex: dragging ? "99" : "1",
+    zIndex: dragging || högerklicksmeny ? "99" : "1",
     position: over ? "absolute" : "relative",
     textAllign: "center",
     margin: "auto",
@@ -185,14 +198,14 @@ const GridCell = ({
           : null;
 
       if (text && div) {
-        text.style.visibility = "hidden"
+        text.style.visibility = "hidden";
         const initialFontSize = `${calculateFontSize(
           text,
           div.offsetHeight,
           div.offsetWidth
         )}px`;
         text.style.fontSize = initialFontSize;
-        
+
         while (
           text.scrollWidth > div.clientWidth ||
           text.scrollHeight > div.clientHeight
@@ -200,7 +213,7 @@ const GridCell = ({
           const fontSize = parseFloat(window.getComputedStyle(text).fontSize);
           text.style.fontSize = `${fontSize - 2}px`;
         }
-        text.style.visibility = "visible"
+        text.style.visibility = "visible";
       }
     };
 
@@ -226,7 +239,7 @@ const GridCell = ({
         backgroundColor: "#f2f2f2",
         width: "90%",
         height: "90%",
-        zIndex: dragging ? "99" : "1",
+        zIndex: dragging || högerklicksmeny === cell.id ? "99" : "1",
       }}
     >
       {!overNamn.some((row) => row.includes(null)) &&
@@ -352,6 +365,7 @@ const GridCell = ({
           )}
 
           <div
+            onContextMenu={visaHögerklicksmeny}
             ref={divRef}
             style={{
               height: "50%",
@@ -362,6 +376,51 @@ const GridCell = ({
               {names[cell.person]}
             </span>
           </div>
+          {högerklicksmeny === cell.id && (
+            <div
+              style={{
+                position: "absolute",
+                left: `calc(${mousePosition.x}px - 10px)`,
+                top: `calc(${mousePosition.y}px + 50% - 10px)`,
+                width: "100px",
+                maxHeight: "200px",
+                backgroundColor: "white",
+                borderRadius: "5%",
+                border: "1px solid black",
+                zIndex: "200",
+                overflowY: "scroll",
+                overflowX: "scroll",
+
+                listStyleType: "none",
+              }}
+            >
+              {names
+                .map((namn, index) => {
+                  return { namn: namn, originalIndex: index };
+                })
+                .sort((a, b) => {
+                  if (a.namn.toLowerCase() < b.namn.toLowerCase()) {
+                    return -1; 
+                  }
+                  if (a.namn.toLowerCase() > b.namn.toLowerCase()) {
+                    return 1; 
+                  }
+                  return 0; 
+                })
+                .map((name) => (
+                  <li
+                    className={"högerklicksmenyalternativ"}
+                    key={`h-${name.originalIndex}`}
+                    onMouseDown={(e) => {
+                      e.stopPropagation();
+                      console.log(name.originalIndex);
+                    }}
+                  >
+                    {name}
+                  </li>
+                ))}
+            </div>
+          )}
         </div>
       ) : (
         ""

@@ -25,6 +25,9 @@ const Klassrum = ({
   const [overPerson, setOverPerson] = useState(null);
   const [reverse, setReverse] = useState(omvänd);
   const [size, setSize] = useState(null);
+
+  const [högerklicksmeny, setHögerklicksmeny] = useState(false);
+  
   const gridRef = useRef(null);
   const updateGridColumns = () => {
     setSize(
@@ -62,6 +65,8 @@ const Klassrum = ({
           activeId={dragging}
           activePerson={dragging}
           cell={cell}
+          högerklicksmeny={högerklicksmeny}
+          setHögerklicksmeny={setHögerklicksmeny}
           grid={grid}
           names={names}
           låstaBänkar={låstaBänkar}
@@ -125,6 +130,7 @@ const Klassrum = ({
     <>
       <DndContext
         onDragEnd={handleDrop}
+
         onDragStart={(e) => {
           const { active } = e;
           setDragging(active.id);
@@ -140,6 +146,7 @@ const Klassrum = ({
           }
         }}
       >
+        
         <div>
           <p id="uppe">{reverse ? "bak" : "tavla"}</p>
         </div>
