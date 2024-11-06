@@ -27,8 +27,11 @@ const Klassrum = ({
   const gridRef = useRef(null);
   const updateGridColumns = () => {
     const columnWidth = skrivUt
-      ? Math.min(window.outerWidth / columns, window.outerHeight / rows)
-      : window.outerWidth / (columns > 14 ? columns : 14);
+    ? Math.min(
+        window.outerWidth / columns,
+        window.outerHeight / rows
+      )
+    : window.outerWidth / (columns > 14 ? columns : 14)
 
     gridRef.current.style.gridTemplateColumns = `repeat(${columns}, ${columnWidth}px)`;
     gridRef.current.style.gridTemplateRows = `repeat(${rows}, ${columnWidth}px)`;
