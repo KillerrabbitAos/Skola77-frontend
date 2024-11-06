@@ -201,15 +201,14 @@ const GridCell = ({
           text.scrollHeight < div.clientHeight
         ) {
           const fontSize = parseFloat(window.getComputedStyle(text).fontSize);
-          text.style.fontSize = `${fontSize + 1}px`;
+          text.style.fontSize = `${fontSize + 2}px`;
         }
         while (
           text.scrollWidth > div.clientWidth ||
           text.scrollHeight > div.clientHeight
         ) {
           const fontSize = parseFloat(window.getComputedStyle(text).fontSize);
-          text.style.fontSize = `${fontSize - 1}px`;
-          console.log(names[cell.person]);
+          text.style.fontSize = `${fontSize - 2}px`;
         }
       }
     };
