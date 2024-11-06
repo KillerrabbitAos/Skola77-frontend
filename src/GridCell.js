@@ -220,7 +220,7 @@ const GridCell = ({
       id={cords}
       ref={setNodeRef}
       onClick={handleCellClick}
-      className={`grid-cell ${cell.id ? "active" : ""} rounded-xl`}
+      className={`grid-cell ${cell.id ? "active" : ""} rounded-[10%]`}
       style={{
         border: over ? "2px solid gray" : "2px solid black",
         display: "flex",
@@ -239,7 +239,7 @@ const GridCell = ({
           <div style={style2}>
             <div className="buttons">
               <button
-                className="removeButton rounded-tr-none rounded-br-none rounded-bl-none"
+                className="removeButton rounded-[10%] rounded-tr-none rounded-br-none rounded-bl-none"
                 onMouseUp={(e) => {
                   e.stopPropagation();
                   removeItem();
@@ -247,15 +247,15 @@ const GridCell = ({
               >
                 <RiDeleteBin6Line
                   style={{
-                    height: "75%",
-                    width: "75%",
+                    height: "90%",
+                    width: "90%",
                     color: "white",
                     margin: "auto",
                   }}
                 />
               </button>
               <button
-                className="removeButton rounded-tl-none rounded-bl-none !rounded-br-none !bg-gray-400"
+                className="removeButton rounded-[10%] rounded-tl-none rounded-bl-none !rounded-br-none !bg-gray-400"
                 onMouseUp={(e) => {
                   e.stopPropagation();
                   lås();
@@ -304,12 +304,12 @@ const GridCell = ({
           {...listeners}
           {...attributes}
           style={style}
-          className="rounded-xl"
+          className="rounded-[10%]"
         >
           {!klar && (
             <div className="buttons">
               <button
-                className="removeButton rounded-tr-none rounded-br-none rounded-bl-none"
+                className="removeButton rounded-[10%] rounded-tr-none rounded-br-none rounded-bl-none"
                 onMouseDown={musenNer}
                 onMouseUp={musenUpp}
               >
@@ -323,7 +323,7 @@ const GridCell = ({
                 />
               </button>
               <button
-                className="removeButton rounded-tl-none rounded-bl-none !rounded-br-none !bg-gray-400"
+                className="removeButton rounded-[10%] rounded-tl-none rounded-bl-none !rounded-br-none !bg-gray-400"
                 onMouseDown={musenNer}
                 onMouseUp={musenUppTaBort}
               >
