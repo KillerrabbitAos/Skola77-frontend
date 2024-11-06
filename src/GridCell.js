@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDroppable, useDraggable } from "@dnd-kit/core";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import "./Grid.css"; // Import the CSS file
@@ -19,6 +19,7 @@ const GridCell = ({
   setGrid,
   grid,
   klar,
+  rows,
   cords,
   columns,
   låstaBänkar,
@@ -31,19 +32,11 @@ const GridCell = ({
   const [fontSize, setFontSize] = useState("1rem");
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+  const divRef = useRef(null);
+  const textRef = useRef(null);
+  const previewRef = useRef(null);
+  const previewDivRef = useRef(null);
 
-  useEffect(() => {
-    const handleResize = () => {
-      const cell = document.getElementById(cords);
-      if (cell) {
-        const cellWidth = cell.offsetWidth;
-        setFontSize(`${cellWidth * 0.3}px`);
-      }
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [columns]);
   useEffect(() => {
     if (over && overId !== activeId && activePerson) {
       const targetElement = document.getElementById(activePerson);
@@ -84,7 +77,6 @@ const GridCell = ({
       lås();
     }
   };
-
 
   const handleCellClick = () => {
     if (!cell.id) {
@@ -152,7 +144,39 @@ const GridCell = ({
     textAllign: "center",
     margin: "auto",
   };
+  useEffect(() => {
+    const adjustFontSize = () => {
+      const text = (dragging && previewRef.current ? previewRef : textRef.current ? textRef.current : null)
+      const div = (dragging && previewDivRef.current ? previewDivRef : divRef.current ? divRef.current : null)
+      if (text && div) {
+        text.style.fontSize = "initial";
+        while (
+          text.scrollWidth < div.clientWidth ||
+          text.scrollHeight < div.clientHeight
+        ) {
+          text.style.fontSize = `${fontSize + 1}px`;
+        }
+        while (
+          text.scrollWidth > div.clientWidth ||
+          text.scrollHeight > div.clientHeight
+        ) {
+          const fontSize = parseFloat(
+            window.getComputedStyle(text).fontSize
+          );
+          text.style.fontSize = `${fontSize - 1}px`;
+          console.log(names[cell.person]);
+        }
+      }
+    };
 
+    adjustFontSize();
+
+    window.addEventListener("resize", adjustFontSize);
+
+    return () => {
+      window.removeEventListener("resize", adjustFontSize);
+    };
+  }, [cell.person, columns, rows]);
   return (
     <div
       id={cords}
@@ -224,13 +248,15 @@ const GridCell = ({
                 )}
               </button>
             </div>
-            <h2
+            <div
+              ref={previewDivRef}
               style={{
-                fontSize,
+                height: "50%",
+                display: "grid",
               }}
             >
-              {overNamn}
-            </h2>
+              <h2 ref={previewRef}>{overNamn}</h2>
+            </div>
           </div>
         )}
 
@@ -289,13 +315,16 @@ const GridCell = ({
               </button>
             </div>
           )}
-          <h2
+
+          <div
+            ref={divRef}
             style={{
-              fontSize,
+              height: "50%",
+              display: "grid",
             }}
           >
-            {names[cell.person]}
-          </h2>
+            <h2 ref={textRef}>{names[cell.person]}</h2>
+          </div>
         </div>
       ) : (
         ""

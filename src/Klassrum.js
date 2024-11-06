@@ -1,5 +1,5 @@
 // Klassrum.js
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { DndContext } from "@dnd-kit/core";
 import "./Grid.css";
 import "./Klassrum.css";
@@ -24,6 +24,15 @@ const Klassrum = ({
   const [overId, setOverId] = useState(null);
   const [overPerson, setOverPerson] = useState(null);
   const [reverse, setReverse] = useState(omvänd);
+  const gridRef = useRef(null);
+  const updateGridColumns = () => {
+    const columnWidth = skrivUt
+      ? Math.min(window.outerWidth / columns, window.outerHeight / rows)
+      : window.outerWidth / (columns > 14 ? columns : 14);
+
+    gridRef.current.style.gridTemplateColumns = `repeat(${columns}, ${columnWidth}px)`;
+    gridRef.current.style.gridTemplateRows = `repeat(${rows}, ${columnWidth}px)`;
+  };
   const rum = (grid ? grid : data.klassrum[0].grid)
     .slice(0, rows)
     .map((row, rowIndex) =>
@@ -34,6 +43,7 @@ const Klassrum = ({
             key={`${rowIndex}-${colIndex}`}
             cords={`${rowIndex}-${colIndex}`}
             rowIndex={rowIndex}
+            rows={rows}
             colIndex={colIndex}
             overId={overId}
             over={overId === `${rowIndex}-${colIndex}`}
@@ -86,6 +96,10 @@ const Klassrum = ({
     setGrid(newGrid);
   };
 
+  useEffect(() => {
+    window.addEventListener("resize", updateGridColumns);
+    return () => window.removeEventListener("resize", updateGridColumns);
+  }, []);
   return (
     <>
       <DndContext
@@ -111,6 +125,7 @@ const Klassrum = ({
 
         <div
           className="grid"
+          ref={gridRef}
           style={{
             display: "grid",
             overflow: "hidden",
