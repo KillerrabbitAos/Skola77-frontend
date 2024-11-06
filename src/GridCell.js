@@ -194,13 +194,6 @@ const GridCell = ({
         text.style.fontSize = initialFontSize;
         
         while (
-          text.scrollWidth < div.clientWidth ||
-          text.scrollHeight < div.clientHeight
-        ) {
-          const fontSize = parseFloat(window.getComputedStyle(text).fontSize);
-          text.style.fontSize = `${fontSize + 2}px`;
-        }
-        while (
           text.scrollWidth > div.clientWidth ||
           text.scrollHeight > div.clientHeight
         ) {
