@@ -6,28 +6,22 @@ function calculateFontSize(element, height, width) {
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
 
-  // Get the text and font style from the element
   const text = element.textContent || element.innerText || "";
   const style = window.getComputedStyle(element);
   const font = style.fontFamily;
   const baseFontSize = 100;
 
-  // Set a base font size for initial measurement
   context.font = `${baseFontSize}px ${font}`;
   const metrics = context.measureText(text);
 
-  // Get width and approximate height of the text at base font size
   const textWidth = metrics.width;
-  const textHeight = baseFontSize; // Approximate height of the text
+  const textHeight = baseFontSize;
 
-  // Calculate scaling ratios for both width and height
   const widthRatio = width / textWidth;
   const heightRatio = height / textHeight;
 
-  // Use the smaller ratio to ensure the text fits within both dimensions
   const scale = Math.min(widthRatio, heightRatio);
 
-  // Calculate the final font size based on the scaling factor
   const finalFontSize = Math.floor(baseFontSize * scale);
 
   return finalFontSize;
@@ -367,7 +361,9 @@ const GridCell = ({
               display: "grid",
             }}
           >
-            <span style={{textAlign: "center"}} ref={textRef}>{names[cell.person]}</span>
+            <span style={{ textAlign: "center" }} ref={textRef}>
+              {names[cell.person]}
+            </span>
           </div>
         </div>
       ) : (
