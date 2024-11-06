@@ -146,14 +146,17 @@ const GridCell = ({
   };
   useEffect(() => {
     const adjustFontSize = () => {
-      const text = (dragging && previewRef.current ? previewRef : textRef.current ? textRef.current : null)
-      const div = (dragging && previewDivRef.current ? previewDivRef : divRef.current ? divRef.current : null)
+      const text = (dragging && previewRef.current ? previewRef.current : textRef.current ? textRef.current : null)
+      const div = (dragging && previewDivRef.current ? previewDivRef.current : divRef.current ? divRef.current : null)
       if (text && div) {
-        text.style.fontSize = "initial";
+        text.style.fontSize = `calc(initial * 100)`;
         while (
           text.scrollWidth < div.clientWidth ||
           text.scrollHeight < div.clientHeight
         ) {
+          const fontSize = parseFloat(
+            window.getComputedStyle(text).fontSize
+          );
           text.style.fontSize = `${fontSize + 1}px`;
         }
         while (
@@ -323,7 +326,7 @@ const GridCell = ({
               display: "grid",
             }}
           >
-            <h2 ref={textRef}>{names[cell.person]}</h2>
+            <span ref={textRef}>{names[cell.person]}</span>
           </div>
         </div>
       ) : (
