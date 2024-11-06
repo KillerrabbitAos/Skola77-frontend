@@ -35,6 +35,7 @@ const GridCell = ({
   overId,
   overPerson,
   activePerson,
+  overBool,
   activeId,
   overNamn,
   colIndex,
@@ -184,12 +185,14 @@ const GridCell = ({
           : null;
 
       if (text && div) {
+        text.style.visibility = "hidden"
         const initialFontSize = `${calculateFontSize(
           text,
           div.offsetHeight,
           div.offsetWidth
         )}px`;
         text.style.fontSize = initialFontSize;
+        
         while (
           text.scrollWidth < div.clientWidth ||
           text.scrollHeight < div.clientHeight
@@ -204,6 +207,7 @@ const GridCell = ({
           const fontSize = parseFloat(window.getComputedStyle(text).fontSize);
           text.style.fontSize = `${fontSize - 2}px`;
         }
+        text.style.visibility = "visible"
       }
     };
 
@@ -214,7 +218,7 @@ const GridCell = ({
     return () => {
       window.removeEventListener("resize", adjustFontSize);
     };
-  }, [cell.person, columns, rows, overNamn]);
+  }, [cell.person, columns, rows, overBool]);
   return (
     <div
       id={cords}
