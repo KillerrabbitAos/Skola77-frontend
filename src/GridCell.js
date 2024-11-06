@@ -149,7 +149,7 @@ const GridCell = ({
       const text = (dragging && previewRef.current ? previewRef.current : textRef.current ? textRef.current : null)
       const div = (dragging && previewDivRef.current ? previewDivRef.current : divRef.current ? divRef.current : null)
       if (text && div) {
-        text.style.fontSize = `${window.getComputedStyle(div).width}`;
+        text.style.fontSize = `calc(initial * 100)`;
         while (
           text.scrollWidth < div.clientWidth ||
           text.scrollHeight < div.clientHeight
