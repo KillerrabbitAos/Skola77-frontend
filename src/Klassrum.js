@@ -26,15 +26,16 @@ const Klassrum = ({
   const [reverse, setReverse] = useState(omvänd);
   const gridRef = useRef(null);
   const updateGridColumns = () => {
-    const columnWidth = skrivUt
-    ? Math.min(
-        window.outerWidth / columns,
-        window.outerHeight / rows
-      )
-    : window.outerWidth / (columns > 14 ? columns : 14)
-
-    gridRef.current.style.gridTemplateColumns = `repeat(${columns}, ${columnWidth}px)`;
-    gridRef.current.style.gridTemplateRows = `repeat(${rows}, ${columnWidth}px)`;
+    gridRef.current.gridTemplateColumns = `repeat(${columns}, ${
+      skrivUt
+        ? Math.min(window.outerWidth / columns, window.outerHeight / rows)
+        : window.outerWidth / (columns > 14 ? columns : 14)
+    }px)`;
+    gridRef.current.gridTemplateRows = `repeat(${rows}, ${
+      skrivUt
+        ? Math.min(window.outerWidth / columns, window.outerHeight / rows)
+        : window.outerWidth / (columns > 14 ? columns : 14)
+    }px )`;
   };
   const rum = (grid ? grid : data.klassrum[0].grid)
     .slice(0, rows)
