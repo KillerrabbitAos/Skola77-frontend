@@ -164,7 +164,7 @@ const Klassrum = ({
                     window.outerWidth / columns,
                     window.outerHeight / rows
                   )
-                : window.outerWidth / (columns > 10 ? columns : 10)
+                : (window.outerWidth - 10) / (columns > 14 ? columns : 14)
             }px)`,
             gridTemplateRows: `repeat(${rows}, ${
               skrivUt
@@ -172,7 +172,7 @@ const Klassrum = ({
                     window.outerWidth / columns,
                     window.outerHeight / rows
                   )
-                : window.outerWidth / (columns > 10 ? columns : 10)
+                : (window.outerWidth - 10) / (columns > 14 ? columns : 14)
             }px )`,
           }}
         >
