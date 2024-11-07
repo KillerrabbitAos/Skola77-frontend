@@ -11,6 +11,7 @@ const SkapaPlaceringar = () => {
   const [namn, setNamn] = useState(["", "orm"]);
   const [låstaBänkar, setLåstaBänkar] = useState([]);
   const [klar, setKlar] = useState(false);
+  const [omvänd, setOmvänd] = useState(false)
   const slumpa = () => {
     const nyGrid = [];
     const användaNummer = [];
@@ -79,6 +80,8 @@ const SkapaPlaceringar = () => {
         rows={rows}
         setGrid={setGrid}
         klar={klar}
+        reverse={omvänd}
+        setReverse={setOmvänd}
         names={namn}
       />{" "}
       <div className="flex gap-4 w-full flex-wrap justify-center">
@@ -97,6 +100,16 @@ const SkapaPlaceringar = () => {
           }}
         >
           Klar
+        </button>
+        <button
+          style={{ padding: "20px" }}
+          className="bg-[#4CAF50] text-white"
+          onClick={() => {
+            setOmvänd(omvänd ? false : true);
+          }}
+
+        >
+          Byt till {omvänd ? "elevperspektiv" : "lärarperspektiv"}
         </button>
       </div>
       {data.klasser

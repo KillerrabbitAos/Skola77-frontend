@@ -16,14 +16,14 @@ const Klassrum = ({
   klar,
   setLåstaBänkar,
   edit = true,
-  omvänd = false,
+  reverse,
+  setReverse,
   skrivUt = false,
 }) => {
   const [activePerson, setActivePerson] = useState(null);
   const [dragging, setDragging] = useState(null);
   const [overId, setOverId] = useState(null);
   const [overPerson, setOverPerson] = useState(null);
-  const [reverse, setReverse] = useState(omvänd);
   const [size, setSize] = useState(null);
   const [fontSize, setFontSize] = useState([{id: "0-0", size: 100}])
   const [högerklicksmeny, setHögerklicksmeny] = useState(false);
@@ -71,6 +71,7 @@ const Klassrum = ({
           setHögerklicksmeny={setHögerklicksmeny}
           grid={grid}
           names={names}
+          omvänd={reverse}
           låstaBänkar={låstaBänkar}
           setLåstaBänkar={setLåstaBänkar}
           setGrid={setGrid}
@@ -184,13 +185,7 @@ const Klassrum = ({
 
       <div>
         <p id="nere">{reverse ? "tavla" : "bak"}</p>
-        <button
-          onClick={() => {
-            setReverse(reverse ? false : true);
-          }}
-        >
-          spegelvänd
-        </button>
+        
       </div>
     </>
   );

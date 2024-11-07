@@ -41,6 +41,7 @@ const GridCell = ({
   colIndex,
   cell,
   högerklicksmeny,
+  omvänd,
   names,
   setGrid,
   grid,
@@ -61,6 +62,7 @@ const GridCell = ({
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
   const divRef = useRef(null);
+  
   const textRef = useRef(null);
   const previewRef = useRef(null);
   const previewDivRef = useRef(null);
@@ -183,9 +185,59 @@ const GridCell = ({
     textAllign: "center",
     margin: "auto",
   };
+  const buttons = !klar ? (
+    <div className="buttons">
+      <button
+        className={`removeButton rounded-[10%] rounded-tr-none rounded-${omvänd ? "tl" : "bl"}-none rounded-br-none`}
+        onMouseDown={musenNer}
+        onMouseUp={musenUpp}
+      >
+        <RiDeleteBin6Line
+          style={{
+            height: "75%",
+            width: "75%",
+            color: "white",
+            margin: "auto",
+          }}
+        />
+      </button>
+      <button
+        className={`removeButton rounded-[10%] rounded-tl-none rounded-${omvänd ? "tr" : "br"}-none !rounded-bl-none !bg-gray-400`}
+        onMouseDown={musenNer}
+        onMouseUp={musenUppTaBort}
+      >
+        {!låstaBänkar.includes(cell.id) ? (
+          <svg
+            style={{ height: "80%", marginLeft: "5%", margin: "auto" }}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+          >
+            <path
+              d="M144 144c0-44.2 35.8-80 80-80c31.9 0 59.4 18.6 72.3 45.7c7.6 16 26.7 22.8 42.6 15.2s22.8-26.7 15.2-42.6C331 33.7 281.5 0 224 0C144.5 0 80 64.5 80 144l0 48-16 0c-35.3 0-64 28.7-64 64L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-192c0-35.3-28.7-64-64-64l-240 0 0-48z"
+              fill="white"
+            />
+          </svg>
+        ) : (
+          <svg
+            style={{ height: "80%", marginLeft: "5%", margin: "auto" }}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+          >
+            <path
+              d="M144 144l0 48 160 0 0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192l0-48C80 64.5 144.5 0 224 0s144 64.5 144 144l0 48 16 0c35.3 0 64 28.7 64 64l0 192c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 256c0-35.3 28.7-64 64-64l16 0z"
+              fill="white"
+            />
+          </svg>
+        )}
+      </button>
+    </div>
+  ) : (
+    <div className="h-1/2 bg-gray-400"></div>
+  );
   useEffect(() => {
-    let newFontSize = 10
+  
     const adjustFontSize = () => {
+      let newFontSize = 10;
       const text =
         dragging && previewRef.current
           ? previewRef.current
@@ -213,12 +265,15 @@ const GridCell = ({
           text.scrollHeight > div.clientHeight
         ) {
           const fontSize1 = parseFloat(window.getComputedStyle(text).fontSize);
+          newFontSize = fontSize1;
           text.style.fontSize = `${fontSize1 - 2}px`;
         }
         text.style.visibility = "visible";
-        const newFontSizeList = fontSize.filter(namn => namn !== cords)
-        newFontSizeList.push({id: cords, size: newFontSize})
-        setFontSize(newFontSizeList)
+        const newFontSizeList = fontSize.filter(
+          (namn) => namn.id !== names[cell.person]
+        );
+        newFontSizeList.push({ id: names[cell.person], size: newFontSize });
+        setFontSize(newFontSizeList);
       }
     };
 
@@ -230,6 +285,20 @@ const GridCell = ({
       window.removeEventListener("resize", adjustFontSize);
     };
   }, [cell.person, columns, rows]);
+  useEffect(() => {
+    if (textRef.current) {
+      const newFontSize = parseFloat(
+        window.getComputedStyle(textRef.current).fontSize
+      );
+
+      textRef.current.style.visibility = "visible";
+      const newFontSizeList = fontSize.filter(
+        (namn) => namn.id !== names[cell.person]
+      );
+      newFontSizeList.push({ id: names[cell.person], size: newFontSize });
+      setFontSize(newFontSizeList);
+    }
+  }, [cell.id]);
   return (
     <div
       id={cords}
@@ -252,61 +321,15 @@ const GridCell = ({
         dragging &&
         overId !== cords && (
           <div style={style2}>
-            <div className="buttons">
-              <button
-                className="removeButton rounded-[10%] rounded-tr-none rounded-br-none rounded-bl-none"
-                onMouseUp={(e) => {
-                  e.stopPropagation();
-                  removeItem();
-                }}
-              >
-                <RiDeleteBin6Line
-                  style={{
-                    height: "75%",
-                    width: "75%",
-                    color: "white",
-                    margin: "auto",
-                  }}
-                />
-              </button>
-              <button
-                className="removeButton rounded-[10%] rounded-tl-none rounded-bl-none !rounded-br-none !bg-gray-400"
-                onMouseUp={(e) => {
-                  e.stopPropagation();
-                  lås();
-                }}
-              >
-                {!låstaBänkar.includes(dragging) ? (
-                  <svg
-                    style={{ height: "80%", marginLeft: "5%", margin: "auto" }}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 448 512"
-                  >
-                    <path
-                      d="M144 144c0-44.2 35.8-80 80-80c31.9 0 59.4 18.6 72.3 45.7c7.6 16 26.7 22.8 42.6 15.2s22.8-26.7 15.2-42.6C331 33.7 281.5 0 224 0C144.5 0 80 64.5 80 144l0 48-16 0c-35.3 0-64 28.7-64 64L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-192c0-35.3-28.7-64-64-64l-240 0 0-48z"
-                      fill="white"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    style={{ height: "80%", marginLeft: "5%", margin: "auto" }}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 448 512"
-                  >
-                    <path
-                      d="M144 144l0 48 160 0 0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192l0-48C80 64.5 144.5 0 224 0s144 64.5 144 144l0 48 16 0c35.3 0 64 28.7 64 64l0 192c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 256c0-35.3 28.7-64 64-64l16 0z"
-                      fill="white"
-                    />
-                  </svg>
-                )}
-              </button>
-            </div>
+            {!omvänd && buttons}
             <div
               ref={previewDivRef}
               style={{
                 height: "50%",
                 display: "grid",
-                fontSize: `${fontSize.map(namn => namn === overId && namn.fontSize)}px`,
+                fontSize: `${fontSize.map(
+                  (namn) => namn === overId && namn.fontSize
+                )}px`,
               }}
             >
               <h2 ref={previewRef}>{overNamn}</h2>
@@ -322,53 +345,7 @@ const GridCell = ({
           style={style}
           className="rounded-[10%]"
         >
-          {!klar ? (
-            <div className="buttons">
-              <button
-                className="removeButton rounded-[10%] rounded-tr-none rounded-br-none rounded-bl-none"
-                onMouseDown={musenNer}
-                onMouseUp={musenUpp}
-              >
-                <RiDeleteBin6Line
-                  style={{
-                    height: "75%",
-                    width: "75%",
-                    color: "white",
-                    margin: "auto",
-                  }}
-                />
-              </button>
-              <button
-                className="removeButton rounded-[10%] rounded-tl-none rounded-bl-none !rounded-br-none !bg-gray-400"
-                onMouseDown={musenNer}
-                onMouseUp={musenUppTaBort}
-              >
-                {!låstaBänkar.includes(cell.id) ? (
-                  <svg
-                    style={{ height: "80%", marginLeft: "5%", margin: "auto" }}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 448 512"
-                  >
-                    <path
-                      d="M144 144c0-44.2 35.8-80 80-80c31.9 0 59.4 18.6 72.3 45.7c7.6 16 26.7 22.8 42.6 15.2s22.8-26.7 15.2-42.6C331 33.7 281.5 0 224 0C144.5 0 80 64.5 80 144l0 48-16 0c-35.3 0-64 28.7-64 64L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-192c0-35.3-28.7-64-64-64l-240 0 0-48z"
-                      fill="white"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    style={{ height: "80%", marginLeft: "5%", margin: "auto" }}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 448 512"
-                  >
-                    <path
-                      d="M144 144l0 48 160 0 0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192l0-48C80 64.5 144.5 0 224 0s144 64.5 144 144l0 48 16 0c35.3 0 64 28.7 64 64l0 192c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 256c0-35.3 28.7-64 64-64l16 0z"
-                      fill="white"
-                    />
-                  </svg>
-                )}
-              </button>
-            </div>
-          ) : <div className="h-1/2 bg-gray-400"></div>}
+          {!omvänd && buttons}
 
           <div
             onContextMenu={visaHögerklicksmeny}
@@ -406,12 +383,12 @@ const GridCell = ({
                 })
                 .sort((a, b) => {
                   if (a.namn.toLowerCase() < b.namn.toLowerCase()) {
-                    return -1; 
+                    return -1;
                   }
                   if (a.namn.toLowerCase() > b.namn.toLowerCase()) {
-                    return 1; 
+                    return 1;
                   }
-                  return 0; 
+                  return 0;
                 })
                 .map((name) => (
                   <li
@@ -427,6 +404,7 @@ const GridCell = ({
                 ))}
             </div>
           )}
+          {omvänd && buttons}
         </div>
       ) : (
         ""
