@@ -25,7 +25,7 @@ const Klassrum = ({
   const [overPerson, setOverPerson] = useState(null);
   const [reverse, setReverse] = useState(omvänd);
   const [size, setSize] = useState(null);
-
+  const [fontSize, setFontSize] = useState([{id: "0-0", size: 100}])
   const [högerklicksmeny, setHögerklicksmeny] = useState(false);
   
   const gridRef = useRef(null);
@@ -65,6 +65,8 @@ const Klassrum = ({
           activeId={dragging}
           activePerson={dragging}
           cell={cell}
+          fontSize={fontSize}
+          setFontSize={setFontSize}
           högerklicksmeny={högerklicksmeny}
           setHögerklicksmeny={setHögerklicksmeny}
           grid={grid}

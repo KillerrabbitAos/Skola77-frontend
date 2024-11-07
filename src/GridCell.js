@@ -48,15 +48,16 @@ const GridCell = ({
   rows,
   setHögerklicksmeny,
   cords,
+  setFontSize,
   columns,
   låstaBänkar,
   overbench,
   setLåstaBänkar,
+  fontSize,
 }) => {
   const { setNodeRef } = useDroppable({
     id: `${rowIndex}-${colIndex}`,
   });
-  const [fontSize, setFontSize] = useState("1rem");
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
   const divRef = useRef(null);
@@ -183,6 +184,7 @@ const GridCell = ({
     margin: "auto",
   };
   useEffect(() => {
+    let newFontSize = 10
     const adjustFontSize = () => {
       const text =
         dragging && previewRef.current
@@ -210,10 +212,13 @@ const GridCell = ({
           text.scrollWidth > div.clientWidth ||
           text.scrollHeight > div.clientHeight
         ) {
-          const fontSize = parseFloat(window.getComputedStyle(text).fontSize);
-          text.style.fontSize = `${fontSize - 2}px`;
+          const fontSize1 = parseFloat(window.getComputedStyle(text).fontSize);
+          text.style.fontSize = `${fontSize1 - 2}px`;
         }
         text.style.visibility = "visible";
+        const newFontSizeList = fontSize.filter(namn => namn !== cords)
+        newFontSizeList.push({id: cords, size: newFontSize})
+        setFontSize(newFontSizeList)
       }
     };
 
@@ -224,7 +229,7 @@ const GridCell = ({
     return () => {
       window.removeEventListener("resize", adjustFontSize);
     };
-  }, [cell.person, columns, rows, overBool]);
+  }, [cell.person, columns, rows]);
   return (
     <div
       id={cords}
@@ -301,6 +306,7 @@ const GridCell = ({
               style={{
                 height: "50%",
                 display: "grid",
+                fontSize: `${fontSize.map(namn => namn === overId && namn.fontSize)}px`,
               }}
             >
               <h2 ref={previewRef}>{overNamn}</h2>
