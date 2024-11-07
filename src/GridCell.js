@@ -232,7 +232,7 @@ const GridCell = ({
       </button>
     </div>
   ) : (
-    <div className="h-1/2 bg-gray-400"></div>
+    <div className={`h-1/2 bg-gray-400 rounded-[10%] rounded-${omvänd ? "tl" : "bl"}-none rounded-${omvänd ? "tr" : "br"}-none`}></div>
   );
   useEffect(() => {
   
