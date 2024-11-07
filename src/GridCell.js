@@ -257,8 +257,8 @@ const GridCell = ({
               >
                 <RiDeleteBin6Line
                   style={{
-                    height: "90%",
-                    width: "90%",
+                    height: "75%",
+                    width: "75%",
                     color: "white",
                     margin: "auto",
                   }}
