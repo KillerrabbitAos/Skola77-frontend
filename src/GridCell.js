@@ -237,7 +237,7 @@ const GridCell = ({
       onClick={handleCellClick}
       className={`grid-cell ${cell.id ? "active" : ""} rounded-[10%]`}
       style={{
-        border: over ? "2px solid gray" : "2px solid black",
+        border: over ? "2px solid gray" : klar ? "none" : "2px solid black",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -322,7 +322,7 @@ const GridCell = ({
           style={style}
           className="rounded-[10%]"
         >
-          {!klar && (
+          {!klar ? (
             <div className="buttons">
               <button
                 className="removeButton rounded-[10%] rounded-tr-none rounded-br-none rounded-bl-none"
@@ -368,7 +368,7 @@ const GridCell = ({
                 )}
               </button>
             </div>
-          )}
+          ) : <div className="h-1/2 bg-gray-400"></div>}
 
           <div
             onContextMenu={visaHögerklicksmeny}

@@ -10,7 +10,7 @@ const SkapaPlaceringar = () => {
   const [Klassnamn, setKlassnamn] = useState(null);
   const [namn, setNamn] = useState(["", "orm"]);
   const [låstaBänkar, setLåstaBänkar] = useState([]);
-  const [klar, setKlar] = useState(false)
+  const [klar, setKlar] = useState(false);
   const slumpa = () => {
     const nyGrid = [];
     const användaNummer = [];
@@ -81,7 +81,24 @@ const SkapaPlaceringar = () => {
         klar={klar}
         names={namn}
       />{" "}
-      <button onClick={slumpa}>Slumpa</button>
+      <div className="flex gap-4 w-full flex-wrap justify-center">
+        <button
+          style={{ padding: "20px" }}
+          className="bg-[#4CAF50] text-white"
+          onClick={slumpa}
+        >
+          Slumpa
+        </button>
+        <button
+          style={{ padding: "20px" }}
+          className="bg-[#4CAF50] text-white"
+          onClick={() => {
+            setKlar(!klar);
+          }}
+        >
+          Klar
+        </button>
+      </div>
       {data.klasser
         .slice()
         .reverse()
@@ -97,10 +114,7 @@ const SkapaPlaceringar = () => {
             {klass.namn}
           </li>
         ))}
-
-
-    <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
-        
+      <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
         {data.klassrum.map((klassrum, index) => (
           <li
             key={klassrum.name || index}
@@ -115,8 +129,6 @@ const SkapaPlaceringar = () => {
           </li>
         ))}
       </ul>
-
-
     </div>
   );
 };
