@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDroppable, useDraggable } from "@dnd-kit/core";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import "./Grid.css"; // Import the CSS file
+import "./Grid.css";
 function calculateFontSize(element, height, width) {
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
