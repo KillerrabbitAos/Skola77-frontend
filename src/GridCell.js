@@ -245,7 +245,7 @@ const GridCell = ({
   const buttons = !klar ? (
     <div className="buttons">
       <button
-        className={`removeButton rounded-[10%] rounded-tr-none !rounded-${
+        className={`removeButton rounded-[10%] rounded-tr-none ${!omvänd ? "!" : ""}rounded-${
           omvänd ? "tl" : "bl"
         }-none rounded-br-none`}
         onMouseDown={musenNer}
