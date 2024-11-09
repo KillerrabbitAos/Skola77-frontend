@@ -62,7 +62,7 @@ const GridCell = ({
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
   const divRef = useRef(null);
-  
+    
   const textRef = useRef(null);
   const previewRef = useRef(null);
   const previewDivRef = useRef(null);
