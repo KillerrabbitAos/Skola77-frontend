@@ -294,7 +294,7 @@ const GridCell = ({
     </div>
   ) : (
     <div
-      className={`h-1/2 bg-gray-400 rounded-[10%] rounded-${
+      className={`h-1/2 bg-gray-400 rounded-[10%] ${!omvänd ? "!" : ""}rounded-${
         omvänd ? "tl" : "bl"
       }-none rounded-${omvänd ? "tr" : "br"}-none`}
     ></div>
@@ -378,6 +378,7 @@ const GridCell = ({
             >
               <h2 ref={previewRef}>{overNamn}</h2>
             </div>
+            {omvänd && buttons}
           </div>
         )}
 
