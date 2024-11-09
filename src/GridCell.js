@@ -339,7 +339,7 @@ const GridCell = ({
         return updatedFontSizeList;
       });
     }
-  }, [cell.person, columns, rows]);
+  }, [cell.person, columns, rows, klar, overNamn]);
 
   return (
     <div

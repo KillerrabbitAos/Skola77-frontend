@@ -25,9 +25,9 @@ const Klassrum = ({
   const [overId, setOverId] = useState(null);
   const [overPerson, setOverPerson] = useState(null);
   const [size, setSize] = useState(null);
-  const [fontSize, setFontSize] = useState([{id: "0-0", size: 100}])
+  const [fontSize, setFontSize] = useState([{ id: "0-0", size: 100 }]);
   const [högerklicksmeny, setHögerklicksmeny] = useState(false);
-  
+
   const gridRef = useRef(null);
   const updateGridColumns = () => {
     setSize(
@@ -133,7 +133,6 @@ const Klassrum = ({
     <>
       <DndContext
         onDragEnd={handleDrop}
-
         onDragStart={(e) => {
           const { active } = e;
           setDragging(active.id);
@@ -149,7 +148,6 @@ const Klassrum = ({
           }
         }}
       >
-        
         <div>
           <p id="uppe">{reverse ? "bak" : "tavla"}</p>
         </div>
@@ -164,19 +162,20 @@ const Klassrum = ({
             gridTemplateColumns: `repeat(${columns}, ${
               skrivUt || klar
                 ? Math.min(
-                    window.outerWidth / columns,
-                    window.outerHeight / rows
+                    window.outerWidth / 1.2 / columns,
+                    window.outerHeight / 1.2 / rows
                   )
-                : (window.outerWidth - 10) / (columns > 14 ? columns : 14)
+                : window.outerWidth / 2 / (columns > 14 ? columns : 14)
             }px)`,
             gridTemplateRows: `repeat(${rows}, ${
               skrivUt || klar
                 ? Math.min(
-                    window.outerWidth / columns,
-                    window.outerHeight / rows
+                    window.outerWidth / 1.2 / columns,
+                    window.outerHeight / 1.2 / rows
                   )
-                : (window.outerWidth - 10) / (columns > 14 ? columns : 14)
+                : window.outerWidth / 2 / (columns > 14 ? columns : 14)
             }px )`,
+            justifyItems: "center",
           }}
         >
           {reverse ? rum.reverse().map((row) => row.reverse()) : rum}
@@ -185,7 +184,6 @@ const Klassrum = ({
 
       <div>
         <p id="nere">{reverse ? "tavla" : "bak"}</p>
-        
       </div>
     </>
   );
