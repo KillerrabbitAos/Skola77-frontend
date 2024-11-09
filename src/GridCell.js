@@ -2,27 +2,28 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDroppable, useDraggable } from "@dnd-kit/core";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import "./Grid.css";
-function calculateFontSize(element, height, width) {
-  const canvas = document.createElement("canvas");
-  const context = canvas.getContext("2d");
+import debounce from "lodash.debounce";
 
-  const text = element.textContent || element.innerText || "";
-  const style = window.getComputedStyle(element);
-  const font = style.fontFamily;
-  const baseFontSize = 100;
+function adjustAndStoreFontSize(textElement, containerElement) {
+  let vw = 1;
+  let rem = 0.5;
 
-  context.font = `${baseFontSize}px ${font}`;
-  const metrics = context.measureText(text);
+  const applyFontSize = () => {
+    textElement.style.fontSize = `calc(${vw}vw + ${rem}rem)`;
+  };
 
-  const textWidth = metrics.width;
-  const textHeight = baseFontSize;
+  applyFontSize();
 
-  const widthRatio = width / textWidth;
-  const heightRatio = height / textHeight;
+  while (textElement.scrollWidth > containerElement.clientWidth) {
+    vw -= 0.1;
+    rem -= 0.05;
 
-  const scale = Math.min(widthRatio, heightRatio);
+    applyFontSize();
+  }
 
-  const finalFontSize = Math.floor(baseFontSize * scale);
+  const finalFontSize = `calc(${vw}vw + ${rem}rem)`;
+  textElement.style.fontSize = finalFontSize;
+  console.log("Final font size stored:", finalFontSize);
 
   return finalFontSize;
 }
@@ -62,7 +63,7 @@ const GridCell = ({
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
   const divRef = useRef(null);
-    
+
   const textRef = useRef(null);
   const previewRef = useRef(null);
   const previewDivRef = useRef(null);
@@ -188,7 +189,9 @@ const GridCell = ({
   const buttons = !klar ? (
     <div className="buttons">
       <button
-        className={`removeButton rounded-[10%] rounded-tr-none rounded-${omvänd ? "tl" : "bl"}-none rounded-br-none`}
+        className={`removeButton rounded-[10%] rounded-tr-none rounded-${
+          omvänd ? "tl" : "bl"
+        }-none rounded-br-none`}
         onMouseDown={musenNer}
         onMouseUp={musenUpp}
       >
@@ -202,7 +205,9 @@ const GridCell = ({
         />
       </button>
       <button
-        className={`removeButton rounded-[10%] rounded-tl-none rounded-${omvänd ? "tr" : "br"}-none !rounded-bl-none !bg-gray-400`}
+        className={`removeButton rounded-[10%] rounded-tl-none rounded-${
+          omvänd ? "tr" : "br"
+        }-none !rounded-bl-none !bg-gray-400`}
         onMouseDown={musenNer}
         onMouseUp={musenUppTaBort}
       >
@@ -232,73 +237,45 @@ const GridCell = ({
       </button>
     </div>
   ) : (
-    <div className={`h-1/2 bg-gray-400 rounded-[10%] rounded-${omvänd ? "tl" : "bl"}-none rounded-${omvänd ? "tr" : "br"}-none`}></div>
+    <div
+      className={`h-1/2 bg-gray-400 rounded-[10%] rounded-${
+        omvänd ? "tl" : "bl"
+      }-none rounded-${omvänd ? "tr" : "br"}-none`}
+    ></div>
   );
   useEffect(() => {
-  
-    const adjustFontSize = () => {
-      let newFontSize = 10;
-      const text =
-        dragging && previewRef.current
-          ? previewRef.current
-          : textRef.current
-          ? textRef.current
-          : null;
-      const div =
-        dragging && previewDivRef.current
-          ? previewDivRef.current
-          : divRef.current
-          ? divRef.current
-          : null;
+    const text =
+      dragging && previewRef.current
+        ? previewRef.current
+        : textRef.current
+        ? textRef.current
+        : null;
+    const div =
+      dragging && previewDivRef.current
+        ? previewDivRef.current
+        : divRef.current
+        ? divRef.current
+        : null;
 
-      if (text && div) {
-        text.style.visibility = "hidden";
-        const initialFontSize = `${calculateFontSize(
-          text,
-          div.offsetHeight,
-          div.offsetWidth
-        )}px`;
-        text.style.fontSize = initialFontSize;
+    if (text && div) {
+      const newFontSize = adjustAndStoreFontSize(text, div);
 
-        while (
-          text.scrollWidth > div.clientWidth ||
-          text.scrollHeight > div.clientHeight
-        ) {
-          const fontSize1 = parseFloat(window.getComputedStyle(text).fontSize);
-          newFontSize = fontSize1;
-          text.style.fontSize = `${fontSize1 - 2}px`;
+      setFontSize((prevFontSize) => {
+        const existing = prevFontSize.find((f) => f.id === names[cell.person]);
+        if (existing && existing.size === newFontSize) {
+          return prevFontSize; 
         }
-        text.style.visibility = "visible";
-        const newFontSizeList = fontSize.filter(
-          (namn) => namn.id !== names[cell.person]
+
+   
+        const updatedFontSizeList = prevFontSize.filter(
+          (f) => f.id !== names[cell.person]
         );
-        newFontSizeList.push({ id: names[cell.person], size: newFontSize });
-        setFontSize(newFontSizeList);
-      }
-    };
-
-    adjustFontSize();
-
-    window.addEventListener("resize", adjustFontSize);
-
-    return () => {
-      window.removeEventListener("resize", adjustFontSize);
-    };
-  }, [cell.person, columns, rows]);
-  useEffect(() => {
-    if (textRef.current) {
-      const newFontSize = parseFloat(
-        window.getComputedStyle(textRef.current).fontSize
-      );
-
-      textRef.current.style.visibility = "visible";
-      const newFontSizeList = fontSize.filter(
-        (namn) => namn.id !== names[cell.person]
-      );
-      newFontSizeList.push({ id: names[cell.person], size: newFontSize });
-      setFontSize(newFontSizeList);
+        updatedFontSizeList.push({ id: names[cell.person], size: newFontSize });
+        return updatedFontSizeList;
+      });
     }
-  }, [cell.id]);
+  }, [cell.person, columns, rows]);
+  
   return (
     <div
       id={cords}
@@ -399,7 +376,7 @@ const GridCell = ({
                       console.log(name.originalIndex);
                     }}
                   >
-                    {name}
+                    {name.namn}
                   </li>
                 ))}
             </div>
