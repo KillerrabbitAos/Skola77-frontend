@@ -245,7 +245,7 @@ const GridCell = ({
   const buttons = !klar ? (
     <div className="buttons">
       <button
-        className={`removeButton rounded-[10%] rounded-tr-none rounded-${
+        className={`removeButton rounded-[10%] rounded-tr-none !rounded-${
           omvänd ? "tl" : "bl"
         }-none rounded-br-none`}
         onMouseDown={musenNer}
@@ -301,15 +301,15 @@ const GridCell = ({
   );
   useEffect(() => {
     if (låstaBänkar.includes(cell.id)) {
-    setLåstaBänkar(
-      låstaBänkar.filter((sak) => sak !== cell.id && sak !== cell.person)
-    );
-    setLåstaBänkar(
-      cell.person
-        ? [...låstaBänkar, cell.id, cell.person]
-        : [...låstaBänkar, cell.id]
-    );
-  }
+      setLåstaBänkar(
+        låstaBänkar.filter((sak) => sak !== cell.id && sak !== cell.person)
+      );
+      setLåstaBänkar(
+        cell.person
+          ? [...låstaBänkar, cell.id, cell.person]
+          : [...låstaBänkar, cell.id]
+      );
+    }
     const text =
       dragging && previewRef.current
         ? previewRef.current
