@@ -32,7 +32,7 @@ const Klassrum = ({
   const updateGridColumns = () => {
     setSize(
       `repeat(${columns}, ${
-        skrivUt
+        skrivUt || klar
           ? Math.min(window.outerWidth / columns, window.outerHeight / rows)
           : window.outerWidth / (columns > 14 ? columns : 14)
       }px)`
@@ -162,7 +162,7 @@ const Klassrum = ({
             overflow: "hidden",
             zIndex: "115",
             gridTemplateColumns: `repeat(${columns}, ${
-              skrivUt
+              skrivUt || klar
                 ? Math.min(
                     window.outerWidth / columns,
                     window.outerHeight / rows
@@ -170,7 +170,7 @@ const Klassrum = ({
                 : (window.outerWidth - 10) / (columns > 14 ? columns : 14)
             }px)`,
             gridTemplateRows: `repeat(${rows}, ${
-              skrivUt
+              skrivUt || klar
                 ? Math.min(
                     window.outerWidth / columns,
                     window.outerHeight / rows
