@@ -69,6 +69,62 @@ const GridCell = ({
   const previewDivRef = useRef(null);
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const meny = (
+    <div
+      style={{
+        position: "absolute",
+        left: `calc(${mousePosition.x - 10}px - 1px)`,
+        top: `calc(${mousePosition.y + 25}px - 1px)`,
+        width: "100px",
+        maxHeight: "200px",
+        backgroundColor: "white",
+        borderRadius: "5%",
+        border: "1px solid black",
+        zIndex: "200",
+        overflowY: "scroll",
+        overflowX: "scroll",
+
+        listStyleType: "none",
+      }}
+    >
+      {names
+        .map((namn, index) => {
+          return { namn: namn, originalIndex: index };
+        })
+        .sort((a, b) => {
+          if (a.namn.toLowerCase() < b.namn.toLowerCase()) {
+            return -1;
+          }
+          if (a.namn.toLowerCase() > b.namn.toLowerCase()) {
+            return 1;
+          }
+          return 0;
+        })
+        .map((name) => (
+          <li
+            className={"högerklicksmenyalternativ"}
+            key={`h-${name.originalIndex}`}
+            onMouseDown={(e) => {
+              e.stopPropagation();
+              setGrid(
+                grid.map((rad) =>
+                  rad.map((ruta) => ({
+                    id: ruta.id,
+                    person:
+                      ruta.id === cell.id ? name.originalIndex : ruta.person,
+                  }))
+                )
+              );
+
+              setHögerklicksmeny(false);
+            }}
+          >
+            {name.namn}
+          </li>
+        ))}
+    </div>
+  );
   const visaHögerklicksmeny = (event) => {
     event.preventDefault();
     const rect = event.target.getBoundingClientRect();
@@ -76,7 +132,7 @@ const GridCell = ({
     const offsetY = event.clientY - rect.top;
 
     setMousePosition({ x: offsetX, y: offsetY });
-    setHögerklicksmeny(cell.id);
+    setHögerklicksmeny(cords);
   };
 
   useEffect(() => {
@@ -169,7 +225,7 @@ const GridCell = ({
         : "white",
     border: dragging ? "2px solid black" : "none",
     touchAction: "none",
-    zIndex: dragging || högerklicksmeny ? "99" : "1",
+    zIndex: dragging || högerklicksmeny === cords ? "99" : "1",
     position: over ? "absolute" : "relative",
     textAllign: "center",
     margin: "auto",
@@ -244,6 +300,16 @@ const GridCell = ({
     ></div>
   );
   useEffect(() => {
+    if (låstaBänkar.includes(cell.id)) {
+    setLåstaBänkar(
+      låstaBänkar.filter((sak) => sak !== cell.id && sak !== cell.person)
+    );
+    setLåstaBänkar(
+      cell.person
+        ? [...låstaBänkar, cell.id, cell.person]
+        : [...låstaBänkar, cell.id]
+    );
+  }
     const text =
       dragging && previewRef.current
         ? previewRef.current
@@ -263,10 +329,9 @@ const GridCell = ({
       setFontSize((prevFontSize) => {
         const existing = prevFontSize.find((f) => f.id === names[cell.person]);
         if (existing && existing.size === newFontSize) {
-          return prevFontSize; 
+          return prevFontSize;
         }
 
-   
         const updatedFontSizeList = prevFontSize.filter(
           (f) => f.id !== names[cell.person]
         );
@@ -275,10 +340,11 @@ const GridCell = ({
       });
     }
   }, [cell.person, columns, rows]);
-  
+
   return (
     <div
       id={cords}
+      onContextMenu={visaHögerklicksmeny}
       ref={setNodeRef}
       onClick={handleCellClick}
       className={`grid-cell ${cell.id ? "active" : ""} rounded-[10%]`}
@@ -290,9 +356,10 @@ const GridCell = ({
         backgroundColor: "#f2f2f2",
         width: "90%",
         height: "90%",
-        zIndex: dragging || högerklicksmeny === cell.id ? "99" : "1",
+        zIndex: dragging || högerklicksmeny === cords ? "99" : "1",
       }}
     >
+      {högerklicksmeny === cords && meny}
       {!overNamn.some((row) => row.includes(null)) &&
         overId &&
         dragging &&
@@ -325,7 +392,6 @@ const GridCell = ({
           {!omvänd && buttons}
 
           <div
-            onContextMenu={visaHögerklicksmeny}
             ref={divRef}
             style={{
               height: "50%",
@@ -336,51 +402,7 @@ const GridCell = ({
               {names[cell.person]}
             </span>
           </div>
-          {högerklicksmeny === cell.id && (
-            <div
-              style={{
-                position: "absolute",
-                left: `calc(${mousePosition.x}px - 10px)`,
-                top: `calc(${mousePosition.y}px + 50% - 10px)`,
-                width: "100px",
-                maxHeight: "200px",
-                backgroundColor: "white",
-                borderRadius: "5%",
-                border: "1px solid black",
-                zIndex: "200",
-                overflowY: "scroll",
-                overflowX: "scroll",
 
-                listStyleType: "none",
-              }}
-            >
-              {names
-                .map((namn, index) => {
-                  return { namn: namn, originalIndex: index };
-                })
-                .sort((a, b) => {
-                  if (a.namn.toLowerCase() < b.namn.toLowerCase()) {
-                    return -1;
-                  }
-                  if (a.namn.toLowerCase() > b.namn.toLowerCase()) {
-                    return 1;
-                  }
-                  return 0;
-                })
-                .map((name) => (
-                  <li
-                    className={"högerklicksmenyalternativ"}
-                    key={`h-${name.originalIndex}`}
-                    onMouseDown={(e) => {
-                      e.stopPropagation();
-                      console.log(name.originalIndex);
-                    }}
-                  >
-                    {name.namn}
-                  </li>
-                ))}
-            </div>
-          )}
           {omvänd && buttons}
         </div>
       ) : (
