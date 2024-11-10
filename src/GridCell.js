@@ -244,7 +244,7 @@ const GridCell = ({
   const buttons = !klar ? (
     <div className="buttons">
       <button
-        className={`removeButton rounded-[10%] rounded-tr-none ${!omvänd ? "!" : ""}rounded-${
+        className={`removeButton rounded-[17%] rounded-tr-none ${!omvänd ? "!" : ""}rounded-${
           omvänd ? "tl" : "bl"
         }-none rounded-br-none`}
         onMouseDown={musenNer}
@@ -260,7 +260,7 @@ const GridCell = ({
         />
       </button>
       <button
-        className={`removeButton rounded-[10%] rounded-tl-none rounded-${
+        className={`removeButton rounded-[17%] rounded-tl-none rounded-${
           omvänd ? "tr" : "br"
         }-none !rounded-bl-none !bg-gray-400`}
         onMouseDown={musenNer}
@@ -293,7 +293,7 @@ const GridCell = ({
     </div>
   ) : (
     <div
-      className={`h-1/2 bg-gray-400 rounded-[10%] ${!omvänd ? "!" : ""}rounded-${
+      className={`h-1/2 bg-gray-400 rounded-[17%] ${!omvänd ? "!" : ""}rounded-${
         omvänd ? "tl" : "bl"
       }-none rounded-${omvänd ? "tr" : "br"}-none`}
     ></div>
