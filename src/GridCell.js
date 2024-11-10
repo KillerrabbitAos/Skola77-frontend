@@ -76,14 +76,13 @@ const GridCell = ({
         position: "absolute",
         left: `calc(${mousePosition.x - 10}px - 1px)`,
         top: `calc(${mousePosition.y + 25}px - 1px)`,
-        width: "100px",
         maxHeight: "200px",
         backgroundColor: "white",
         borderRadius: "5%",
         border: "1px solid black",
         zIndex: "200",
         overflowY: "scroll",
-        overflowX: "scroll",
+
 
         listStyleType: "none",
       }}

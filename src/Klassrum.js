@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { DndContext } from "@dnd-kit/core";
 import "./Grid.css";
+import { isTablet } from "react-device-detect";
 import "./Klassrum.css";
 import GridCell from "./GridCell";
 import { data } from "./data.js";
@@ -28,6 +29,7 @@ const Klassrum = ({
   const [fontSize, setFontSize] = useState([{ id: "0-0", size: 100 }]);
   const [högerklicksmeny, setHögerklicksmeny] = useState(false);
 
+  
   const gridRef = useRef(null);
   const updateGridColumns = () => {
     setSize(
@@ -165,7 +167,7 @@ const Klassrum = ({
                     window.outerWidth / 1.2 / columns,
                     window.outerHeight / 1.2 / rows
                   )
-                : window.outerWidth / 1.2 / (columns > 14 ? columns : 14)
+                : window.outerWidth / (isTablet || window.outerWidth < window.outerHeight ? 1.2 : 1.5) / (columns > 14 ? columns : 14)
             }px)`,
             gridTemplateRows: `repeat(${rows}, ${
               skrivUt || klar
@@ -173,7 +175,7 @@ const Klassrum = ({
                     window.outerWidth / 1.2 / columns,
                     window.outerHeight / 1.2 / rows
                   )
-                : window.outerWidth / 1.2 / (columns > 14 ? columns : 14)
+                : window.outerWidth / (isTablet || window.outerWidth < window.outerHeight ? 1.2 : 1.5) / (columns > 14 ? columns : 14)
             }px )`,
             justifyItems: "center",
           }}

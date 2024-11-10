@@ -1560,7 +1560,6 @@ export const data = {
       ],
       cols: 10,
       rows: 10,
-      
     },
     {
       name: "H221",
@@ -1694,6 +1693,7 @@ export const data = {
         "Emilia",
         "Emilia",
         "Erik",
+        "snakeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
         "Astrid",
         "Filicia",
         "Hussein",
@@ -1759,6 +1759,38 @@ export const data = {
       ],
     },
     {
+      namn: "6C",
+      personer: [
+        "",
+        "Ada",
+        "Isabella",
+        "Agnes",
+        "Veda",
+        "An Na",
+        "Liam",
+        "Maxim",
+        "Dante",
+        "Axel",
+        "Benthe",
+        "Michkat",
+        "Ida",
+        "Anna-Maria",
+        "Randy",
+        "Malin",
+        "Hadi",
+        "Vihaan",
+        "Kian",
+        "Jonathan",
+        "Kevin",
+        "Saian",
+        "Lydia",
+        "Hugo",
+        "",
+        "Karl",
+        
+      ],
+    },
+    {
       namn: "7G",
       personer: [
         "",
@@ -1774,4 +1806,3 @@ export const data = {
     },
   ],
 };
-
