@@ -1,13 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Klassrum from "./Klassrum";
 import { data } from "./data";
 import NameList from "./Namn";
 import "./Animationer.css";
+function divideArray(array, parts) {
+  let result = [];
+  let partSize = Math.floor(array.length / parts);
+
+  for (let i = 0; i < parts; i++) {
+    result.push(array.slice(i * partSize, (i + 1) * partSize));
+  }
+
+  return result;
+}
+
+const myList = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const dividedLists = divideArray(myList, 3);
+
+console.log(dividedLists);
 
 const SkapaPlaceringar = () => {
   const [grid, setGrid] = useState(data.klassrum[0].grid);
   const [rows, setRows] = useState(data.klassrum[0].rows);
   const [cols, setCols] = useState(data.klassrum[0].cols);
+  const [kolumner, setKolumner] = useState(3)
+  const [frånvarande, setFrånvarande] = useState([]);
   const [klassnamn, setKlassnamn] = useState(null);
   const [namn, setNamn] = useState(["", "orm"]);
   const [låstaBänkar, setLåstaBänkar] = useState([]);
@@ -134,7 +151,42 @@ const SkapaPlaceringar = () => {
     });
     setGrid(nyGrid);
   };
-
+  const namnILista =
+    namn &&
+    divideArray(
+      namn
+        .slice(1)
+        .map((namn, index) => ({ namn: namn, orginalIndex: index }))
+        .sort((a, b) => a.namn.localeCompare(b.namn))
+        .map((namnObj) => (
+          <div
+            key={namnObj.orginalIndex}
+            className="text-lg border-solid m-[5px] border-[3px] w-[315px] h-[50px]"
+          >
+            <div className="flex justify-between items-center w-full">
+              <div>{namnObj.namn}</div>
+              <div>
+                {frånvarande.includes(namnObj.orginalIndex) ? (
+                  <span>frånvarande</span>
+                ) : (
+                  <span>närvarande</span>
+                )}
+              </div>
+            </div>
+          </div>
+        )),
+      Math.floor(window.outerWidth / 320)
+    );
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setKolumner(namnILista.length);
+    });
+    return () => {
+      window.removeEventListener("resize", () => {
+        setKolumner(namnILista.length);
+      });
+    };
+  }, []);
   return (
     <div>
       {väljKLassOchKlassrum}
@@ -172,24 +224,23 @@ const SkapaPlaceringar = () => {
           style={{ padding: "20px" }}
           className="bg-[#4CAF50] text-white"
           onClick={() => {
-            setOmvänd(omvänd ? false : true);
+            setOmvänd(!omvänd);
           }}
         >
           Byt till {omvänd ? "elevperspektiv" : "lärarperspektiv"}
         </button>
       </div>
-      {namn && (
-        <div>
-          {namn
-            .map((namn, index) => {
-              return { namn: namn, orginalIndex: index };
-            })
-            .sort((a, b) => a.namn.localeCompare(b.namn))
-            .map((namnObj) => (
-              <div key={namnObj.orginalIndex} className="inline-block w-[50px] h-[50px] bg-red-500">{namnObj.namn}</div>
-            ))}
-        </div>
-      )}
+      <div
+        className="m-auto"
+        style={{
+          display: "flex",
+          justifyContent: "center"
+        }}
+      >
+        {namnILista.map((kolumn) => (
+          <div>{kolumn}</div>
+        ))}
+      </div>
     </div>
   );
 };
