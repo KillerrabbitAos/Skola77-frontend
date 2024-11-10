@@ -29,7 +29,7 @@ const Layout = () => {
     <>
       <div className="navbar">
         {isMobile ? (
-          <div className="mobile-nav">
+          <div className="mobile-nav" style={{right:"0px", position: "absolute", width:"fit-content"}}>
             <button className="dropdown-toggle" onClick={toggleDropdown}>
               {LogoSVG}
             </button>
