@@ -164,16 +164,16 @@ const Klassrum = ({
             gridTemplateColumns: `repeat(${columns}, ${
               skrivUt || klar
                 ? Math.min(
-                    window.outerWidth / 1.2 / columns,
-                    window.outerHeight / 1.2 / rows
+                    window.outerWidth / 1.1 / columns,
+                    window.outerHeight / 1.1 / rows
                   )
                 : window.outerWidth / (isTablet || window.outerWidth < window.outerHeight ? isMobile ? 1 : 1.2 : 1.5) / (columns > 14 || isMobile ? columns : 14)
             }px)`,
             gridTemplateRows: `repeat(${rows}, ${
               skrivUt || klar
                 ? Math.min(
-                    window.outerWidth / 1.2 / columns,
-                    window.outerHeight / 1.2 / rows
+                    window.outerWidth / 1.1 / columns,
+                    window.outerHeight / 1.1 / rows
                   )
                 : window.outerWidth / (isTablet || window.outerWidth < window.outerHeight ? isMobile ? 1 : 1.2 : 1.5) / (columns > 14 || isMobile ? columns : 14)
             }px )`,
