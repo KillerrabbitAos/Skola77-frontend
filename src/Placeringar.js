@@ -7,11 +7,76 @@ const SkapaPlaceringar = () => {
   const [grid, setGrid] = useState(data.klassrum[0].grid);
   const [rows, setRows] = useState(data.klassrum[0].rows);
   const [cols, setCols] = useState(data.klassrum[0].cols);
-  const [Klassnamn, setKlassnamn] = useState(null);
+  const [klassnamn, setKlassnamn] = useState(null);
   const [namn, setNamn] = useState(["", "orm"]);
   const [låstaBänkar, setLåstaBänkar] = useState([]);
   const [klar, setKlar] = useState(false);
-  const [omvänd, setOmvänd] = useState(false)
+  const [omvänd, setOmvänd] = useState(false);
+  const [klassrumsnamn, setKlassrumsnamn] = useState(null);
+  const väljKLassOchKlassrum =
+    klassrumsnamn && klassnamn ? (
+      <div className="h-[228px] flex items-center justify-center">
+        <h2 className="text-xl text-center font-bold">
+          {klassnamn} i {klassrumsnamn}
+        </h2>
+      </div>
+    ) : (
+      <div className="flex flex-wrap justify-center gap-4">
+        {klassnamn ? (
+          <div className="flex justify-center items-center">
+            <h2 className="text-xl font-bold">{`${klassnamn} i`}</h2>
+          </div>
+        ) : (
+          <div className="w-52">
+            <h2 className="text-xl font-bold">Klass</h2>
+            <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
+              {data.klasser
+                .slice()
+                .reverse()
+                .map((klass) => (
+                  <li
+                    key={klass.namn}
+                    className="font-bold text-xl p-2 cursor-pointer"
+                    onClick={() => {
+                      setNamn(klass.personer);
+                      setKlassnamn(klass.namn);
+                    }}
+                  >
+                    {klass.namn}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        )}
+
+        {klassrumsnamn ? (
+          <div className="flex justify-center items-center">
+            <h2 className="text-xl font-bold">{`i ${klassrumsnamn}`}</h2>
+          </div>
+        ) : (
+          <div className="w-52">
+            <h2 className="text-xl font-bold">Klassrum</h2>
+            <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
+              {data.klassrum.map((klassrum, index) => (
+                <li
+                  key={klassrum.name || index}
+                  className="font-bold text-xl p-2 cursor-pointer"
+                  onClick={() => {
+                    setGrid(klassrum.grid);
+                    setRows(klassrum.rows);
+                    setCols(klassrum.cols);
+                    setKlassrumsnamn(klassrum.name);
+                  }}
+                >
+                  {klassrum.name}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    );
+
   const slumpa = () => {
     const nyGrid = [];
     const användaNummer = [];
@@ -71,6 +136,7 @@ const SkapaPlaceringar = () => {
 
   return (
     <div>
+      {väljKLassOchKlassrum}
       <Klassrum
         edit={false}
         låstaBänkar={låstaBänkar}
@@ -107,41 +173,10 @@ const SkapaPlaceringar = () => {
           onClick={() => {
             setOmvänd(omvänd ? false : true);
           }}
-
         >
           Byt till {omvänd ? "elevperspektiv" : "lärarperspektiv"}
         </button>
       </div>
-      {data.klasser
-        .slice()
-        .reverse()
-        .map((klass) => (
-          <li
-            key={klass.namn}
-            className="font-bold text-xl p-2 cursor-pointer"
-            onClick={() => {
-              setNamn(klass.personer);
-              setKlassnamn(klass.namn);
-            }}
-          >
-            {klass.namn}
-          </li>
-        ))}
-      <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
-        {data.klassrum.map((klassrum, index) => (
-          <li
-            key={klassrum.name || index}
-            className="font-bold text-xl p-2 cursor-pointer"
-            onClick={() => {
-              setGrid(klassrum.grid);
-              setRows(klassrum.rows);
-              setCols(klassrum.cols);
-            }}
-          >
-            {klassrum.name}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };
