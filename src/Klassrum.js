@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { DndContext } from "@dnd-kit/core";
 import "./Grid.css";
-import { isTablet } from "react-device-detect";
+import { isTablet, isMobile } from "react-device-detect";
 import "./Klassrum.css";
 import GridCell from "./GridCell";
 import { data } from "./data.js";
@@ -167,7 +167,7 @@ const Klassrum = ({
                     window.outerWidth / 1.2 / columns,
                     window.outerHeight / 1.2 / rows
                   )
-                : window.outerWidth / (isTablet || window.outerWidth < window.outerHeight ? 1.2 : 1.5) / (columns > 14 ? columns : 14)
+                : window.outerWidth / (isTablet || window.outerWidth < window.outerHeight ? isMobile ? 1 : 1.2 : 1.5) / (columns > 14 ? columns : 14)
             }px)`,
             gridTemplateRows: `repeat(${rows}, ${
               skrivUt || klar
@@ -175,7 +175,7 @@ const Klassrum = ({
                     window.outerWidth / 1.2 / columns,
                     window.outerHeight / 1.2 / rows
                   )
-                : window.outerWidth / (isTablet || window.outerWidth < window.outerHeight ? 1.2 : 1.5) / (columns > 14 ? columns : 14)
+                : window.outerWidth / (isTablet || window.outerWidth < window.outerHeight ? isMobile ? 1 : 1.2 : 1.5) / (columns > 14 ? columns : 14)
             }px )`,
             justifyItems: "center",
           }}
