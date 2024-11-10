@@ -2,7 +2,7 @@ import { useState } from "react";
 import Klassrum from "./Klassrum";
 import { data } from "./data";
 import NameList from "./Namn";
-import "./Animationer.css"
+import "./Animationer.css";
 
 const SkapaPlaceringar = () => {
   const [grid, setGrid] = useState(data.klassrum[0].grid);
@@ -16,7 +16,6 @@ const SkapaPlaceringar = () => {
   const [klassrumsnamn, setKlassrumsnamn] = useState(null);
   const väljKLassOchKlassrum =
     klassrumsnamn && klassnamn ? (
-      
       <div className="krnkn h-[30px] flex items-center justify-center">
         <h2 className="text-xl text-center font-bold">
           {klassnamn} i {klassrumsnamn}
@@ -179,6 +178,18 @@ const SkapaPlaceringar = () => {
           Byt till {omvänd ? "elevperspektiv" : "lärarperspektiv"}
         </button>
       </div>
+      {namn && (
+        <div>
+          {namn
+            .map((namn, index) => {
+              return { namn: namn, orginalIndex: index };
+            })
+            .sort((a, b) => a.namn.localeCompare(b.namn))
+            .map((namnObj) => (
+              <div key={namnObj.orginalIndex} className="inline-block w-[50px] h-[50px] bg-red-500">{namnObj.namn}</div>
+            ))}
+        </div>
+      )}
     </div>
   );
 };
