@@ -2,6 +2,7 @@ import { useState } from "react";
 import Klassrum from "./Klassrum";
 import { data } from "./data";
 import NameList from "./Namn";
+import "./Animationer.css"
 
 const SkapaPlaceringar = () => {
   const [grid, setGrid] = useState(data.klassrum[0].grid);
@@ -15,7 +16,8 @@ const SkapaPlaceringar = () => {
   const [klassrumsnamn, setKlassrumsnamn] = useState(null);
   const väljKLassOchKlassrum =
     klassrumsnamn && klassnamn ? (
-      <div className="h-[228px] flex items-center justify-center">
+      
+      <div className="krnkn h-[30px] flex items-center justify-center">
         <h2 className="text-xl text-center font-bold">
           {klassnamn} i {klassrumsnamn}
         </h2>
