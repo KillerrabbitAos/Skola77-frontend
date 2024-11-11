@@ -54,7 +54,17 @@ const Layout = () => {
               className="justify-center flex-row flex items-center"
               onClick={toggleDropdown}
             >
-              <div style={{position:"absolute", right:"5%"}}>{LogoSVG}</div>
+              <div
+                style={{
+                  position: "absolute",
+                  right: "5%",
+                  rotate: isDropdownOpen && "-90deg",
+                  animationName: isDropdownOpen ? "snurrNer" : "snurrUpp",
+                  animationDuration: "0.1s",
+                }}
+              >
+                {LogoSVG}
+              </div>
             </div>
             {isDropdownOpen && (
               <ul className="dropdown-menu">
@@ -93,7 +103,6 @@ const Layout = () => {
                   </NavLink>
                 </li>
               </ul>
-              
             )}
           </div>
         ) : (
