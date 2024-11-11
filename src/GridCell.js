@@ -398,9 +398,9 @@ const GridCell = ({
               display: "grid",
             }}
           >
-            <span style={{ textAlign: "center" }} ref={textRef}>
+            <div style={{ textAlign: "center"}} className="justify-center flex-row flex items-center" ref={textRef}>
               {names[cell.person]}
-            </span>
+            </div>
           </div>
 
           {omvänd && buttons}
