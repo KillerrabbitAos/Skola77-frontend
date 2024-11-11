@@ -375,7 +375,7 @@ const GridCell = ({
                 )}px`,
               }}
             >
-              <h2 ref={previewRef}>{overNamn}</h2>
+              <div style={{ textAlign: "center"}} className="justify-center flex-row flex items-center" ref={previewRef}>{overNamn}</div>
             </div>
             {omvänd && buttons}
           </div>
