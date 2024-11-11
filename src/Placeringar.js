@@ -23,7 +23,7 @@ const SkapaPlaceringar = () => {
   const [grid, setGrid] = useState(data.klassrum[0].grid);
   const [rows, setRows] = useState(data.klassrum[0].rows);
   const [cols, setCols] = useState(data.klassrum[0].cols);
-  const [kolumner, setKolumner] = useState(3)
+  const [kolumner, setKolumner] = useState(3);
   const [frånvarande, setFrånvarande] = useState([]);
   const [klassnamn, setKlassnamn] = useState(null);
   const [namn, setNamn] = useState(["", "orm"]);
@@ -167,9 +167,30 @@ const SkapaPlaceringar = () => {
               <div>{namnObj.namn}</div>
               <div>
                 {frånvarande.includes(namnObj.orginalIndex) ? (
-                  <span>frånvarande</span>
+                  <div
+                    onClick={() => {
+                      setFrånvarande((prevFrånvarande) =>
+                        prevFrånvarande.filter(
+                          (namnObj2) => namnObj2 !== namnObj.orginalIndex
+                        )
+                      );
+                    }}
+                    className="bg-red-500 align-middle justify-center flex-row flex items-center text-center h-[45px] text-white w-[175px] rounded-[5px]"
+                  >
+                    frånvarande
+                  </div>
                 ) : (
-                  <span>närvarande</span>
+                  <div
+                    onClick={() => {
+                      setFrånvarande((prevFrånvarande) => [
+                        ...prevFrånvarande,
+                        namnObj.orginalIndex,
+                      ]);
+                    }}
+                    className="bg-green-500 align-middle justify-center flex-row flex items-center text-center h-[45px] text-white w-[175px] rounded-[5px]"
+                  >
+                    <span>närvarande</span>
+                  </div>
                 )}
               </div>
             </div>
@@ -234,7 +255,7 @@ const SkapaPlaceringar = () => {
         className="m-auto"
         style={{
           display: "flex",
-          justifyContent: "center"
+          justifyContent: "center",
         }}
       >
         {namnILista.map((kolumn) => (
