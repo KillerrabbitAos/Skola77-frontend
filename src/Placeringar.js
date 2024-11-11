@@ -222,7 +222,7 @@ const SkapaPlaceringar = () => {
         klar={klar}
         reverse={omvänd}
         setReverse={setOmvänd}
-        names={namn}
+        names={namn.filter(namn => !frånvarande.includes(namn))}
       />{" "}
       <div className="flex gap-4 w-full flex-wrap justify-center">
         <button
