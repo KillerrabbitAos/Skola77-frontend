@@ -50,12 +50,12 @@ const Layout = () => {
       <div className="navbar">
         {dropdown ? (
           <div className="mobile-nav">
-            <button
-              className="dropdown-toggle w-[100%] ml-[390%]"
+            <div
+              className="justify-center flex-row flex items-center"
               onClick={toggleDropdown}
             >
-              {LogoSVG}
-            </button>
+              <div style={{position:"absolute", right:"5%"}}>{LogoSVG}</div>
+            </div>
             {isDropdownOpen && (
               <ul className="dropdown-menu">
                 <li className="dropdown-item">
@@ -93,6 +93,7 @@ const Layout = () => {
                   </NavLink>
                 </li>
               </ul>
+              
             )}
           </div>
         ) : (
