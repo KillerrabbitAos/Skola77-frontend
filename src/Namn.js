@@ -114,16 +114,15 @@ const NameList = () => {
     if (klassnamn) {
       const updatedData = data.klasser.map((klass) => {
         if (klass.namn === klassnamn) {
-          console.log({ ...klass, personer: names })
+          console.log({ ...klass, personer: names });
           return { ...klass, personer: names };
-          
         }
         return klass;
       });
       setData({ ...data, klasser: updatedData });
-      console.log(data)
+      console.log(data);
     } else {
-      console.log("free")
+      console.log("free");
       const nyttKlassnamn = prompt("Vad ska klassen heta?");
       if (nyttKlassnamn && names.length > 1) {
         const updatedData = {
@@ -143,7 +142,10 @@ const NameList = () => {
       <div className="inputSection">
         <div className="flex flex-col items-start">
           <div className="flex items-start">
-            <button className="rounded-none border border-black border-t border-l border-b-0 border-r-0 custom-button w-[196px] h-[200px]  bg-[#38b438] text-white font-bold shadow-lg hover:opacity-90 active:opacity-80 focus:outline-none focus:ring-2 focus:ring-green-300 transition-all flex items-center justify-center" onClick={sparaNamn}>
+            <button
+              className="rounded-none border border-black border-t border-l border-b-0 border-r-0 custom-button w-[196px] h-[200px]  bg-[#38b438] text-white font-bold shadow-lg hover:opacity-90 active:opacity-80 focus:outline-none focus:ring-2 focus:ring-green-300 transition-all flex items-center justify-center"
+              onClick={sparaNamn}
+            >
               <FontAwesomeIcon icon={faFloppyDisk} size="4x" />
             </button>
 
@@ -153,7 +155,12 @@ const NameList = () => {
                   id="namesInput"
                   rows="10"
                   className="rounded-md w-80"
-                  placeholder="Ett namn per rad"
+                  placeholder={`Ett namn per rad:
+Artur
+Bosse
+Sam 
+etc...
+`}
                 ></textarea>
 
                 <button className="addButton ml-2" onClick={läggTillNamn}>
@@ -193,27 +200,20 @@ const NameList = () => {
       </div>
 
       {klassnamn && (
-  <div className="justify-center flex w-full items-center mb-4 mt-1">
-    <button
-      className="mr-4 font-bold text-lg bg-[#38b438] text-white border-1 ejEfternamn hover:bg-[#36a636] transition duration-300 px-4 py-2 rounded"
-      onClick={taBortEfternamn}
-    >
-      Ta bort efternamn
-    </button>
-    <h2 className="font-bold text-xl text-[#333]">
-      {klassnamn}
-    </h2>
+        <div className="justify-center flex w-full items-center mb-4 mt-1">
+          <button
+            className="mr-4 font-bold text-lg bg-[#38b438] text-white border-1 ejEfternamn hover:bg-[#36a636] transition duration-300 px-4 py-2 rounded"
+            onClick={taBortEfternamn}
+          >
+            Ta bort efternamn
+          </button>
+          <h2 className="font-bold text-xl text-[#333]">{klassnamn}</h2>
 
-    <button
-      className="mr-4 font-bold text-lg bg-inherit text-[#f2f2f2]   transition  duration-300 px-4 py-2 rounded"
-      
-    >
-      Ta bort afrika!
-    </button>
-
-  </div>
-)}
-
+          <button className="mr-4 font-bold text-lg bg-inherit text-[#f2f2f2]   transition  duration-300 px-4 py-2 rounded">
+            Ta bort afrika!
+          </button>
+        </div>
+      )}
 
       <div className="nameList gap-10">
         {columnsArray.map((column, columnIndex) => (
