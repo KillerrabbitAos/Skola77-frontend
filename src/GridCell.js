@@ -14,7 +14,7 @@ function adjustAndStoreFontSize(textElement, containerElement) {
 
   applyFontSize();
 
-  while (textElement.scrollWidth > containerElement.clientWidth) {
+  while (textElement.scrollWidth > containerElement.clientWidth || textElement.scrollHeight > containerElement.clientHeight) {
     vw -= 0.1;
     rem -= 0.05;
 
