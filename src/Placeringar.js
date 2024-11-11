@@ -98,12 +98,14 @@ const SkapaPlaceringar = () => {
   const slumpa = () => {
     const nyGrid = [];
     const användaNummer = [];
+
     grid.map((rad) => {
       const namnAttSlumpa = [];
       console.log(låstaBänkar);
       namn.forEach(
         (namn, index) =>
-          !låstaBänkar.includes(index) && namnAttSlumpa.push(namn)
+          !(låstaBänkar.includes(index) || frånvarande.includes(index)) &&
+          namnAttSlumpa.push(namn)
       );
       console.log(namnAttSlumpa);
       const nyRad = rad.map((plats, kolumn) => {
@@ -117,13 +119,16 @@ const SkapaPlaceringar = () => {
           let orm = false;
           let i = 0;
           while (
-            (låstaBänkar.includes(nummer) || användaNummer.includes(nummer)) &&
+            (låstaBänkar.includes(nummer) ||
+              frånvarande.includes(nummer) ||
+              användaNummer.includes(nummer)) &&
             i !== 10
           ) {
             console.log("has");
             nummer = Math.floor(Math.random() * (namn.length - 1)) + 1;
             if (
-              låstaBänkar.includes(nummer) &&
+              (låstaBänkar.includes(nummer) ||
+                frånvarande.includes(nummer)) &&
               användaNummer.length === namnAttSlumpa.length - 1
             ) {
               nummer = 0;
@@ -222,7 +227,7 @@ const SkapaPlaceringar = () => {
         klar={klar}
         reverse={omvänd}
         setReverse={setOmvänd}
-        names={namn.filter(namn => !frånvarande.includes(namn))}
+        names={namn}
       />{" "}
       <div className="flex gap-4 w-full flex-wrap justify-center">
         <button
