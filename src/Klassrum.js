@@ -167,7 +167,7 @@ const Klassrum = ({
                     window.outerWidth / 1.1 / columns,
                     window.outerHeight / 1.1 / rows
                   )
-                : window.outerWidth / (isTablet || window.outerWidth < window.outerHeight ? isMobile ? 1 : 1.2 : 1.4) / (columns > 10 || isMobile ? columns : 10)
+                : window.outerWidth / (isTablet || window.outerWidth < window.outerHeight ? isMobile && !isTablet ? 1 : 1.2 : 1.4) / (columns > 10 || isMobile ? columns : 10)
             }px)`,
             gridTemplateRows: `repeat(${rows}, ${
               skrivUt || klar
@@ -175,7 +175,7 @@ const Klassrum = ({
                     window.outerWidth / 1.1 / columns,
                     window.outerHeight / 1.1 / rows
                   )
-                : window.outerWidth / (isTablet || window.outerWidth < window.outerHeight ? isMobile ? 1 : 1.2 : 1.4) / (columns > 10 || isMobile ? columns : 10)
+                : window.outerWidth / (isTablet || window.outerWidth < window.outerHeight ? isMobile && !isTablet ? 1 : 1.2 : 1.4) / (columns > 10 || isMobile ? columns : 10)
             }px )`,
             justifyItems: "center",
           }}

@@ -1,17 +1,22 @@
 // Layout.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, NavLink } from "react-router-dom";
-import { isMobile } from "react-device-detect";
+import { isMobile, isTablet } from "react-device-detect";
 import "./Layout.css";
 
 const Layout = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+  const [dropdown, setDropdown] = useState(isMobile && !isTablet);
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
   const svg = (
-    <img style={{margin: "auto"}} src="/skola77logga.png" alt="Skola77" id="kebbe" />
+    <img
+      style={{ margin: "auto" }}
+      src="/skola77logga.png"
+      alt="Skola77"
+      id="kebbe"
+    />
   );
   const LogoSVG = (
     <svg
@@ -24,13 +29,31 @@ const Layout = () => {
       <path d="M 5 8 A 2.0002 2.0002 0 1 0 5 12 L 45 12 A 2.0002 2.0002 0 1 0 45 8 L 5 8 z M 5 23 A 2.0002 2.0002 0 1 0 5 27 L 45 27 A 2.0002 2.0002 0 1 0 45 23 L 5 23 z M 5 38 A 2.0002 2.0002 0 1 0 5 42 L 45 42 A 2.0002 2.0002 0 1 0 45 38 L 5 38 z" />
     </svg>
   );
+  useEffect(() => {
+    const anpassa = () => {
+      if (window.outerWidth < window.outerHeight) {
+        setDropdown(true);
+      } else {
+        setDropdown(false);
+      }
+    };
+
+    anpassa();
+
+    window.addEventListener("resize", anpassa);
+
+    return () => window.removeEventListener("resize", anpassa);
+  }, []);
 
   return (
     <>
       <div className="navbar">
-        {isMobile ? (
+        {dropdown ? (
           <div className="mobile-nav">
-            <button className="dropdown-toggle w-[100%] ml-[390%]" onClick={toggleDropdown}>
+            <button
+              className="dropdown-toggle w-[100%] ml-[390%]"
+              onClick={toggleDropdown}
+            >
               {LogoSVG}
             </button>
             {isDropdownOpen && (
