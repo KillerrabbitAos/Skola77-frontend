@@ -97,65 +97,48 @@ const SkapaPlaceringar = () => {
 
   const slumpa = () => {
     const nyGrid = [];
-    const användaNummer = [];
+    const namnAttSlumpa = [];
+    console.log(låstaBänkar);
 
-    grid.map((rad) => {
-      const namnAttSlumpa = [];
-      console.log(låstaBänkar);
-      namn.forEach(
-        (namn, index) =>
-          !(låstaBänkar.includes(index) || frånvarande.includes(index)) &&
-          namnAttSlumpa.push(namn)
-      );
-      console.log(namnAttSlumpa);
-      const nyRad = rad.map((plats, kolumn) => {
-        if (
-          plats.id &&
-          namn.length > cols &&
-          kolumn < cols &&
-          !låstaBänkar.includes(plats.id)
-        ) {
-          let nummer = Math.floor(Math.random() * (namn.length - 1)) + 1;
-          let orm = false;
-          let i = 0;
-          while (
-            (låstaBänkar.includes(nummer) ||
-              frånvarande.includes(nummer) ||
-              användaNummer.includes(nummer)) &&
-            i !== 10
-          ) {
-            console.log("has");
-            nummer = Math.floor(Math.random() * (namn.length - 1)) + 1;
-            if (
-              (låstaBänkar.includes(nummer) ||
-                frånvarande.includes(nummer)) &&
-              användaNummer.length === namnAttSlumpa.length - 1
-            ) {
-              nummer = 0;
-              console.log(användaNummer);
-              i = 10;
-            }
-            if (användaNummer.length === namnAttSlumpa.length - 1) {
-              nummer = 0;
-              console.log(användaNummer);
-              i = 10;
-            }
+    namn.forEach(
+      (namn, index) =>
+        !(
+          låstaBänkar.includes(index) ||
+          frånvarande.includes(index) ||
+          index === 0
+        ) && namnAttSlumpa.push(index)
+    );
+
+    namnAttSlumpa.sort(() => Math.random() - 0.5);
+    let slumpIndex = 0;
+
+    grid.forEach((rad) => {
+      const nyRad = [];
+      rad.forEach((plats) => {
+        let person = 0;
+
+        if (plats.id) {
+          if (låstaBänkar.includes(plats.id)) {
+            person = plats.person;
+          } else if (slumpIndex < namnAttSlumpa.length) {
+            person = namnAttSlumpa[slumpIndex];
+            slumpIndex++;
+          } else {
+            person = 0;
           }
-          if (nummer !== 0) {
-            användaNummer.push(nummer);
-          }
-          return {
-            id: plats.id,
-            person: nummer,
-          };
-        } else {
-          return plats;
         }
+        
+        nyRad.push({
+          id: plats.id,
+          person,
+        });
       });
       nyGrid.push(nyRad);
     });
+
     setGrid(nyGrid);
   };
+
   const namnILista =
     namn &&
     divideArray(
