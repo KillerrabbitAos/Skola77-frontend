@@ -70,27 +70,52 @@ const Layout = () => {
               <ul className="dropdown-menu">
                 <li className="dropdown-item">
                   <NavLink to="/" onClick={toggleDropdown}>
-                    {svg}
+                    <div
+                      style={{ textAlign: "center" }}
+                      className="justify-end flex-row flex items-center"
+                    >
+                      {svg}
+                    </div>
                   </NavLink>
                 </li>
                 <li className="dropdown-item">
                   <NavLink to="/Placeringar" onClick={toggleDropdown}>
-                    Placeringar
+                  <div
+                      style={{ textAlign: "center" }}
+                      className="justify-end flex-row flex items-center"
+                    >
+                      Placeringar
+                    </div>
                   </NavLink>
                 </li>
                 <li className="dropdown-item">
                   <NavLink to="/Klassrum" onClick={toggleDropdown}>
-                    Klassrum
+                  <div
+                      style={{ textAlign: "center" }}
+                      className="justify-end flex-row flex items-center"
+                    >
+                      Klassrum
+                    </div>
                   </NavLink>
                 </li>
                 <li className="dropdown-item">
                   <NavLink to="/Klasser" onClick={toggleDropdown}>
-                    Klasser
+                  <div
+                      style={{ textAlign: "center" }}
+                      className="justify-end flex-row flex items-center"
+                    >
+                      Klasser
+                    </div>
                   </NavLink>
                 </li>
                 <li className="dropdown-item">
                   <NavLink to="/Support" onClick={toggleDropdown}>
-                    Hjälp
+                  <div
+                      style={{ textAlign: "center" }}
+                      className="justify-end flex-row flex items-center"
+                    >
+                      Hjälp
+                    </div>
                   </NavLink>
                 </li>
                 <li className="dropdown-item">
