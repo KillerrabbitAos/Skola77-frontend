@@ -227,7 +227,7 @@ const SkapaPlaceringar = () => {
             setKlar(!klar);
           }}
         >
-          Klar
+              {!klar ? "Klar" : "Fortsätt redigera"}
         </button>
         <button
           style={{ padding: "20px" }}
