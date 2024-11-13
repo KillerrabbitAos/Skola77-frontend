@@ -29,7 +29,6 @@ const Klassrum = ({
   const [fontSize, setFontSize] = useState([{ id: "0-0", size: 100 }]);
   const [högerklicksmeny, setHögerklicksmeny] = useState(false);
 
-  
   const gridRef = useRef(null);
   const updateGridColumns = () => {
     setSize(
@@ -167,7 +166,13 @@ const Klassrum = ({
                     window.outerWidth / 1.1 / columns,
                     window.outerHeight / 1.1 / rows
                   )
-                : window.outerWidth / (isTablet || window.outerWidth < window.outerHeight ? isMobile && !isTablet ? 1 : 1.2 : 1.4) / (columns > 10 || isMobile ? columns : 10)
+                : window.outerWidth /
+                  (isTablet || window.outerWidth < window.outerHeight
+                    ? isMobile && !isTablet
+                      ? 1
+                      : 1.2
+                    : 1.4) /
+                  (columns > 14 || isMobile && !isTablet ? columns : 14)
             }px)`,
             gridTemplateRows: `repeat(${rows}, ${
               skrivUt || klar
@@ -175,7 +180,13 @@ const Klassrum = ({
                     window.outerWidth / 1.1 / columns,
                     window.outerHeight / 1.1 / rows
                   )
-                : window.outerWidth / (isTablet || window.outerWidth < window.outerHeight ? isMobile && !isTablet ? 1 : 1.2 : 1.4) / (columns > 10 || isMobile ? columns : 10)
+                : window.outerWidth /
+                  (isTablet || window.outerWidth < window.outerHeight
+                    ? isMobile && !isTablet
+                      ? 1
+                      : 1.2
+                    : 1.4) /
+                  (columns > 14 || (isMobile && !isTablet) ? columns : 14)
             }px )`,
             justifyItems: "center",
           }}
