@@ -9,7 +9,8 @@ const NameList = ({}) => {
   const [namn, setNamn] = useState([data.klasser[0].personer]);
   const textrutaRef = useRef(null);
   const läggTillNamn = () => {
-    textrutaRef.current && setNamn(prevNamn => [...prevNamn,s textrutaRef.current.value]);
+    textrutaRef.current &&
+      setNamn((prevNamn) => [...prevNamn, textrutaRef.current.value]);
   };
   return (
     <div>
@@ -32,7 +33,11 @@ etc...
           Lägg till
         </div>
       </div>
-      {namn.map(namn => <div>namn</div>)}
+      {namn.map((namn) => (
+        <div>
+          <div>{namn}</div>
+        </div>
+      ))}
     </div>
   );
 };
