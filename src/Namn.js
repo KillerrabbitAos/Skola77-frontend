@@ -1,17 +1,32 @@
 import React, { useState, useEffect, useRef } from "react";
 import { data } from "./data";
+function divideArray(array, parts) {
+  let result = [];
+  let partSize = Math.floor(array.length / parts);
 
+  for (let i = 0; i < parts; i++) {
+    result.push(array.slice(i * partSize, (i + 1) * partSize));
+  }
+
+  return result;
+}
 const NameList = ({}) => {
   const [namn, setNamn] = useState(data.klasser[0].personer);
   const textrutaRef = useRef(null);
+  const [kolumner, setKolumner] = useState([]);
   const läggTillNamn = () => {
     textrutaRef.current &&
       setNamn((prevNamn) => [...prevNamn, textrutaRef.current.value]);
   };
+  useEffect(() => {
+    setKolumner(divideArray(namn, window.outerWidth / 2));
+  }, []);
   return (
     <div>
       <div className="flex">
-        <div className="aspect-square w-[25vw] bg-green"></div>
+        <div className="aspect-square w-[25vw] flex flex-row text-[5vw] justify-center items-center">
+          Spara
+        </div>
         <textarea
           ref={textrutaRef}
           className="aspect-[2/1] w-[50vw]"
@@ -23,18 +38,20 @@ etc...
 `}
         ></textarea>
         <div
-          className="aspect-square w-[25vw] flex flex-row justify-center items-center text text-[5vw]"
+          className="aspect-square w-[25vw] flex flex-row justify-center items-center text-[5vw]"
           onClick={läggTillNamn}
         >
           Lägg till
         </div>
       </div>
-      <div>
-        {namn.map((namn) => (
-          <div className="bg-white w-[40vw] flex flex-row justify-center items-center">
-            <div className="text-[4vw]">{namn}</div>
-          </div>
-        ))}
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        {kolumner.map((namn) =>
+          namn.map((namn) => (
+            <div className="bg-white w-[40vw] flex flex-row justify-center items-center">
+              <div className="text-[4vw]">{namn}</div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
