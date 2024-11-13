@@ -2,27 +2,28 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDroppable, useDraggable } from "@dnd-kit/core";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import "./Grid.css";
-function calculateFontSize(element, height, width) {
-  const canvas = document.createElement("canvas");
-  const context = canvas.getContext("2d");
+import debounce from "lodash.debounce";
 
-  const text = element.textContent || element.innerText || "";
-  const style = window.getComputedStyle(element);
-  const font = style.fontFamily;
-  const baseFontSize = 100;
+function adjustAndStoreFontSize(textElement, containerElement) {
+  let vw = 1;
+  let rem = 0.5;
 
-  context.font = `${baseFontSize}px ${font}`;
-  const metrics = context.measureText(text);
+  const applyFontSize = () => {
+    textElement.style.fontSize = `calc(${vw}vw + ${rem}rem)`;
+  };
 
-  const textWidth = metrics.width;
-  const textHeight = baseFontSize;
+  applyFontSize();
 
-  const widthRatio = width / textWidth;
-  const heightRatio = height / textHeight;
+  while (textElement.scrollWidth > containerElement.clientWidth || textElement.scrollHeight > containerElement.clientHeight) {
+    vw -= 0.1;
+    rem -= 0.05;
 
-  const scale = Math.min(widthRatio, heightRatio);
+    applyFontSize();
+  }
 
-  const finalFontSize = Math.floor(baseFontSize * scale);
+  const finalFontSize = `calc(${vw}vw + ${rem}rem)`;
+  textElement.style.fontSize = finalFontSize;
+  console.log("Final font size stored:", finalFontSize);
 
   return finalFontSize;
 }
@@ -62,12 +63,67 @@ const GridCell = ({
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
   const divRef = useRef(null);
-  
+
   const textRef = useRef(null);
   const previewRef = useRef(null);
   const previewDivRef = useRef(null);
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const meny = (
+    <div
+      style={{
+        position: "absolute",
+        left: `calc(${mousePosition.x - 10}px - 1px)`,
+        top: `calc(${mousePosition.y + 25}px - 1px)`,
+        maxHeight: "200px",
+        backgroundColor: "white",
+        borderRadius: "5%",
+        border: "1px solid black",
+        zIndex: "200",
+        overflowY: "scroll",
+
+
+        listStyleType: "none",
+      }}
+    >
+      {names
+        .map((namn, index) => {
+          return { namn: namn, originalIndex: index };
+        })
+        .sort((a, b) => {
+          if (a.namn.toLowerCase() < b.namn.toLowerCase()) {
+            return -1;
+          }
+          if (a.namn.toLowerCase() > b.namn.toLowerCase()) {
+            return 1;
+          }
+          return 0;
+        })
+        .map((name) => (
+          <li
+            className={"högerklicksmenyalternativ"}
+            key={`h-${name.originalIndex}`}
+            onMouseDown={(e) => {
+              e.stopPropagation();
+              setGrid(
+                grid.map((rad) =>
+                  rad.map((ruta) => ({
+                    id: ruta.id,
+                    person:
+                      ruta.id === cell.id ? name.originalIndex : ruta.person,
+                  }))
+                )
+              );
+
+              setHögerklicksmeny(false);
+            }}
+          >
+            {name.namn}
+          </li>
+        ))}
+    </div>
+  );
   const visaHögerklicksmeny = (event) => {
     event.preventDefault();
     const rect = event.target.getBoundingClientRect();
@@ -75,7 +131,7 @@ const GridCell = ({
     const offsetY = event.clientY - rect.top;
 
     setMousePosition({ x: offsetX, y: offsetY });
-    setHögerklicksmeny(cell.id);
+    setHögerklicksmeny(cords);
   };
 
   useEffect(() => {
@@ -168,7 +224,7 @@ const GridCell = ({
         : "white",
     border: dragging ? "2px solid black" : "none",
     touchAction: "none",
-    zIndex: dragging || högerklicksmeny ? "99" : "1",
+    zIndex: dragging || högerklicksmeny === cords ? "99" : "1",
     position: over ? "absolute" : "relative",
     textAllign: "center",
     margin: "auto",
@@ -188,7 +244,9 @@ const GridCell = ({
   const buttons = !klar ? (
     <div className="buttons">
       <button
-        className={`removeButton rounded-[10%] rounded-tr-none !rounded-${omvänd ? "tl" : "bl"}-none rounded-br-none`}
+        className={`removeButton rounded-[17%] rounded-tr-none ${!omvänd ? "!" : ""}rounded-${
+          omvänd ? "tl" : "bl"
+        }-none rounded-br-none`}
         onMouseDown={musenNer}
         onMouseUp={musenUpp}
       >
@@ -202,7 +260,9 @@ const GridCell = ({
         />
       </button>
       <button
-        className={`removeButton rounded-[10%] rounded-tl-none rounded-${omvänd ? "tr" : "br"}-none !rounded-bl-none !bg-gray-400`}
+        className={`removeButton rounded-[17%] rounded-tl-none rounded-${
+          omvänd ? "tr" : "br"
+        }-none !rounded-bl-none !bg-gray-400`}
         onMouseDown={musenNer}
         onMouseUp={musenUppTaBort}
       >
@@ -232,76 +292,58 @@ const GridCell = ({
       </button>
     </div>
   ) : (
-    <div className={`h-1/2 bg-gray-400 rounded-[10%] rounded-${omvänd ? "tl" : "bl"}-none rounded-${omvänd ? "tr" : "br"}-none`}></div>
+    <div
+      className={`h-1/2 bg-gray-400 rounded-[17%] ${!omvänd ? "!" : ""}rounded-${
+        omvänd ? "tl" : "bl"
+      }-none rounded-${omvänd ? "tr" : "br"}-none`}
+    ></div>
   );
   useEffect(() => {
-  
-    const adjustFontSize = () => {
-      let newFontSize = 10;
-      const text =
-        dragging && previewRef.current
-          ? previewRef.current
-          : textRef.current
-          ? textRef.current
-          : null;
-      const div =
-        dragging && previewDivRef.current
-          ? previewDivRef.current
-          : divRef.current
-          ? divRef.current
-          : null;
-
-      if (text && div) {
-        text.style.visibility = "hidden";
-        const initialFontSize = `${calculateFontSize(
-          text,
-          div.offsetHeight,
-          div.offsetWidth
-        )}px`;
-        text.style.fontSize = initialFontSize;
-
-        while (
-          text.scrollWidth > div.clientWidth ||
-          text.scrollHeight > div.clientHeight
-        ) {
-          const fontSize1 = parseFloat(window.getComputedStyle(text).fontSize);
-          newFontSize = fontSize1;
-          text.style.fontSize = `${fontSize1 - 2}px`;
-        }
-        text.style.visibility = "visible";
-        const newFontSizeList = fontSize.filter(
-          (namn) => namn.id !== names[cell.person]
-        );
-        newFontSizeList.push({ id: names[cell.person], size: newFontSize });
-        setFontSize(newFontSizeList);
-      }
-    };
-
-    adjustFontSize();
-
-    window.addEventListener("resize", adjustFontSize);
-
-    return () => {
-      window.removeEventListener("resize", adjustFontSize);
-    };
-  }, [cell.person, columns, rows]);
-  useEffect(() => {
-    if (textRef.current) {
-      const newFontSize = parseFloat(
-        window.getComputedStyle(textRef.current).fontSize
+    if (låstaBänkar.includes(cell.id)) {
+      setLåstaBänkar(
+        låstaBänkar.filter((sak) => sak !== cell.id && sak !== cell.person)
       );
-
-      textRef.current.style.visibility = "visible";
-      const newFontSizeList = fontSize.filter(
-        (namn) => namn.id !== names[cell.person]
+      setLåstaBänkar(
+        cell.person
+          ? [...låstaBänkar, cell.id, cell.person]
+          : [...låstaBänkar, cell.id]
       );
-      newFontSizeList.push({ id: names[cell.person], size: newFontSize });
-      setFontSize(newFontSizeList);
     }
-  }, [cell.id]);
+    const text =
+      dragging && previewRef.current
+        ? previewRef.current
+        : textRef.current
+        ? textRef.current
+        : null;
+    const div =
+      dragging && previewDivRef.current
+        ? previewDivRef.current
+        : divRef.current
+        ? divRef.current
+        : null;
+
+    if (text && div) {
+      const newFontSize = adjustAndStoreFontSize(text, div);
+
+      setFontSize((prevFontSize) => {
+        const existing = prevFontSize.find((f) => f.id === names[cell.person]);
+        if (existing && existing.size === newFontSize) {
+          return prevFontSize;
+        }
+
+        const updatedFontSizeList = prevFontSize.filter(
+          (f) => f.id !== names[cell.person]
+        );
+        updatedFontSizeList.push({ id: names[cell.person], size: newFontSize });
+        return updatedFontSizeList;
+      });
+    }
+  }, [cell.person, columns, rows, klar, overNamn]);
+
   return (
     <div
       id={cords}
+      onContextMenu={visaHögerklicksmeny}
       ref={setNodeRef}
       onClick={handleCellClick}
       className={`grid-cell ${cell.id ? "active" : ""} rounded-[10%]`}
@@ -313,9 +355,10 @@ const GridCell = ({
         backgroundColor: "#f2f2f2",
         width: "90%",
         height: "90%",
-        zIndex: dragging || högerklicksmeny === cell.id ? "99" : "1",
+        zIndex: dragging || högerklicksmeny === cords ? "99" : "1",
       }}
     >
+      {högerklicksmeny === cords && meny}
       {!overNamn.some((row) => row.includes(null)) &&
         overId &&
         dragging &&
@@ -332,8 +375,9 @@ const GridCell = ({
                 )}px`,
               }}
             >
-              <h2 ref={previewRef}>{overNamn}</h2>
+              <div style={{ textAlign: "center"}} className="justify-center flex-row flex items-center" ref={previewRef}>{overNamn}</div>
             </div>
+            {omvänd && buttons}
           </div>
         )}
 
@@ -348,62 +392,17 @@ const GridCell = ({
           {!omvänd && buttons}
 
           <div
-            onContextMenu={visaHögerklicksmeny}
             ref={divRef}
             style={{
               height: "50%",
               display: "grid",
             }}
           >
-            <span style={{ textAlign: "center" }} ref={textRef}>
+            <div style={{ textAlign: "center"}} className="justify-center flex-row flex items-center" ref={textRef}>
               {names[cell.person]}
-            </span>
-          </div>
-          {högerklicksmeny === cell.id && (
-            <div
-              style={{
-                position: "absolute",
-                left: `calc(${mousePosition.x}px - 10px)`,
-                top: `calc(${mousePosition.y}px + 50% - 10px)`,
-                width: "100px",
-                maxHeight: "200px",
-                backgroundColor: "white",
-                borderRadius: "5%",
-                border: "1px solid black",
-                zIndex: "200",
-                overflowY: "scroll",
-                overflowX: "scroll",
-
-                listStyleType: "none",
-              }}
-            >
-              {names
-                .map((namn, index) => {
-                  return { namn: namn, originalIndex: index };
-                })
-                .sort((a, b) => {
-                  if (a.namn.toLowerCase() < b.namn.toLowerCase()) {
-                    return -1;
-                  }
-                  if (a.namn.toLowerCase() > b.namn.toLowerCase()) {
-                    return 1;
-                  }
-                  return 0;
-                })
-                .map((name) => (
-                  <li
-                    className={"högerklicksmenyalternativ"}
-                    key={`h-${name.originalIndex}`}
-                    onMouseDown={(e) => {
-                      e.stopPropagation();
-                      console.log(name.originalIndex);
-                    }}
-                  >
-                    {name}
-                  </li>
-                ))}
             </div>
-          )}
+          </div>
+
           {omvänd && buttons}
         </div>
       ) : (

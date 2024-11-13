@@ -109,6 +109,6 @@ body{
 .removeButton{
   float: inline-start;
 }
-.högerklicksmenyalternativ :hover{
+.högerklicksmenyalternativ:hover{
   background-color: lightgray;
 }
