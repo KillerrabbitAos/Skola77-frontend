@@ -31,8 +31,8 @@ etc...
       </div>
       <div>
         {namn.map((namn) => (
-          <div className="w-[20vw]">
-            <div className="bg-white text-[4vw]">{namn}</div>
+          <div className="bg-white w-[40vw] flex flex-row justify-center items-center">
+            <div className="text-[4vw]">{namn}</div>
           </div>
         ))}
       </div>
