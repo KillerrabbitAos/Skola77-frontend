@@ -1,238 +1,25 @@
 import React, { useState, useEffect } from "react";
-import Namn from "./ettNamn";
 import ExcelToTextConverter from "./ExcelToTextConverter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isMobile, isTablet } from "react-device-detect";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import { data as initialData } from "./data";
 
-function fitTextToContainer(container, element, maxFontSizePx) {
-  for (let i = 0; i < 20; i++) {
-    const containerWidth = container.clientWidth;
-    const containerHeight = container.clientHeight;
-    const elementWidth = element.offsetWidth;
-    const elementHeight = element.offsetHeight;
-
-    const widthScale = containerWidth / elementWidth;
-    const heightScale = containerHeight / elementHeight;
-
-    const minScale = Math.min(widthScale, heightScale);
-
-    const currentFontSize = window.getComputedStyle(element).fontSize;
-    let newFontSize = parseFloat(currentFontSize) * minScale;
-
-    newFontSize = Math.min(newFontSize, maxFontSizePx);
-
-    element.style.fontSize = newFontSize + "px";
-
-    const scaledElementWidth = element.offsetWidth * minScale;
-    const scaledElementHeight = element.offsetHeight * minScale;
-
-    const offsetX = (containerWidth - scaledElementWidth) / 2;
-    const offsetY = (containerHeight - scaledElementHeight) / 2;
-    element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-  }
-}
-
-const NameList = () => {
-  const [data, setData] = useState(initialData); // Använd data från data.js
-
-  const [låstaNamn, setLåstaNamn] = useState([]);
-  const [names, setNames] = useState([""]);
-  const [columns, setColumns] = useState(3);
-  const [efternamnStarForst, setEfternamnStarForst] = useState(true);
-  const [laddaKlass, setLaddaKlass] = useState(false);
-  const [klassnamn, setKlassnamn] = useState(null);
-
-  const handleRemoveName = (index) => {
-    const updatedNames = [...names];
-    updatedNames.splice(index, 1);
-    setNames(updatedNames);
-  };
-
-  function applyFontSizesToClass(className) {
-    const elements = document.getElementsByClassName(className);
-    for (let i = 0; i < elements.length; i++) {
-      const element = elements[i];
-      const container = element.parentElement;
-      fitTextToContainer(container, element, 25);
-    }
-  }
-
-  const fixa = () => {
-    applyFontSizesToClass("name");
-  };
-
-  const läggTillNamn = () => {
-    const textarea = document.getElementById("namesInput");
-    const textareaContent = textarea.value
-      .split("\n")
-      .map((name) => name.trim())
-      .filter(Boolean);
-
-    setNames((prevNames) => [...prevNames, ...textareaContent]);
-    textarea.value = "";
-  };
-
-  const taBortEfternamn = () => {
-    setNames((förraNamn) =>
-      förraNamn.map((namn) =>
-        efternamnStarForst ? namn.split(" ").slice(-1)[0] : namn.split(" ")[0]
-      )
-    );
-    fixa();
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      const newColumns = Math.floor(width / 260);
-      setColumns(Math.max(newColumns, 1));
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const sortedNamesWithIndex = names
-    .map((name, index) => ({ name, originalIndex: index }))
-    .filter(({ name }) => name !== "")
-    .sort((a, b) => a.name.localeCompare(b.name));
-
-  const columnSize = Math.ceil(sortedNamesWithIndex.length / columns);
-  const columnsArray = Array.from({ length: columns }, (_, columnIndex) =>
-    sortedNamesWithIndex.slice(
-      columnIndex * columnSize,
-      (columnIndex + 1) * columnSize
-    )
-  );
-
-  const andraCheckboxvarde = (e) => setEfternamnStarForst(e.target.checked);
-
-  const sparaNamn = () => {
-    if (klassnamn) {
-      const updatedData = data.klasser.map((klass) => {
-        if (klass.namn === klassnamn) {
-          console.log({ ...klass, personer: names });
-          return { ...klass, personer: names };
-        }
-        return klass;
-      });
-      setData({ ...data, klasser: updatedData });
-      console.log(data);
-    } else {
-      console.log("free");
-      const nyttKlassnamn = prompt("Vad ska klassen heta?");
-      if (nyttKlassnamn && names.length > 1) {
-        const updatedData = {
-          ...data,
-          klasser: [...data.klasser, { namn: nyttKlassnamn, personer: names }],
-        };
-        setData(updatedData);
-        console.log(updatedData);
-      } else {
-        alert("Klassen måste ha ett namn och personer.");
-      }
-    }
-  };
-
+const NameList = ({}) => {
   return (
-    <div className="container">
-      <div className="inputSection">
-        <div className="flex flex-col items-start">
-          <div className="flex items-start">
-            <button
-              className="rounded-none border border-black border-t border-l border-b-0 border-r-0 custom-button w-[196px] h-[200px]  bg-[#38b438] text-white font-bold shadow-lg hover:opacity-90 active:opacity-80 focus:outline-none focus:ring-2 focus:ring-green-300 transition-all flex items-center justify-center"
-              onClick={sparaNamn}
-            >
-              <FontAwesomeIcon icon={faFloppyDisk} size="4x" />
-            </button>
-
-            <div className="">
-              <div class="w-[600px] h-[150px] flex">
-                <textarea
-                  id="namesInput"
-                  rows="10"
-                  className="rounded-md w-80"
-                  placeholder={`Ett namn per rad:
+    <div>
+      <div className="flex">
+        <div className="aspect-square w-[25vw]"></div>
+        <textarea
+          className="aspect-[2/1] w-[50vw]"
+          placeholder={`Ett namn per rad:
 Artur
 Bosse
 Sam 
 etc...
 `}
-                ></textarea>
-
-                <button className="addButton ml-2" onClick={läggTillNamn}>
-                  Lägg till...
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
-          <li
-            className="font-bold text-xl p-2 cursor-pointer"
-            onClick={() => {
-              setNames([""]);
-              setKlassnamn(null);
-            }}
-          >
-            ny klass...
-          </li>
-          {data.klasser
-            .slice()
-            .reverse()
-            .map((klass) => (
-              <li
-                key={klass.namn}
-                className="font-bold text-xl p-2 cursor-pointer"
-                onClick={() => {
-                  setNames(klass.personer);
-                  setKlassnamn(klass.namn);
-                }}
-              >
-                {klass.namn}
-              </li>
-            ))}
-        </ul>
-      </div>
-
-      {klassnamn && (
-        <div className="justify-center flex w-full items-center mb-4 mt-1">
-          <button
-            className="mr-4 font-bold text-lg bg-[#38b438] text-white border-1 ejEfternamn hover:bg-[#36a636] transition duration-300 px-4 py-2 rounded"
-            onClick={taBortEfternamn}
-          >
-            Ta bort efternamn
-          </button>
-          <h2 className="font-bold text-xl text-[#333]">{klassnamn}</h2>
-
-          <button className="mr-4 font-bold text-lg bg-inherit text-[#f2f2f2]   transition  duration-300 px-4 py-2 rounded">
-            Ta bort afrika!
-          </button>
-        </div>
-      )}
-
-      <div className="nameList gap-10">
-        {columnsArray.map((column, columnIndex) => (
-          <div key={columnIndex} className="column">
-            <ul className="list-none">
-              {column.map(({ name, originalIndex }) => (
-                <Namn
-                  key={originalIndex}
-                  name={name}
-                  originalIndex={originalIndex}
-                  handleRemoveName={handleRemoveName}
-                  låstaNamn={låstaNamn}
-                  setLåstaNamn={setLåstaNamn}
-                  names={names}
-                />
-              ))}
-            </ul>
-          </div>
-        ))}
+        ></textarea>
+        <div className="aspect-square w-[25vw] flex flex-row justify-center items-center text text-[5vw]">Lägg till</div>
       </div>
     </div>
   );
