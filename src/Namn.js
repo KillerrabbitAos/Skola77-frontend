@@ -32,7 +32,7 @@ etc...
       <div>
         {namn.map((namn) => (
           <div className="w-[20vw]">
-            <div className="bg-white text-[5vw]">{namn}</div>
+            <div className="bg-white text-[4vw]">{namn}</div>
           </div>
         ))}
       </div>
