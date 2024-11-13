@@ -33,11 +33,11 @@ etc...
           Lägg till
         </div>
       </div>
-      {namn.map((namn) => (
-        <div>
+      <div>
+        {namn.map((namn) => (
           <div>{namn}</div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
