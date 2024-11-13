@@ -143,9 +143,9 @@ const SkapaPlaceringar = () => {
     namn &&
     divideArray(
       namn
-        .slice(1)
         .map((namn, index) => ({ namn: namn, orginalIndex: index }))
         .sort((a, b) => a.namn.localeCompare(b.namn))
+        .slice(1)
         .map((namnObj) => (
           <div
             key={namnObj.orginalIndex}
