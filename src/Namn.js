@@ -19,7 +19,7 @@ const NameList = ({}) => {
       setNamn((prevNamn) => [...prevNamn, textrutaRef.current.value]);
   };
   useEffect(() => {
-    setKolumner(divideArray(namn, window.outerWidth / 2));
+    setKolumner(divideArray(namn, 3));
   }, []);
   return (
     <div>
@@ -44,15 +44,13 @@ etc...
           Lägg till
         </div>
       </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        {kolumner.map((namn) =>
-          namn.map((namn) => (
-            <div className="bg-white w-[40vw] flex flex-row justify-center items-center">
-              <div className="text-[4vw]">{namn}</div>
-            </div>
-          ))
-        )}
-      </div>
+      
+        {kolumner.map(namn => namn.map((namn) => (
+          <div className="bg-white w-[40vw] flex flex-row justify-center items-center">
+            <div className="text-[4vw]">{namn}</div>
+          </div>
+        )))}
+      
     </div>
   );
 };
