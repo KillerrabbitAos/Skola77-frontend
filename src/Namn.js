@@ -11,7 +11,7 @@ const NameList = ({}) => {
   return (
     <div>
       <div className="flex">
-        <div className="aspect-square w-[25vw]"></div>
+        <div className="aspect-square w-[25vw] bg-green"></div>
         <textarea
           ref={textrutaRef}
           className="aspect-[2/1] w-[50vw]"
