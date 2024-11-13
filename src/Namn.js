@@ -1,12 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import ExcelToTextConverter from "./ExcelToTextConverter";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { isMobile, isTablet } from "react-device-detect";
-import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import { data } from "./data";
 
 const NameList = ({}) => {
-  const [namn, setNamn] = useState([data.klasser[0].personer]);
+  const [namn, setNamn] = useState(data.klasser[0].personer);
   const textrutaRef = useRef(null);
   const läggTillNamn = () => {
     textrutaRef.current &&
@@ -35,7 +31,9 @@ etc...
       </div>
       <div>
         {namn.map((namn) => (
-          <div>{namn}</div>
+          <div className="w-[20vw]">
+            <div className="bg-white text-[5vw]">{namn}</div>
+          </div>
         ))}
       </div>
     </div>
