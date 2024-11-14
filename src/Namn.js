@@ -33,7 +33,7 @@ const NameList = ({}) => {
         .sort((a, b) => a.namn.localeCompare(b.namn))
         .slice(1)
         .map((namnObj) => (
-          <div className="bg-white w-[200px] h-[40px] m-1 border flex flex-row justify-start items-center">
+          <div key={namnObj.orginalIndex} className="bg-white w-[200px] h-[40px] m-1 border flex flex-row justify-start items-center">
             <div className="text-[20px] w-[90%]">
               <div>{namnObj.namn}</div>
             </div>
@@ -100,7 +100,7 @@ etc...
           justifyContent: "center",
         }}
       >
-        {kolumner && namnLista.map((kolumn) => <div>{kolumn}</div>)}
+        {kolumner && namnLista.map((kolumn) => (<div>{kolumn}</div>))}
       </div>
     </div>
   );
