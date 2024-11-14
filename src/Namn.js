@@ -15,21 +15,28 @@ function divideArray(array, delar) {
 const NameList = ({}) => {
   const [namn, setNamn] = useState([""]);
   const textrutaRef = useRef(null);
-  const [kolumner, setKolumner] = useState(Math.floor(window.outerWidth / 216));
+  const [kolumner, setKolumner] = useState(10);
   const läggTillNamn = () => {
     setNamn((prevNamn) => [
       ...prevNamn,
-      ...textrutaRef.current.value.split("\n").filter(namn => namn !== ""),
+      ...textrutaRef.current.value
+        .split("\n")
+        .filter((namn) => namn.trim() !== ""),
     ]);
+    textrutaRef.current.value = "";
   };
-  const namnLista = divideArray(
+  const namnLista =
     namn &&
+    divideArray(
       namn
         .map((namn, index) => ({ namn: namn, orginalIndex: index }))
+        .sort((a, b) => a.namn.localeCompare(b.namn))
         .slice(1)
         .map((namnObj) => (
           <div className="bg-white w-[200px] h-[40px] m-1 border flex flex-row justify-start items-center">
-            <div className="text-[20px] w-[90%]">{namnObj.namn}</div>
+            <div className="text-[20px] w-[90%]">
+              <div>{namnObj.namn}</div>
+            </div>
 
             <div
               style={{ color: "white", cursor: "pointer" }}
@@ -37,6 +44,7 @@ const NameList = ({}) => {
                 setNamn((prevNamn) => {
                   const newNamn = [...prevNamn];
                   newNamn.splice(namnObj.orginalIndex, 1);
+                  console.log(namnObj.orginalIndex);
                   return newNamn;
                 });
               }}
@@ -46,8 +54,8 @@ const NameList = ({}) => {
             </div>
           </div>
         )),
-    kolumner
-  );
+      kolumner
+    );
   useEffect(() => {
     const uppdateraKolumner = () => {
       setKolumner(Math.floor(window.outerWidth / 216));
@@ -58,7 +66,10 @@ const NameList = ({}) => {
       window.removeEventListener("resize", uppdateraKolumner);
     };
   }, []);
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setKolumner(Math.floor(window.outerWidth / 216));
+  }, [namn]);
+
   return (
     <div>
       <div className="flex">
