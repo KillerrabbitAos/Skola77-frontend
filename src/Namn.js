@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { data } from "./data";
-function divideArray(array, parts) {
+function divideArray(array, delar) {
+  const parts = delar < array.length ? delar : 1;
+
   let result = [];
   let partSize = Math.floor(array.length / parts);
 
@@ -11,46 +13,52 @@ function divideArray(array, parts) {
   return result;
 }
 const NameList = ({}) => {
-  const [namn, setNamn] = useState(data.klasser[0].personer);
+  const [namn, setNamn] = useState([""]);
   const textrutaRef = useRef(null);
-  const [kolumner, setKolumner] = useState([]);
+  const [kolumner, setKolumner] = useState(Math.floor(window.outerWidth / 216));
   const läggTillNamn = () => {
-    textrutaRef.current &&
-      setNamn((prevNamn) => [...prevNamn, textrutaRef.current.value]);
+    setNamn((prevNamn) => [
+      ...prevNamn,
+      ...textrutaRef.current.value.split("\n").filter(namn => namn !== ""),
+    ]);
   };
-  const genereraNamn = () => {
-    setKolumner(
-      divideArray(
-        namn
-          .map((namn, index) => {
-            return { namn: namn, orginalIndex: index };
-          })
-          .slice(1)
-          .map((namnObj) => (
-            <div className="bg-white w-[200px] h-[40px] m-1 border flex flex-row justify-start items-center">
-              <div className="text-[20px] w-[90%]">{namnObj.namn}</div>
+  const namnLista = divideArray(
+    namn &&
+      namn
+        .map((namn, index) => ({ namn: namn, orginalIndex: index }))
+        .slice(1)
+        .map((namnObj) => (
+          <div className="bg-white w-[200px] h-[40px] m-1 border flex flex-row justify-start items-center">
+            <div className="text-[20px] w-[90%]">{namnObj.namn}</div>
 
-              <div
-                style={{ color: "white", cursor: "pointer" }}
-                onClick={() => {
-                  setNamn((prevNamn) =>
-                    prevNamn.slice(namnObj.orginalIndex)
-                  );
-                }}
-                className="bg-red-600 aspect-square h-[100%] flex flex-row items-center justify-center text-white text-center"
-              >
-                p
-              </div>
+            <div
+              style={{ color: "white", cursor: "pointer" }}
+              onClick={() => {
+                setNamn((prevNamn) => {
+                  const newNamn = [...prevNamn];
+                  newNamn.splice(namnObj.orginalIndex, 1);
+                  return newNamn;
+                });
+              }}
+              className="bg-red-600 aspect-square h-[100%] flex flex-row items-center justify-center text-white text-center"
+            >
+              p
             </div>
-          )),
-        window.innerWidth / 100
-      )
-    );
-  };
+          </div>
+        )),
+    kolumner
+  );
   useEffect(() => {
-    window.addEventListener("resize", genereraNamn)
-    genereraNamn();
-  }, [namn]);
+    const uppdateraKolumner = () => {
+      setKolumner(Math.floor(window.outerWidth / 216));
+    };
+    uppdateraKolumner();
+    window.addEventListener("resize", uppdateraKolumner);
+    return () => {
+      window.removeEventListener("resize", uppdateraKolumner);
+    };
+  }, []);
+  useEffect(() => {}, []);
   return (
     <div>
       <div className="flex">
@@ -80,7 +88,9 @@ etc...
           display: "flex",
           justifyContent: "center",
         }}
-      >{kolumner && kolumner.map((kolumn) => <div>{kolumn}</div>)}</div>
+      >
+        {kolumner && namnLista.map((kolumn) => <div>{kolumn}</div>)}
+      </div>
     </div>
   );
 };
