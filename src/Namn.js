@@ -44,13 +44,22 @@ etc...
           Lägg till
         </div>
       </div>
-      
-        {kolumner.map(namn => namn.map((namn) => (
-          <div className="bg-white w-[40vw] flex flex-row justify-center items-center">
-            <div className="text-[4vw]">{namn}</div>
-          </div>
-        )))}
-      
+      <div>
+        {kolumner.map((namn) =>
+          namn
+            .map((namn, index) => {
+              return { namn: namn, orginalIndex: orginalIndex };
+            })
+            .map((namn) => (
+              <div className="bg-white w-[40vw] m-1 border flex flex-row justify-start items-center">
+                <div className="text-[4vw] w-[90%]">{namn.namn}</div>
+                <div className="bg-red-600 aspect-square w-[10%] text-white text-center">
+                  p
+                </div>
+              </div>
+            ))
+        )}
+      </div>
     </div>
   );
 };
