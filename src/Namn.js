@@ -1,17 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
 import { data } from "./data";
 function divideArray(array, delar) {
-  const parts = delar < array.length ? delar : 1;
-
+  const parts = delar < array.length ? delar : array.length;
   let result = [];
   let partSize = Math.floor(array.length / parts);
+  let remainder = array.length % parts; 
 
   for (let i = 0; i < parts; i++) {
-    result.push(array.slice(i * partSize, (i + 1) * partSize));
+   
+    let extra = i < remainder ? 1 : 0;
+    result.push(
+      array.slice(
+        i * partSize + Math.min(i, remainder),
+        (i + 1) * partSize + extra
+      )
+    );
   }
 
   return result;
 }
+
 const NameList = ({}) => {
   const [namn, setNamn] = useState([""]);
   const textrutaRef = useRef(null);
@@ -25,6 +33,40 @@ const NameList = ({}) => {
     ]);
     textrutaRef.current.value = "";
   };
+  const namnILista =
+    namn &&
+    divideArray(
+      namn
+        .map((namn, index) => ({ namn: namn, orginalIndex: index }))
+        .sort((a, b) => a.namn.localeCompare(b.namn))
+        .slice(1)
+        .map((namnObj) => (
+          <div
+            key={namnObj.orginalIndex}
+            className="bg-white w-[200px] h-[40px] m-1 border flex flex-row justify-start items-center"
+          >
+            <div className="text-[20px] w-[90%]">
+              <div>{namnObj.namn}</div>
+            </div>
+
+            <div
+              style={{ color: "white", cursor: "pointer" }}
+              onClick={() => {
+                setNamn((prevNamn) => {
+                  const newNamn = [...prevNamn];
+                  newNamn.splice(namnObj.orginalIndex, 1);
+                  console.log(namnObj.orginalIndex);
+                  return newNamn;
+                });
+              }}
+              className="bg-red-600 aspect-square h-[100%] flex flex-row items-center justify-center text-white text-center"
+            >
+              p
+            </div>
+          </div>
+        )),
+      Math.floor(window.outerWidth / 320)
+    );
   const namnLista =
     namn &&
     divideArray(
@@ -33,7 +75,10 @@ const NameList = ({}) => {
         .sort((a, b) => a.namn.localeCompare(b.namn))
         .slice(1)
         .map((namnObj) => (
-          <div key={namnObj.orginalIndex} className="bg-white w-[200px] h-[40px] m-1 border flex flex-row justify-start items-center">
+          <div
+            key={namnObj.orginalIndex}
+            className="bg-white w-[200px] h-[40px] m-1 border flex flex-row justify-start items-center"
+          >
             <div className="text-[20px] w-[90%]">
               <div>{namnObj.namn}</div>
             </div>
@@ -100,7 +145,9 @@ etc...
           justifyContent: "center",
         }}
       >
-        {kolumner && namnLista.map((kolumn) => (<div>{kolumn}</div>))}
+        {namnILista.map((kolumn) => (
+          <div>{kolumn}</div>
+        ))}
       </div>
     </div>
   );
