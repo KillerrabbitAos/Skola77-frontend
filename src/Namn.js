@@ -122,13 +122,21 @@ const NameList = ({}) => {
         <div
           style={{
             position: "absolute",
-            top: "45vh",
-            left: "45vw",
-            width: "10vw",
-            height: "10vw",
+            top: "calc(50vh - 88px)",
+            left: "calc(50vw - 62.5px)",
+            listStyle: "none",
             backgroundColor: "white"
           }}
         >
+           <li
+                key={"nyKlass"}
+                className="font-bold text-xl p-2 cursor-pointer"
+                onClick={() => {
+                  setNamn([""]);
+                  setKlassnamn(null);
+                  setVisaLaddaKlassrum(false)
+                }}
+              >ny klass...</li>
           {data.klasser
             .slice()
             .reverse()
