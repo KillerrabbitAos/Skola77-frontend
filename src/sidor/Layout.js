@@ -58,6 +58,7 @@ const Layout = () => {
                 style={{
                   position: "absolute",
                   right: "5%",
+                  cursor: "pointer",
                   rotate: isDropdownOpen && "-90deg",
                   animationName: isDropdownOpen ? "snurrNer" : "snurrUpp",
                   animationDuration: "0.1s",
