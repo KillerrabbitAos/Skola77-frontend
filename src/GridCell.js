@@ -7,7 +7,9 @@ import debounce from "lodash.debounce";
 function adjustAndStoreFontSize(textElement, containerElement) {
   let vw = 1;
   let rem = 0.5;
-
+  if (textElement.value == 0){
+    return 10
+  }
   const applyFontSize = () => {
     textElement.style.fontSize = `calc(${vw}vw + ${rem}rem)`;
   };
@@ -338,7 +340,7 @@ const GridCell = ({
         return updatedFontSizeList;
       });
     }
-  }, [cell.person, columns, rows, klar, overNamn]);
+  }, [cell.person, columns, rows, klar, !overNamn.some((row) => row.includes(null))]);
 
   return (
     <div
