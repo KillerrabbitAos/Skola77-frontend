@@ -1,37 +1,35 @@
 import React, { useState, useEffect, useRef } from "react";
 import { data } from "./data";
-function divideArray(array, delar) {
-  const parts = delar < array.length ? delar : array.length;
-  let result = [];
-  let partSize = Math.floor(array.length / parts);
-  let remainder = array.length % parts;
+function divideArray(list, x) {
+  if (x <= 0) throw new Error("Number of parts must be greater than 0.");
+  const result = [];
+  const partSize = Math.floor(list.length / x);
+  let remainder = list.length % x;
+  let start = 0;
 
-  for (let i = 0; i < parts; i++) {
-    let extra = i < remainder ? 1 : 0;
-    result.push(
-      array.slice(
-        i * partSize + Math.min(i, remainder),
-        (i + 1) * partSize + extra
-      )
-    );
+  for (let i = 0; i < x; i++) {
+    const end = start + partSize + (remainder > 0 ? 1 : 0);
+    result.push(list.slice(start, end));
+    start = end;
+    if (remainder > 0) remainder--;
   }
 
   return result;
 }
 
-const NameList = ({}) => {
+const Klasser = ({}) => {
   const [namn, setNamn] = useState([""]);
   const textrutaRef = useRef(null);
   const [visaLaddaKlassrum, setVisaLaddaKlassrum] = useState(false);
   const [kolumner, setKolumner] = useState(10);
-  const [klassnamn, setKlassnamn] = useState(null)
+  const [klassnamn, setKlassnamn] = useState(null);
   const läggTillNamn = () => {
-    setNamn((prevNamn) => [
-      ...prevNamn,
-      ...textrutaRef.current.value
-        .split("\n")
-        .filter((namn) => namn.trim() !== ""),
-    ]);
+    const textareaContent = textrutaRef.current.value
+      .split("\n")
+      .map((name) => name.trim())
+      .filter(Boolean);
+
+    setNamn((prevNames) => [...prevNames, ...textareaContent]);
     textrutaRef.current.value = "";
   };
   const namnILista =
@@ -125,18 +123,20 @@ const NameList = ({}) => {
             top: "calc(50vh - 88px)",
             left: "calc(50vw - 62.5px)",
             listStyle: "none",
-            backgroundColor: "white"
+            backgroundColor: "white",
           }}
         >
-           <li
-                key={"nyKlass"}
-                className="font-bold text-xl p-2 cursor-pointer"
-                onClick={() => {
-                  setNamn([""]);
-                  setKlassnamn(null);
-                  setVisaLaddaKlassrum(false)
-                }}
-              >ny klass...</li>
+          <li
+            key={"nyKlass"}
+            className="font-bold text-xl p-2 cursor-pointer"
+            onClick={() => {
+              setNamn([""]);
+              setKlassnamn(null);
+              setVisaLaddaKlassrum(false);
+            }}
+          >
+            ny klass...
+          </li>
           {data.klasser
             .slice()
             .reverse()
@@ -147,7 +147,7 @@ const NameList = ({}) => {
                 onClick={() => {
                   setNamn(klass.personer);
                   setKlassnamn(klass.namn);
-                  setVisaLaddaKlassrum(false)
+                  setVisaLaddaKlassrum(false);
                 }}
               >
                 {klass.namn}
@@ -201,4 +201,4 @@ etc...
   );
 };
 
-export default NameList;
+export default Klasser;

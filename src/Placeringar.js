@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Klassrum from "./Klassrum";
 import { data } from "./data";
-import NameList from "./Namn";
+import NameList from "./Klasser";
 import "./Animationer.css";
 function divideArray(array, parts) {
   let result = [];

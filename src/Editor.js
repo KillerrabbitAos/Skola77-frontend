@@ -9,7 +9,7 @@ import "./App.css";
 import generateCombinedList from "./CombinedListGenerator.js";
 import ExcelToTextConverter from "./ExcelToTextConverter.js";
 import Grid from "./Grid.js";
-import NameList from "./Namn.js";
+import NameList from "./Klasser.js";
 
 import backImg from "./imgs/back.png";
 import doneImg from "./imgs/done.svg";
