@@ -1,6 +1,6 @@
 export const data = {
   klassrum: {
-    NP: {
+    "NP": {
       grid: [
         [
           {
@@ -1561,7 +1561,7 @@ export const data = {
       rows: 10,
     },
 
-    H221: {
+    "H221": {
       grid: [
         [
           { id: null, person: 0 },

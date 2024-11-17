@@ -20,9 +20,9 @@ const dividedLists = divideArray(myList, 3);
 console.log(dividedLists);
 
 const SkapaPlaceringar = () => {
-  const [grid, setGrid] = useState(data.klassrum[0].grid);
-  const [rows, setRows] = useState(data.klassrum[0].rows);
-  const [cols, setCols] = useState(data.klassrum[0].cols);
+  const [grid, setGrid] = useState(data.klassrum["H221"].grid);
+  const [rows, setRows] = useState(data.klassrum["H221"].rows);
+  const [cols, setCols] = useState(data.klassrum["H221"].cols);
   const [kolumner, setKolumner] = useState(3);
   const [frånvarande, setFrånvarande] = useState([]);
   const [klassnamn, setKlassnamn] = useState(null);
@@ -48,21 +48,24 @@ const SkapaPlaceringar = () => {
           <div className="w-52">
             <h2 className="text-xl font-bold">Klass</h2>
             <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
-              {data.klasser
+              {Object.keys(data.klasser)
                 .slice()
                 .reverse()
-                .map((klass) => (
-                  <li
-                    key={klass.namn}
-                    className="font-bold text-xl p-2 cursor-pointer"
-                    onClick={() => {
-                      setNamn(klass.personer);
-                      setKlassnamn(klass.namn);
-                    }}
-                  >
-                    {klass.namn}
-                  </li>
-                ))}
+                .map((klassKey) => {
+                  const klass = data.klasser[klassKey];
+                  return (
+                    <li
+                      key={klassKey}
+                      className="font-bold text-xl p-2 cursor-pointer"
+                      onClick={() => {
+                        setNamn(klass.personer);
+                        setKlassnamn(klassKey);
+                      }}
+                    >
+                      {klassKey}
+                    </li>
+                  );
+                })}
             </ul>
           </div>
         )}
@@ -75,20 +78,23 @@ const SkapaPlaceringar = () => {
           <div className="w-52">
             <h2 className="text-xl font-bold">Klassrum</h2>
             <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
-              {data.klassrum.map((klassrum, index) => (
-                <li
-                  key={klassrum.name || index}
-                  className="font-bold text-xl p-2 cursor-pointer"
-                  onClick={() => {
-                    setGrid(klassrum.grid);
-                    setRows(klassrum.rows);
-                    setCols(klassrum.cols);
-                    setKlassrumsnamn(klassrum.name);
-                  }}
-                >
-                  {klassrum.name}
-                </li>
-              ))}
+              {Object.keys(data.klassrum).map((klassrumKey, index) => {
+                const klassrum = data.klassrum[klassrumKey];
+                return (
+                  <li
+                    key={klassrumKey || index}
+                    className="font-bold text-xl p-2 cursor-pointer"
+                    onClick={() => {
+                      setGrid(klassrum.grid);
+                      setRows(klassrum.rows);
+                      setCols(klassrum.cols);
+                      setKlassrumsnamn(klassrumKey);
+                    }}
+                  >
+                    {klassrumKey}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         )}
@@ -127,7 +133,7 @@ const SkapaPlaceringar = () => {
             person = 0;
           }
         }
-        
+
         nyRad.push({
           id: plats.id,
           person,
@@ -227,7 +233,7 @@ const SkapaPlaceringar = () => {
             setKlar(!klar);
           }}
         >
-              {!klar ? "Klar" : "Fortsätt redigera"}
+          {!klar ? "Klar" : "Fortsätt redigera"}
         </button>
         <button
           style={{ padding: "20px" }}

@@ -150,32 +150,33 @@ const Klasser = ({}) => {
             ny klass...
           </li>
           {Object.keys(data.klasser)
-  .slice()
-  .reverse()
-  .map((klassKey) => {
-    const klass = data.klasser[klassKey]; 
-    return (
-      <li
-        key={klassKey}
-        className="font-bold text-xl p-2 cursor-pointer"
-        onClick={() => {
-          setNamn(klass.personer);
-          setKlassnamn(klassKey); 
-          setVisaLaddaKlassrum(false);
-        }}
-      >
-        {klassKey} 
-      </li>
-    );
-  })}
-
+            .slice()
+            .reverse()
+            .map((klassKey) => {
+              const klass = data.klasser[klassKey];
+              return (
+                <li
+                  key={klassKey}
+                  className="font-bold text-xl p-2 cursor-pointer"
+                  onClick={() => {
+                    setNamn(klass.personer);
+                    setKlassnamn(klassKey);
+                    setVisaLaddaKlassrum(false);
+                  }}
+                >
+                  {klassKey}
+                </li>
+              );
+            })}
         </div>
       )}
       <div className="flex">
         <div>
           <div
             className="bg-[#4CAF50] border h-[12.5vw] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center"
-            onClick={() => {console.log(data)}}
+            onClick={() => {
+              console.log(data);
+            }}
           >
             Spara
           </div>
