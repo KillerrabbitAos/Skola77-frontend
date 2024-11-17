@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { data } from "./data";
+import NamnRuta from "./Namn";
 function divideArray(list, x) {
   if (x <= 0) throw new Error("Number of parts must be greater than 0.");
   const result = [];
@@ -32,6 +33,13 @@ const Klasser = ({}) => {
     setNamn((prevNames) => [...prevNames, ...textareaContent]);
     textrutaRef.current.value = "";
   };
+  const updateName = (newName, index) => {
+    setNamn((prevNamn) => {
+      const updatedNamn = [...prevNamn];
+      updatedNamn[index] = newName; 
+      return updatedNamn;
+    });
+  };
   const namnILista =
     namn &&
     divideArray(
@@ -45,7 +53,11 @@ const Klasser = ({}) => {
             className="bg-white w-[200px]  h-[40px] m-1 border flex flex-row justify-start items-center"
           >
             <div className="text-[20px] ml-[1vw] overflow-x-scroll scrollbar-none w-[90%]">
-              <div>{namnObj.namn}</div>
+              <NamnRuta
+                namn={namnObj.namn}
+                setNamn={updateName} 
+                index={namnObj.orginalIndex} 
+              />
             </div>
 
             <div
