@@ -124,7 +124,7 @@ const Grid3 = () => {
             );
           }}
         >
-          ny klass...
+          nytt klassrum
         </li>
         {Object.keys(data.klassrum).map((klassrumKey, index) => {
           const klassrum = data.klassrum[klassrumKey];
