@@ -175,7 +175,11 @@ const Klasser = ({}) => {
           <div
             className="bg-[#4CAF50] border h-[12.5vw] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center"
             onClick={() => {
-              console.log(data);
+              let newData = data;
+              newData.klasser[
+                klassnamn ? klassnamn : prompt("Vad heter klassen?")
+              ] = { personer: namn };
+              console.log(newData);
             }}
           >
             Spara
