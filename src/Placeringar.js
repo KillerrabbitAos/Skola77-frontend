@@ -34,9 +34,27 @@ const SkapaPlaceringar = () => {
   const väljKLassOchKlassrum =
     klassrumsnamn && klassnamn ? (
       <div className="krnkn h-[30px] flex items-center justify-center">
-        <h2 className="text-xl text-center font-bold">
-          {klassnamn} i {klassrumsnamn}
-        </h2>
+        <div className="text-xl flex text-center font-bold">
+          <div
+            onClick={() => {
+              setNamn([""]);
+              setKlassnamn(null);
+            }}
+          >
+            {klassnamn}
+          </div>
+          <div className="mx-1">i</div>
+          <div
+            onClick={() => {
+              setGrid(data.klassrum["H221"].grid);
+              setRows(data.klassrum["H221"].rows);
+              setCols(data.klassrum["H221"].cols);
+              setKlassrumsnamn(null);
+            }}
+          >
+            {klassrumsnamn}
+          </div>
+        </div>
       </div>
     ) : (
       <div className="flex flex-wrap justify-center gap-4">
