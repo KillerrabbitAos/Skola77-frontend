@@ -38,6 +38,10 @@ const SkapaPlaceringar = () => {
           <div
             onClick={() => {
               setNamn([""]);
+              setGrid(
+                grid.map((rad) => rad.map(({ id }) => ({ id, person: 0 })))
+              );
+
               setKlassnamn(null);
             }}
           >
