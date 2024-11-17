@@ -7,8 +7,8 @@ import debounce from "lodash.debounce";
 function adjustAndStoreFontSize(textElement, containerElement) {
   let vw = 1;
   let rem = 0.5;
-  if (textElement.value == 0){
-    return 10
+  if (textElement.value == 0) {
+    return 10;
   }
   const applyFontSize = () => {
     textElement.style.fontSize = `calc(${vw}vw + ${rem}rem)`;
@@ -16,7 +16,10 @@ function adjustAndStoreFontSize(textElement, containerElement) {
 
   applyFontSize();
 
-  while (textElement.scrollWidth > containerElement.clientWidth || textElement.scrollHeight > containerElement.clientHeight) {
+  while (
+    textElement.scrollWidth > containerElement.clientWidth ||
+    textElement.scrollHeight > containerElement.clientHeight
+  ) {
     vw -= 0.1;
     rem -= 0.05;
 
@@ -84,7 +87,6 @@ const GridCell = ({
         border: "1px solid black",
         zIndex: "200",
         overflowY: "scroll",
-
 
         listStyleType: "none",
       }}
@@ -246,9 +248,9 @@ const GridCell = ({
   const buttons = !klar ? (
     <div className="buttons">
       <button
-        className={`removeButton rounded-[17%] rounded-tr-none ${!omvänd ? "!" : ""}rounded-${
-          omvänd ? "tl" : "bl"
-        }-none rounded-br-none`}
+        className={`removeButton rounded-[17%] rounded-tr-none ${
+          !omvänd ? "!" : ""
+        }rounded-${omvänd ? "tl" : "bl"}-none rounded-br-none`}
         onMouseDown={musenNer}
         onMouseUp={musenUpp}
       >
@@ -295,52 +297,61 @@ const GridCell = ({
     </div>
   ) : (
     <div
-      className={`h-1/2 bg-gray-400 rounded-[17%] ${!omvänd ? "!" : ""}rounded-${
-        omvänd ? "tl" : "bl"
-      }-none rounded-${omvänd ? "tr" : "br"}-none`}
+      className={`h-1/2 bg-gray-400 rounded-[17%] ${
+        !omvänd ? "!" : ""
+      }rounded-${omvänd ? "tl" : "bl"}-none rounded-${
+        omvänd ? "tr" : "br"
+      }-none`}
     ></div>
   );
   useEffect(() => {
-    if (låstaBänkar.includes(cell.id)) {
-      setLåstaBänkar(
-        låstaBänkar.filter((sak) => sak !== cell.id && sak !== cell.person)
-      );
-      setLåstaBänkar(
-        cell.person
-          ? [...låstaBänkar, cell.id, cell.person]
-          : [...låstaBänkar, cell.id]
-      );
-    }
-    const text =
-      dragging && previewRef.current
-        ? previewRef.current
-        : textRef.current
-        ? textRef.current
-        : null;
-    const div =
-      dragging && previewDivRef.current
-        ? previewDivRef.current
-        : divRef.current
-        ? divRef.current
-        : null;
-
-    if (text && div) {
-      const newFontSize = adjustAndStoreFontSize(text, div);
-
-      setFontSize((prevFontSize) => {
-        const existing = prevFontSize.find((f) => f.id === names[cell.person]);
-        if (existing && existing.size === newFontSize) {
-          return prevFontSize;
-        }
-
-        const updatedFontSizeList = prevFontSize.filter(
-          (f) => f.id !== names[cell.person]
+    if (cell.person !== 0) {
+      if (låstaBänkar.includes(cell.id)) {
+        setLåstaBänkar(
+          låstaBänkar.filter((sak) => sak !== cell.id && sak !== cell.person)
         );
-        updatedFontSizeList.push({ id: names[cell.person], size: newFontSize });
-        return updatedFontSizeList;
-      });
+        setLåstaBänkar(
+          cell.person
+            ? [...låstaBänkar, cell.id, cell.person]
+            : [...låstaBänkar, cell.id]
+        );
+      }
+      const text =
+        dragging && previewRef.current
+          ? previewRef.current
+          : textRef.current
+          ? textRef.current
+          : null;
+      const div =
+        dragging && previewDivRef.current
+          ? previewDivRef.current
+          : divRef.current
+          ? divRef.current
+          : null;
+
+      if (text && div) {
+        const newFontSize = adjustAndStoreFontSize(text, div);
+
+        setFontSize((prevFontSize) => {
+          const existing = prevFontSize.find(
+            (f) => f.id === names[cell.person]
+          );
+          if (existing && existing.size === newFontSize) {
+            return prevFontSize;
+          }
+
+          const updatedFontSizeList = prevFontSize.filter(
+            (f) => f.id !== names[cell.person]
+          );
+          updatedFontSizeList.push({
+            id: names[cell.person],
+            size: newFontSize,
+          });
+          return updatedFontSizeList;
+        });
+      }
     }
-  }, [cell.person, columns, rows, klar, !overNamn.some((row) => row.includes(null))]);
+  }, [cell.person, columns, rows, klar, overNamn]);
 
   return (
     <div
@@ -377,7 +388,13 @@ const GridCell = ({
                 )}px`,
               }}
             >
-              <div style={{ textAlign: "center"}} className="justify-center flex-row flex items-center" ref={previewRef}>{overNamn}</div>
+              <div
+                style={{ textAlign: "center" }}
+                className="justify-center flex-row flex items-center"
+                ref={previewRef}
+              >
+                {overNamn}
+              </div>
             </div>
             {omvänd && buttons}
           </div>
@@ -400,7 +417,11 @@ const GridCell = ({
               display: "grid",
             }}
           >
-            <div style={{ textAlign: "center"}} className="justify-center flex-row flex items-center" ref={textRef}>
+            <div
+              style={{ textAlign: "center" }}
+              className="justify-center flex-row flex items-center"
+              ref={textRef}
+            >
               {names[cell.person]}
             </div>
           </div>
