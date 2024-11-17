@@ -44,7 +44,7 @@ const Klasser = ({}) => {
             key={namnObj.orginalIndex}
             className="bg-white w-[200px]  h-[40px] m-1 border flex flex-row justify-start items-center"
           >
-            <div className="text-[20px] ml-[1vw] overflow-x-scroll w-[90%]">
+            <div className="text-[20px] ml-[1vw] overflow-x-scroll scrollbar-none w-[90%]">
               <div>{namnObj.namn}</div>
             </div>
 
