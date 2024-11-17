@@ -8,6 +8,7 @@ const Grid3 = () => {
   const [rows, setRows] = useState(data.klassrum["H221"].rows);
   const [cols, setCols] = useState(data.klassrum["H221"].cols);
   const [grid, setGrid] = useState(data.klassrum["H221"].grid);
+  const [klassrumsnamn, setKlassrumsNamn] = useState(null)
   const [låstaBänkar, setLåstaBänkar] = useState([]);
   const [gridData, setGridData] = useState("");
   const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -47,9 +48,11 @@ const Grid3 = () => {
   };
 
   const spara = () => {
-    const dataToSave = JSON.stringify({ grid: grid, cols: cols, rows: rows });
-    setGridData(dataToSave);
-    console.log("griddata: " + dataToSave);
+    let newData = data;
+    newData.klassrum[klassrumsnamn ? klassrumsnamn : prompt("Vad heter klassrummet?")] = {
+      rows: rows, cols: cols, grid: grid
+    };
+    console.log(newData);
   };
 
   return (
@@ -113,6 +116,7 @@ const Grid3 = () => {
         <li
           className="font-bold text-xl p-2 cursor-pointer"
           onClick={() => {
+            setKlassrumsNamn(null)
             setGrid(
               Array.from({ length: rows }, () =>
                 Array.from({ length: cols }, () => ({ id: null, person: 0 }))
@@ -132,6 +136,7 @@ const Grid3 = () => {
                 setGrid(klassrum.grid);
                 setRows(klassrum.rows);
                 setCols(klassrum.cols);
+                setKlassrumsNamn(klassrumKey)
               }}
             >
               {klassrumKey}
