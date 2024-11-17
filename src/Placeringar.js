@@ -158,7 +158,7 @@ const SkapaPlaceringar = () => {
             className="text-lg border-solid m-[5px] border-[3px] w-[315px] h-[50px]"
           >
             <div className="flex justify-between items-center w-full">
-              <div>{namnObj.namn}</div>
+              <div className="truncate">{namnObj.namn}</div>
               <div>
                 {frånvarande.includes(namnObj.orginalIndex) ? (
                   <div
