@@ -64,7 +64,17 @@ const SkapaPlaceringar = () => {
       <div className="flex flex-wrap justify-center gap-4">
         {klassnamn ? (
           <div className="flex justify-center items-center">
-            <h2 className="text-xl font-bold">{`${klassnamn} i`}</h2>
+            <h2
+              onClick={() => {
+                setNamn([""]);
+                setGrid(
+                  grid.map((rad) => rad.map(({ id }) => ({ id, person: 0 })))
+                );
+
+                setKlassnamn(null);
+              }}
+              className="text-xl font-bold"
+            >{`${klassnamn} i`}</h2>
           </div>
         ) : (
           <div className="w-52">
@@ -94,7 +104,15 @@ const SkapaPlaceringar = () => {
 
         {klassrumsnamn ? (
           <div className="flex justify-center items-center">
-            <h2 className="text-xl font-bold">{`i ${klassrumsnamn}`}</h2>
+            <h2
+              onClick={() => {
+                setGrid(data.klassrum["H221"].grid);
+                setRows(data.klassrum["H221"].rows);
+                setCols(data.klassrum["H221"].cols);
+                setKlassrumsnamn(null);
+              }}
+              className="text-xl font-bold"
+            >{`i ${klassrumsnamn}`}</h2>
           </div>
         ) : (
           <div className="w-52">
