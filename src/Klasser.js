@@ -52,7 +52,7 @@ const Klasser = ({}) => {
             key={namnObj.orginalIndex}
             className="bg-white w-[200px]  h-[40px] m-1 border flex flex-row justify-start items-center"
           >
-            <div className="text-[20px] ml-[1vw] overflow-x-hidden w-[90%]">
+            <div className="text-[20px] ml-[1vw] overflow-visible w-[90%]">
               <NamnRuta
                 namn={namnObj.namn}
                 setNamn={updateName} 
