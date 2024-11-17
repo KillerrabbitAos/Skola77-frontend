@@ -36,7 +36,7 @@ const Klasser = ({}) => {
   const updateName = (newName, index) => {
     setNamn((prevNamn) => {
       const updatedNamn = [...prevNamn];
-      updatedNamn[index] = newName; 
+      updatedNamn[index] = newName;
       return updatedNamn;
     });
   };
@@ -55,8 +55,8 @@ const Klasser = ({}) => {
             <div className="text-[20px] ml-[1vw] overflow-visible w-[90%]">
               <NamnRuta
                 namn={namnObj.namn}
-                setNamn={updateName} 
-                index={namnObj.orginalIndex} 
+                setNamn={updateName}
+                index={namnObj.orginalIndex}
               />
             </div>
 
@@ -149,27 +149,34 @@ const Klasser = ({}) => {
           >
             ny klass...
           </li>
-          {data.klasser
-            .slice()
-            .reverse()
-            .map((klass) => (
-              <li
-                key={klass.namn}
-                className="font-bold text-xl p-2 cursor-pointer"
-                onClick={() => {
-                  setNamn(klass.personer);
-                  setKlassnamn(klass.namn);
-                  setVisaLaddaKlassrum(false);
-                }}
-              >
-                {klass.namn}
-              </li>
-            ))}
+          {Object.keys(data.klasser)
+  .slice()
+  .reverse()
+  .map((klassKey) => {
+    const klass = data.klasser[klassKey]; 
+    return (
+      <li
+        key={klassKey}
+        className="font-bold text-xl p-2 cursor-pointer"
+        onClick={() => {
+          setNamn(klass.personer);
+          setKlassnamn(klassKey); 
+          setVisaLaddaKlassrum(false);
+        }}
+      >
+        {klassKey} 
+      </li>
+    );
+  })}
+
         </div>
       )}
       <div className="flex">
         <div>
-          <div className="bg-[#4CAF50] border h-[12.5vw] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center">
+          <div
+            className="bg-[#4CAF50] border h-[12.5vw] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center"
+            onClick={() => {console.log(data)}}
+          >
             Spara
           </div>
           <div

@@ -1,7 +1,6 @@
 export const data = {
-  klassrum: [
-    {
-      name: "NP i par",
+  klassrum: {
+    NP: {
       grid: [
         [
           {
@@ -1561,8 +1560,8 @@ export const data = {
       cols: 10,
       rows: 10,
     },
-    {
-      name: "H221",
+
+    H221: {
       grid: [
         [
           { id: null, person: 0 },
@@ -1570,23 +1569,14 @@ export const data = {
           { id: null, person: 0 },
           { id: null, person: 0 },
           { id: null, person: 0 },
-          { id: "item-1728395558391", person: 0},
-          { id: "item-1728395558639", person: 0},
+          { id: "item-1728395558391", person: 0 },
+          { id: "item-1728395558639", person: 0 },
         ],
         [
           { id: null, person: 0 },
           { id: null, person: 0 },
           { id: null, person: 0 },
-          { id: "item-1728395560144", person: 0},
-          { id: null, person: 0 },
-          { id: null, person: 0 },
-          { id: null, person: 0 },
-        ],
-        [
-          { id: null, person: 0 },
-          { id: null, person: 0 },
-          { id: "item-1728395557488", person: 0},
-          { id: null, person: 0 },
+          { id: "item-1728395560144", person: 0 },
           { id: null, person: 0 },
           { id: null, person: 0 },
           { id: null, person: 0 },
@@ -1594,6 +1584,15 @@ export const data = {
         [
           { id: null, person: 0 },
           { id: null, person: 0 },
+          { id: "item-1728395557488", person: 0 },
+          { id: null, person: 0 },
+          { id: null, person: 0 },
+          { id: null, person: 0 },
+          { id: null, person: 0 },
+        ],
+        [
+          { id: null, person: 0 },
+          { id: null, person: 0 },
           { id: null, person: 0 },
           { id: null, person: 0 },
           { id: null, person: 0 },
@@ -1601,18 +1600,18 @@ export const data = {
           { id: null, person: 0 },
         ],
         [
-          { id: "item-1728395563304", person: 0},
-          { id: "item-1728395562912", person: 0},
-          { id: "item-1728395557831", person: 0},
+          { id: "item-1728395563304", person: 0 },
+          { id: "item-1728395562912", person: 0 },
+          { id: "item-1728395557831", person: 0 },
           { id: null, person: 0 },
           { id: null, person: 0 },
-          { id: "item-1728395562504", person: 0},
-          { id: "item-1728395559832", person: 0},
+          { id: "item-1728395562504", person: 0 },
+          { id: "item-1728395559832", person: 0 },
         ],
         [
           { id: null, person: 0 },
-          { id: "item-1728395561288", person: 0},
-          { id: "item-1728395560888", person: 0},
+          { id: "item-1728395561288", person: 0 },
+          { id: "item-1728395560888", person: 0 },
           { id: null, person: 0 },
           { id: null, person: 0 },
           { id: null, person: 0 },
@@ -1622,10 +1621,9 @@ export const data = {
       cols: 7,
       rows: 6,
     },
-  ],
-  klasser: [
-    {
-      namn: "peters klass",
+  },
+  klasser: {
+    "peters klass": {
       personer: [
         "",
         "Alexander",
@@ -1758,8 +1756,7 @@ export const data = {
         "Ceasar",
       ],
     },
-    {
-      namn: "6C",
+    "6C": {
       personer: [
         "",
         "Ada",
@@ -1787,11 +1784,9 @@ export const data = {
         "Hugo",
         "",
         "Karl",
-        
       ],
     },
-    {
-      namn: "7G",
+    "7G": {
       personer: [
         "",
         "henry",
@@ -1804,5 +1799,5 @@ export const data = {
         "Prodromosappapap",
       ],
     },
-  ],
+  },
 };
