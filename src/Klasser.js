@@ -176,10 +176,12 @@ const Klasser = ({}) => {
             className="bg-[#4CAF50] border h-[12.5vw] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center"
             onClick={() => {
               let newData = data;
+              const index = klassnamn ? klassnamn : prompt("Vad heter klassen?")
               newData.klasser[
-                klassnamn ? klassnamn : prompt("Vad heter klassen?")
+                index
               ] = { personer: namn };
               console.log(newData);
+              setKlassnamn(index)
             }}
           >
             Spara
@@ -210,6 +212,7 @@ etc...
           Lägg till
         </div>
       </div>
+      <div className="text-4xl text-center m-3">{klassnamn}</div>
       <div
         className="m-auto"
         style={{
