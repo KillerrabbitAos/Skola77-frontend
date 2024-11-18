@@ -3,13 +3,8 @@ body{
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
 }
-.grid {
-  display: grid;
-  margin: auto;
-  width: fit-content;
-  gap: 5px; /* Space between cells */
-  z-index: -7;
-}
+
+
 
 
 .grid-cell {
@@ -30,12 +25,7 @@ body{
   justify-content: center; /* Center children horizontally */
   background-color: lightblue; /* Background color when filled */
 }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 100px); /* Adjust according to your desired cell size */
-  grid-template-rows: repeat(auto-fill, 100px); /* Same as above */
-  gap: 0; /* Ensure no gap between cells */
-}
+
 
 .grid-cell {
   border: 1px solid black; /* This is optional if you want borders around cells */

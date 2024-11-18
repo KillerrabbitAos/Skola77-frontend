@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { data } from "./data";
 import NamnRuta from "./Namn";
+import ExcelToTextConverter from "./ExcelToTextConverter";
+
 function divideArray(list, x) {
   if (x <= 0) throw new Error("Number of parts must be greater than 0.");
   const result = [];
@@ -24,6 +26,7 @@ const Klasser = ({}) => {
   const [visaLaddaKlassrum, setVisaLaddaKlassrum] = useState(false);
   const [kolumner, setKolumner] = useState(10);
   const [klassnamn, setKlassnamn] = useState(null);
+  const filRef = useRef(null);
   const läggTillNamn = () => {
     const textareaContent = textrutaRef.current.value
       .split("\n")
@@ -128,6 +131,7 @@ const Klasser = ({}) => {
 
   return (
     <div>
+      <ExcelToTextConverter ref={filRef} names={namn} setNames={setNamn}/>
       {visaLaddaKlassrum && (
         <div
           style={{
@@ -176,12 +180,12 @@ const Klasser = ({}) => {
             className="bg-[#4CAF50] border h-[12.5vw] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center"
             onClick={() => {
               let newData = data;
-              const index = klassnamn ? klassnamn : prompt("Vad heter klassen?")
-              newData.klasser[
-                index
-              ] = { personer: namn };
+              const index = klassnamn
+                ? klassnamn
+                : prompt("Vad heter klassen?");
+              newData.klasser[index] = { personer: namn };
               console.log(newData);
-              setKlassnamn(index)
+              setKlassnamn(index);
             }}
           >
             Spara
@@ -212,7 +216,19 @@ etc...
           Lägg till
         </div>
       </div>
-      <div className="text-4xl text-center m-3">{klassnamn}</div>
+      <div className="grid grid-cols-3 w-full">
+        <div
+          className="text-center items-center flex cursor-pointer justify-center text-white text-[1.5vw] rounded-[4px] font-semibold border bg-[#af4cab]"
+          onClick={() => {filRef.current.click()}}
+        >
+          importera namn från kalkylark
+        </div>
+        <div className="text-center rounded-[4px] cursor-pointer items-center flex justify-center text-white text-[1.5vw] font-semibold border bg-[#af4cab]">
+          ta bort efternamn
+        </div>
+
+        <div className="text-4xl text-center m-3">{klassnamn}</div>
+      </div>
       <div
         className="m-auto"
         style={{

@@ -1,8 +1,8 @@
 import React from "react";
 import * as XLSX from "xlsx";
-import './styles.css'
+import "./styles.css";
 
-const ExcelToTextConverter = ({ setNames, names }) => {
+const ExcelToTextConverter = React.forwardRef(({ setNames, names }, filRef) => {
   const convertExcelToText = async (file) => {
     try {
       const fileReader = new FileReader();
@@ -59,14 +59,13 @@ const ExcelToTextConverter = ({ setNames, names }) => {
   };
 
   return (
-    <div class="file-input-container">
-  <label for="file-upload" class="custom-file-upload">
-    Importera namn från ett kalkylark
-  </label>
-  <input id="file-upload" type="file" onChange={handleFileChange}/>
-</div>
-
+    <input
+      ref={filRef}
+      id="file-upload"
+      type="file"
+      onChange={handleFileChange}
+    />
   );
-};
+});
 
 export default ExcelToTextConverter;
