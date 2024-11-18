@@ -148,7 +148,9 @@ const Klasser = ({}) => {
             className="font-bold text-xl p-2 cursor-pointer"
             onClick={() => {
               setNamn([""]);
-              setKlassnamn(prompt("Vad ska din nya klass heta?"));
+              const nyttNamn = prompt("Vad ska din nya klass heta?");
+              setKlassnamn(nyttNamn);
+              setKlassnamntext(nyttNamn);
               setVisaLaddaKlassrum(false);
             }}
           >
@@ -195,7 +197,7 @@ const Klasser = ({}) => {
               newData.klasser[index] = { personer: namn };
               console.log(newData);
               setKlassnamn(index);
-              setKlassnamntext(index)
+              setKlassnamntext(index);
             }}
           >
             Spara
