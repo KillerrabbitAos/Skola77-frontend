@@ -185,12 +185,17 @@ const Klasser = ({}) => {
               let index = klassnamn
                 ? klassnamntext
                 : prompt("Vad heter klassen?");
-              if (klassnamn !== klassnamntext && newData.klasser[index]) {
-                index = index + " 1";
+              if (klassnamn !== klassnamntext) {
+                while (newData.klasser[index]) {
+                  index = prompt(
+                    "Du har redan lagt in en klass som heter så. Skriv ett namn som skiljer sig åt."
+                  );
+                }
               }
               newData.klasser[index] = { personer: namn };
               console.log(newData);
               setKlassnamn(index);
+              setKlassnamntext(index)
             }}
           >
             Spara
