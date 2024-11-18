@@ -25,7 +25,7 @@ const ExcelToTextConverter = React.forwardRef(({ setNames, names }, filRef) => {
           });
 
           const newNames = textData.filter((text) => text !== undefined);
-          const combinedNames = names.concat(newNames);
+          const combinedNames = names.concat(newNames).filter(namn => namn && namn !== "");
           const prevNames = names;
           setNames([...prevNames, ...combinedNames]);
         } catch (error) {

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const NamnRuta = ({ namn, setNamn, index }) => {
+const NamnRuta = ({ namn, setNamn, index, allaNamn }) => {
   const [currentName, setCurrentName] = useState(namn);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -16,7 +16,7 @@ const NamnRuta = ({ namn, setNamn, index }) => {
   const handleChange = (event) => {
     setCurrentName(event.target.value);
   };
-
+  useEffect(() => {setCurrentName(allaNamn[index])}, [allaNamn]);
   return (
     <input
       value={currentName}
@@ -24,11 +24,11 @@ const NamnRuta = ({ namn, setNamn, index }) => {
       onBlur={handleBlur}
       onFocus={handleFocus}
       className={`text-[20px] ml-[1vw] w-[90%] ${
-        !isFocused ? "truncate" : "w-full" 
+        !isFocused ? "truncate" : "w-full"
       }`}
       style={{
-        transition: "width 0.3s ease", 
-        zIndex: "200", 
+        transition: "width 0.3s ease",
+        zIndex: "200",
       }}
     />
   );

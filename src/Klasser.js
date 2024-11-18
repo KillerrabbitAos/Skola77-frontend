@@ -59,6 +59,7 @@ const Klasser = ({}) => {
             <div className="text-[20px] ml-[1vw] overflow-visible w-[90%]">
               <NamnRuta
                 namn={namnObj.namn}
+                allaNamn={namn}
                 setNamn={updateName}
                 index={namnObj.orginalIndex}
               />
