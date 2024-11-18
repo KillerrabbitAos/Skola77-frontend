@@ -27,6 +27,7 @@ const Klasser = ({}) => {
   const [kolumner, setKolumner] = useState(10);
   const [klassnamn, setKlassnamn] = useState(null);
   const [klassnamntext, setKlassnamntext] = useState("klass utan namn");
+  const [efternamnStårFörst, setEfternamnStarForst] = useState(true);
   const filRef = useRef(null);
   const läggTillNamn = () => {
     const textareaContent = textrutaRef.current.value
@@ -43,6 +44,31 @@ const Klasser = ({}) => {
       updatedNamn[index] = newName;
       return updatedNamn;
     });
+  };
+  const taBortEfternamn = () => {
+    if (efternamnStårFörst) {
+      setNamn((förraNamn) =>
+        förraNamn.map((namn) => {
+          const uppdeladeNamn = namn.split(" ").slice(-1);
+          return uppdeladeNamn.length < 2
+            ? namn
+            : uppdeladeNamn[1].length !== 1
+            ? uppdeladeNamn[1].length
+            : uppdeladeNamn[0];
+        })
+      );
+    } else {
+      setNamn((förraNamn) =>
+        förraNamn.map((namn) => {
+          const uppdeladeNamn = namn.split(" ");
+          return uppdeladeNamn.length < 2
+            ? namn
+            : uppdeladeNamn[1].length !== 1
+            ? uppdeladeNamn[1].length
+            : uppdeladeNamn[0];
+        })
+      );
+    }
   };
   const namnILista =
     namn &&
@@ -238,7 +264,10 @@ etc...
         >
           importera namn från kalkylark
         </div>
-        <div className="text-center rounded-[4px] cursor-pointer items-center flex justify-center text-white text-[2vw] font-semibold border bg-[#af4cab]">
+        <div
+          className="text-center rounded-[4px] cursor-pointer items-center flex justify-center text-white text-[2vw] font-semibold border bg-[#af4cab]"
+          onClick={taBortEfternamn}
+        >
           ta bort efternamn
         </div>
 
