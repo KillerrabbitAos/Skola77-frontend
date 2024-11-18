@@ -154,7 +154,7 @@ const Klassrum = ({
         </div>
 
         <div
-          className="grid"
+          className="w-fit m-auto"
           ref={gridRef}
           style={{
             display: "grid",
