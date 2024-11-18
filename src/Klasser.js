@@ -244,7 +244,7 @@ etc...
         <div className="text-4xl text-center m-3">
           {
             <input
-              className="text-4xl w-fit bg-inherit text-center m-3"
+              className="text-4xl w-full bg-inherit text-center m-3"
               onChange={(e) => {
                 setKlassnamntext(e.target.value);
               }}
