@@ -26,6 +26,7 @@ const Klasser = ({}) => {
   const [visaLaddaKlassrum, setVisaLaddaKlassrum] = useState(false);
   const [kolumner, setKolumner] = useState(10);
   const [klassnamn, setKlassnamn] = useState(null);
+  const [klassnamntext, setKlassnamntext] = useState("klass utan namn");
   const filRef = useRef(null);
   const läggTillNamn = () => {
     const textareaContent = textrutaRef.current.value
@@ -131,7 +132,7 @@ const Klasser = ({}) => {
 
   return (
     <div>
-      <ExcelToTextConverter ref={filRef} names={namn} setNames={setNamn}/>
+      <ExcelToTextConverter ref={filRef} names={namn} setNames={setNamn} />
       {visaLaddaKlassrum && (
         <div
           style={{
@@ -147,7 +148,7 @@ const Klasser = ({}) => {
             className="font-bold text-xl p-2 cursor-pointer"
             onClick={() => {
               setNamn([""]);
-              setKlassnamn(null);
+              setKlassnamn(prompt("Vad ska din nya klass heta?"));
               setVisaLaddaKlassrum(false);
             }}
           >
@@ -165,6 +166,7 @@ const Klasser = ({}) => {
                   onClick={() => {
                     setNamn(klass.personer);
                     setKlassnamn(klassKey);
+                    setKlassnamntext(klassKey);
                     setVisaLaddaKlassrum(false);
                   }}
                 >
@@ -180,9 +182,12 @@ const Klasser = ({}) => {
             className="bg-[#4CAF50] border h-[12.5vw] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center"
             onClick={() => {
               let newData = data;
-              const index = klassnamn
-                ? klassnamn
+              let index = klassnamn
+                ? klassnamntext
                 : prompt("Vad heter klassen?");
+              if (klassnamn !== klassnamntext && newData.klasser[index]) {
+                index = index + " 1";
+              }
               newData.klasser[index] = { personer: namn };
               console.log(newData);
               setKlassnamn(index);
@@ -219,7 +224,9 @@ etc...
       <div className="grid grid-cols-3 w-full">
         <div
           className="text-center items-center flex cursor-pointer justify-center text-white text-[1.5vw] rounded-[4px] font-semibold border bg-[#af4cab]"
-          onClick={() => {filRef.current.click()}}
+          onClick={() => {
+            filRef.current.click();
+          }}
         >
           importera namn från kalkylark
         </div>
@@ -227,7 +234,17 @@ etc...
           ta bort efternamn
         </div>
 
-        <div className="text-4xl text-center m-3">{klassnamn}</div>
+        <div className="text-4xl text-center m-3">
+          {
+            <input
+              className="text-4xl w-fit bg-inherit text-center m-3"
+              onChange={(e) => {
+                setKlassnamntext(e.target.value);
+              }}
+              value={klassnamntext}
+            />
+          }
+        </div>
       </div>
       <div
         className="m-auto"
