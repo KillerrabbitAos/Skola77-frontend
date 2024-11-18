@@ -87,7 +87,6 @@ label {
 
 .gridInstallning {
   display: inline;
-
 }
 
 #namesInput {
@@ -113,7 +112,6 @@ label {
   font-size: 75%;
 }
 
-
 li button {
   width: 100px;
 }
@@ -125,8 +123,6 @@ li button {
 #mailTag {
   color: black;
 }
-
-
 
 #sparaSettings {
   display: flex;
@@ -151,7 +147,17 @@ li button {
   margin-top: 30px;
 }
 
-button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass, #sparaSomNy, #sparaNamnSomNy, #raderaNamnKlass, .papperskorg, #sparaNamnKnapp {
+button,
+#redigeringsKnapp,
+#pdfKnapp,
+#ökaStorlek,
+#minskaStorlek,
+#raderaKlass,
+#sparaSomNy,
+#sparaNamnSomNy,
+#raderaNamnKlass,
+.papperskorg,
+#sparaNamnKnapp {
   color: white;
   background-color: rgb(56, 180, 56);
   border-style: none;
@@ -162,7 +168,8 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
   width: 130px;
   cursor: pointer;
 }
-#ökaStorlek, #minskaStorlek{
+#ökaStorlek,
+#minskaStorlek {
   margin-top: 0px;
 }
 @keyframes allaKnappar {
@@ -202,8 +209,6 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
     }
   }
 }
-
-
 
 #slumpaKnappen {
   background-image: url(./imgs/random.png);
@@ -255,16 +260,16 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
   height: 60px;
 }
 
-#pdfInfo{
+#pdfInfo {
   font-weight: bold;
 }
 
-#pdfKnapp:disabled{
+#pdfKnapp:disabled {
   background-color: gray;
   color: cyan;
 }
 
-#pdfKnapp:disabled:hover{
+#pdfKnapp:disabled:hover {
   animation-name: none;
 }
 
@@ -291,67 +296,6 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
   background-color: white;
 }
 
-@media print {
-  body * {
-    visibility: hidden;
-  }
-  #gridPdfSak * {
-    visibility: visible;
-    background-color: white;
-  }
-  #kebabWrap * {
-    visibility: hidden;
-    background-color: white;
-  }
-  .box.filled {
-    visibility: visible !important;
-    background-color: gray !important;
-  }
-  #gridPdfSak {
-    position: absolute;
-    left: 0;
-    top: 0;
-    transform: translateY(0%);
-    width: 100%;
-    max-width: 210mm;
-    height: auto;
-    margin: 0mm auto;
-    box-shadow: none;
-  }
-  #grid {
-    zoom: 0.8;
-    background-color: white;
-  }
-  #placeringsTitel {
-    visibility: visible !important;
-  }
-
-  .papperskorg,
-  .låsKnappBox {
-    display: none !important;
-  }
-
-  #namn {
-    display: none;
-  }
-
-  .gridSize {
-    display: none;
-  }
-
-  .namnFält{
-    display: none;
-  }
-  .gridInstallning{
-    display: none;
-  }
-  
-  .infoDiven{
-    display: none;
-  }
-
-}
-
 .namnILista {
   width: 200px;
 
@@ -371,12 +315,11 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
     font-weight: bolder;
     color: black;
     background-color: transparent;
-    border-style:none;
+    border-style: none;
     width: 90px;
     overflow: scroll;
     text-align: center;
     font-size: medium;
-
   }
   button {
     padding: 0%;
@@ -400,13 +343,11 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
     font-weight: bolder;
     color: grey;
     background-color: transparent;
-    border-style:none;
+    border-style: none;
     width: 90px;
     overflow: scroll;
     text-align: center;
     font-size: medium;
-
-    
   }
   button {
     padding: 0%;
@@ -429,9 +370,8 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
   height: auto;
 }
 
-#namn ul{
+#namn ul {
   list-style-type: none;
-
 }
 
 .låsKnappBox {
@@ -493,13 +433,11 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-
 #ökaStorlek {
   background-image: url(imgs/pluss.svg);
   background-repeat: no-repeat;
   background-position: center;
   height: 60px;
-  
 }
 
 #minskaStorlek {
@@ -507,26 +445,21 @@ button, #redigeringsKnapp, #pdfKnapp, #ökaStorlek, #minskaStorlek, #raderaKlass
   background-repeat: no-repeat;
   background-position: center;
   height: 60px;
-
 }
 
 #minskaDiv {
   float: left;
   overflow: hidden;
-
 }
 #höjaDiv {
   float: right;
   overflow: hidden;
-
-
 }
 .storlekDiv {
   position: relative;
   width: 150px;
   display: block;
   position: relative;
-
 }
 .storkleksÄndring {
   width: 300px;
@@ -591,13 +524,13 @@ a .minskaStorlekDiv {
   position: relative;
   float: left;
   background-color: rgb(56, 180, 56);
-  border-radius: 1; 
+  border-radius: 1;
 }
 
 #sparaNamnKnapp2 {
   padding: 1px;
   height: 37px;
-  
+
   margin: 0px;
   position: relative;
   float: left;
@@ -605,8 +538,6 @@ a .minskaStorlekDiv {
   border-radius: 1;
   width: 70px;
   margin-left: 10px;
-
-
 }
 #kebabWrap {
   display: flex;
@@ -645,10 +576,9 @@ a .minskaStorlekDiv {
   margin: 0px;
   position: relative;
   float: left;
-  background-color: rgb(56, 180, 56);;
+  background-color: rgb(56, 180, 56);
   border-radius: 1;
   margin-left: 5px;
-
 }
 
 .schackPjäs svg {
@@ -665,7 +595,6 @@ a .minskaStorlekDiv {
   top: 10px;
 }
 
-
 #backupButton {
   text-align: center;
   width: 100%;
@@ -674,17 +603,15 @@ a .minskaStorlekDiv {
   font-weight: bolder;
 }
 
-
-
 #div2 {
   width: 170px;
- display: block; 
+  display: block;
 }
 
 #sparaGridContainer {
   display: contents;
 }
-#backupDiv{
+#backupDiv {
   width: 180px;
   background-color: rgb(194, 249, 194);
   padding: 10px;
@@ -696,35 +623,32 @@ a .minskaStorlekDiv {
   margin: 10px;
 }
 
-#sparaNamnSettings{
+#sparaNamnSettings {
   margin-bottom: 10px;
 }
-#ovanförGrid{
+#ovanförGrid {
   display: inline;
   width: 100%;
   margin-bottom: 40px;
 }
 
-
 .infoDiven {
   min-height: 75px;
 }
 
-
-#pdfDiv{
+#pdfDiv {
   width: 170px;
   margin: auto;
 }
 
-#rader{
+#rader {
   width: 60px;
   height: 54px;
   font-size: 20px;
   margin-right: 40px;
 }
 
-
-#kolumner{
+#kolumner {
   width: 60px;
   height: 54px;
   font-size: 20px;
@@ -749,7 +673,9 @@ a .minskaStorlekDiv {
   border-bottom: none;
 }
 
-#username, #email, #password {
+#username,
+#email,
+#password {
   margin: 10px 0; /* Lägg till lite avstånd mellan varje avsnitt */
 }
 
@@ -781,50 +707,49 @@ a .minskaStorlekDiv {
   justify-content: space-between; /* Skapa utrymme mellan elementen */
 }
 
-
-.accountActionButtons{
+.accountActionButtons {
   width: 160px;
 }
 
 .modal {
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Halvtransparent bakgrund */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Halvtransparent bakgrund */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    width: 350px;
-    text-align: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 350px;
+  text-align: center;
 }
 
 .modal-content input {
-    width: 100%;
-    padding: 8px;
-    margin: 10px 0;
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
 }
 
 .modal-content button {
-    margin: 5px;
-    padding: 8px 16px;
+  margin: 5px;
+  padding: 8px 16px;
 }
 
-#modalTextInput{
+#modalTextInput {
   margin: auto;
   max-width: 75%;
   margin-bottom: 10px;
 }
 
-#description{
+#description {
   color: gray;
 }
 
@@ -856,12 +781,11 @@ a .minskaStorlekDiv {
   background-color: gray; /* Förhindrar hover-effekt när knappen är disabled */
 }
 
-#KontoButtons{
+#KontoButtons {
   border: 1px solid gray;
   width: 100%;
   border-top: none;
   border-radius: 0px 0px 10px 10px;
-  
 }
 
 #reset-password-container {
@@ -922,7 +846,6 @@ h2 {
   color: #e53935; /* Röd färg för felmeddelanden */
 }
 
-
 #banInput {
   width: 300px;
   padding: 10px;
@@ -933,16 +856,14 @@ h2 {
   display: block; /* Lägg till denna */
 }
 
-
 #banInput::placeholder {
   color: #999;
 }
-#adminRulle{
+#adminRulle {
   height: 50%;
   overflow-y: scroll;
-  
 }
-.adminViewName:hover{
+.adminViewName:hover {
   border: 1px solid gray;
 }
 
@@ -955,18 +876,14 @@ h2 {
   background-color: #f9f9f9;
   margin-left: 10px;
 
-
   position: relative;
-
 }
 
-#adminRulle{
+#adminRulle {
   border: 1px solid gray;
   border-radius: 10px;
   list-style: none;
-  
 }
-
 
 #adminPanel h2 {
   text-align: center;
@@ -995,15 +912,13 @@ h2 {
   background-color: #00ff66;
 }
 
-.mittKonto{
+.mittKonto {
   display: flex;
   width: 100%;
   margin-top: 40px;
   height: 419px;
 }
-#användare{
+#användare {
   margin-left: 10px;
   max-width: 705px;
-
 }
-

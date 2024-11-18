@@ -133,6 +133,7 @@ const Klassrum = ({
   return (
     <>
       <DndContext
+      
         onDragEnd={handleDrop}
         onDragStart={(e) => {
           const { active } = e;
@@ -154,7 +155,7 @@ const Klassrum = ({
         </div>
 
         <div
-          className="w-fit m-auto"
+          className="w-fit print m-auto"
           ref={gridRef}
           style={{
             display: "grid",

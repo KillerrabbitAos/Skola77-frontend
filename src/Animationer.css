@@ -10,3 +10,13 @@
   .krnkn {
     animation: myAnimation 2s ease-in-out; 
   }
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+  
+    .print,
+    .print * {
+      visibility: visible;
+    }
+  }

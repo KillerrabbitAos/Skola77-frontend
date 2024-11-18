@@ -269,6 +269,17 @@ const SkapaPlaceringar = () => {
         <button
           style={{ padding: "20px" }}
           className="bg-[#4CAF50] text-white"
+          onClick={async () => {
+            setKlar(true);
+            await new Promise((resolve) => setTimeout(resolve, 500));
+            window.print();
+          }}
+        >
+          skrivUt
+        </button>
+        <button
+          style={{ padding: "20px" }}
+          className="bg-[#4CAF50] text-white"
           onClick={() => {
             setKlar(!klar);
           }}
