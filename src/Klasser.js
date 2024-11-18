@@ -231,14 +231,14 @@ etc...
       </div>
       <div className="grid grid-cols-3 w-full">
         <div
-          className="text-center items-center flex cursor-pointer justify-center text-white text-[1.5vw] rounded-[4px] font-semibold border bg-[#af4cab]"
+          className="text-center items-center flex cursor-pointer justify-center text-white text-[2vw] rounded-[4px] font-semibold border bg-[#af4cab]"
           onClick={() => {
             filRef.current.click();
           }}
         >
           importera namn från kalkylark
         </div>
-        <div className="text-center rounded-[4px] cursor-pointer items-center flex justify-center text-white text-[1.5vw] font-semibold border bg-[#af4cab]">
+        <div className="text-center rounded-[4px] cursor-pointer items-center flex justify-center text-white text-[2vw] font-semibold border bg-[#af4cab]">
           ta bort efternamn
         </div>
 
