@@ -48,26 +48,10 @@ const Klasser = ({}) => {
   const taBortEfternamn = () => {
     if (efternamnStårFörst) {
       setNamn((förraNamn) =>
-        förraNamn.map((namn) => {
-          const uppdeladeNamn = namn.split(" ").slice(-1);
-          return uppdeladeNamn.length < 2
-            ? namn
-            : uppdeladeNamn[1].length !== 1
-            ? uppdeladeNamn[1].length
-            : uppdeladeNamn[0];
-        })
+        förraNamn.map((namn) => namn.split(" ").slice(-1)[0])
       );
     } else {
-      setNamn((förraNamn) =>
-        förraNamn.map((namn) => {
-          const uppdeladeNamn = namn.split(" ");
-          return uppdeladeNamn.length < 2
-            ? namn
-            : uppdeladeNamn[1].length !== 1
-            ? uppdeladeNamn[1].length
-            : uppdeladeNamn[0];
-        })
-      );
+      setNamn((förraNamn) => förraNamn.map((namn) => namn.split(" ")[0]));
     }
   };
   const namnILista =
