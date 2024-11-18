@@ -1,8 +1,10 @@
 import React from "react";
 import * as XLSX from "xlsx";
 import "./styles.css";
+import { data } from "./data";
 
 const ExcelToTextConverter = React.forwardRef(({ setNames, names }, filRef) => {
+  const efternamnStårFörst = true;
   const convertExcelToText = async (file) => {
     try {
       const fileReader = new FileReader();
@@ -25,7 +27,21 @@ const ExcelToTextConverter = React.forwardRef(({ setNames, names }, filRef) => {
           });
 
           const newNames = textData.filter((text) => text !== undefined);
-          const combinedNames = names.concat(newNames).filter(namn => namn && namn !== "");
+          const combinedNames = names
+            .concat(newNames)
+            .filter((namn) => namn && namn !== "")
+            .map((namn) => {
+              let förnamn;
+              let efternamn;
+              if (efternamnStårFörst) {
+                [efternamn, förnamn] = namn.split(" ");
+              } else {
+                [förnamn, efternamn] = namn.split(" ");
+              }
+              return namn.split(" ").length > 1
+                ? `${förnamn} ${efternamn}`
+                : namn;
+            });
           const prevNames = names;
           setNames([...prevNames, ...combinedNames]);
         } catch (error) {

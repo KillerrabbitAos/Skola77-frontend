@@ -27,7 +27,7 @@ const Klasser = ({}) => {
   const [kolumner, setKolumner] = useState(10);
   const [klassnamn, setKlassnamn] = useState(null);
   const [klassnamntext, setKlassnamntext] = useState("klass utan namn");
-  const [efternamnStårFörst, setEfternamnStarForst] = useState(true);
+
   const filRef = useRef(null);
   const läggTillNamn = () => {
     const textareaContent = textrutaRef.current.value
@@ -46,13 +46,7 @@ const Klasser = ({}) => {
     });
   };
   const taBortEfternamn = () => {
-    if (efternamnStårFörst) {
-      setNamn((förraNamn) =>
-        förraNamn.map((namn) => namn.split(" ").slice(-1)[0])
-      );
-    } else {
-      setNamn((förraNamn) => förraNamn.map((namn) => namn.split(" ")[0]));
-    }
+    setNamn((förraNamn) => förraNamn.map((namn) => namn.split(" ")[0]));
   };
   const namnILista =
     namn &&
