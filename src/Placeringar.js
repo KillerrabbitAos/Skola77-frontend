@@ -245,6 +245,7 @@ const SkapaPlaceringar = () => {
   return (
     <div>
       {väljKLassOchKlassrum}
+      <div style={{zIndex: "100"}}>
       <Klassrum
         edit={false}
         låstaBänkar={låstaBänkar}
@@ -258,6 +259,7 @@ const SkapaPlaceringar = () => {
         setReverse={setOmvänd}
         names={namn}
       />{" "}
+      </div>
       <div className="flex gap-4 w-full flex-wrap justify-center">
         <button
           style={{ padding: "20px" }}

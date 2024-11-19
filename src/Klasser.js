@@ -27,6 +27,7 @@ const Klasser = ({}) => {
   const [kolumner, setKolumner] = useState(10);
   const [klassnamn, setKlassnamn] = useState(null);
   const [klassnamntext, setKlassnamntext] = useState("klass utan namn");
+  const defaultKlass = "klass utan namn"
 
   const filRef = useRef(null);
   const läggTillNamn = () => {
@@ -189,7 +190,7 @@ const Klasser = ({}) => {
             className="bg-[#4CAF50] border h-[12.5vw] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center"
             onClick={() => {
               let newData = data;
-              let index = klassnamn
+              let index = klassnamn || klassnamntext !== defaultKlass
                 ? klassnamntext
                 : prompt("Vad heter klassen?");
               if (klassnamn !== klassnamntext) {
