@@ -213,7 +213,7 @@ const Klasser = ({}) => {
       <div className="flex">
         <div>
           <div
-            className={`bg-[#4CAF50] border h-[${
+            className={`bg-[#4CAF50] border-b h-[${
               window.outerWidth > window.outerHeight ? "6.25" : "12.5vw"
             }] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center`}
             onClick={() => spara()}
@@ -224,7 +224,7 @@ const Klasser = ({}) => {
             onClick={() => {
               setVisaLaddaKlassrum(!visaLaddaKlassrum);
             }}
-            className={`bg-[#4CAF50] border h-[${
+            className={`bg-[#4CAF50] border-t h-[${
               window.outerWidth > window.outerHeight ? "7" : "13vw"
             }] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center`}
           >
@@ -252,7 +252,7 @@ etc...
       </div>
       <div className="grid grid-cols-3 w-full">
         <div
-          className="text-center items-center flex cursor-pointer justify-center text-white text-[2vw] rounded-[4px] font-semibold border bg-[#af4cab]"
+          className="text-center items-center border-[#af4cab] mr-0.5 rounded-none flex cursor-pointer justify-center text-white text-[2vw] rounded-[4px] font-semibold border bg-[#af4cab]"
           onClick={() => {
             filRef.current.click();
           }}
@@ -260,7 +260,7 @@ etc...
           importera namn från kalkylark
         </div>
         <div
-          className="text-center rounded-[4px] cursor-pointer items-center flex justify-center text-white text-[2vw] font-semibold border bg-[#af4cab]"
+          className="text-center rounded-[4px] cursor-pointer items-center flex justify-center text-white text-[2vw] font-semibold rounded-none border-[#af4cab] bg-[#af4cab]"
           onClick={taBortEfternamn}
         >
           ta bort efternamn
