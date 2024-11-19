@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { data } from "./data";
 import NamnRuta from "./Namn";
 import ExcelToTextConverter from "./ExcelToTextConverter";
+import { isMobile, isTablet } from "react-device-detect";
 
 function divideArray(list, x) {
   if (x <= 0) throw new Error("Number of parts must be greater than 0.");
@@ -212,7 +213,9 @@ const Klasser = ({}) => {
       <div className="flex">
         <div>
           <div
-            className="bg-[#4CAF50] border h-[12.5vw] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center"
+            className={`bg-[#4CAF50] border h-[${
+              window.outerWidth > window.outerHeight ? "6.25" : "12.5vw"
+            }] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center`}
             onClick={() => spara()}
           >
             Spara
@@ -221,14 +224,18 @@ const Klasser = ({}) => {
             onClick={() => {
               setVisaLaddaKlassrum(!visaLaddaKlassrum);
             }}
-            className="bg-[#4CAF50] border h-[12.5vw] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center"
+            className={`bg-[#4CAF50] border h-[${
+              window.outerWidth > window.outerHeight ? "6.25" : "12.5vw"
+            }] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center`}
           >
             Ladda
           </div>
         </div>
         <textarea
           ref={textrutaRef}
-          className="aspect-[2/1] w-[50vw]"
+          className={`w-[50vw] h-[${
+            window.outerWidth > window.outerHeight ? "13vw" : "25vw"
+          }]`}
           placeholder={`Ett namn per rad:
 Artur
 Bosse
@@ -237,7 +244,7 @@ etc...
 `}
         ></textarea>
         <div
-          className="cursor-pointer aspect-square border bg-[#4CAF50] text-white w-[25vw] flex flex-row justify-center items-center text-[5vw]"
+          className={`cursor-pointer border bg-[#4CAF50] text-white w-[25vw] h-[window.outerWidth > window.outerHeight ? "6.25" : "12.5vw"] flex flex-row justify-center items-center text-[5vw]`}
           onClick={läggTillNamn}
         >
           Lägg till
