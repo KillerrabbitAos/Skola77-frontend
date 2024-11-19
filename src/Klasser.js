@@ -27,7 +27,7 @@ const Klasser = ({}) => {
   const [kolumner, setKolumner] = useState(10);
   const [klassnamn, setKlassnamn] = useState(null);
   const [klassnamntext, setKlassnamntext] = useState("klass utan namn");
-  const defaultKlass = "klass utan namn"
+  const defaultKlass = "klass utan namn";
 
   const filRef = useRef(null);
   const läggTillNamn = () => {
@@ -45,6 +45,25 @@ const Klasser = ({}) => {
       updatedNamn[index] = newName;
       return updatedNamn;
     });
+  };
+  const spara = (nyttNamn) => {
+    let newData = data;
+    let index = nyttNamn
+      ? nyttNamn
+      : klassnamn || klassnamntext !== defaultKlass
+      ? klassnamntext
+      : prompt("Vad heter klassen?");
+    if (klassnamn !== klassnamntext) {
+      while (newData.klasser[index]) {
+        index = prompt(
+          "Du har redan lagt in en klass som heter så. Skriv ett namn som skiljer sig åt."
+        );
+      }
+    }
+    newData.klasser[index] = { personer: namn };
+    console.log(newData);
+    setKlassnamn(index);
+    setKlassnamntext(index);
   };
   const taBortEfternamn = () => {
     setNamn((förraNamn) => förraNamn.map((namn) => namn.split(" ")[0]));
@@ -141,70 +160,60 @@ const Klasser = ({}) => {
       <ExcelToTextConverter ref={filRef} names={namn} setNames={setNamn} />
       {visaLaddaKlassrum && (
         <div
+          className="bg-[#4CAF50]"
           style={{
             position: "absolute",
-            top: "calc(50vh - 88px)",
-            left: "calc(50vw - 62.5px)",
+            top: "calc(50vh - 122px)",
+            left: "calc(50vw - 98.905px)",
             listStyle: "none",
-            backgroundColor: "white",
           }}
         >
-          <li
-            key={"nyKlass"}
-            className="font-bold text-xl p-2 cursor-pointer"
-            onClick={() => {
-              setNamn([""]);
-              const nyttNamn = prompt("Vad ska din nya klass heta?");
-              setKlassnamn(nyttNamn);
-              setKlassnamntext(nyttNamn);
-              setVisaLaddaKlassrum(false);
-            }}
-          >
-            ny klass...
-          </li>
-          {Object.keys(data.klasser)
-            .slice()
-            .reverse()
-            .map((klassKey) => {
-              const klass = data.klasser[klassKey];
-              return (
-                <li
-                  key={klassKey}
-                  className="font-bold text-xl p-2 cursor-pointer"
-                  onClick={() => {
-                    setNamn(klass.personer);
-                    setKlassnamn(klassKey);
-                    setKlassnamntext(klassKey);
-                    setVisaLaddaKlassrum(false);
-                  }}
-                >
-                  {klassKey}
-                </li>
-              );
-            })}
+          <div className="bg-[#4CAF50] text-white font-semibold flex h-8 text-xl justify-center items-center">
+            Sparade klasser:{" "}
+          </div>
+          <div className="border-8 border-t-0 border-[#4CAF50]">
+            <div className="bg-white h-[236px] overflow-y-scroll border-8 border-t-0 border-[#4CAF50]">
+              <li
+                key={"nyKlass"}
+                className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
+                onClick={() => {
+                  setNamn([""]);
+                  const nyttNamn = prompt("Vad ska din nya klass heta?");
+                  setVisaLaddaKlassrum(false);
+                  spara(nyttNamn);
+                }}
+              >
+                ny klass...
+              </li>
+              {Object.keys(data.klasser)
+                .slice()
+                .reverse()
+                .map((klassKey) => {
+                  const klass = data.klasser[klassKey];
+                  return (
+                    <li
+                      key={klassKey}
+                      className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
+                      onClick={() => {
+                        setNamn(klass.personer);
+                        setKlassnamn(klassKey);
+                        setKlassnamntext(klassKey);
+                        setVisaLaddaKlassrum(false);
+                      }}
+                    >
+                      {klassKey}
+                    </li>
+                  );
+                })}
+            </div>
+          </div>
         </div>
       )}
       <div className="flex">
         <div>
           <div
             className="bg-[#4CAF50] border h-[12.5vw] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center"
-            onClick={() => {
-              let newData = data;
-              let index = klassnamn || klassnamntext !== defaultKlass
-                ? klassnamntext
-                : prompt("Vad heter klassen?");
-              if (klassnamn !== klassnamntext) {
-                while (newData.klasser[index]) {
-                  index = prompt(
-                    "Du har redan lagt in en klass som heter så. Skriv ett namn som skiljer sig åt."
-                  );
-                }
-              }
-              newData.klasser[index] = { personer: namn };
-              console.log(newData);
-              setKlassnamn(index);
-              setKlassnamntext(index);
-            }}
+            onClick={spara}
           >
             Spara
           </div>
