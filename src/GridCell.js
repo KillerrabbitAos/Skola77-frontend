@@ -87,7 +87,8 @@ const GridCell = ({
         border: "1px solid black",
         zIndex: "200",
         overflowY: "scroll",
-
+        overflowX: "hidden",
+          width:"11vw",
         listStyleType: "none",
       }}
     >
