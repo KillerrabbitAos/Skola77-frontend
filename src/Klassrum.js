@@ -150,7 +150,7 @@ const Klassrum = ({
           }
         }}
       >
-        <div>
+        <div className="print">
           <p id="uppe">{reverse ? "bak" : "tavla"}</p>
         </div>
 
