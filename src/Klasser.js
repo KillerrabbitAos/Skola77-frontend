@@ -213,7 +213,7 @@ const Klasser = ({}) => {
         <div>
           <div
             className="bg-[#4CAF50] border h-[12.5vw] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center"
-            onClick={spara}
+            onClick={() => spara()}
           >
             Spara
           </div>
