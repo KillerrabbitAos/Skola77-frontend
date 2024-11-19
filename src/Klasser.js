@@ -225,7 +225,7 @@ const Klasser = ({}) => {
               setVisaLaddaKlassrum(!visaLaddaKlassrum);
             }}
             className={`bg-[#4CAF50] border h-[${
-              window.outerWidth > window.outerHeight ? "6.25" : "12.5vw"
+              window.outerWidth > window.outerHeight ? "7" : "13vw"
             }] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center`}
           >
             Ladda
