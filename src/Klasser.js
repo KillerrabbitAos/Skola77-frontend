@@ -27,8 +27,8 @@ const Klasser = ({}) => {
   const [visaLaddaKlassrum, setVisaLaddaKlassrum] = useState(false);
   const [kolumner, setKolumner] = useState(10);
   const [klassnamn, setKlassnamn] = useState(null);
-  const [klassnamntext, setKlassnamntext] = useState("klass utan namn");
-  const defaultKlass = "klass utan namn";
+  const [klassnamntext, setKlassnamntext] = useState("ny klass");
+  const defaultKlass = "ny klass";
 
   const filRef = useRef(null);
   const läggTillNamn = () => {
