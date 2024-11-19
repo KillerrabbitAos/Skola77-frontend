@@ -58,6 +58,7 @@ const GridCell = ({
   setFontSize,
   columns,
   låstaBänkar,
+  updateSize,
   overbench,
   setLåstaBänkar,
   fontSize,
@@ -352,7 +353,7 @@ const GridCell = ({
         });
       }
     }
-  }, [cell.person, columns, rows, klar, overNamn]);
+  }, [cell.person, columns, rows, klar, overNamn, updateSize]);
 
   return (
     <div

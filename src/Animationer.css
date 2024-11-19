@@ -3,12 +3,12 @@
       height: 228px;
     }
     100%{
-        height: 30px;
+        height: 70px;
     }
   }
   
   .krnkn {
-    animation: myAnimation 2s ease-in-out; 
+    animation: myAnimation 1s ease-in-out; 
   }
   @media print {
     body * {

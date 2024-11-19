@@ -18,48 +18,78 @@ const myList = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const dividedLists = divideArray(myList, 3);
 
 console.log(dividedLists);
-function scaleToFit(content) {
+async function scaleToFit(content, setUpdateSize, updateSize) {
+  // A4 or Letter page dimensions in inches
+  const pageWidth = 8.27; // A4 width in inches (Letter: 8.5)
+  const pageHeight = 11.69; // A4 height in inches (Letter: 11)
 
-    const pageWidth = 8.27; // A4 width in inches (for Letter use 8.5)
-    const pageHeight = 11.69; // A4 height in inches (for Letter use 11)
-    const dpi = 96; // Typical screen DPI (dots per inch)
+  // Dynamically calculate DPI
+  const dpi = calculateDPI();
 
-    // Get content dimensions in pixels
-    const contentWidth = content.offsetWidth;
-    const contentHeight = content.offsetHeight;
+  // Get content dimensions in pixels
+  const contentWidth = content.offsetWidth;
+  const contentHeight = content.offsetHeight;
 
-    // Convert page dimensions to pixels
-    const printableWidth = pageWidth * dpi;
-    const printableHeight = pageHeight * dpi;
+  // Convert page dimensions to pixels
+  const printableWidth = pageWidth * dpi;
+  const printableHeight = pageHeight * dpi;
 
-    // Calculate the required scaling factor
-    const scaleX = printableWidth / contentWidth;
-    const scaleY = printableHeight / contentHeight;
+  // Calculate the required scaling factor
+  const scaleX = printableWidth / contentWidth;
+  const scaleY = printableHeight / contentHeight;
 
-    // Choose the smaller scaling factor to maintain aspect ratio
-    const scale = Math.min(scaleX, scaleY);
+  // Choose the smaller scaling factor to maintain aspect ratio
+  const scale = Math.min(scaleX, scaleY);
 
-    // Apply scaling with CSS
-    content.style.transformOrigin = 'top left'; // Set the origin for scaling
-    content.style.transform = `scale(${scale})`;
+  // Apply scaling with CSS
+  content.style.transformOrigin = "top left"; // Set the origin for scaling
+  content.style.transform = `scale(${scale})`;
 
-    // Adjust layout to prevent clipping (scaling shrinks dimensions but not layout)
-    content.style.width = `${contentWidth * scale}px`;
-    content.style.height = `${contentHeight * scale}px`;
+  // Adjust layout to prevent clipping
+  const scaledWidth = contentWidth * scale;
+  const scaledHeight = contentHeight * scale;
+  content.style.width = `${scaledWidth}px`;
+  content.style.height = `${scaledHeight}px`;
 
-    // Trigger the print dialog
-    window.print();
+  // Optional: Add margins for better page alignment
+  content.style.margin = "0 auto";
 
-    // Reset scaling after printing
-    content.style.transform = '';
-    content.style.width = '';
-    content.style.height = '';
+  // Trigger the print dialog
+  setUpdateSize(!updateSize);
+  await new Promise((resolve) => setTimeout(resolve, 500));
+  window.print();
+
+  // Reset styles after printing
+  content.style.transform = "";
+  content.style.transformOrigin = ""; // Reset to default
+  content.style.width = "";
+  content.style.height = "";
+  content.style.margin = "";
+}
+
+// Function to calculate DPI dynamically
+function calculateDPI() {
+  // Create an element for testing DPI
+  const dpiTest = document.createElement("div");
+  dpiTest.style.width = "1in"; // Set width to 1 inch
+  dpiTest.style.position = "absolute"; // Prevent affecting layout
+  dpiTest.style.visibility = "hidden"; // Hide from view
+  document.body.appendChild(dpiTest);
+
+  // Measure the width in pixels
+  const dpi = dpiTest.offsetWidth;
+
+  // Remove the test element
+  document.body.removeChild(dpiTest);
+
+  return dpi * window.devicePixelRatio; // Adjust for pixel density
 }
 
 const SkapaPlaceringar = () => {
   const [grid, setGrid] = useState(data.klassrum["H221"].grid);
   const [rows, setRows] = useState(data.klassrum["H221"].rows);
   const [cols, setCols] = useState(data.klassrum["H221"].cols);
+  const [updateSize, setUpdateSize] = useState(false);
   const [kolumner, setKolumner] = useState(3);
   const [frånvarande, setFrånvarande] = useState([]);
   const [klassnamn, setKlassnamn] = useState(null);
@@ -68,11 +98,11 @@ const SkapaPlaceringar = () => {
   const [klar, setKlar] = useState(false);
   const [omvänd, setOmvänd] = useState(false);
   const [klassrumsnamn, setKlassrumsnamn] = useState(null);
-  const content = useRef(null)
+  const content = useRef(null);
   const väljKLassOchKlassrum =
     klassrumsnamn && klassnamn ? (
-      <div className="krnkn h-[30px] flex items-center justify-center">
-        <div className="text-xl flex text-center font-bold">
+      <div className="krnkn h-[70px] flex items-center justify-center">
+        <div className="text-2xl m-3 flex text-center font-bold">
           <div
             onClick={() => {
               setNamn([""]);
@@ -286,6 +316,7 @@ const SkapaPlaceringar = () => {
       <div ref={content} style={{ zIndex: "100" }}>
         <Klassrum
           edit={false}
+          updateSize={updateSize}
           låstaBänkar={låstaBänkar}
           setLåstaBänkar={setLåstaBänkar}
           grid={grid}
@@ -312,7 +343,8 @@ const SkapaPlaceringar = () => {
           onClick={async () => {
             setKlar(true);
             await new Promise((resolve) => setTimeout(resolve, 500));
-            await scaleToFit(content.current)
+            await scaleToFit(content.current, setUpdateSize, updateSize);
+            setKlar(false)
           }}
         >
           skrivUt

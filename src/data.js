@@ -2906,7 +2906,6 @@ export const data = {
         "Emilia",
         "Emilia",
         "Erik",
-        "snakeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
         "Astrid",
         "Filicia",
         "Hussein",

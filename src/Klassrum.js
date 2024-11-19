@@ -16,6 +16,7 @@ const Klassrum = ({
   låstaBänkar,
   klar,
   setLåstaBänkar,
+  updateSize,
   edit = true,
   reverse,
   setReverse,
@@ -50,6 +51,7 @@ const Klassrum = ({
           rows={rows}
           colIndex={colIndex}
           overId={overId}
+          updateSize={updateSize}
           over={overId === `${rowIndex}-${colIndex}`}
           overNamn={(grid ? grid : data.klassrum[0].grid)
             .slice(0, rows)
