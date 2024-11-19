@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Klassrum from "./Klassrum";
 import { data } from "./data";
 import NameList from "./Klasser";
@@ -18,6 +18,43 @@ const myList = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const dividedLists = divideArray(myList, 3);
 
 console.log(dividedLists);
+function scaleToFit(content) {
+
+    const pageWidth = 8.27; // A4 width in inches (for Letter use 8.5)
+    const pageHeight = 11.69; // A4 height in inches (for Letter use 11)
+    const dpi = 96; // Typical screen DPI (dots per inch)
+
+    // Get content dimensions in pixels
+    const contentWidth = content.offsetWidth;
+    const contentHeight = content.offsetHeight;
+
+    // Convert page dimensions to pixels
+    const printableWidth = pageWidth * dpi;
+    const printableHeight = pageHeight * dpi;
+
+    // Calculate the required scaling factor
+    const scaleX = printableWidth / contentWidth;
+    const scaleY = printableHeight / contentHeight;
+
+    // Choose the smaller scaling factor to maintain aspect ratio
+    const scale = Math.min(scaleX, scaleY);
+
+    // Apply scaling with CSS
+    content.style.transformOrigin = 'top left'; // Set the origin for scaling
+    content.style.transform = `scale(${scale})`;
+
+    // Adjust layout to prevent clipping (scaling shrinks dimensions but not layout)
+    content.style.width = `${contentWidth * scale}px`;
+    content.style.height = `${contentHeight * scale}px`;
+
+    // Trigger the print dialog
+    window.print();
+
+    // Reset scaling after printing
+    content.style.transform = '';
+    content.style.width = '';
+    content.style.height = '';
+}
 
 const SkapaPlaceringar = () => {
   const [grid, setGrid] = useState(data.klassrum["H221"].grid);
@@ -31,6 +68,7 @@ const SkapaPlaceringar = () => {
   const [klar, setKlar] = useState(false);
   const [omvänd, setOmvänd] = useState(false);
   const [klassrumsnamn, setKlassrumsnamn] = useState(null);
+  const content = useRef(null)
   const väljKLassOchKlassrum =
     klassrumsnamn && klassnamn ? (
       <div className="krnkn h-[30px] flex items-center justify-center">
@@ -245,20 +283,20 @@ const SkapaPlaceringar = () => {
   return (
     <div>
       {väljKLassOchKlassrum}
-      <div style={{zIndex: "100"}}>
-      <Klassrum
-        edit={false}
-        låstaBänkar={låstaBänkar}
-        setLåstaBänkar={setLåstaBänkar}
-        grid={grid}
-        columns={cols}
-        rows={rows}
-        setGrid={setGrid}
-        klar={klar}
-        reverse={omvänd}
-        setReverse={setOmvänd}
-        names={namn}
-      />{" "}
+      <div ref={content} style={{ zIndex: "100" }}>
+        <Klassrum
+          edit={false}
+          låstaBänkar={låstaBänkar}
+          setLåstaBänkar={setLåstaBänkar}
+          grid={grid}
+          columns={cols}
+          rows={rows}
+          setGrid={setGrid}
+          klar={klar}
+          reverse={omvänd}
+          setReverse={setOmvänd}
+          names={namn}
+        />{" "}
       </div>
       <div className="flex gap-4 w-full flex-wrap justify-center">
         <button
@@ -274,7 +312,7 @@ const SkapaPlaceringar = () => {
           onClick={async () => {
             setKlar(true);
             await new Promise((resolve) => setTimeout(resolve, 500));
-            window.print();
+            await scaleToFit(content.current)
           }}
         >
           skrivUt
