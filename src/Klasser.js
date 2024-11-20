@@ -269,7 +269,7 @@ etc...
         <div className="text-4xl text-center m-3">
           {
             <input
-              className="text-[4vw] truncate w-[90%] bg-inherit text-center m-3"
+              className="text-[4vw] truncate w-[90%] bg-inherit text-center outline-none m-3"
               onChange={(e) => {
                 setKlassnamntext(e.target.value);
               }}
