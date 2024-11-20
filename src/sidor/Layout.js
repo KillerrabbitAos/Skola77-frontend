@@ -54,7 +54,7 @@ const Layout = () => {
         {dropdown ? (
           <div className="">
             <div className="w-full grid grid-cols-3">
-              <div>ix</div>
+              <div></div>
               <div className="flex items-center text-[4vh] justify-center">
                 {
                   <>
@@ -109,7 +109,7 @@ const Layout = () => {
                       cursor: "pointer",
                       rotate: isDropdownOpen && "-90deg",
                       animationName: isDropdownOpen ? "snurrNer" : "snurrUpp",
-                      animationDuration: "0.1s",
+                      animationDuration: "0.2s",
                     }}
                   >
                     {LogoSVG}
