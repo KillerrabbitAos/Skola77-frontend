@@ -238,7 +238,7 @@ const Klasser = ({}) => {
           style={{
             fontSize:
               window.outerWidth > window.outerHeight ? "1.8vw" : "2.5vw",
-            height: window.outerWidth > window.outerHeight ? "14vw" : "25vw",
+            height: window.outerWidth > window.outerHeight ? "14vw" : "26vw",
           }}
           className={`w-[50vw]`}
           placeholder={`Ett namn per rad:
