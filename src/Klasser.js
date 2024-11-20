@@ -224,18 +224,22 @@ const Klasser = ({}) => {
             onClick={() => {
               setVisaLaddaKlassrum(!visaLaddaKlassrum);
             }}
-            className={`bg-[#4CAF50] border-t h-[${
-              window.outerWidth > window.outerHeight ? "7vw" : "13vw"
-            }] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center`}
+            style={{
+              height: window.outerWidth > window.outerHeight ? "7vw" : "13vw",
+            }}
+            className={`bg-[#4CAF50] border-t  text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center`}
           >
             Ladda
           </div>
         </div>
         <textarea
           ref={textrutaRef}
-          className={`w-[50vw] text-[2.5vw] h-[${
-            window.outerWidth > window.outerHeight ? "13vw" : "25vw"
-          }]`}
+          style={{
+            fontSize:
+              window.outerWidth > window.outerHeight ? "1.8vw" : "2.5vw",
+            height: window.outerWidth > window.outerHeight ? "14vw" : "25vw",
+          }}
+          className={`w-[50vw]`}
           placeholder={`Ett namn per rad:
 Artur
 Bosse
