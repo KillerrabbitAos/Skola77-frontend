@@ -55,7 +55,7 @@ const Layout = () => {
           <div className="">
             <div className="w-full grid grid-cols-3">
               <div></div>
-              <div className="flex items-center text-[4vh] justify-center">
+              <div className="flex items-center text-[3.5vh] justify-center">
                 {
                   <>
                     <NavLink

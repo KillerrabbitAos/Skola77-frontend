@@ -28,7 +28,7 @@
   /* Dropdown Menu Styling */
   .dropdown-menu {
     position: absolute;
-    top: 60px; /* Adjust to position below the button */
+    top: 55px; /* Adjust to position below the button */
     width: fit-content;
     right: 0;
     background-color: white;
