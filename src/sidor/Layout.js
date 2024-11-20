@@ -101,15 +101,14 @@ const Layout = () => {
                   </>
                 }
               </div>
-              <div className="place-self-end w-[70px]">
+              <div onClick={toggleDropdown} className="place-self-end w-[70px]">
                 <div className="h-[70px] aspect-square flex items-center justify-center">
                   <div
-                    onClick={toggleDropdown}
                     style={{
                       cursor: "pointer",
                       rotate: isDropdownOpen && "-90deg",
                       animationName: isDropdownOpen ? "snurrNer" : "snurrUpp",
-                      animationDuration: "0.2s",
+                      animationDuration: "0.1s",
                     }}
                   >
                     {LogoSVG}
