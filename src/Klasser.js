@@ -214,7 +214,7 @@ const Klasser = ({}) => {
         <div>
           <div
             className={`bg-[#4CAF50] border-b h-[${
-              window.outerWidth > window.outerHeight ? "6.25" : "12.5vw"
+              window.outerWidth > window.outerHeight ? "6.25vw" : "12.5vw"
             }] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center`}
             onClick={() => spara()}
           >
@@ -225,7 +225,7 @@ const Klasser = ({}) => {
               setVisaLaddaKlassrum(!visaLaddaKlassrum);
             }}
             className={`bg-[#4CAF50] border-t h-[${
-              window.outerWidth > window.outerHeight ? "7" : "13vw"
+              window.outerWidth > window.outerHeight ? "7vw" : "13vw"
             }] text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center`}
           >
             Ladda
@@ -233,7 +233,7 @@ const Klasser = ({}) => {
         </div>
         <textarea
           ref={textrutaRef}
-          className={`w-[50vw] h-[${
+          className={`w-[50vw] text-[2.5vw] h-[${
             window.outerWidth > window.outerHeight ? "13vw" : "25vw"
           }]`}
           placeholder={`Ett namn per rad:
