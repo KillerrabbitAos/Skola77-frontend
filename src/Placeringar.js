@@ -349,8 +349,9 @@ const SkapaPlaceringar = () => {
           className="bg-[#4CAF50] text-white"
           onClick={async () => {
             setKlar(true);
-            await new Promise((resolve) => setTimeout(resolve, 500));
+            await new Promise((resolve) => setTimeout(resolve, 1000));
             await scaleToFit(content.current, setUpdateSize, updateSize);
+            await new Promise((resolve) => setTimeout(resolve, 1000))
             setKlar(false)
           }}
         >
