@@ -3,12 +3,19 @@ import Klassrum from "./Klassrum";
 import { data } from "./data";
 import NameList from "./Klasser";
 import "./Animationer.css";
-function divideArray(array, parts) {
-  let result = [];
-  let partSize = Math.floor(array.length / parts);
 
-  for (let i = 0; i < parts; i++) {
-    result.push(array.slice(i * partSize, (i + 1) * partSize));
+function divideArray(list, x) {
+  if (x <= 0) throw new Error("Number of parts must be greater than 0.");
+  const result = [];
+  const partSize = Math.floor(list.length / x);
+  let remainder = list.length % x;
+  let start = 0;
+
+  for (let i = 0; i < x; i++) {
+    const end = start + partSize + (remainder > 0 ? 1 : 0);
+    result.push(list.slice(start, end));
+    start = end;
+    if (remainder > 0) remainder--;
   }
 
   return result;
@@ -342,8 +349,9 @@ const SkapaPlaceringar = () => {
           className="bg-[#4CAF50] text-white"
           onClick={async () => {
             setKlar(true);
-            await new Promise((resolve) => setTimeout(resolve, 500));
+            await new Promise((resolve) => setTimeout(resolve, 1000));
             await scaleToFit(content.current, setUpdateSize, updateSize);
+            await new Promise((resolve) => setTimeout(resolve, 1000))
             setKlar(false)
           }}
         >

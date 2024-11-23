@@ -8,7 +8,7 @@ const Grid3 = () => {
   const [rows, setRows] = useState(data.klassrum["H221"].rows);
   const [cols, setCols] = useState(data.klassrum["H221"].cols);
   const [grid, setGrid] = useState(data.klassrum["H221"].grid);
-  const [klassrumsnamn, setKlassrumsNamn] = useState(null)
+  const [klassrumsnamn, setKlassrumsNamn] = useState(null);
   const [låstaBänkar, setLåstaBänkar] = useState([]);
   const [gridData, setGridData] = useState("");
   const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -49,59 +49,65 @@ const Grid3 = () => {
 
   const spara = () => {
     let newData = data;
-    newData.klassrum[klassrumsnamn ? klassrumsnamn : prompt("Vad heter klassrummet?")] = {
-      rows: rows, cols: cols, grid: grid
+    newData.klassrum[
+      klassrumsnamn ? klassrumsnamn : prompt("Vad heter klassrummet?")
+    ] = {
+      rows: rows,
+      cols: cols,
+      grid: grid,
     };
     console.log(newData);
   };
 
   return (
     <div>
-      {isTouchDevice ? (
-        <div className="flex items-center">
-          <span id="skola77ärbra">Rader</span>
-          <button onClick={() => ändraRader(-1)} className="sänkKnapp">
-            -
-          </button>
-          <button onClick={() => ändraRader(1)} className="höjKnapp">
-            +
-          </button>
+      <div className="flex">
+        <div className="flex flex-grow">
+          {isTouchDevice ? (
+            <div className="flex items-center">
+              <span id="skola77ärbra">Rader</span>
+              <button onClick={() => ändraRader(-1)} className="sänkKnapp">
+                -
+              </button>
+              <button onClick={() => ändraRader(1)} className="höjKnapp">
+                +
+              </button>
+            </div>
+          ) : (
+            <input
+              type="number"
+              min="1"
+              value={rows}
+              onChange={(e) => ändraRader(parseInt(e.target.value) - rows)}
+            />
+          )}
+
+          {isTouchDevice ? (
+            <div className="flex items-center">
+              <span id="skola77ärbra">Kolumner</span>
+              <button onClick={() => ändraKolumner(-1)} className="sänkKnapp">
+                -
+              </button>
+              <button onClick={() => ändraKolumner(1)} className="höjKnapp">
+                +
+              </button>
+            </div>
+          ) : (
+            <input
+              type="number"
+              min="1"
+              value={cols}
+              onChange={(e) => ändraKolumner(parseInt(e.target.value) - cols)}
+            />
+          )}
         </div>
-      ) : (
-        <input
-          type="number"
-          min="1"
-          value={rows}
-          onChange={(e) => ändraRader(parseInt(e.target.value) - rows)}
-        />
-      )}
-
-      {isTouchDevice ? (
-        <div className="flex items-center">
-          <span id="skola77ärbra">Kolumner</span>
-          <button onClick={() => ändraKolumner(-1)} className="sänkKnapp">
-            -
-          </button>
-          <button onClick={() => ändraKolumner(1)} className="höjKnapp">
-            +
-          </button>
-        </div>
-      ) : (
-        <input
-          type="number"
-          min="1"
-          value={cols}
-          onChange={(e) => ändraKolumner(parseInt(e.target.value) - cols)}
-        />
-      )}
-
-      <button
-        onClick={spara}
-        className="bg-green-500 h-10 text-white float-end mr-10 mt-3"
-      >
-        Spara
-      </button>
-
+        <button
+          onClick={spara}
+          className="bg-green-500 h-10 text-white float-end mr-10 mt-3"
+        >
+          Spara
+        </button>
+      </div>
       <Klassrum
         rows={rows}
         låstaBänkar={låstaBänkar}
@@ -116,7 +122,7 @@ const Grid3 = () => {
         <li
           className="font-bold text-xl p-2 cursor-pointer"
           onClick={() => {
-            setKlassrumsNamn(null)
+            setKlassrumsNamn(null);
             setGrid(
               Array.from({ length: rows }, () =>
                 Array.from({ length: cols }, () => ({ id: null, person: 0 }))
@@ -136,7 +142,7 @@ const Grid3 = () => {
                 setGrid(klassrum.grid);
                 setRows(klassrum.rows);
                 setCols(klassrum.cols);
-                setKlassrumsNamn(klassrumKey)
+                setKlassrumsNamn(klassrumKey);
               }}
             >
               {klassrumKey}
