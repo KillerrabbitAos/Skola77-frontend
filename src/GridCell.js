@@ -353,7 +353,7 @@ const GridCell = ({
         });
       }
     }
-  }, [cell.person, columns, rows, klar, overNamn, updateSize]);
+  }, [cell.person, columns, rows, klar]);
 
   return (
     <div
