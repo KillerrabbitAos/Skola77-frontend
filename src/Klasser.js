@@ -3,6 +3,7 @@ import { data } from "./data";
 import NamnRuta from "./Namn";
 import ExcelToTextConverter from "./ExcelToTextConverter";
 import { isMobile, isTablet } from "react-device-detect";
+import { compress } from "lz-string";
 
 function divideArray(list, x) {
   if (x <= 0) throw new Error("Number of parts must be greater than 0.");
@@ -28,9 +29,29 @@ const Klasser = ({}) => {
   const [kolumner, setKolumner] = useState(10);
   const [klassnamn, setKlassnamn] = useState(null);
   const [klassnamntext, setKlassnamntext] = useState("ny klass");
+
   const defaultKlass = "ny klass";
 
   const filRef = useRef(null);
+
+  useEffect(() => {
+    
+    checkLoginStatus()
+    
+  }, []);
+  async function checkLoginStatus() {
+    const response = await fetch('http://192.168.50.107:3000/api/getKlassrum');
+    const result = await response.json(); 
+    const parsedData = JSON.parse(result);
+  
+    const klassrum = parsedData.klassrum;
+    const klasser = parsedData.klasser;
+  
+    console.log('Klassrum:', klassrum); 
+    console.log('Klasser:', klasser);    
+  }
+  
+  
   const läggTillNamn = () => {
     const textareaContent = textrutaRef.current.value
       .split("\n")
@@ -62,10 +83,27 @@ const Klasser = ({}) => {
       }
     }
     newData.klasser[index] = { personer: namn };
-    console.log(newData);
+    console.log(JSON.stringify(newData));
+
+    fetch('http://192.168.50.107:3000/api/updateData', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.message);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
     setKlassnamn(index);
     setKlassnamntext(index);
   };
+
   const taBortEfternamn = () => {
     setNamn((förraNamn) => förraNamn.map((namn) => namn.split(" ")[0]));
   };
