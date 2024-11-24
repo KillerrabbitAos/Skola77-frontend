@@ -120,14 +120,13 @@ const Klasser = ({}) => {
             namn: nyttKlassNamn,
             personer: namn,
           };
-        }
-        else {
-          return klass
+        } else {
+          return klass;
         }
       });
     } else {
-      const nyttId = generateUniqueId()
-      setKlassId(nyttId)
+      const nyttId = generateUniqueId();
+      setKlassId(nyttId);
       newData.klasser.push({
         id: nyttId,
         namn: nyttKlassNamn,
@@ -204,9 +203,9 @@ const Klasser = ({}) => {
               style={{ color: "white", cursor: "pointer" }}
               onClick={() => {
                 setNamn((prevNamn) => {
-                  const newNamn = [...prevNamn];
-                  newNamn.splice(namnObj.orginalIndex, 1);
-                  console.log(namnObj.orginalIndex);
+                  const newNamn = prevNamn.map(namn, (index) =>
+                    index === namnObj.orginalIndex ? "" : namn
+                  );
                   return newNamn;
                 });
               }}
@@ -255,7 +254,7 @@ const Klasser = ({}) => {
                 className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
                 onClick={() => {
                   setNamn([""]);
-                  setKlassId(null)
+                  setKlassId(null);
                   const nyttNamn = prompt("Vad ska din nya klass heta?");
                   if (!nyttNamn) {
                     return;
@@ -273,7 +272,7 @@ const Klasser = ({}) => {
                     className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
                     onClick={() => {
                       setNamn(klass.personer);
-                      setKlassId(klass.id)
+                      setKlassId(klass.id);
                       setKlassnamn(klass.namn);
                       setKlassnamntext(klass.namn);
                       setVisaLaddaKlassrum(false);
