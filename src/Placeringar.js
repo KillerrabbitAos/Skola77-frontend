@@ -477,7 +477,7 @@ const SkapaPlaceringar = () => {
         >
           skrivUt
         </button>
-        <button
+        {klassnamn && klassrumsnamn && <button
           style={{ padding: "20px" }}
           className="bg-[#4CAF50] text-white"
           onClick={() => {
@@ -527,7 +527,7 @@ const SkapaPlaceringar = () => {
           }}
         >
           spara
-        </button>
+        </button>}
         <button
           style={{ padding: "20px" }}
           className="bg-[#4CAF50] text-white"
