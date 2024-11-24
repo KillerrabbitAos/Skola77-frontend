@@ -19,7 +19,7 @@ commit för vercel
 ### `npm install html2pdf`
 
 wormui
-### `npm start`
+### `npm star
 apa
 
 Runs the app in the development mode.\
