@@ -397,7 +397,7 @@ const SkapaPlaceringar = () => {
         </div>
       ) : (
         <div className="w-52 m-auto">
-          <h2 className="text-xl mt-2 font-bold">Placeringar</h2>
+          <h2 className="text-xl mt-2 font-bold">Dina placeringar</h2>
           <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
             <li
               key={"ny placering"}
@@ -413,7 +413,7 @@ const SkapaPlaceringar = () => {
                 setPlaceringsId(JSON.parse(JSON.stringify(beng)));
               }}
             >
-              ny placering
+              ny placering...
             </li>
             {data &&
               data.placeringar.map((placering) => {
