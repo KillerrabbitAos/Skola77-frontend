@@ -95,189 +95,13 @@ function calculateDPI() {
 const SkapaPlaceringar = () => {
   const [rows, setRows] = useState(6);
   const [cols, setCols] = useState(7);
-  const [grid, setGrid] = useState([
-    [
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: "item-1728395558391",
-        person: 0,
-      },
-      {
-        id: "item-1728395558639",
-        person: 0,
-      },
-    ],
-    [
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: "item-1728395560144",
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-    ],
-    [
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: "item-1728395557488",
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-    ],
-    [
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-    ],
-    [
-      {
-        id: "item-1728395563304",
-        person: 0,
-      },
-      {
-        id: "item-1728395562912",
-        person: 0,
-      },
-      {
-        id: "item-1728395557831",
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: "item-1728395562504",
-        person: 0,
-      },
-      {
-        id: "item-1728395559832",
-        person: 0,
-      },
-    ],
-    [
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: "item-1728395561288",
-        person: 0,
-      },
-      {
-        id: "item-1728395560888",
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-    ],
-  ]);
+  const [grid, setGrid] = useState(
+    Array.from({ length: rows }, () =>
+      Array.from({ length: cols }, () => ({ id: null, person: 0 }))
+    )
+  );
   const [data, setData] = useState(null);
+  const [klassrumsId, setKlassrumsId] = useState(null);
   const [updateSize, setUpdateSize] = useState(false);
   const [kolumner, setKolumner] = useState(3);
   const [frånvarande, setFrånvarande] = useState([]);
@@ -314,12 +138,15 @@ const SkapaPlaceringar = () => {
           <div className="mx-1">i</div>
           <div
             onClick={() => {
-              setGrid(Array.from({ length: rows }, () =>
-                Array.from({ length: cols }, () => ({ id: null, person: 0 }))
-              ));
+              setGrid(
+                Array.from({ length: rows }, () =>
+                  Array.from({ length: cols }, () => ({ id: null, person: 0 }))
+                )
+              );
               setRows(6);
               setCols(7);
               setKlassrumsnamn(null);
+              setKlassrumsId(null);
             }}
           >
             {klassrumsnamn}
@@ -378,9 +205,10 @@ const SkapaPlaceringar = () => {
                     }))
                   )
                 );
-                setRows(5);
-                setCols(5);
+                setRows(6);
+                setCols(7);
                 setKlassrumsnamn(null);
+                setKlassrumsId(null);
               }}
               className="text-xl font-bold"
             >{`i ${klassrumsnamn}`}</h2>
@@ -400,6 +228,7 @@ const SkapaPlaceringar = () => {
                         setRows(klassrum.rows);
                         setCols(klassrum.cols);
                         setKlassrumsnamn(klassrum.namn);
+                        setKlassrumsId(klassrum.id);
                       }}
                     >
                       {klassrum.namn}
@@ -570,13 +399,19 @@ const SkapaPlaceringar = () => {
           className="bg-[#4CAF50] text-white"
           onClick={() => {
             const nyData = data;
-            let index = klassnamn + klassrumsnamn;
+            let index = klassnamn + " i " +klassrumsnamn;
             nyData.placeringar[index] = {
-              grid: grid,
+              klassrum: {
+                id: klassrumsId,
+                namn: klassrumsnamn,
+                grid: grid,
+                cols: cols,
+                rows: rows,
+              },
               klass: { id: klassId, namn: klassnamn, personer: namn },
-              cols: cols,
-              rows: rows,
             };
+            console.log(nyData);
+            sparaData(nyData);
           }}
         >
           spara
