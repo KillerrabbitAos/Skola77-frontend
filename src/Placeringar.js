@@ -195,8 +195,8 @@ const SkapaPlaceringar = () => {
             style={{
               height: visaKlassrumsmeny ? "12rem" : "46px",
               position: visaKlassrumsmeny ? "absolute" : "relative",
-              top: `${klassmenykord[0]}px`,
-              right: `${klassmenykord[1]}px`,
+              top: `${klassrumsmenykord[0]}px`,
+              right: `${klassrumsmenykord[1]}px`,
             }}
             className="overflow-y-scroll w-52 border border-black mt-2"
           >
