@@ -128,16 +128,23 @@ const SkapaPlaceringar = () => {
   const content = useRef(null);
   const väljKLassOchKlassrum =
     klassrumsnamn && klassnamn ? (
-      <div className="w-full grid grid-cols-3">
-        {placeringsId ? (
+      <div className="krnkn h-[70px] flex items-center justify-center">
+        <div className="text-2xl m-3 flex text-center font-bold">
           <div
             onClick={() => {
               setNamn([""]);
+              setGrid(
+                grid.map((rad) => rad.map(({ id }) => ({ id, person: 0 })))
+              );
+
               setKlassnamn(null);
-              setKlassId(null);
-              setKlassrumsId(null);
-              setKlassrumsnamn(null);
-              setPlaceringsId(null);
+            }}
+          >
+            {klassnamn}
+          </div>
+          <div className="mx-1">i</div>
+          <div
+            onClick={() => {
               setGrid(
                 Array.from({ length: rows }, () =>
                   Array.from({ length: cols }, () => ({
@@ -148,45 +155,11 @@ const SkapaPlaceringar = () => {
               );
               setRows(6);
               setCols(7);
+              setKlassrumsnamn(null);
+              setKlassrumsId(null);
             }}
-            className="w-[10vw] bg-green-500 h-[4vw] place-self-start"
-          ></div>
-        ) : (
-          <div></div>
-        )}
-        <div className="krnkn h-[70px] flex items-center justify-center">
-          <div className="text-2xl m-3 flex text-center font-bold">
-            <div
-              onClick={() => {
-                setNamn([""]);
-                setGrid(
-                  grid.map((rad) => rad.map(({ id }) => ({ id, person: 0 })))
-                );
-
-                setKlassnamn(null);
-              }}
-            >
-              {klassnamn}
-            </div>
-            <div className="mx-1">i</div>
-            <div
-              onClick={() => {
-                setGrid(
-                  Array.from({ length: rows }, () =>
-                    Array.from({ length: cols }, () => ({
-                      id: null,
-                      person: 0,
-                    }))
-                  )
-                );
-                setRows(6);
-                setCols(7);
-                setKlassrumsnamn(null);
-                setKlassrumsId(null);
-              }}
-            >
-              {klassrumsnamn}
-            </div>
+          >
+            {klassrumsnamn}
           </div>
         </div>
       </div>
@@ -394,7 +367,34 @@ const SkapaPlaceringar = () => {
   return (
     <div>
       {placeringsId || (data && !data.placeringar[0]) ? (
-        väljKLassOchKlassrum
+        <div className="w-full grid grid-cols-10">
+          {placeringsId ? (
+            <div
+              onClick={() => {
+                setNamn([""]);
+                setKlassnamn(null);
+                setKlassId(null);
+                setKlassrumsId(null);
+                setKlassrumsnamn(null);
+                setPlaceringsId(null);
+                setGrid(
+                  Array.from({ length: rows }, () =>
+                    Array.from({ length: cols }, () => ({
+                      id: null,
+                      person: 0,
+                    }))
+                  )
+                );
+                setRows(6);
+                setCols(7);
+              }}
+              className="w-[10vw] bg-green-500 h-[4vw] place-self-start"
+            ></div>
+          ) : (
+            <div></div>
+          )}
+          <div className="col-span-8">{väljKLassOchKlassrum}</div>
+        </div>
       ) : (
         <div className="w-52 m-auto">
           <h2 className="text-xl mt-2 font-bold">Placeringar</h2>
