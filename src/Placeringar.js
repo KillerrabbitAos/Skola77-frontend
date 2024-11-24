@@ -345,21 +345,20 @@ const SkapaPlaceringar = () => {
             <h2 className="text-xl mt-2 font-bold">Klass</h2>
             <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
               {data &&
-                Object.keys(data.klasser)
-                  .slice()
-                  .reverse()
-                  .map((klassKey) => {
-                    const klass = data.klasser[klassKey];
+                (data.klasser)
+                  .map((klass) => {
+                    
                     return (
                       <li
-                        key={klassKey}
+                        key={klass.id}
                         className="font-bold text-xl p-2 cursor-pointer"
                         onClick={() => {
                           setNamn(klass.personer);
-                          setKlassnamn(klassKey);
+                          setKlassnamn(klass.namn);
+                          setKlassId(klass.id)
                         }}
                       >
-                        {klassKey}
+                        {klass.namn}
                       </li>
                     );
                   })}
