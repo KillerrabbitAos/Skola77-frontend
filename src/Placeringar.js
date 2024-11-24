@@ -120,6 +120,8 @@ const SkapaPlaceringar = () => {
   const [klassrumsnamn, setKlassrumsnamn] = useState(null);
   const [placeringsId, setPlaceringsId] = useState(null);
   const [placeringsnamn, setPlaceringsnamn] = useState(null);
+  const [visaKlassmeny, setVisaklassmeny] = useState(false);
+  const [visaKlassrumsmeny, setVisaklassrumsmeny] = useState(false);
   async function checkLoginStatus() {
     setData(originalData);
   }
@@ -127,134 +129,87 @@ const SkapaPlaceringar = () => {
     setData(nyData);
   }
   const content = useRef(null);
-  const väljKLassOchKlassrum =
-    klassrumsnamn && klassnamn ? (
-      <>
-        <div className="krnkn h-[70px] mb-7 flex items-center justify-center">
-          <div>
-            <div className="text-2xl m-3 flex text-center font-bold">
-              <div
-                onClick={() => {
-                  setNamn([""]);
-                  setGrid(
-                    grid.map((rad) => rad.map(({ id }) => ({ id, person: 0 })))
-                  );
+  const väljKLassOchKlassrum = (
+    <div className="flex flex-wrap justify-center gap-4">
+      <div className="w-fit flex">
+        <h2 className="text-xl mt-2 font-bold">Klass:</h2>
+        <ul
+          style={{ height: visaKlassmeny ? "12rem" : "46px" }}
+          className="overflow-y-scroll w-52 border border-black mt-2"
+        >
+          {visaKlassmeny ? (
+            data &&
+            data.klasser.map((klass) => {
+              return (
+                <li
+                  key={klass.id}
+                  className="font-bold text-xl p-2 cursor-pointer"
+                  onClick={() => {
+                    setNamn(klass.personer);
+                    setKlassnamn(klass.namn);
+                    setKlassId(klass.id);
+                    setVisaklassmeny(false);
+                  }}
+                >
+                  {klass.namn}
+                </li>
+              );
+            })
+          ) : (
+            <div
+              onClick={() => {
+                setVisaklassmeny(true);
+              }}
+              className="font-bold text-xl p-2 cursor-pointer"
+            >
+              {klassnamn}
+            </div>
+          )}
+        </ul>
+      </div>
 
-                  setKlassnamn(null);
-                }}
-              >
-                {klassnamn}
-              </div>
-              <div className="mx-1">i</div>
+      {
+        <div className="w-fit flex">
+          <h2 className="text-xl mt-2 font-bold">Klassrum</h2>
+          <ul
+            style={{ height: visaKlassrumsmeny ? "12rem" : "46px" }}
+            className="overflow-y-scroll w-52 border border-black mt-2"
+          >
+            {visaKlassrumsmeny ? (
+              data &&
+              data.klassrum.map((klassrum, index) => {
+                return (
+                  <li
+                    key={klassrum.id}
+                    className="font-bold text-xl p-2 cursor-pointer"
+                    onClick={() => {
+                      setGrid(klassrum.grid);
+                      setRows(klassrum.rows);
+                      setCols(klassrum.cols);
+                      setKlassrumsnamn(klassrum.namn);
+                      setKlassrumsId(klassrum.id);
+                      setVisaklassrumsmeny(false);
+                    }}
+                  >
+                    {klassrum.namn}
+                  </li>
+                );
+              })
+            ) : (
               <div
                 onClick={() => {
-                  setGrid(
-                    Array.from({ length: rows }, () =>
-                      Array.from({ length: cols }, () => ({
-                        id: null,
-                        person: 0,
-                      }))
-                    )
-                  );
-                  setRows(6);
-                  setCols(7);
-                  setKlassrumsnamn(null);
-                  setKlassrumsId(null);
+                  setVisaklassrumsmeny(true);
                 }}
+                className="font-bold text-xl p-2 cursor-pointer"
               >
                 {klassrumsnamn}
               </div>
-            </div>
-          </div>
+            )}
+          </ul>
         </div>
-      </>
-    ) : (
-      <div className="flex flex-wrap justify-center gap-4">
-        {klassnamn ? (
-          <div className="flex justify-center items-center">
-            <h2
-              onClick={() => {
-                setNamn([""]);
-                setGrid(
-                  grid.map((rad) => rad.map(({ id }) => ({ id, person: 0 })))
-                );
-
-                setKlassnamn(null);
-              }}
-              className="text-xl font-bold"
-            >{`${klassnamn} i`}</h2>
-          </div>
-        ) : (
-          <div className="w-52">
-            <h2 className="text-xl mt-2 font-bold">Klass</h2>
-            <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
-              {data &&
-                data.klasser.map((klass) => {
-                  return (
-                    <li
-                      key={klass.id}
-                      className="font-bold text-xl p-2 cursor-pointer"
-                      onClick={() => {
-                        setNamn(klass.personer);
-                        setKlassnamn(klass.namn);
-                        setKlassId(klass.id);
-                      }}
-                    >
-                      {klass.namn}
-                    </li>
-                  );
-                })}
-            </ul>
-          </div>
-        )}
-
-        {klassrumsnamn ? (
-          <div className="flex justify-center items-center">
-            <h2
-              onClick={() => {
-                setGrid(
-                  Array.from({ length: rows }, () =>
-                    Array.from({ length: cols }, () => ({
-                      id: null,
-                      person: 0,
-                    }))
-                  )
-                );
-                setRows(6);
-                setCols(7);
-                setKlassrumsnamn(null);
-                setKlassrumsId(null);
-              }}
-              className="text-xl font-bold"
-            >{`i ${klassrumsnamn}`}</h2>
-          </div>
-        ) : (
-          <div className="w-52">
-            <h2 className="text-xl mt-2 font-bold">Klassrum</h2>
-            <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
-              {data &&
-                data.klassrum.map((klassrum) => {
-                  return (
-                    <li
-                      key={klassrum.id}
-                      className="font-bold text-xl p-2 cursor-pointer"
-                      onClick={() => {
-                        setGrid(klassrum.grid);
-                        setRows(klassrum.rows);
-                        setCols(klassrum.cols);
-                        setKlassrumsnamn(klassrum.namn);
-                        setKlassrumsId(klassrum.id);
-                      }}
-                    >
-                      {klassrum.namn}
-                    </li>
-                  );
-                })}
-            </ul>
-          </div>
-        )}
-      </div>
-    );
+      }
+    </div>
+  );
   async function chekLoginStatus() {
     const response = await fetch("http://192.168.50.107:3000/api/getKlassrum");
     const result = await response.json();
@@ -443,11 +398,19 @@ const SkapaPlaceringar = () => {
           )}
           <div className="col-span-8">
             <div className="">
-              {placeringsnamn && (
-                <div className="text-3xl mt-3 flex justify-center text-center font-bold">
-                  {placeringsnamn}
-                </div>
-              )}
+              <div className="text-3xl mt-3 flex justify-center text-center font-bold">
+                <input
+                  value={
+                    klassnamn || klassrumsnamn || placeringsnamn
+                      ? placeringsnamn ||
+                        (klassnamn || "") + " i " + (klassrumsnamn || "")
+                      : ""
+                  }
+                  onChange={(e) => setPlaceringsnamn(e.target.value)}
+                  className="text-3xl mt-3 flex w-fit justify-center text-center"
+                />
+              </div>
+
               {väljKLassOchKlassrum}
             </div>
           </div>
@@ -544,7 +507,7 @@ const SkapaPlaceringar = () => {
               style={{ padding: "20px" }}
               className="bg-[#4CAF50] rounded-b-none border-solid border-black border  text-white"
               onClick={() => {
-                sparaKlass();
+                sparaKlass(placeringsnamn);
               }}
             >
               spara
@@ -561,7 +524,7 @@ const SkapaPlaceringar = () => {
                     "Du har redan lagt in en placering som heter så. Skriv ett namn som skiljer sig åt."
                   );
                 }
-                setPlaceringsnamn(index)
+                setPlaceringsnamn(index);
                 sparaKlass(index);
               }}
             >
