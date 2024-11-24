@@ -394,9 +394,12 @@ const SkapaPlaceringar = () => {
                     onClick={() => {
                       setNamn(placering.klass.personer);
                       setKlassnamn(placering.klass.namn);
+                      setKlassrumsId(placering.klassrum.id)
+                      setKlassrumsnamn(placering.klassrum.namn)
                       setKlassId(placering.klass.id);
                       setGrid(placering.klassrum.grid)
                       setCols(placering.klassrum.cols)
+                      setPlaceringsId(placering.id)
                       setRows(placering.klassrum.rows)
                     }}
                   >
