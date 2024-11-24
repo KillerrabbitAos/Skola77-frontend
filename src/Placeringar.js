@@ -351,11 +351,18 @@ const SkapaPlaceringar = () => {
             setKlar(true);
             await new Promise((resolve) => setTimeout(resolve, 1000));
             await scaleToFit(content.current, setUpdateSize, updateSize);
-            await new Promise((resolve) => setTimeout(resolve, 1000))
-            setKlar(false)
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            setKlar(false);
           }}
         >
           skrivUt
+        </button>
+        <button
+          style={{ padding: "20px" }}
+          className="bg-[#4CAF50] text-white"
+          onClick={() => {}}
+        >
+          spara
         </button>
         <button
           style={{ padding: "20px" }}
