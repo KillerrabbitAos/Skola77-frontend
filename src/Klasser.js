@@ -126,8 +126,10 @@ const Klasser = ({}) => {
         }
       });
     } else {
+      const nyttId = generateUniqueId()
+      setKlassId(nyttId)
       newData.klasser.push({
-        id: generateUniqueId(),
+        id: nyttId,
         namn: nyttKlassNamn,
         personer: namn,
       });
