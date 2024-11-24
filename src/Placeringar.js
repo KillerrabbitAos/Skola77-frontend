@@ -363,17 +363,17 @@ const SkapaPlaceringar = () => {
 
   return (
     <div>
-      {placeringsId ? (
+      {placeringsId || (data && !data.placeringar[0]) ? (
         väljKLassOchKlassrum
       ) : (
         <div className="w-52 m-auto">
-          <h2 className="text-xl mt-2 font-bold">Klass</h2>
+          <h2 className="text-xl mt-2 font-bold">Placeringar</h2>
           <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
             <li
               key={"ny placering"}
               className="font-bold text-xl p-2 cursor-pointer"
               onClick={() => {
-                const beng = generateUniqueId()
+                const beng = generateUniqueId();
                 setNamn([""]);
                 setKlassnamn(null);
                 setKlassId(null);
