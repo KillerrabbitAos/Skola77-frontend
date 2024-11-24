@@ -2,8 +2,10 @@ export const data = {
   placeringar: {
 
   },
-  klassrum: {
-    NP: {
+  klassrum: [
+    {
+      id: 7,
+      namn: "H221",
       rows: 15,
       cols: 17,
       grid: [
@@ -2653,7 +2655,9 @@ export const data = {
         ],
       ],
     },
-    H221: {
+    {
+      id: 6,
+      namn: "NP",
       grid: [
         [
           {
@@ -2839,7 +2843,7 @@ export const data = {
       cols: 7,
       rows: 6,
     },
-  },
+  ],
   klasser: [
     {
       id: 3,

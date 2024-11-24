@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import { data as originalData } from "./data.js";
 import Klassrum from "./Klassrum";
 import "./Grid.css";
-
+function generateUniqueId() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
 const Grid3 = () => {
   const [names, setNames] = useState([""]);
   const [rows, setRows] = useState(6);
@@ -194,6 +200,7 @@ const Grid3 = () => {
   const [låstaBänkar, setLåstaBänkar] = useState([]);
   const [gridData, setGridData] = useState("");
   const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [klassrumsId, setKlassrumsId] = useState(null);
   function sparaData(nyData) {
     setData(nyData);
   }
@@ -247,10 +254,10 @@ const Grid3 = () => {
     setGrid(newGrid);
     setCols(newCols);
   };
-  async function checkLoginStatus(){
-    setData(originalData)
+  async function checkLoginStatus() {
+    setData(originalData);
   }
-   async function checLoginStatus() {
+  async function checLoginStatus() {
     const response = await fetch("http://192.168.50.107:3000/api/getKlassrum");
     const result = await response.json();
     const parsedData = JSON.parse(result[0].data);
@@ -264,13 +271,19 @@ const Grid3 = () => {
 
   const spara = () => {
     let newData = data;
-    newData.klassrum[
-      klassrumsnamn ? klassrumsnamn : prompt("Vad heter klassrummet?")
-    ] = {
+
+    let nyttNamn = klassrumsnamn
+      ? klassrumsnamn
+      : prompt("Vad heter klassrummet?");
+    const nyttId = generateUniqueId();
+    setKlassrumsId(nyttId);
+    newData.klassrum.push({
+      id: nyttId,
+      namn: nyttNamn,
       rows: rows,
       cols: cols,
       grid: grid,
-    };
+    });
     sparaData(newData);
   };
   useEffect(() => {
@@ -350,26 +363,22 @@ const Grid3 = () => {
           nytt klassrum
         </li>
         {data &&
-          Object.keys(data.klassrum)
-            .slice()
-            .reverse()
-            .map((klassrumsKey) => {
-              const klassrum = data.klassrum[klassrumsKey];
-              return (
-                <li
-                  key={klassrumsKey}
-                  className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
-                  onClick={() => {
-                    setGrid(klassrum.grid);
-                    setCols(klassrum.cols);
-                    setRows(klassrum.rows);
-                    setKlassrumsNamn(klassrumsKey);
-                  }}
-                >
-                  {klassrumsKey}
-                </li>
-              );
-            })}
+          data.klassrum.map((klassrum) => {
+            return (
+              <li
+                key={klassrum.id}
+                className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
+                onClick={() => {
+                  setGrid(klassrum.grid);
+                  setCols(klassrum.cols);
+                  setRows(klassrum.rows);
+                  setKlassrumsNamn(klassrum.namn);
+                }}
+              >
+                {klassrum.namn}
+              </li>
+            );
+          })}
       </ul>
     </div>
   );
