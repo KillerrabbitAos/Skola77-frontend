@@ -388,8 +388,8 @@ const SkapaPlaceringar = () => {
                 setRows(6);
                 setCols(7);
               }}
-              className="w-[10vw] bg-green-500 h-[4vw] place-self-start"
-            ></div>
+              className="w-[10vw] bg-green-500 h-[4vw] place-self-start flex justify-center items-center"
+            ><img className="h-[4vw]" src="/pil-vänster.png"/></div>
           ) : (
             <div></div>
           )}
