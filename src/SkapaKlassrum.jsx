@@ -291,8 +291,8 @@ const Grid3 = () => {
   }, []);
   return (
     <div>
-      <div className="flex">
-        <div className="flex flex-grow">
+      <div className="flex flex-wrap">
+        <div className="flex flex-grow flex-wrap">
           {isTouchDevice ? (
             <div className="flex items-center">
               <span id="skola77ärbra">Rader</span>
