@@ -286,7 +286,7 @@ const SkapaPlaceringar = () => {
   const [låstaBänkar, setLåstaBänkar] = useState([]);
   const [klar, setKlar] = useState(false);
   const [omvänd, setOmvänd] = useState(false);
-  const [klassId, setKlassId] = useState(null)
+  const [klassId, setKlassId] = useState(null);
   const [klassrumsnamn, setKlassrumsnamn] = useState(null);
   async function checkLoginStatus() {
     setData(originalData);
@@ -314,9 +314,11 @@ const SkapaPlaceringar = () => {
           <div className="mx-1">i</div>
           <div
             onClick={() => {
-              setGrid(data.klassrum["H221"].grid);
-              setRows(data.klassrum["H221"].rows);
-              setCols(data.klassrum["H221"].cols);
+              setGrid(Array.from({ length: rows }, () =>
+                Array.from({ length: cols }, () => ({ id: null, person: 0 }))
+              ));
+              setRows(6);
+              setCols(7);
               setKlassrumsnamn(null);
             }}
           >
@@ -345,23 +347,21 @@ const SkapaPlaceringar = () => {
             <h2 className="text-xl mt-2 font-bold">Klass</h2>
             <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
               {data &&
-                (data.klasser)
-                  .map((klass) => {
-                    
-                    return (
-                      <li
-                        key={klass.id}
-                        className="font-bold text-xl p-2 cursor-pointer"
-                        onClick={() => {
-                          setNamn(klass.personer);
-                          setKlassnamn(klass.namn);
-                          setKlassId(klass.id)
-                        }}
-                      >
-                        {klass.namn}
-                      </li>
-                    );
-                  })}
+                data.klasser.map((klass) => {
+                  return (
+                    <li
+                      key={klass.id}
+                      className="font-bold text-xl p-2 cursor-pointer"
+                      onClick={() => {
+                        setNamn(klass.personer);
+                        setKlassnamn(klass.namn);
+                        setKlassId(klass.id);
+                      }}
+                    >
+                      {klass.namn}
+                    </li>
+                  );
+                })}
             </ul>
           </div>
         )}
@@ -370,9 +370,16 @@ const SkapaPlaceringar = () => {
           <div className="flex justify-center items-center">
             <h2
               onClick={() => {
-                setGrid(data.klassrum["H221"].grid);
-                setRows(data.klassrum["H221"].rows);
-                setCols(data.klassrum["H221"].cols);
+                setGrid(
+                  Array.from({ length: rows }, () =>
+                    Array.from({ length: cols }, () => ({
+                      id: null,
+                      person: 0,
+                    }))
+                  )
+                );
+                setRows(5);
+                setCols(5);
                 setKlassrumsnamn(null);
               }}
               className="text-xl font-bold"
@@ -383,20 +390,19 @@ const SkapaPlaceringar = () => {
             <h2 className="text-xl mt-2 font-bold">Klassrum</h2>
             <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
               {data &&
-                Object.keys(data.klassrum).map((klassrumKey, index) => {
-                  const klassrum = data.klassrum[klassrumKey];
+                data.klassrum.map((klassrum) => {
                   return (
                     <li
-                      key={klassrumKey || index}
+                      key={klassrum.id}
                       className="font-bold text-xl p-2 cursor-pointer"
                       onClick={() => {
                         setGrid(klassrum.grid);
                         setRows(klassrum.rows);
                         setCols(klassrum.cols);
-                        setKlassrumsnamn(klassrumKey);
+                        setKlassrumsnamn(klassrum.namn);
                       }}
                     >
-                      {klassrumKey}
+                      {klassrum.namn}
                     </li>
                   );
                 })}
@@ -567,11 +573,10 @@ const SkapaPlaceringar = () => {
             let index = klassnamn + klassrumsnamn;
             nyData.placeringar[index] = {
               grid: grid,
-              klass: {id: klassId, namn: klassnamn, personer: namn},
+              klass: { id: klassId, namn: klassnamn, personer: namn },
               cols: cols,
-              rows: rows
-            }
-            
+              rows: rows,
+            };
           }}
         >
           spara
