@@ -122,17 +122,35 @@ const SkapaPlaceringar = () => {
   const [placeringsnamn, setPlaceringsnamn] = useState(null);
   const [visaKlassmeny, setVisaklassmeny] = useState(false);
   const [visaKlassrumsmeny, setVisaklassrumsmeny] = useState(false);
+  const klassrumsmenyRef = useRef(null);
+  const klassmenyRef = useRef(null);
+  const [klassmenykord, setKlassmenykord] = useState([1]);
+  const [klassrumsmenykord, setKlassrumsmenykord] = useState([1]);
   async function checkLoginStatus() {
     setData(originalData);
   }
   function sparaData(nyData) {
     setData(nyData);
   }
+  useEffect(() => {
+    if (klassmenyRef.current) {
+      setKlassrumsmenykord([
+        klassrumsmenyRef.current.getBoundingClientRect().top,
+        klassrumsmenyRef.current.getBoundingClientRect().right,
+      ]);
+      setKlassmenykord([
+        klassmenyRef.current.getBoundingClientRect().top,
+        klassmenyRef.current.getBoundingClientRect().right,
+      ]);
+    }
+  }, [visaKlassrumsmeny, visaKlassmeny]);
   const content = useRef(null);
   const väljKLassOchKlassrum = (
     <div className="flex flex-wrap justify-center gap-4">
-      <div className="w-fit flex">
-        <h2 className="text-xl mt-2 font-bold">Klass:</h2>
+      <div className="w-fit justify-center items-center flex">
+        <h2 ref={klassmenyRef} className="text-xl mt-2 font-bold mr-1">
+          Klass:{" "}
+        </h2>
         <ul
           style={{ height: visaKlassmeny ? "12rem" : "46px" }}
           className="overflow-y-scroll w-52 border border-black mt-2"
@@ -169,10 +187,15 @@ const SkapaPlaceringar = () => {
       </div>
 
       {
-        <div className="w-fit flex">
-          <h2 className="text-xl mt-2 font-bold">Klassrum</h2>
+        <div className="w-fit flex justify-center items-center">
+          <h2 ref={klassrumsmenyRef} className="text-xl mt-2 font-bold mr-1">
+            Klassrum:{" "}
+          </h2>
           <ul
-            style={{ height: visaKlassrumsmeny ? "12rem" : "46px" }}
+            style={{
+              height: visaKlassrumsmeny ? "12rem" : "46px",
+              position: visaKlassrumsmeny ? "absolute" : "relative",
+            }}
             className="overflow-y-scroll w-52 border border-black mt-2"
           >
             {visaKlassrumsmeny ? (
