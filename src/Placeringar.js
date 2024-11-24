@@ -399,8 +399,9 @@ const SkapaPlaceringar = () => {
           className="bg-[#4CAF50] text-white"
           onClick={() => {
             const nyData = data;
-            let index = klassnamn + " i " +klassrumsnamn;
-            nyData.placeringar[index] = {
+            let index = klassnamn + " i " + klassrumsnamn;
+            nyData.placeringar.push({
+              namn: index,
               klassrum: {
                 id: klassrumsId,
                 namn: klassrumsnamn,
@@ -409,7 +410,7 @@ const SkapaPlaceringar = () => {
                 rows: rows,
               },
               klass: { id: klassId, namn: klassnamn, personer: namn },
-            };
+            });
             console.log(nyData);
             sparaData(nyData);
           }}
