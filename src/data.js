@@ -1,8 +1,8 @@
 export const data = {
-  placeringar: {
+  placeringar: [
     
+  ],
 
-  },
   klassrum: [
     {
       id: 7,

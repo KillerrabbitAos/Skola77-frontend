@@ -3,7 +3,13 @@ import Klassrum from "./Klassrum";
 import { data as originalData } from "./data";
 import NameList from "./Klasser";
 import "./Animationer.css";
-
+function generateUniqueId() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
 function divideArray(list, x) {
   if (x <= 0) throw new Error("Number of parts must be greater than 0.");
   const result = [];
@@ -112,6 +118,7 @@ const SkapaPlaceringar = () => {
   const [omvänd, setOmvänd] = useState(false);
   const [klassId, setKlassId] = useState(null);
   const [klassrumsnamn, setKlassrumsnamn] = useState(null);
+  const [placeringsId, setPlaceringsId] = useState(null)
   async function checkLoginStatus() {
     setData(originalData);
   }
@@ -400,7 +407,10 @@ const SkapaPlaceringar = () => {
           onClick={() => {
             const nyData = data;
             let index = klassnamn + " i " + klassrumsnamn;
+            const nyttId = generateUniqueId()
+            setPlaceringsId(nyttId)
             nyData.placeringar.push({
+              id: nyttId,
               namn: index,
               klassrum: {
                 id: klassrumsId,
