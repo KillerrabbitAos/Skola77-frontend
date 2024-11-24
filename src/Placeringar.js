@@ -366,7 +366,7 @@ const SkapaPlaceringar = () => {
       {placeringsId ? (
         väljKLassOchKlassrum
       ) : (
-        <div className="w-52">
+        <div className="w-52 m-auto">
           <h2 className="text-xl mt-2 font-bold">Klass</h2>
           <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
             <li
