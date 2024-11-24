@@ -375,7 +375,7 @@ const SkapaPlaceringar = () => {
               onClick={() => {
                 setNamn([""]);
                 setKlassnamn(null);
-                setKlassId(generateUniqueId());
+                setPlaceringsId(generateUniqueId());
               }}
             >
               ny placering
