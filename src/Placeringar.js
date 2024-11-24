@@ -153,7 +153,7 @@ const SkapaPlaceringar = () => {
           </div>
         ) : (
           <div className="w-52">
-            <h2 className="text-xl font-bold">Klass</h2>
+            <h2 className="text-xl mt-2 font-bold">Klass</h2>
             <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
               {Object.keys(data.klasser)
                 .slice()
@@ -191,7 +191,7 @@ const SkapaPlaceringar = () => {
           </div>
         ) : (
           <div className="w-52">
-            <h2 className="text-xl font-bold">Klassrum</h2>
+            <h2 className="text-xl mt-2 font-bold">Klassrum</h2>
             <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
               {Object.keys(data.klassrum).map((klassrumKey, index) => {
                 const klassrum = data.klassrum[klassrumKey];
