@@ -119,6 +119,7 @@ const SkapaPlaceringar = () => {
   const [klassId, setKlassId] = useState(null);
   const [klassrumsnamn, setKlassrumsnamn] = useState(null);
   const [placeringsId, setPlaceringsId] = useState(null);
+  const [placeringsnamn, setPlaceringsnamn] = useState(null);
   async function checkLoginStatus() {
     setData(originalData);
   }
@@ -128,41 +129,45 @@ const SkapaPlaceringar = () => {
   const content = useRef(null);
   const väljKLassOchKlassrum =
     klassrumsnamn && klassnamn ? (
-      <div className="krnkn h-[70px] flex items-center justify-center">
-        <div className="text-2xl m-3 flex text-center font-bold">
-          <div
-            onClick={() => {
-              setNamn([""]);
-              setGrid(
-                grid.map((rad) => rad.map(({ id }) => ({ id, person: 0 })))
-              );
+      <>
+        <div className="krnkn h-[70px] mb-7 flex items-center justify-center">
+          <div>
+            <div className="text-2xl m-3 flex text-center font-bold">
+              <div
+                onClick={() => {
+                  setNamn([""]);
+                  setGrid(
+                    grid.map((rad) => rad.map(({ id }) => ({ id, person: 0 })))
+                  );
 
-              setKlassnamn(null);
-            }}
-          >
-            {klassnamn}
-          </div>
-          <div className="mx-1">i</div>
-          <div
-            onClick={() => {
-              setGrid(
-                Array.from({ length: rows }, () =>
-                  Array.from({ length: cols }, () => ({
-                    id: null,
-                    person: 0,
-                  }))
-                )
-              );
-              setRows(6);
-              setCols(7);
-              setKlassrumsnamn(null);
-              setKlassrumsId(null);
-            }}
-          >
-            {klassrumsnamn}
+                  setKlassnamn(null);
+                }}
+              >
+                {klassnamn}
+              </div>
+              <div className="mx-1">i</div>
+              <div
+                onClick={() => {
+                  setGrid(
+                    Array.from({ length: rows }, () =>
+                      Array.from({ length: cols }, () => ({
+                        id: null,
+                        person: 0,
+                      }))
+                    )
+                  );
+                  setRows(6);
+                  setCols(7);
+                  setKlassrumsnamn(null);
+                  setKlassrumsId(null);
+                }}
+              >
+                {klassrumsnamn}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </>
     ) : (
       <div className="flex flex-wrap justify-center gap-4">
         {klassnamn ? (
@@ -261,6 +266,47 @@ const SkapaPlaceringar = () => {
     console.log("Klassrum:", klassrum);
     console.log("Klasser:", klasser);
   }
+  const sparaKlass = (index) => {
+    let nyData = data;
+
+    if (data.placeringar.some((placering) => placering.id === placeringsId)) {
+      nyData.placeringar = data.placeringar.map((placering) => {
+        if (placering.id === placeringsId) {
+          return {
+            id: placeringsId,
+            namn: index,
+            klassrum: {
+              id: klassrumsId,
+              namn: klassrumsnamn,
+              grid: grid,
+              cols: cols,
+              rows: rows,
+            },
+            klass: { id: klassId, namn: klassnamn, personer: namn },
+          };
+        } else {
+          return placering;
+        }
+      });
+    } else {
+      const nyttId = generateUniqueId();
+      setPlaceringsId(nyttId);
+      nyData.placeringar.push({
+        id: nyttId,
+        namn: index,
+        klassrum: {
+          id: klassrumsId,
+          namn: klassrumsnamn,
+          grid: grid,
+          cols: cols,
+          rows: rows,
+        },
+        klass: { id: klassId, namn: klassnamn, personer: namn },
+      });
+    }
+    console.log(nyData);
+    sparaData(nyData);
+  };
   const slumpa = () => {
     const nyGrid = [];
     const namnAttSlumpa = [];
@@ -389,11 +435,22 @@ const SkapaPlaceringar = () => {
                 setCols(7);
               }}
               className="w-[10vw] bg-green-500 h-[4vw] place-self-start flex justify-center items-center"
-            ><img className="h-[4vw]" src="/pil-vänster.png"/></div>
+            >
+              <img className="h-[4vw]" src="/pil-vänster.png" />
+            </div>
           ) : (
             <div></div>
           )}
-          <div className="col-span-8">{väljKLassOchKlassrum}</div>
+          <div className="col-span-8">
+            <div className="">
+              {placeringsnamn && (
+                <div className="text-3xl mt-3 flex justify-center text-center font-bold">
+                  {placeringsnamn}
+                </div>
+              )}
+              {väljKLassOchKlassrum}
+            </div>
+          </div>
         </div>
       ) : (
         <div className="w-52 m-auto">
@@ -431,9 +488,13 @@ const SkapaPlaceringar = () => {
                       setCols(placering.klassrum.cols);
                       setPlaceringsId(placering.id);
                       setRows(placering.klassrum.rows);
+                      setPlaceringsnamn(placering.namn);
                     }}
                   >
-                    {placering.namn}
+                    {placering.namn ||
+                      (placering.klass.namn || "en tom klass") +
+                        " i " +
+                        (placering.klassrum.namn || "ett tomt klassrum")}
                   </li>
                 );
               })}
@@ -477,57 +538,37 @@ const SkapaPlaceringar = () => {
         >
           skrivUt
         </button>
-        {klassnamn && klassrumsnamn && <button
-          style={{ padding: "20px" }}
-          className="bg-[#4CAF50] text-white"
-          onClick={() => {
-            let nyData = data;
-            let index = (klassnamn || "en tom klass") + " i " + (klassrumsnamn || "ett tomt klassrum");
-            if (
-              data.placeringar.some(
-                (placering) => placering.id === placeringsId
-              )
-            ) {
-              nyData.placeringar = data.placeringar.map((placering) => {
-                if (placering.id === placeringsId) {
-                  return {
-                    id: placeringsId,
-                    namn: index,
-                    klassrum: {
-                      id: klassrumsId,
-                      namn: klassrumsnamn,
-                      grid: grid,
-                      cols: cols,
-                      rows: rows,
-                    },
-                    klass: { id: klassId, namn: klassnamn, personer: namn },
-                  };
-                } else {
-                  return { placering };
+        {klassnamn && klassrumsnamn && (
+          <div className="w-[130px]">
+            <button
+              style={{ padding: "20px" }}
+              className="bg-[#4CAF50] rounded-b-none border-solid border-black border  text-white"
+              onClick={() => {
+                sparaKlass();
+              }}
+            >
+              spara
+            </button>
+            <button
+              style={{ padding: "20px" }}
+              className="bg-[#4CAF50] border border-t-0 border-black border-solid rounded-t-none text-white"
+              onClick={() => {
+                let index = prompt("Vad ska placeringen heta?");
+                while (
+                  data.placeringar.some((placering) => placering.namn === index)
+                ) {
+                  index = prompt(
+                    "Du har redan lagt in en placering som heter så. Skriv ett namn som skiljer sig åt."
+                  );
                 }
-              });
-            } else {
-              const nyttId = generateUniqueId();
-              setPlaceringsId(nyttId);
-              nyData.placeringar.push({
-                id: nyttId,
-                namn: index,
-                klassrum: {
-                  id: klassrumsId,
-                  namn: klassrumsnamn,
-                  grid: grid,
-                  cols: cols,
-                  rows: rows,
-                },
-                klass: { id: klassId, namn: klassnamn, personer: namn },
-              });
-            }
-            console.log(nyData);
-            sparaData(nyData);
-          }}
-        >
-          spara
-        </button>}
+
+                sparaKlass(index);
+              }}
+            >
+              spara som
+            </button>
+          </div>
+        )}
         <button
           style={{ padding: "20px" }}
           className="bg-[#4CAF50] text-white"
