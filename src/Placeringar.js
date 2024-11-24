@@ -335,7 +335,7 @@ const SkapaPlaceringar = () => {
           </div>
         ) : (
           <div className="w-52">
-            <h2 className="text-xl font-bold">Klass</h2>
+            <h2 className="text-xl mt-2 font-bold">Klass</h2>
             <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
               {data && Object.keys(data.klasser)
                 .slice()
@@ -373,7 +373,7 @@ const SkapaPlaceringar = () => {
           </div>
         ) : (
           <div className="w-52">
-            <h2 className="text-xl font-bold">Klassrum</h2>
+            <h2 className="text-xl mt-2 font-bold">Klassrum</h2>
             <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
               {data && Object.keys(data.klassrum).map((klassrumKey, index) => {
                 const klassrum = data.klassrum[klassrumKey];
@@ -545,11 +545,18 @@ const SkapaPlaceringar = () => {
             setKlar(true);
             await new Promise((resolve) => setTimeout(resolve, 1000));
             await scaleToFit(content.current, setUpdateSize, updateSize);
-            await new Promise((resolve) => setTimeout(resolve, 1000))
-            setKlar(false)
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            setKlar(false);
           }}
         >
           skrivUt
+        </button>
+        <button
+          style={{ padding: "20px" }}
+          className="bg-[#4CAF50] text-white"
+          onClick={() => {}}
+        >
+          spara
         </button>
         <button
           style={{ padding: "20px" }}
