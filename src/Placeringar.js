@@ -375,6 +375,11 @@ const SkapaPlaceringar = () => {
               onClick={() => {
                 setNamn([""]);
                 setKlassnamn(null);
+                setKlassId(null)
+                setKlassrumsId(null)
+                setKlassrumsnamn(null)
+                
+                
                 setPlaceringsId(generateUniqueId());
               }}
             >
@@ -390,6 +395,9 @@ const SkapaPlaceringar = () => {
                       setNamn(placering.klass.personer);
                       setKlassnamn(placering.klass.namn);
                       setKlassId(placering.klass.id);
+                      setGrid(placering.klassrum.grid)
+                      setCols(placering.klassrum.cols)
+                      setRows(placering.klassrum.rows)
                     }}
                   >
                     {placering.namn}
