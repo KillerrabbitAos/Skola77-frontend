@@ -1,9 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import { data as originalData } from "./data";
 import NamnRuta from "./Namn";
 import ExcelToTextConverter from "./ExcelToTextConverter";
 import { isMobile, isTablet } from "react-device-detect";
 import { compress } from "lz-string";
+function generateUniqueId() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
 
 function divideArray(list, x) {
   if (x <= 0) throw new Error("Number of parts must be greater than 0.");
@@ -22,50 +29,55 @@ function divideArray(list, x) {
   return result;
 }
 
-const Klasser = ({ }) => {
+const Klasser = ({}) => {
   const [namn, setNamn] = useState([""]);
   const textrutaRef = useRef(null);
   const [visaLaddaKlassrum, setVisaLaddaKlassrum] = useState(false);
   const [kolumner, setKolumner] = useState(10);
   const [klassnamn, setKlassnamn] = useState(null);
+  const [klassId, setKlassId] = useState(null);
   const [klassnamntext, setKlassnamntext] = useState("ny klass");
-  const [data, setData] = useState(null)
+  const [data, setData] = useState(null);
   const defaultKlass = "ny klass";
-
+  async function checkLoginStatus() {
+    setData(originalData);
+  }
   function sparaData(nyData) {
-    fetch('http://192.168.50.107:3000/api/updateData', {
-      method: 'POST',
+    setData(nyData);
+  }
+
+  function sparaDta(nyData) {
+    fetch("http://192.168.50.107:3000/api/updateData", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(nyData),
-    }).then((response) => response.json())
+    })
+      .then((response) => response.json())
       .then((data) => {
         console.log(data.message);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   }
   const filRef = useRef(null);
 
   useEffect(() => {
-
-    checkLoginStatus()
-
+    checkLoginStatus();
   }, []);
-  async function checkLoginStatus() {
-    const response = await fetch('http://192.168.50.107:3000/api/getKlassrum');
+  async function checLoginStatus() {
+    const response = await fetch("http://192.168.50.107:3000/api/getKlassrum");
     const result = await response.json();
     const parsedData = JSON.parse(result[0].data);
-    setData(parsedData)
+    setData(parsedData);
     const klassrum = parsedData.klassrum;
     const klasser = parsedData.klasser;
 
-    console.log('Klassrum:', klassrum);
-    console.log('Klasser:', klasser);
+    console.log("Klassrum:", klassrum);
+    console.log("Klasser:", klasser);
   }
-
 
   const läggTillNamn = () => {
     const textareaContent = textrutaRef.current.value
@@ -85,28 +97,47 @@ const Klasser = ({ }) => {
   };
   const spara = (nyttNamn) => {
     let newData = data;
-    let index = nyttNamn
+    let nyttKlassNamn = nyttNamn
       ? nyttNamn
-      : klassnamn || klassnamntext !== defaultKlass
-        ? klassnamntext
-        : prompt("Vad heter klassen?");
+      : klassId || klassnamntext !== defaultKlass
+      ? klassnamntext
+      : prompt("Vad heter klassen?");
     if (klassnamn !== klassnamntext) {
-      while (newData.klasser[index]) {
-        index = prompt(
+      while (newData.klasser.some((klass) => klass.namn === nyttKlassNamn)) {
+        nyttKlassNamn = prompt(
           "Du har redan lagt in en klass som heter så. Skriv ett namn som skiljer sig åt."
         );
       }
     }
-    if (!index) { return }
-    newData.klasser[index] = { personer: namn };
-    console.log(JSON.stringify(newData));
+    if (!nyttKlassNamn) {
+      return;
+    }
+    if (klassId) {
+      newData.klasser = data.klasser.map((klass) => {
+        if (klass.id === klassId) {
+          return {
+            id: klass.id,
+            namn: nyttKlassNamn,
+            personer: namn,
+          };
+        }
+        else {
+          return klass
+        }
+      });
+    } else {
+      newData.klasser.push({
+        id: generateUniqueId(),
+        namn: nyttKlassNamn,
+        personer: namn,
+      });
+    }
+    console.log(newData);
 
-    sparaData(newData)
+    sparaData(newData);
 
-
-
-    setKlassnamn(index);
-    setKlassnamntext(index);
+    setKlassnamn(nyttKlassNamn);
+    setKlassnamntext(nyttKlassNamn);
   };
 
   const taBortEfternamn = () => {
@@ -223,33 +254,32 @@ const Klasser = ({ }) => {
                 onClick={() => {
                   setNamn([""]);
                   const nyttNamn = prompt("Vad ska din nya klass heta?");
-                  if (!nyttNamn) { return }
+                  if (!nyttNamn) {
+                    return;
+                  }
                   setVisaLaddaKlassrum(false);
                   spara(nyttNamn);
                 }}
               >
                 ny klass...
               </li>
-              {Object.keys(data.klasser)
-                .slice()
-                .reverse()
-                .map((klassKey) => {
-                  const klass = data.klasser[klassKey];
-                  return (
-                    <li
-                      key={klassKey}
-                      className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
-                      onClick={() => {
-                        setNamn(klass.personer);
-                        setKlassnamn(klassKey);
-                        setKlassnamntext(klassKey);
-                        setVisaLaddaKlassrum(false);
-                      }}
-                    >
-                      {klassKey}
-                    </li>
-                  );
-                })}
+              {data.klasser.map((klass) => {
+                return (
+                  <li
+                    key={klass.id}
+                    className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
+                    onClick={() => {
+                      setNamn(klass.personer);
+                      setKlassId(klass.id)
+                      setKlassnamn(klass.namn);
+                      setKlassnamntext(klass.namn);
+                      setVisaLaddaKlassrum(false);
+                    }}
+                  >
+                    {klass.namn}
+                  </li>
+                );
+              })}
             </div>
           </div>
         </div>

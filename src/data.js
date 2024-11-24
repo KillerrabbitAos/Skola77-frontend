@@ -1,4 +1,7 @@
 export const data = {
+  placeringar: {
+
+  },
   klassrum: {
     NP: {
       rows: 15,
@@ -2837,8 +2840,10 @@ export const data = {
       rows: 6,
     },
   },
-  klasser: {
-    "peters klass": {
+  klasser: [
+    {
+      id: 3,
+      namn: "peters klass",
       personer: [
         "",
         "Alexander",
@@ -2970,7 +2975,9 @@ export const data = {
         "Ceasar",
       ],
     },
-    "6C": {
+    {
+      id: 4,
+      namn: "6C",
       personer: [
         "",
         "Ada",
@@ -3000,7 +3007,9 @@ export const data = {
         "Karl",
       ],
     },
-    "7G": {
+    {
+      id: 5,
+      namn: "7G",
       personer: [
         "",
         "henry",
@@ -3013,5 +3022,5 @@ export const data = {
         "Prodromosappapap",
       ],
     },
-  },
+  ],
 };

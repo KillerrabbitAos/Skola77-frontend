@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import Klassrum from "./Klassrum";
-import { data } from "./data";
+import { data as originalData } from "./data";
 import NameList from "./Klasser";
 import "./Animationer.css";
 
@@ -277,7 +277,7 @@ const SkapaPlaceringar = () => {
       },
     ],
   ]);
-  const [data, setData] = useState(null)
+  const [data, setData] = useState(null);
   const [updateSize, setUpdateSize] = useState(false);
   const [kolumner, setKolumner] = useState(3);
   const [frånvarande, setFrånvarande] = useState([]);
@@ -286,7 +286,14 @@ const SkapaPlaceringar = () => {
   const [låstaBänkar, setLåstaBänkar] = useState([]);
   const [klar, setKlar] = useState(false);
   const [omvänd, setOmvänd] = useState(false);
+  const [klassId, setKlassId] = useState(null)
   const [klassrumsnamn, setKlassrumsnamn] = useState(null);
+  async function checkLoginStatus() {
+    setData(originalData);
+  }
+  function sparaData(nyData) {
+    setData(nyData);
+  }
   const content = useRef(null);
   const väljKLassOchKlassrum =
     klassrumsnamn && klassnamn ? (
@@ -337,24 +344,25 @@ const SkapaPlaceringar = () => {
           <div className="w-52">
             <h2 className="text-xl mt-2 font-bold">Klass</h2>
             <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
-              {data && Object.keys(data.klasser)
-                .slice()
-                .reverse()
-                .map((klassKey) => {
-                  const klass = data.klasser[klassKey];
-                  return (
-                    <li
-                      key={klassKey}
-                      className="font-bold text-xl p-2 cursor-pointer"
-                      onClick={() => {
-                        setNamn(klass.personer);
-                        setKlassnamn(klassKey);
-                      }}
-                    >
-                      {klassKey}
-                    </li>
-                  );
-                })}
+              {data &&
+                Object.keys(data.klasser)
+                  .slice()
+                  .reverse()
+                  .map((klassKey) => {
+                    const klass = data.klasser[klassKey];
+                    return (
+                      <li
+                        key={klassKey}
+                        className="font-bold text-xl p-2 cursor-pointer"
+                        onClick={() => {
+                          setNamn(klass.personer);
+                          setKlassnamn(klassKey);
+                        }}
+                      >
+                        {klassKey}
+                      </li>
+                    );
+                  })}
             </ul>
           </div>
         )}
@@ -375,38 +383,39 @@ const SkapaPlaceringar = () => {
           <div className="w-52">
             <h2 className="text-xl mt-2 font-bold">Klassrum</h2>
             <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
-              {data && Object.keys(data.klassrum).map((klassrumKey, index) => {
-                const klassrum = data.klassrum[klassrumKey];
-                return (
-                  <li
-                    key={klassrumKey || index}
-                    className="font-bold text-xl p-2 cursor-pointer"
-                    onClick={() => {
-                      setGrid(klassrum.grid);
-                      setRows(klassrum.rows);
-                      setCols(klassrum.cols);
-                      setKlassrumsnamn(klassrumKey);
-                    }}
-                  >
-                    {klassrumKey}
-                  </li>
-                );
-              })}
+              {data &&
+                Object.keys(data.klassrum).map((klassrumKey, index) => {
+                  const klassrum = data.klassrum[klassrumKey];
+                  return (
+                    <li
+                      key={klassrumKey || index}
+                      className="font-bold text-xl p-2 cursor-pointer"
+                      onClick={() => {
+                        setGrid(klassrum.grid);
+                        setRows(klassrum.rows);
+                        setCols(klassrum.cols);
+                        setKlassrumsnamn(klassrumKey);
+                      }}
+                    >
+                      {klassrumKey}
+                    </li>
+                  );
+                })}
             </ul>
           </div>
         )}
       </div>
     );
-  async function checkLoginStatus() {
-    const response = await fetch('http://192.168.50.107:3000/api/getKlassrum');
+  async function chekLoginStatus() {
+    const response = await fetch("http://192.168.50.107:3000/api/getKlassrum");
     const result = await response.json();
     const parsedData = JSON.parse(result[0].data);
-    setData(parsedData)
+    setData(parsedData);
     const klassrum = parsedData.klassrum;
     const klasser = parsedData.klasser;
 
-    console.log('Klassrum:', klassrum);
-    console.log('Klasser:', klasser);
+    console.log("Klassrum:", klassrum);
+    console.log("Klasser:", klasser);
   }
   const slumpa = () => {
     const nyGrid = [];
@@ -509,8 +518,8 @@ const SkapaPlaceringar = () => {
         setKolumner(namnILista.length);
       });
     };
-
   }, []);
+
   return (
     <div>
       {väljKLassOchKlassrum}
@@ -554,7 +563,17 @@ const SkapaPlaceringar = () => {
         <button
           style={{ padding: "20px" }}
           className="bg-[#4CAF50] text-white"
-          onClick={() => {}}
+          onClick={() => {
+            const nyData = data;
+            let index = klassnamn + klassrumsnamn;
+            nyData.placeringar[index] = {
+              grid: grid,
+              klass: {id: klassId, namn: klassnamn, personer: namn},
+              cols: cols,
+              rows: rows
+            }
+            
+          }}
         >
           spara
         </button>
