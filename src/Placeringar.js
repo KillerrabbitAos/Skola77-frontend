@@ -118,7 +118,7 @@ const SkapaPlaceringar = () => {
   const [omvänd, setOmvänd] = useState(false);
   const [klassId, setKlassId] = useState(null);
   const [klassrumsnamn, setKlassrumsnamn] = useState(null);
-  const [placeringsId, setPlaceringsId] = useState(null)
+  const [placeringsId, setPlaceringsId] = useState(null);
   async function checkLoginStatus() {
     setData(originalData);
   }
@@ -363,7 +363,42 @@ const SkapaPlaceringar = () => {
 
   return (
     <div>
-      {väljKLassOchKlassrum}
+      {placeringsId ? (
+        väljKLassOchKlassrum
+      ) : (
+        <div className="w-52">
+          <h2 className="text-xl mt-2 font-bold">Klass</h2>
+          <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
+            <li
+              key={"ny placering"}
+              className="font-bold text-xl p-2 cursor-pointer"
+              onClick={() => {
+                setNamn([""]);
+                setKlassnamn(null);
+                setKlassId(generateUniqueId());
+              }}
+            >
+              ny placering
+            </li>
+            {data &&
+              data.placeringar.map((placering) => {
+                return (
+                  <li
+                    key={placering.id}
+                    className="font-bold text-xl p-2 cursor-pointer"
+                    onClick={() => {
+                      setNamn(placering.klass.personer);
+                      setKlassnamn(placering.klass.namn);
+                      setKlassId(placering.klass.id);
+                    }}
+                  >
+                    {placering.namn}
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
+      )}
       <div ref={content} style={{ zIndex: "100" }}>
         <Klassrum
           edit={false}
@@ -407,8 +442,8 @@ const SkapaPlaceringar = () => {
           onClick={() => {
             const nyData = data;
             let index = klassnamn + " i " + klassrumsnamn;
-            const nyttId = generateUniqueId()
-            setPlaceringsId(nyttId)
+            const nyttId = generateUniqueId();
+            setPlaceringsId(nyttId);
             nyData.placeringar.push({
               id: nyttId,
               namn: index,
