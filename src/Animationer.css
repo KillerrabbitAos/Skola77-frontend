@@ -20,3 +20,6 @@
       visibility: visible;
     }
   }
+  li:hover{
+    background-color: lightgray;
+  }
