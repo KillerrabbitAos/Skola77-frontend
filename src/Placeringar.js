@@ -482,7 +482,7 @@ const SkapaPlaceringar = () => {
           className="bg-[#4CAF50] text-white"
           onClick={() => {
             let nyData = data;
-            let index = klassnamn + " i " + klassrumsnamn;
+            let index = (klassnamn || "en tom klass") + " i " + (klassrumsnamn || "ett tomt klassrum");
             if (
               data.placeringar.some(
                 (placering) => placering.id === placeringsId
