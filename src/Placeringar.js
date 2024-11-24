@@ -373,14 +373,14 @@ const SkapaPlaceringar = () => {
               key={"ny placering"}
               className="font-bold text-xl p-2 cursor-pointer"
               onClick={() => {
+                const beng = generateUniqueId()
                 setNamn([""]);
                 setKlassnamn(null);
-                setKlassId(null)
-                setKlassrumsId(null)
-                setKlassrumsnamn(null)
-                
-                
-                setPlaceringsId(generateUniqueId());
+                setKlassId(null);
+                setKlassrumsId(null);
+                setKlassrumsnamn(null);
+
+                setPlaceringsId(JSON.parse(JSON.stringify(beng)));
               }}
             >
               ny placering
@@ -394,13 +394,13 @@ const SkapaPlaceringar = () => {
                     onClick={() => {
                       setNamn(placering.klass.personer);
                       setKlassnamn(placering.klass.namn);
-                      setKlassrumsId(placering.klassrum.id)
-                      setKlassrumsnamn(placering.klassrum.namn)
+                      setKlassrumsId(placering.klassrum.id);
+                      setKlassrumsnamn(placering.klassrum.namn);
                       setKlassId(placering.klass.id);
-                      setGrid(placering.klassrum.grid)
-                      setCols(placering.klassrum.cols)
-                      setPlaceringsId(placering.id)
-                      setRows(placering.klassrum.rows)
+                      setGrid(placering.klassrum.grid);
+                      setCols(placering.klassrum.cols);
+                      setPlaceringsId(placering.id);
+                      setRows(placering.klassrum.rows);
                     }}
                   >
                     {placering.namn}
@@ -451,22 +451,47 @@ const SkapaPlaceringar = () => {
           style={{ padding: "20px" }}
           className="bg-[#4CAF50] text-white"
           onClick={() => {
-            const nyData = data;
+            let nyData = data;
             let index = klassnamn + " i " + klassrumsnamn;
-            const nyttId = generateUniqueId();
-            setPlaceringsId(nyttId);
-            nyData.placeringar.push({
-              id: nyttId,
-              namn: index,
-              klassrum: {
-                id: klassrumsId,
-                namn: klassrumsnamn,
-                grid: grid,
-                cols: cols,
-                rows: rows,
-              },
-              klass: { id: klassId, namn: klassnamn, personer: namn },
-            });
+            if (
+              data.placeringar.some(
+                (placering) => placering.id === placeringsId
+              )
+            ) {
+              nyData.placeringar = data.placeringar.map((placering) => {
+                if (placering.id === placeringsId) {
+                  return {
+                    id: placeringsId,
+                    namn: index,
+                    klassrum: {
+                      id: klassrumsId,
+                      namn: klassrumsnamn,
+                      grid: grid,
+                      cols: cols,
+                      rows: rows,
+                    },
+                    klass: { id: klassId, namn: klassnamn, personer: namn },
+                  };
+                } else {
+                  return { placering };
+                }
+              });
+            } else {
+              const nyttId = generateUniqueId();
+              setPlaceringsId(nyttId);
+              nyData.placeringar.push({
+                id: nyttId,
+                namn: index,
+                klassrum: {
+                  id: klassrumsId,
+                  namn: klassrumsnamn,
+                  grid: grid,
+                  cols: cols,
+                  rows: rows,
+                },
+                klass: { id: klassId, namn: klassnamn, personer: namn },
+              });
+            }
             console.log(nyData);
             sparaData(nyData);
           }}
