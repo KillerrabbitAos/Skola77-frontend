@@ -1,18 +1,218 @@
 import React, { useState, useEffect } from "react";
-import { data } from "./data";
+
 import Klassrum from "./Klassrum";
 import "./Grid.css";
 
+
+
 const Grid3 = () => {
-  const [names, setNames] = useState(data.klasser["peters klass"].personer);
-  const [rows, setRows] = useState(data.klassrum["H221"].rows);
-  const [cols, setCols] = useState(data.klassrum["H221"].cols);
-  const [grid, setGrid] = useState(data.klassrum["H221"].grid);
+  const [names, setNames] = useState([""]);
+  const [rows, setRows] = useState(6);
+  const [cols, setCols] = useState(7);
+  const [grid, setGrid] = useState([
+    [
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: "item-1728395558391",
+        person: 0,
+      },
+      {
+        id: "item-1728395558639",
+        person: 0,
+      },
+    ],
+    [
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: "item-1728395560144",
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+    ],
+    [
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: "item-1728395557488",
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+    ],
+    [
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+    ],
+    [
+      {
+        id: "item-1728395563304",
+        person: 0,
+      },
+      {
+        id: "item-1728395562912",
+        person: 0,
+      },
+      {
+        id: "item-1728395557831",
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: "item-1728395562504",
+        person: 0,
+      },
+      {
+        id: "item-1728395559832",
+        person: 0,
+      },
+    ],
+    [
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: "item-1728395561288",
+        person: 0,
+      },
+      {
+        id: "item-1728395560888",
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+    ],
+  ]);
+  const [data, setData] = useState(null)
   const [klassrumsnamn, setKlassrumsNamn] = useState(null);
   const [låstaBänkar, setLåstaBänkar] = useState([]);
   const [gridData, setGridData] = useState("");
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
+  function sparaData(nyData) {
+    setData(nyData)
+    fetch('http://192.168.50.107:3000/api/updateData', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(nyData),
+    }).then((response) => response.json())
+      .then((data) => {
+        console.log(data.message);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
   useEffect(() => {
     setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
   }, []);
@@ -35,18 +235,29 @@ const Grid3 = () => {
     const newGrid = grid.map((row) =>
       newCols > cols
         ? [
-            ...row,
-            ...Array.from({ length: newCols - cols }, () => ({
-              id: null,
-              person: 0,
-            })),
-          ]
+          ...row,
+          ...Array.from({ length: newCols - cols }, () => ({
+            id: null,
+            person: 0,
+          })),
+        ]
         : row
     );
     setGrid(newGrid);
     setCols(newCols);
   };
+  async function checkLoginStatus() {
+    const response = await fetch('http://192.168.50.107:3000/api/getKlassrum');
+    const result = await response.json();
+    const parsedData = JSON.parse(result[0].data);
+    setData(parsedData)
+    const klassrum = parsedData.klassrum;
+    const klasser = parsedData.klasser;
 
+    console.log('Klassrum:', klassrum);
+    console.log('Klasser:', klasser);
+  }
+  
   const spara = () => {
     let newData = data;
     newData.klassrum[
@@ -56,9 +267,12 @@ const Grid3 = () => {
       cols: cols,
       grid: grid,
     };
-    console.log(newData);
+    sparaData(newData);
   };
+  useEffect(() => {
+    checkLoginStatus()
 
+  }, [])
   return (
     <div>
       <div className="flex">
@@ -132,23 +346,26 @@ const Grid3 = () => {
         >
           nytt klassrum
         </li>
-        {Object.keys(data.klassrum).map((klassrumKey, index) => {
-          const klassrum = data.klassrum[klassrumKey];
-          return (
-            <li
-              key={klassrumKey || index}
-              className="font-bold text-xl p-2 cursor-pointer"
-              onClick={() => {
-                setGrid(klassrum.grid);
-                setRows(klassrum.rows);
-                setCols(klassrum.cols);
-                setKlassrumsNamn(klassrumKey);
-              }}
-            >
-              {klassrumKey}
-            </li>
-          );
-        })}
+        {data && Object.keys(data.klassrum)
+          .slice()
+          .reverse()
+          .map((klassrumsKey) => {
+            const klassrum = data.klassrum[klassrumsKey];
+            return (
+              <li
+                key={klassrumsKey}
+                className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
+                onClick={() => {
+                  setGrid(klassrum.grid);
+                  setCols(klassrum.cols)
+                  setRows(klassrum.rows)
+                  setKlassrumsNamn(klassrumsKey);
+                }}
+              >
+                {klassrumsKey}
+              </li>
+            );
+          })}
       </ul>
     </div>
   );

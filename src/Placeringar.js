@@ -93,9 +93,191 @@ function calculateDPI() {
 }
 
 const SkapaPlaceringar = () => {
-  const [grid, setGrid] = useState(data.klassrum["H221"].grid);
-  const [rows, setRows] = useState(data.klassrum["H221"].rows);
-  const [cols, setCols] = useState(data.klassrum["H221"].cols);
+  const [rows, setRows] = useState(6);
+  const [cols, setCols] = useState(7);
+  const [grid, setGrid] = useState([
+    [
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: "item-1728395558391",
+        person: 0,
+      },
+      {
+        id: "item-1728395558639",
+        person: 0,
+      },
+    ],
+    [
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: "item-1728395560144",
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+    ],
+    [
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: "item-1728395557488",
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+    ],
+    [
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+    ],
+    [
+      {
+        id: "item-1728395563304",
+        person: 0,
+      },
+      {
+        id: "item-1728395562912",
+        person: 0,
+      },
+      {
+        id: "item-1728395557831",
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: "item-1728395562504",
+        person: 0,
+      },
+      {
+        id: "item-1728395559832",
+        person: 0,
+      },
+    ],
+    [
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: "item-1728395561288",
+        person: 0,
+      },
+      {
+        id: "item-1728395560888",
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+      {
+        id: null,
+        person: 0,
+      },
+    ],
+  ]);
+  const [data, setData] = useState(null)
   const [updateSize, setUpdateSize] = useState(false);
   const [kolumner, setKolumner] = useState(3);
   const [frånvarande, setFrånvarande] = useState([]);
@@ -155,7 +337,7 @@ const SkapaPlaceringar = () => {
           <div className="w-52">
             <h2 className="text-xl font-bold">Klass</h2>
             <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
-              {Object.keys(data.klasser)
+              {data && Object.keys(data.klasser)
                 .slice()
                 .reverse()
                 .map((klassKey) => {
@@ -193,7 +375,7 @@ const SkapaPlaceringar = () => {
           <div className="w-52">
             <h2 className="text-xl font-bold">Klassrum</h2>
             <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
-              {Object.keys(data.klassrum).map((klassrumKey, index) => {
+              {data && Object.keys(data.klassrum).map((klassrumKey, index) => {
                 const klassrum = data.klassrum[klassrumKey];
                 return (
                   <li
@@ -215,7 +397,17 @@ const SkapaPlaceringar = () => {
         )}
       </div>
     );
+  async function checkLoginStatus() {
+    const response = await fetch('http://192.168.50.107:3000/api/getKlassrum');
+    const result = await response.json();
+    const parsedData = JSON.parse(result[0].data);
+    setData(parsedData)
+    const klassrum = parsedData.klassrum;
+    const klasser = parsedData.klasser;
 
+    console.log('Klassrum:', klassrum);
+    console.log('Klasser:', klasser);
+  }
   const slumpa = () => {
     const nyGrid = [];
     const namnAttSlumpa = [];
@@ -308,6 +500,7 @@ const SkapaPlaceringar = () => {
       Math.floor(window.outerWidth / 320)
     );
   useEffect(() => {
+    checkLoginStatus();
     window.addEventListener("resize", () => {
       setKolumner(namnILista.length);
     });
@@ -316,6 +509,7 @@ const SkapaPlaceringar = () => {
         setKolumner(namnILista.length);
       });
     };
+
   }, []);
   return (
     <div>

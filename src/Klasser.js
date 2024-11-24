@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { data } from "./data";
+
 import NamnRuta from "./Namn";
 import ExcelToTextConverter from "./ExcelToTextConverter";
 import { isMobile, isTablet } from "react-device-detect";
@@ -22,36 +22,51 @@ function divideArray(list, x) {
   return result;
 }
 
-const Klasser = ({}) => {
+const Klasser = ({ }) => {
   const [namn, setNamn] = useState([""]);
   const textrutaRef = useRef(null);
   const [visaLaddaKlassrum, setVisaLaddaKlassrum] = useState(false);
   const [kolumner, setKolumner] = useState(10);
   const [klassnamn, setKlassnamn] = useState(null);
   const [klassnamntext, setKlassnamntext] = useState("ny klass");
-
+  const [data, setData] = useState(null)
   const defaultKlass = "ny klass";
 
+  function sparaData(nyData) {
+    fetch('http://192.168.50.107:3000/api/updateData', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(nyData),
+    }).then((response) => response.json())
+      .then((data) => {
+        console.log(data.message);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
   const filRef = useRef(null);
 
   useEffect(() => {
-    
+
     checkLoginStatus()
-    
+
   }, []);
   async function checkLoginStatus() {
     const response = await fetch('http://192.168.50.107:3000/api/getKlassrum');
-    const result = await response.json(); 
-    const parsedData = JSON.parse(result);
-  
+    const result = await response.json();
+    const parsedData = JSON.parse(result[0].data);
+    setData(parsedData)
     const klassrum = parsedData.klassrum;
     const klasser = parsedData.klasser;
-  
-    console.log('Klassrum:', klassrum); 
-    console.log('Klasser:', klasser);    
+
+    console.log('Klassrum:', klassrum);
+    console.log('Klasser:', klasser);
   }
-  
-  
+
+
   const läggTillNamn = () => {
     const textareaContent = textrutaRef.current.value
       .split("\n")
@@ -73,8 +88,8 @@ const Klasser = ({}) => {
     let index = nyttNamn
       ? nyttNamn
       : klassnamn || klassnamntext !== defaultKlass
-      ? klassnamntext
-      : prompt("Vad heter klassen?");
+        ? klassnamntext
+        : prompt("Vad heter klassen?");
     if (klassnamn !== klassnamntext) {
       while (newData.klasser[index]) {
         index = prompt(
@@ -82,23 +97,13 @@ const Klasser = ({}) => {
         );
       }
     }
+    if (!index) { return }
     newData.klasser[index] = { personer: namn };
     console.log(JSON.stringify(newData));
 
-    fetch('http://192.168.50.107:3000/api/updateData', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.message);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+    sparaData(newData)
+
+
 
     setKlassnamn(index);
     setKlassnamntext(index);
@@ -218,6 +223,7 @@ const Klasser = ({}) => {
                 onClick={() => {
                   setNamn([""]);
                   const nyttNamn = prompt("Vad ska din nya klass heta?");
+                  if (!nyttNamn) { return }
                   setVisaLaddaKlassrum(false);
                   spara(nyttNamn);
                 }}
