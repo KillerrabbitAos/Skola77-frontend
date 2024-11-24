@@ -128,35 +128,65 @@ const SkapaPlaceringar = () => {
   const content = useRef(null);
   const väljKLassOchKlassrum =
     klassrumsnamn && klassnamn ? (
-      <div className="krnkn h-[70px] flex items-center justify-center">
-        <div className="text-2xl m-3 flex text-center font-bold">
+      <div className="w-full grid grid-cols-3">
+        {placeringsId ? (
           <div
             onClick={() => {
               setNamn([""]);
-              setGrid(
-                grid.map((rad) => rad.map(({ id }) => ({ id, person: 0 })))
-              );
-
               setKlassnamn(null);
-            }}
-          >
-            {klassnamn}
-          </div>
-          <div className="mx-1">i</div>
-          <div
-            onClick={() => {
+              setKlassId(null);
+              setKlassrumsId(null);
+              setKlassrumsnamn(null);
+              setPlaceringsId(null);
               setGrid(
                 Array.from({ length: rows }, () =>
-                  Array.from({ length: cols }, () => ({ id: null, person: 0 }))
+                  Array.from({ length: cols }, () => ({
+                    id: null,
+                    person: 0,
+                  }))
                 )
               );
               setRows(6);
               setCols(7);
-              setKlassrumsnamn(null);
-              setKlassrumsId(null);
             }}
-          >
-            {klassrumsnamn}
+            className="w-[10vw] bg-green-500 h-[4vw] place-self-start"
+          ></div>
+        ) : (
+          <div></div>
+        )}
+        <div className="krnkn h-[70px] flex items-center justify-center">
+          <div className="text-2xl m-3 flex text-center font-bold">
+            <div
+              onClick={() => {
+                setNamn([""]);
+                setGrid(
+                  grid.map((rad) => rad.map(({ id }) => ({ id, person: 0 })))
+                );
+
+                setKlassnamn(null);
+              }}
+            >
+              {klassnamn}
+            </div>
+            <div className="mx-1">i</div>
+            <div
+              onClick={() => {
+                setGrid(
+                  Array.from({ length: rows }, () =>
+                    Array.from({ length: cols }, () => ({
+                      id: null,
+                      person: 0,
+                    }))
+                  )
+                );
+                setRows(6);
+                setCols(7);
+                setKlassrumsnamn(null);
+                setKlassrumsId(null);
+              }}
+            >
+              {klassrumsnamn}
+            </div>
           </div>
         </div>
       </div>
