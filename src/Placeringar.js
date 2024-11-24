@@ -561,7 +561,7 @@ const SkapaPlaceringar = () => {
                     "Du har redan lagt in en placering som heter så. Skriv ett namn som skiljer sig åt."
                   );
                 }
-
+                setPlaceringsnamn(index)
                 sparaKlass(index);
               }}
             >
