@@ -253,6 +253,7 @@ const Klasser = ({}) => {
                 className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
                 onClick={() => {
                   setNamn([""]);
+                  setKlassId(null)
                   const nyttNamn = prompt("Vad ska din nya klass heta?");
                   if (!nyttNamn) {
                     return;
