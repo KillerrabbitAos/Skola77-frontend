@@ -377,8 +377,8 @@ const SkapaPlaceringar = () => {
       Math.floor(window.outerWidth / 320)
     );
   useEffect(() => {
-    setVisaklassrumsmeny(klassrumsnamn)
-    setVisaklassmeny(klassnamn)
+    setVisaklassrumsmeny(!klassrumsnamn)
+    setVisaklassmeny(!klassnamn)
     checkLoginStatus();
     window.addEventListener("resize", () => {
       setKolumner(namnILista.length);
