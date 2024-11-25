@@ -120,8 +120,8 @@ const SkapaPlaceringar = () => {
   const [klassrumsnamn, setKlassrumsnamn] = useState(null);
   const [placeringsId, setPlaceringsId] = useState(null);
   const [placeringsnamn, setPlaceringsnamn] = useState(null);
-  const [visaKlassmeny, setVisaklassmeny] = useState(false);
-  const [visaKlassrumsmeny, setVisaklassrumsmeny] = useState(false);
+  const [visaKlassmeny, setVisaklassmeny] = useState(true);
+  const [visaKlassrumsmeny, setVisaklassrumsmeny] = useState(true);
   const klassrumsmenyRef = useRef(null);
   const klassmenyRef = useRef(null);
   const [klassmenykord, setKlassmenykord] = useState([1]);
@@ -402,6 +402,7 @@ const SkapaPlaceringar = () => {
                 setKlassId(null);
                 setKlassrumsId(null);
                 setKlassrumsnamn(null);
+                setPlaceringsnamn(null)
                 setPlaceringsId(null);
                 setGrid(
                   Array.from({ length: rows }, () =>
@@ -454,7 +455,8 @@ const SkapaPlaceringar = () => {
                 setKlassId(null);
                 setKlassrumsId(null);
                 setKlassrumsnamn(null);
-
+setVisaklassmeny(true)
+setVisaklassrumsmeny(true)
                 setPlaceringsId(JSON.parse(JSON.stringify(beng)));
               }}
             >
@@ -469,6 +471,8 @@ const SkapaPlaceringar = () => {
                     onClick={() => {
                       setNamn(placering.klass.personer);
                       setKlassnamn(placering.klass.namn);
+                      setVisaklassmeny(false)
+                      setVisaklassrumsmeny(false)
                       setKlassrumsId(placering.klassrum.id);
                       setKlassrumsnamn(placering.klassrum.namn);
                       setKlassId(placering.klass.id);
