@@ -194,9 +194,7 @@ const SkapaPlaceringar = () => {
           <ul
             style={{
               height: visaKlassrumsmeny ? "12rem" : "46px",
-              position: visaKlassrumsmeny ? "absolute" : "relative",
-              top: `${klassrumsmenykord[0]}px`,
-              right: `${klassrumsmenykord[1]}px`,
+              
             }}
             className="overflow-y-scroll w-52 border border-black mt-2"
           >
@@ -379,6 +377,8 @@ const SkapaPlaceringar = () => {
       Math.floor(window.outerWidth / 320)
     );
   useEffect(() => {
+    setVisaklassrumsmeny(klassrumsnamn)
+    setVisaklassmeny(klassnamn)
     checkLoginStatus();
     window.addEventListener("resize", () => {
       setKolumner(namnILista.length);
