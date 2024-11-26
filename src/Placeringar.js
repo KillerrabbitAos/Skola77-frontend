@@ -523,7 +523,7 @@ const SkapaPlaceringar = () => {
           </ul>
         </div>
       )}
-      (
+      
       <>
         {(placeringsId || klassrumsId) && (
           <div ref={content} style={{ zIndex: "100" }}>
