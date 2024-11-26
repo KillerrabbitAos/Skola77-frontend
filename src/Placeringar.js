@@ -159,7 +159,7 @@ const SkapaPlaceringar = () => {
               style={{
                 height: visaKlassmeny ? "12rem" : "46px",
               }}
-              className="overflow-y-scroll scrollbar-thin place-self-start bg-[#f1f1f1] w-52 border border-black"
+              className="overflow-y-scroll scrollbar-none place-self-start bg-[#f1f1f1] w-52 border border-black"
             >
               {visaKlassmeny ? (
                 data && (
@@ -241,7 +241,7 @@ const SkapaPlaceringar = () => {
                 style={{
                   height: visaKlassrumsmeny ? "12rem" : "46px",
                 }}
-                className="overflow-y-scroll place-self-start bg-[#f1f1f1] w-52 border border-black"
+                className="overflow-y-scroll scrollbar-none place-self-start bg-[#f1f1f1] w-52 border border-black"
               >
                 {visaKlassrumsmeny ? (
                   data && (
