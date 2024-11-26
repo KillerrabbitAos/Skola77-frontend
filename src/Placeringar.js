@@ -162,23 +162,29 @@ const SkapaPlaceringar = () => {
               className="overflow-y-scroll place-self-start bg-[#f1f1f1] w-52 border border-black"
             >
               {visaKlassmeny ? (
-                data &&
-                data.klasser.map((klass) => {
-                  return (
-                    <li
-                      key={klass.id}
-                      className="font-bold text-xl p-2 cursor-pointer"
-                      onClick={() => {
-                        setNamn(klass.personer);
-                        setKlassnamn(klass.namn);
-                        setKlassId(klass.id);
-                        setVisaklassmeny(false);
-                      }}
-                    >
-                      {klass.namn}
-                    </li>
-                  );
-                })
+                data && (
+                  <div>
+                    <li className="font-bold text-xl p-2 cursor-pointer" onClick={() => setVisaklassmeny(false)}>{klassnamn}</li>
+                    {data.klasser.map((klass) => {
+                      if (klass.id !== klassId) {
+                        return (
+                          <li
+                            key={klass.id}
+                            className="font-bold text-xl p-2 cursor-pointer"
+                            onClick={() => {
+                              setNamn(klass.personer);
+                              setKlassnamn(klass.namn);
+                              setKlassId(klass.id);
+                              setVisaklassmeny(false);
+                            }}
+                          >
+                            {klass.namn}
+                          </li>
+                        );
+                      }
+                    })}
+                  </div>
+                )
               ) : (
                 <div
                   onClick={() => {
@@ -217,25 +223,33 @@ const SkapaPlaceringar = () => {
                 className="overflow-y-scroll place-self-start bg-[#f1f1f1] w-52 border border-black"
               >
                 {visaKlassrumsmeny ? (
-                  data &&
-                  data.klassrum.map((klassrum, index) => {
-                    return (
-                      <li
-                        key={klassrum.id}
-                        className="font-bold text-xl p-2 cursor-pointer"
-                        onClick={() => {
-                          setGrid(klassrum.grid);
-                          setRows(klassrum.rows);
-                          setCols(klassrum.cols);
-                          setKlassrumsnamn(klassrum.namn);
-                          setKlassrumsId(klassrum.id);
-                          setVisaklassrumsmeny(false);
-                        }}
-                      >
-                        {klassrum.namn}
+                  data && (
+                    <div>
+                      <li className="font-bold text-xl p-2 cursor-pointer" onClick={() => setVisaklassrumsmeny(false)}>
+                        {klassrumsnamn}
                       </li>
-                    );
-                  })
+                      {data.klassrum.map((klassrum, index) => {
+                        if (klassrum.id !== klassrumsId) {
+                          return (
+                            <li
+                              key={klassrum.id}
+                              className="font-bold text-xl p-2 cursor-pointer"
+                              onClick={() => {
+                                setGrid(klassrum.grid);
+                                setRows(klassrum.rows);
+                                setCols(klassrum.cols);
+                                setKlassrumsnamn(klassrum.namn);
+                                setKlassrumsId(klassrum.id);
+                                setVisaklassrumsmeny(false);
+                              }}
+                            >
+                              {klassrum.namn}
+                            </li>
+                          );
+                        }
+                      })}
+                    </div>
+                  )
                 ) : (
                   <div
                     onClick={() => {
