@@ -409,6 +409,9 @@ etc...
       </div>
 
 
+      <hr/>
+
+
       <div id="bossesDevHörna">
         <h1>Bosses devhörna</h1>
         <textarea
