@@ -174,7 +174,6 @@ const SkapaPlaceringar = () => {
         >
           <Overlay>
             <ul
-            
               style={{
                 height: visaKlassmeny ? "12rem" : "46px",
               }}
@@ -215,48 +214,59 @@ const SkapaPlaceringar = () => {
 
       {
         <div className="w-fit flex justify-center items-center">
-          <div style={{ height: visaKlassrumsmeny ? "12rem" : "46px" }}>
+          <div style={{ height: "46px" }}>
             <h2 ref={klassrumsmenyRef} className="text-xl mt-2 font-bold mr-1">
               Klassrum:{" "}
             </h2>
           </div>
-          <ul
+          <div
             style={{
-              height: visaKlassrumsmeny ? "12rem" : "46px",
+              position: "relative",
+              width: "180px",
+              height: "46px",
             }}
-            className="overflow-y-scroll w-52 border border-black"
+            className="!h-[46px]"
           >
-            {visaKlassrumsmeny ? (
-              data &&
-              data.klassrum.map((klassrum, index) => {
-                return (
-                  <li
-                    key={klassrum.id}
-                    className="font-bold text-xl p-2 cursor-pointer"
-                    onClick={() => {
-                      setGrid(klassrum.grid);
-                      setRows(klassrum.rows);
-                      setCols(klassrum.cols);
-                      setKlassrumsnamn(klassrum.namn);
-                      setKlassrumsId(klassrum.id);
-                      setVisaklassrumsmeny(false);
-                    }}
-                  >
-                    {klassrum.namn}
-                  </li>
-                );
-              })
-            ) : (
-              <div
-                onClick={() => {
-                  setVisaklassrumsmeny(true);
+            <Overlay>
+              <ul
+                style={{
+                  height: visaKlassrumsmeny ? "12rem" : "46px",
                 }}
-                className="font-bold text-xl p-2 cursor-pointer"
+                className="overflow-y-scroll place-self-start bg-[#f1f1f1] w-52 border border-black"
               >
-                {klassrumsnamn}
-              </div>
-            )}
-          </ul>
+                {visaKlassrumsmeny ? (
+                  data &&
+                  data.klassrum.map((klassrum, index) => {
+                    return (
+                      <li
+                        key={klassrum.id}
+                        className="font-bold text-xl p-2 cursor-pointer"
+                        onClick={() => {
+                          setGrid(klassrum.grid);
+                          setRows(klassrum.rows);
+                          setCols(klassrum.cols);
+                          setKlassrumsnamn(klassrum.namn);
+                          setKlassrumsId(klassrum.id);
+                          setVisaklassrumsmeny(false);
+                        }}
+                      >
+                        {klassrum.namn}
+                      </li>
+                    );
+                  })
+                ) : (
+                  <div
+                    onClick={() => {
+                      setVisaklassrumsmeny(true);
+                    }}
+                    className="font-bold text-xl p-2 cursor-pointer"
+                  >
+                    {klassrumsnamn}
+                  </div>
+                )}
+              </ul>
+            </Overlay>
+          </div>
         </div>
       }
     </div>
