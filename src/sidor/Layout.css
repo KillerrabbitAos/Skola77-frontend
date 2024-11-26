@@ -50,8 +50,9 @@
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
-    border-bottom: 1px solid #f0f0f0; /* Divider between items */
+    border-bottom: 1px solid #f0f0f0;
   }
+  
   
   .dropdown-item:last-child {
     border-bottom: none; /* Remove border on the last item */
@@ -75,3 +76,17 @@
     padding: 10px;
   }
   
+
+  .nav-links li:hover, 
+.dropdown-item:hover {
+  background-color: white;
+}
+
+.nav-links li, 
+.dropdown-item, 
+#kebbe, 
+.konto-ikon {
+  user-select: none;
+  -webkit-user-drag: none;
+  cursor: default;
+}

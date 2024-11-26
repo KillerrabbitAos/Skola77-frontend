@@ -189,6 +189,8 @@ const Layout = () => {
             <li className="header">
               <NavLink
                 to="/Placeringar"
+                draggable="false"
+
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
                 Placeringar
@@ -197,6 +199,7 @@ const Layout = () => {
             <li className="header">
               <NavLink
                 to="/Klassrum"
+                draggable="false"
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
                 Klassrum
@@ -205,6 +208,7 @@ const Layout = () => {
             <li className="header">
               <NavLink
                 to="/Klasser"
+                draggable="false"
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
                 Klasser
@@ -213,6 +217,7 @@ const Layout = () => {
             <li className="header">
               <NavLink
                 to="/Support"
+                draggable="false"
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
                 Hjälp
@@ -222,12 +227,14 @@ const Layout = () => {
               <li className="header">
                 <NavLink
                   to="/mittKonto"
+                  draggable="false"
                   className={({ isActive }) => (isActive ? "active" : "")}
                   id="mittKonto"
                 >
                   <img
                     src="/account.svg"
                     alt="Mitt konto"
+                    draggable="false"
                     className="konto-ikon"
                   />
                 </NavLink>

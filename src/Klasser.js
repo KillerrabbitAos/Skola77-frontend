@@ -4,6 +4,7 @@ import NamnRuta from "./Namn";
 import ExcelToTextConverter from "./ExcelToTextConverter";
 import { isMobile, isTablet } from "react-device-detect";
 import { compress } from "lz-string";
+import { height } from "@fortawesome/free-solid-svg-icons/fa0";
 function generateUniqueId() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0;
@@ -29,7 +30,7 @@ function divideArray(list, x) {
   return result;
 }
 
-const Klasser = ({}) => {
+const Klasser = ({ }) => {
   const [namn, setNamn] = useState([""]);
   const textrutaRef = useRef(null);
   const [visaLaddaKlassrum, setVisaLaddaKlassrum] = useState(false);
@@ -38,6 +39,8 @@ const Klasser = ({}) => {
   const [klassId, setKlassId] = useState(null);
   const [klassnamntext, setKlassnamntext] = useState("ny klass");
   const [data, setData] = useState(null);
+  const [textareaValue, setTextareaValue] = useState("");
+
   const defaultKlass = "ny klass";
   async function checkLoginStatus() {
     setData(originalData);
@@ -79,6 +82,40 @@ const Klasser = ({}) => {
     console.log("Klasser:", klasser);
   }
 
+
+  const handleButtonClick = async () => {
+    if (!textareaValue.trim()) {
+      alert("Textarea är tom! Skriv in data innan du skickar.");
+      return;
+    }
+
+    try {
+      const response = await fetch("https://auth.skola77.com:3005/updateData", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data: textareaValue }),
+      });
+
+      if (response.ok) {
+        alert("Data skickades framgångsrikt!");
+        setTextareaValue("");
+      } else {
+        alert("Misslyckades med att skicka data. Kontrollera servern.");
+      }
+    } catch (error) {
+      console.error("Ett fel inträffade:", error);
+      alert("Ett nätverksfel inträffade.");
+    }
+  }
+
+  const handleTextareaChange = (e) => {
+    setTextareaValue(e.target.value);
+  };
+
+
+
   const läggTillNamn = () => {
     const textareaContent = textrutaRef.current.value
       .split("\n")
@@ -100,8 +137,8 @@ const Klasser = ({}) => {
     let nyttKlassNamn = nyttNamn
       ? nyttNamn
       : klassId || klassnamntext !== defaultKlass
-      ? klassnamntext
-      : prompt("Vad heter klassen?");
+        ? klassnamntext
+        : prompt("Vad heter klassen?");
     if (klassnamn !== klassnamntext) {
       while (newData.klasser.some((klass) => klass.namn === nyttKlassNamn)) {
         nyttKlassNamn = prompt(
@@ -370,6 +407,25 @@ etc...
           <div>{kolumn}</div>
         ))}
       </div>
+
+
+      <hr/>
+
+
+      <div id="bossesDevHörna">
+        <h1>Bosses devhörna</h1>
+        <textarea
+          id="nyDataTillServern"
+          placeholder="ny data:"
+          style={{ height: 200 }}
+          value={textareaValue}
+          onChange={handleTextareaChange}
+        ></textarea>
+        <button id="iväg" onClick={handleButtonClick}>
+          Skicka
+        </button>
+      </div>
+
     </div>
   );
 };
