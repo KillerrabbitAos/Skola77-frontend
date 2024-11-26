@@ -271,20 +271,33 @@ const Grid3 = () => {
 
   const spara = () => {
     let newData = data;
+    if (klassrumsId) {
+      newData.klassrum[
+        data.klassrum.findIndex((klassrum) => klassrum.id === klassrumsId)
+      ] = {
+        id: klassrumsId,
+        namn: klassrumsnamn,
+        rows: rows,
+        cols: cols,
+        grid: grid,
+      };
+      sparaData(newData);
+    } else {
+      let nyttNamn = klassrumsnamn
+        ? klassrumsnamn
+        : prompt("Vad heter klassrummet?");
 
-    let nyttNamn = klassrumsnamn
-      ? klassrumsnamn
-      : prompt("Vad heter klassrummet?");
-    const nyttId = generateUniqueId();
-    setKlassrumsId(nyttId);
-    newData.klassrum.push({
-      id: nyttId,
-      namn: nyttNamn,
-      rows: rows,
-      cols: cols,
-      grid: grid,
-    });
-    sparaData(newData);
+      const nyttId = generateUniqueId();
+      setKlassrumsId(nyttId);
+      newData.klassrum.push({
+        id: nyttId,
+        namn: nyttNamn,
+        rows: rows,
+        cols: cols,
+        grid: grid,
+      });
+      sparaData(newData);
+    }
   };
   useEffect(() => {
     checkLoginStatus();
@@ -371,6 +384,7 @@ const Grid3 = () => {
                 onClick={() => {
                   setGrid(klassrum.grid);
                   setCols(klassrum.cols);
+                  setKlassrumsId(klassrum.id)
                   setRows(klassrum.rows);
                   setKlassrumsNamn(klassrum.namn);
                 }}

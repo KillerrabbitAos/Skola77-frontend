@@ -3,6 +3,7 @@ import Klassrum from "./Klassrum";
 import { data as originalData } from "./data";
 import NameList from "./Klasser";
 import "./Animationer.css";
+import Overlay from "./Overlay";
 function generateUniqueId() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0;
@@ -122,113 +123,132 @@ const SkapaPlaceringar = () => {
   const [placeringsnamn, setPlaceringsnamn] = useState(null);
   const [visaKlassmeny, setVisaklassmeny] = useState(true);
   const [visaKlassrumsmeny, setVisaklassrumsmeny] = useState(true);
+  const [vägg, setVägg] = useState(false);
   const klassrumsmenyRef = useRef(null);
   const klassmenyRef = useRef(null);
   const [klassmenykord, setKlassmenykord] = useState([1]);
   const [klassrumsmenykord, setKlassrumsmenykord] = useState([1]);
+  const [nyttPlaceringsnamn, setNyttPlaceringsnamn] = useState(null);
   async function checkLoginStatus() {
     setData(originalData);
   }
   function sparaData(nyData) {
     setData(nyData);
   }
-  useEffect(() => {
-    if (klassmenyRef.current) {
-      setKlassrumsmenykord([
-        klassrumsmenyRef.current.getBoundingClientRect().top,
-        klassrumsmenyRef.current.getBoundingClientRect().right,
-      ]);
-      setKlassmenykord([
-        klassmenyRef.current.getBoundingClientRect().top,
-        klassmenyRef.current.getBoundingClientRect().right,
-      ]);
-    }
-  }, [visaKlassrumsmeny, visaKlassmeny]);
+
   const content = useRef(null);
   const väljKLassOchKlassrum = (
     <div className="flex flex-wrap justify-center gap-4">
-      <div className="w-fit justify-center items-center flex">
-        <h2 ref={klassmenyRef} className="text-xl mt-2 font-bold mr-1">
-          Klass:{" "}
-        </h2>
-        <ul
-          style={{ height: visaKlassmeny ? "12rem" : "46px" }}
-          className="overflow-y-scroll w-52 border border-black mt-2"
+      <div
+        ref={klassmenyRef}
+        className="w-fit justify-center items-center flex"
+      >
+        <div style={{ height: "46px" }}>
+          <h2 className="text-xl mt-2 font-bold mr-1">Klass: </h2>
+        </div>
+        <div
+          style={{
+            position: "relative",
+            width: "180px",
+            height: "46px",
+          }}
+          className="!h-[46px]"
         >
-          {visaKlassmeny ? (
-            data &&
-            data.klasser.map((klass) => {
-              return (
-                <li
-                  key={klass.id}
-                  className="font-bold text-xl p-2 cursor-pointer"
-                  onClick={() => {
-                    setNamn(klass.personer);
-                    setKlassnamn(klass.namn);
-                    setKlassId(klass.id);
-                    setVisaklassmeny(false);
-                  }}
-                >
-                  {klass.namn}
-                </li>
-              );
-            })
-          ) : (
-            <div
-              onClick={() => {
-                setVisaklassmeny(true);
+          <Overlay>
+            <ul
+              style={{
+                height: visaKlassmeny ? "12rem" : "46px",
               }}
-              className="font-bold text-xl p-2 cursor-pointer"
+              className="overflow-y-scroll place-self-start bg-[#f1f1f1] w-52 border border-black"
             >
-              {klassnamn}
-            </div>
-          )}
-        </ul>
+              {visaKlassmeny ? (
+                data &&
+                data.klasser.map((klass) => {
+                  return (
+                    <li
+                      key={klass.id}
+                      className="font-bold text-xl p-2 cursor-pointer"
+                      onClick={() => {
+                        setNamn(klass.personer);
+                        setKlassnamn(klass.namn);
+                        setKlassId(klass.id);
+                        setVisaklassmeny(false);
+                      }}
+                    >
+                      {klass.namn}
+                    </li>
+                  );
+                })
+              ) : (
+                <div
+                  onClick={() => {
+                    setVisaklassmeny(true);
+                  }}
+                  className="font-bold text-xl p-2 cursor-pointer"
+                >
+                  {klassnamn}
+                </div>
+              )}
+            </ul>
+          </Overlay>
+        </div>
       </div>
 
       {
         <div className="w-fit flex justify-center items-center">
-          <h2 ref={klassrumsmenyRef} className="text-xl mt-2 font-bold mr-1">
-            Klassrum:{" "}
-          </h2>
-          <ul
+          <div style={{ height: "46px" }}>
+            <h2 ref={klassrumsmenyRef} className="text-xl mt-2 font-bold mr-1">
+              Klassrum:{" "}
+            </h2>
+          </div>
+          <div
             style={{
-              height: visaKlassrumsmeny ? "12rem" : "46px",
-              
+              position: "relative",
+              width: "180px",
+              height: "46px",
             }}
-            className="overflow-y-scroll w-52 border border-black mt-2"
+            className="!h-[46px]"
           >
-            {visaKlassrumsmeny ? (
-              data &&
-              data.klassrum.map((klassrum, index) => {
-                return (
-                  <li
-                    key={klassrum.id}
-                    className="font-bold text-xl p-2 cursor-pointer"
-                    onClick={() => {
-                      setGrid(klassrum.grid);
-                      setRows(klassrum.rows);
-                      setCols(klassrum.cols);
-                      setKlassrumsnamn(klassrum.namn);
-                      setKlassrumsId(klassrum.id);
-                      setVisaklassrumsmeny(false);
-                    }}
-                  >
-                    {klassrum.namn}
-                  </li>
-                );
-              })
-            ) : (
-              <div
-                onClick={() => {
-                  setVisaklassrumsmeny(true);
+            <Overlay>
+              <ul
+                style={{
+                  height: visaKlassrumsmeny ? "12rem" : "46px",
                 }}
-                className="font-bold text-xl p-2 cursor-pointer"
+                className="overflow-y-scroll place-self-start bg-[#f1f1f1] w-52 border border-black"
               >
-                {klassrumsnamn}
-              </div>
-            )}
-          </ul>
+                {visaKlassrumsmeny ? (
+                  data &&
+                  data.klassrum.map((klassrum, index) => {
+                    return (
+                      <li
+                        key={klassrum.id}
+                        className="font-bold text-xl p-2 cursor-pointer"
+                        onClick={() => {
+                          setGrid(klassrum.grid);
+                          setRows(klassrum.rows);
+                          setCols(klassrum.cols);
+                          setKlassrumsnamn(klassrum.namn);
+                          setKlassrumsId(klassrum.id);
+                          setVisaklassrumsmeny(false);
+                        }}
+                      >
+                        {klassrum.namn}
+                      </li>
+                    );
+                  })
+                ) : (
+                  <div
+                    onClick={() => {
+                      setVisaklassrumsmeny(true);
+                    }}
+                    className="font-bold text-xl p-2 cursor-pointer"
+                  >
+                    {klassrumsnamn}
+                  </div>
+                )}
+              </ul>
+            </Overlay>
+          </div>
         </div>
       }
     </div>
@@ -377,8 +397,8 @@ const SkapaPlaceringar = () => {
       Math.floor(window.outerWidth / 320)
     );
   useEffect(() => {
-    setVisaklassrumsmeny(!klassrumsnamn)
-    setVisaklassmeny(!klassnamn)
+    setVisaklassrumsmeny(!klassrumsnamn);
+    setVisaklassmeny(!klassnamn);
     checkLoginStatus();
     window.addEventListener("resize", () => {
       setKolumner(namnILista.length);
@@ -402,7 +422,7 @@ const SkapaPlaceringar = () => {
                 setKlassId(null);
                 setKlassrumsId(null);
                 setKlassrumsnamn(null);
-                setPlaceringsnamn(null)
+                setPlaceringsnamn(null);
                 setPlaceringsId(null);
                 setGrid(
                   Array.from({ length: rows }, () =>
@@ -415,7 +435,7 @@ const SkapaPlaceringar = () => {
                 setRows(6);
                 setCols(7);
               }}
-              className="w-[10vw] bg-green-500 h-[4vw] place-self-start flex justify-center items-center"
+              className="w-[10vw] bg-green-500 h-[4vw] place-self-start flex justify-center items-center cursor-pointer"
             >
               <img className="h-[4vw]" src="/pil-vänster.png" />
             </div>
@@ -424,18 +444,29 @@ const SkapaPlaceringar = () => {
           )}
           <div className="col-span-8">
             <div className="">
-              <div className="text-3xl mt-3 flex justify-center text-center font-bold">
-                <input
-                  value={
-                    klassnamn || klassrumsnamn || placeringsnamn
-                      ? placeringsnamn ||
-                        (klassnamn || "") + " i " + (klassrumsnamn || "")
-                      : ""
-                  }
-                  onChange={(e) => setPlaceringsnamn(e.target.value)}
-                  className="text-3xl mt-3 flex w-fit justify-center text-center"
-                />
-              </div>
+              {(nyttPlaceringsnamn || klassnamn || klassrumsnamn) && (
+                <div className="text-3xl mt-3 flex justify-center text-center font-bold">
+                  <input
+                    value={
+                      nyttPlaceringsnamn ||
+                      (nyttPlaceringsnamn === ""
+                        ? nyttPlaceringsnamn
+                        : (klassnamn || "") + " i " + (klassrumsnamn || ""))
+                    }
+                    onChange={(e) => setNyttPlaceringsnamn(e.target.value)}
+                    onBlur={() =>
+                      nyttPlaceringsnamn ===
+                        (klassnamn || "") + " i " + (klassrumsnamn || "") ||
+                      nyttPlaceringsnamn === ""
+                        ? setNyttPlaceringsnamn(
+                            (klassnamn || "") + " i " + (klassrumsnamn || "")
+                          )
+                        : setPlaceringsnamn(nyttPlaceringsnamn)
+                    }
+                    className="text-3xl mt-3 flex w-fit justify-center text-center"
+                  />
+                </div>
+              )}
 
               {väljKLassOchKlassrum}
             </div>
@@ -455,8 +486,8 @@ const SkapaPlaceringar = () => {
                 setKlassId(null);
                 setKlassrumsId(null);
                 setKlassrumsnamn(null);
-setVisaklassmeny(true)
-setVisaklassrumsmeny(true)
+                setVisaklassmeny(true);
+                setVisaklassrumsmeny(true);
                 setPlaceringsId(JSON.parse(JSON.stringify(beng)));
               }}
             >
@@ -469,17 +500,58 @@ setVisaklassrumsmeny(true)
                     key={placering.id}
                     className="font-bold text-xl p-2 cursor-pointer"
                     onClick={() => {
-                      setNamn(placering.klass.personer);
-                      setKlassnamn(placering.klass.namn);
-                      setVisaklassmeny(false)
-                      setVisaklassrumsmeny(false)
+                      const klasserDict = Object.fromEntries(
+                        data.klasser.map((klass) => [klass.id, klass])
+                      );
+                      const klassrumDict = Object.fromEntries(
+                        data.klassrum.map((klassrum) => [klassrum.id, klassrum])
+                      );
+
+                      const currentKlass = klasserDict[placering.klass.id];
+                      const currentKlassrum =
+                        klassrumDict[placering.klassrum.id];
+
+                      if (!currentKlass || !currentKlassrum) {
+                        return;
+                      }
+                      const bänkarMedPersoner = [];
+                      placering.klassrum.grid.map((rad, y) =>
+                        rad.map(
+                          (cell, x) =>
+                            cell.person &&
+                            bänkarMedPersoner.push({
+                              kord: `${x}-${y}`,
+                              person: cell.person,
+                            })
+                        )
+                      );
+                      setNamn(currentKlass.personer);
+
+                      setKlassnamn(currentKlass.namn);
+                      setVisaklassmeny(false);
+                      setVisaklassrumsmeny(false);
                       setKlassrumsId(placering.klassrum.id);
-                      setKlassrumsnamn(placering.klassrum.namn);
+                      setKlassrumsnamn(currentKlassrum.namn);
                       setKlassId(placering.klass.id);
-                      setGrid(placering.klassrum.grid);
-                      setCols(placering.klassrum.cols);
+                      setGrid(
+                        currentKlassrum.grid.map((rad, y) =>
+                          rad.map((cell, x) => {
+                            const nyttId = generateUniqueId();
+                            const bänkmatch = bänkarMedPersoner.find(
+                              (bänk) => bänk.kord === `${x}-${y}`
+                            );
+                            return {
+                              id: bänkmatch ? JSON.stringify(nyttId) : cell.id,
+                              person: bänkmatch
+                                ? bänkmatch.person
+                                : cell.person,
+                            };
+                          })
+                        )
+                      );
+                      setCols(currentKlassrum.cols);
                       setPlaceringsId(placering.id);
-                      setRows(placering.klassrum.rows);
+                      setRows(currentKlassrum.rows);
                       setPlaceringsnamn(placering.namn);
                     }}
                   >
@@ -493,104 +565,125 @@ setVisaklassrumsmeny(true)
           </ul>
         </div>
       )}
-      <div ref={content} style={{ zIndex: "100" }}>
-        <Klassrum
-          edit={false}
-          updateSize={updateSize}
-          låstaBänkar={låstaBänkar}
-          setLåstaBänkar={setLåstaBänkar}
-          grid={grid}
-          columns={cols}
-          rows={rows}
-          setGrid={setGrid}
-          klar={klar}
-          reverse={omvänd}
-          setReverse={setOmvänd}
-          names={namn}
-        />{" "}
-      </div>
-      <div className="flex gap-4 w-full flex-wrap justify-center">
-        <button
-          style={{ padding: "20px" }}
-          className="bg-[#4CAF50] text-white"
-          onClick={slumpa}
-        >
-          Slumpa
-        </button>
-        <button
-          style={{ padding: "20px" }}
-          className="bg-[#4CAF50] text-white"
-          onClick={async () => {
-            setKlar(true);
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            await scaleToFit(content.current, setUpdateSize, updateSize);
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            setKlar(false);
-          }}
-        >
-          skrivUt
-        </button>
+
+      <>
+        {klassrumsnamn && (
+          <div className="" ref={content} style={{ zIndex: "100" }}>
+            <div className="m-3">
+              <div
+                className={
+                  vägg &&
+                  "m-auto p-5 w-fit fit-content rounded-lg border-black border-8 m-3"
+                }
+              >
+                <Klassrum
+                  edit={false}
+                  updateSize={updateSize}
+                  låstaBänkar={låstaBänkar}
+                  setLåstaBänkar={setLåstaBänkar}
+                  grid={grid}
+                  columns={cols}
+                  rows={rows}
+                  setGrid={setGrid}
+                  klar={klar}
+                  reverse={omvänd}
+                  setReverse={setOmvänd}
+                  names={namn}
+                />{" "}
+              </div>
+            </div>
+          </div>
+        )}
         {klassnamn && klassrumsnamn && (
-          <div className="w-[130px]">
+          <div className="flex gap-4 w-full flex-wrap justify-center">
             <button
               style={{ padding: "20px" }}
-              className="bg-[#4CAF50] rounded-b-none border-solid border-black border  text-white"
-              onClick={() => {
-                sparaKlass(placeringsnamn);
-              }}
+              className="bg-green-500 text-white"
+              onClick={slumpa}
             >
-              spara
+              Slumpa
             </button>
             <button
               style={{ padding: "20px" }}
-              className="bg-[#4CAF50] border border-t-0 border-black border-solid rounded-t-none text-white"
-              onClick={() => {
-                let index = prompt("Vad ska placeringen heta?");
-                while (
-                  data.placeringar.some((placering) => placering.namn === index)
-                ) {
-                  index = prompt(
-                    "Du har redan lagt in en placering som heter så. Skriv ett namn som skiljer sig åt."
-                  );
-                }
-                setPlaceringsnamn(index);
-                sparaKlass(index);
+              className="bg-green-500 text-white"
+              onClick={async () => {
+                setKlar(true);
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                await scaleToFit(content.current, setUpdateSize, updateSize);
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                setKlar(false);
               }}
             >
-              spara som
+              Skriv ut
+            </button>
+            {klassnamn && klassrumsnamn && (
+              <div className="w-[130px]">
+                <button
+                  style={{ padding: "20px" }}
+                  className="bg-green-500 rounded-b-none border-solid border-black border  text-white"
+                  onClick={() => {
+                    sparaKlass(placeringsnamn);
+                  }}
+                >
+                  spara
+                </button>
+                <button
+                  style={{ padding: "20px" }}
+                  className="bg-green-500 border border-t-0 border-black border-solid rounded-t-none text-white"
+                  onClick={() => {
+                    let index = prompt("Vad ska placeringen heta?");
+                    while (
+                      data.placeringar.some(
+                        (placering) => placering.namn === index
+                      )
+                    ) {
+                      index = prompt(
+                        "Du har redan lagt in en placering som heter så. Skriv ett namn som skiljer sig åt."
+                      );
+                    }
+                    setPlaceringsnamn(index);
+                    sparaKlass(index);
+                  }}
+                >
+                  spara som
+                </button>
+              </div>
+            )}
+
+            <button
+              style={{ padding: "20px" }}
+              className="bg-green-500 text-white"
+              onClick={() => {
+                setKlar(!klar);
+              }}
+            >
+              {!klar ? "Klar" : "Fortsätt redigera"}
+            </button>
+            <button
+              style={{ padding: "20px" }}
+              className="bg-green-500 text-white"
+              onClick={() => {
+                setOmvänd(!omvänd);
+              }}
+            >
+              Byt till {omvänd ? "elevperspektiv" : "lärarperspektiv"}
             </button>
           </div>
         )}
-        <button
-          style={{ padding: "20px" }}
-          className="bg-[#4CAF50] text-white"
-          onClick={() => {
-            setKlar(!klar);
-          }}
-        >
-          {!klar ? "Klar" : "Fortsätt redigera"}
-        </button>
-        <button
-          style={{ padding: "20px" }}
-          className="bg-[#4CAF50] text-white"
-          onClick={() => {
-            setOmvänd(!omvänd);
-          }}
-        >
-          Byt till {omvänd ? "elevperspektiv" : "lärarperspektiv"}
-        </button>
-      </div>
-      <div
-        className="m-auto"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        {namnILista.map((kolumn) => (
-          <div>{kolumn}</div>
-        ))}
-      </div>
+        {klassnamn && (
+          <div
+            className="m-auto"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            {namnILista.map((kolumn) => (
+              <div>{kolumn}</div>
+            ))}
+          </div>
+        )}
+      </>
     </div>
   );
 };
