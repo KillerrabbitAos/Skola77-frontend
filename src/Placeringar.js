@@ -164,7 +164,17 @@ const SkapaPlaceringar = () => {
               {visaKlassmeny ? (
                 data && (
                   <div>
-                    <li className="font-bold text-xl p-2 cursor-pointer" onClick={() => setVisaklassmeny(false)}>{klassnamn}</li>
+                    <div className="flex">
+                      <li
+                        className="font-bold text-xl  overflow-hidden truncate p-2 cursor-pointer"
+                        onClick={() => setVisaklassmeny(false)}
+                      >
+                        <div className="flex justify-center items-center">
+                          <div className="w-[155px] truncate">{klassnamn}</div>
+                          <img className="w-[20px]" src="/nerpil.png"></img>
+                        </div>
+                      </li>
+                    </div>
                     {data.klasser.map((klass) => {
                       if (klass.id !== klassId) {
                         return (
@@ -187,12 +197,23 @@ const SkapaPlaceringar = () => {
                 )
               ) : (
                 <div
+                  className="font-bold text-xl overflow-hidden truncate p-2 cursor-pointer"
                   onClick={() => {
                     setVisaklassmeny(true);
                   }}
-                  className="font-bold text-xl p-2 cursor-pointer"
                 >
-                  {klassnamn}
+                  <div className="flex justify-center items-center">
+                    <div className="w-[155px] truncate">{klassnamn}</div>
+                    <img
+                      style={{
+                        rotate: !visaKlassmeny && "90deg",
+                        animationName: visaKlassmeny ? "vridNer" : "vridUpp",
+                        animationDuration: "0.1s",
+                      }}
+                      className="w-[20px]"
+                      src="/nerpil.png"
+                    ></img>
+                  </div>
                 </div>
               )}
             </ul>
@@ -225,9 +246,19 @@ const SkapaPlaceringar = () => {
                 {visaKlassrumsmeny ? (
                   data && (
                     <div>
-                      <li className="font-bold text-xl p-2 cursor-pointer" onClick={() => setVisaklassrumsmeny(false)}>
-                        {klassrumsnamn}
-                      </li>
+                      <div className="flex">
+                        <li
+                          className="font-bold text-xl overflow-hidden truncate p-2 cursor-pointer"
+                          onClick={() => setVisaklassrumsmeny(false)}
+                        >
+                          <div className="flex justify-center items-center">
+                            <div className="w-[155px] truncate">
+                              {klassrumsnamn}
+                            </div>
+                            <img className="w-[20px]" src="/nerpil.png"></img>
+                          </div>
+                        </li>
+                      </div>
                       {data.klassrum.map((klassrum, index) => {
                         if (klassrum.id !== klassrumsId) {
                           return (
@@ -252,12 +283,25 @@ const SkapaPlaceringar = () => {
                   )
                 ) : (
                   <div
+                    className="font-bold text-xl overflow-hidden truncate p-2 cursor-pointer"
                     onClick={() => {
                       setVisaklassrumsmeny(true);
                     }}
-                    className="font-bold text-xl p-2 cursor-pointer"
                   >
-                    {klassrumsnamn}
+                    <div className="flex justify-center items-center">
+                      <div className="w-[155px] truncate">{klassrumsnamn}</div>
+                      <img
+                        style={{
+                          rotate: !visaKlassrumsmeny && "90deg",
+                          animationName: visaKlassrumsmeny
+                            ? "vridNer"
+                            : "vridUpp",
+                          animationDuration: "0.1s",
+                        }}
+                        className="w-[20px]"
+                        src="/nerpil.png"
+                      ></img>
+                    </div>
                   </div>
                 )}
               </ul>
