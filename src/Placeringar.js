@@ -525,117 +525,113 @@ const SkapaPlaceringar = () => {
       )}
       (
       <>
-        {placeringsId ||
-          (klassrumsId && (
-            <div ref={content} style={{ zIndex: "100" }}>
-              <Klassrum
-                edit={false}
-                updateSize={updateSize}
-                låstaBänkar={låstaBänkar}
-                setLåstaBänkar={setLåstaBänkar}
-                grid={grid}
-                columns={cols}
-                rows={rows}
-                setGrid={setGrid}
-                klar={klar}
-                reverse={omvänd}
-                setReverse={setOmvänd}
-                names={namn}
-              />{" "}
-            </div>
-          ))}
-        {placeringsId ||
-          klassnamn ||
-          (klassnamn && (
-            <div className="flex gap-4 w-full flex-wrap justify-center">
-              <button
-                style={{ padding: "20px" }}
-                className="bg-[#4CAF50] text-white"
-                onClick={slumpa}
-              >
-                Slumpa
-              </button>
-              <button
-                style={{ padding: "20px" }}
-                className="bg-[#4CAF50] text-white"
-                onClick={async () => {
-                  setKlar(true);
-                  await new Promise((resolve) => setTimeout(resolve, 1000));
-                  await scaleToFit(content.current, setUpdateSize, updateSize);
-                  await new Promise((resolve) => setTimeout(resolve, 1000));
-                  setKlar(false);
-                }}
-              >
-                skrivUt
-              </button>
-              {klassnamn && klassrumsnamn && (
-                <div className="w-[130px]">
-                  <button
-                    style={{ padding: "20px" }}
-                    className="bg-[#4CAF50] rounded-b-none border-solid border-black border  text-white"
-                    onClick={() => {
-                      sparaKlass(placeringsnamn);
-                    }}
-                  >
-                    spara
-                  </button>
-                  <button
-                    style={{ padding: "20px" }}
-                    className="bg-[#4CAF50] border border-t-0 border-black border-solid rounded-t-none text-white"
-                    onClick={() => {
-                      let index = prompt("Vad ska placeringen heta?");
-                      while (
-                        data.placeringar.some(
-                          (placering) => placering.namn === index
-                        )
-                      ) {
-                        index = prompt(
-                          "Du har redan lagt in en placering som heter så. Skriv ett namn som skiljer sig åt."
-                        );
-                      }
-                      setPlaceringsnamn(index);
-                      sparaKlass(index);
-                    }}
-                  >
-                    spara som
-                  </button>
-                </div>
-              )}
-
-              <button
-                style={{ padding: "20px" }}
-                className="bg-[#4CAF50] text-white"
-                onClick={() => {
-                  setKlar(!klar);
-                }}
-              >
-                {!klar ? "Klar" : "Fortsätt redigera"}
-              </button>
-              <button
-                style={{ padding: "20px" }}
-                className="bg-[#4CAF50] text-white"
-                onClick={() => {
-                  setOmvänd(!omvänd);
-                }}
-              >
-                Byt till {omvänd ? "elevperspektiv" : "lärarperspektiv"}
-              </button>
-            </div>
-          ))}
-        {placeringsId ||
-          (klassnamn && (
-            <div
-              className="m-auto"
-              style={{
-                display: "flex",
-                justifyContent: "center",
+        {(placeringsId || klassrumsId) && (
+          <div ref={content} style={{ zIndex: "100" }}>
+            <Klassrum
+              edit={false}
+              updateSize={updateSize}
+              låstaBänkar={låstaBänkar}
+              setLåstaBänkar={setLåstaBänkar}
+              grid={grid}
+              columns={cols}
+              rows={rows}
+              setGrid={setGrid}
+              klar={klar}
+              reverse={omvänd}
+              setReverse={setOmvänd}
+              names={namn}
+            />{" "}
+          </div>
+        )}
+        {(placeringsId || (klassnamn && klassrumsnamn)) && (
+          <div className="flex gap-4 w-full flex-wrap justify-center">
+            <button
+              style={{ padding: "20px" }}
+              className="bg-[#4CAF50] text-white"
+              onClick={slumpa}
+            >
+              Slumpa
+            </button>
+            <button
+              style={{ padding: "20px" }}
+              className="bg-[#4CAF50] text-white"
+              onClick={async () => {
+                setKlar(true);
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                await scaleToFit(content.current, setUpdateSize, updateSize);
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                setKlar(false);
               }}
             >
-              {namnILista.map((kolumn) => (
-                <div>{kolumn}</div>
-              ))}
-            </div>
-          ))}
+              skrivUt
+            </button>
+            {klassnamn && klassrumsnamn && (
+              <div className="w-[130px]">
+                <button
+                  style={{ padding: "20px" }}
+                  className="bg-[#4CAF50] rounded-b-none border-solid border-black border  text-white"
+                  onClick={() => {
+                    sparaKlass(placeringsnamn);
+                  }}
+                >
+                  spara
+                </button>
+                <button
+                  style={{ padding: "20px" }}
+                  className="bg-[#4CAF50] border border-t-0 border-black border-solid rounded-t-none text-white"
+                  onClick={() => {
+                    let index = prompt("Vad ska placeringen heta?");
+                    while (
+                      data.placeringar.some(
+                        (placering) => placering.namn === index
+                      )
+                    ) {
+                      index = prompt(
+                        "Du har redan lagt in en placering som heter så. Skriv ett namn som skiljer sig åt."
+                      );
+                    }
+                    setPlaceringsnamn(index);
+                    sparaKlass(index);
+                  }}
+                >
+                  spara som
+                </button>
+              </div>
+            )}
+
+            <button
+              style={{ padding: "20px" }}
+              className="bg-[#4CAF50] text-white"
+              onClick={() => {
+                setKlar(!klar);
+              }}
+            >
+              {!klar ? "Klar" : "Fortsätt redigera"}
+            </button>
+            <button
+              style={{ padding: "20px" }}
+              className="bg-[#4CAF50] text-white"
+              onClick={() => {
+                setOmvänd(!omvänd);
+              }}
+            >
+              Byt till {omvänd ? "elevperspektiv" : "lärarperspektiv"}
+            </button>
+          </div>
+        )}
+        {klassnamn && (
+          <div
+            className="m-auto"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            {namnILista.map((kolumn) => (
+              <div>{kolumn}</div>
+            ))}
+          </div>
+        )}
       </>
     </div>
   );
