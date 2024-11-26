@@ -126,6 +126,7 @@ const SkapaPlaceringar = () => {
   const klassmenyRef = useRef(null);
   const [klassmenykord, setKlassmenykord] = useState([1]);
   const [klassrumsmenykord, setKlassrumsmenykord] = useState([1]);
+  const [nyttPlaceringsnamn, setNyttPlaceringsnamn] = useState(null);
   async function checkLoginStatus() {
     setData(originalData);
   }
@@ -194,7 +195,6 @@ const SkapaPlaceringar = () => {
           <ul
             style={{
               height: visaKlassrumsmeny ? "12rem" : "46px",
-              
             }}
             className="overflow-y-scroll w-52 border border-black mt-2"
           >
@@ -377,8 +377,8 @@ const SkapaPlaceringar = () => {
       Math.floor(window.outerWidth / 320)
     );
   useEffect(() => {
-    setVisaklassrumsmeny(!klassrumsnamn)
-    setVisaklassmeny(!klassnamn)
+    setVisaklassrumsmeny(!klassrumsnamn);
+    setVisaklassmeny(!klassnamn);
     checkLoginStatus();
     window.addEventListener("resize", () => {
       setKolumner(namnILista.length);
@@ -402,7 +402,7 @@ const SkapaPlaceringar = () => {
                 setKlassId(null);
                 setKlassrumsId(null);
                 setKlassrumsnamn(null);
-                setPlaceringsnamn(null)
+                setPlaceringsnamn(null);
                 setPlaceringsId(null);
                 setGrid(
                   Array.from({ length: rows }, () =>
@@ -424,18 +424,29 @@ const SkapaPlaceringar = () => {
           )}
           <div className="col-span-8">
             <div className="">
-              <div className="text-3xl mt-3 flex justify-center text-center font-bold">
-                <input
-                  value={
-                    klassnamn || klassrumsnamn || placeringsnamn
-                      ? placeringsnamn ||
-                        (klassnamn || "") + " i " + (klassrumsnamn || "")
-                      : ""
-                  }
-                  onChange={(e) => setPlaceringsnamn(e.target.value)}
-                  className="text-3xl mt-3 flex w-fit justify-center text-center"
-                />
-              </div>
+              {(nyttPlaceringsnamn || klassnamn || klassrumsnamn) && (
+                <div className="text-3xl mt-3 flex justify-center text-center font-bold">
+                  <input
+                    value={
+                      nyttPlaceringsnamn ||
+                      (nyttPlaceringsnamn === ""
+                        ? nyttPlaceringsnamn
+                        : (klassnamn || "") + " i " + (klassrumsnamn || ""))
+                    }
+                    onChange={(e) => setNyttPlaceringsnamn(e.target.value)}
+                    onBlur={() =>
+                      nyttPlaceringsnamn ===
+                        (klassnamn || "") + " i " + (klassrumsnamn || "") ||
+                      nyttPlaceringsnamn === ""
+                        ? setNyttPlaceringsnamn(
+                            (klassnamn || "") + " i " + (klassrumsnamn || "")
+                          )
+                        : setPlaceringsnamn(nyttPlaceringsnamn)
+                    }
+                    className="text-3xl mt-3 flex w-fit justify-center text-center"
+                  />
+                </div>
+              )}
 
               {väljKLassOchKlassrum}
             </div>
@@ -455,8 +466,8 @@ const SkapaPlaceringar = () => {
                 setKlassId(null);
                 setKlassrumsId(null);
                 setKlassrumsnamn(null);
-setVisaklassmeny(true)
-setVisaklassrumsmeny(true)
+                setVisaklassmeny(true);
+                setVisaklassrumsmeny(true);
                 setPlaceringsId(JSON.parse(JSON.stringify(beng)));
               }}
             >
@@ -471,8 +482,8 @@ setVisaklassrumsmeny(true)
                     onClick={() => {
                       setNamn(placering.klass.personer);
                       setKlassnamn(placering.klass.namn);
-                      setVisaklassmeny(false)
-                      setVisaklassrumsmeny(false)
+                      setVisaklassmeny(false);
+                      setVisaklassrumsmeny(false);
                       setKlassrumsId(placering.klassrum.id);
                       setKlassrumsnamn(placering.klassrum.namn);
                       setKlassId(placering.klass.id);
