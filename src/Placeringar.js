@@ -123,7 +123,7 @@ const SkapaPlaceringar = () => {
   const [placeringsnamn, setPlaceringsnamn] = useState(null);
   const [visaKlassmeny, setVisaklassmeny] = useState(true);
   const [visaKlassrumsmeny, setVisaklassrumsmeny] = useState(true);
-  const [vägg, setVägg] = useState(false)
+  const [vägg, setVägg] = useState(false);
   const klassrumsmenyRef = useRef(null);
   const klassmenyRef = useRef(null);
   const [klassmenykord, setKlassmenykord] = useState([1]);
@@ -500,17 +500,58 @@ const SkapaPlaceringar = () => {
                     key={placering.id}
                     className="font-bold text-xl p-2 cursor-pointer"
                     onClick={() => {
-                      setNamn(placering.klass.personer);
-                      setKlassnamn(placering.klass.namn);
+                      const klasserDict = Object.fromEntries(
+                        data.klasser.map((klass) => [klass.id, klass])
+                      );
+                      const klassrumDict = Object.fromEntries(
+                        data.klassrum.map((klassrum) => [klassrum.id, klassrum])
+                      );
+
+                      const currentKlass = klasserDict[placering.klass.id];
+                      const currentKlassrum =
+                        klassrumDict[placering.klassrum.id];
+
+                      if (!currentKlass || !currentKlassrum) {
+                        return;
+                      }
+                      const bänkarMedPersoner = [];
+                      placering.klassrum.grid.map((rad, y) =>
+                        rad.map(
+                          (cell, x) =>
+                            cell.person &&
+                            bänkarMedPersoner.push({
+                              kord: `${x}-${y}`,
+                              person: cell.person,
+                            })
+                        )
+                      );
+                      setNamn(currentKlass.personer);
+
+                      setKlassnamn(currentKlass.namn);
                       setVisaklassmeny(false);
                       setVisaklassrumsmeny(false);
                       setKlassrumsId(placering.klassrum.id);
-                      setKlassrumsnamn(placering.klassrum.namn);
+                      setKlassrumsnamn(currentKlassrum.namn);
                       setKlassId(placering.klass.id);
-                      setGrid(placering.klassrum.grid);
-                      setCols(placering.klassrum.cols);
+                      setGrid(
+                        currentKlassrum.grid.map((rad, y) =>
+                          rad.map((cell, x) => {
+                            const nyttId = generateUniqueId();
+                            const bänkmatch = bänkarMedPersoner.find(
+                              (bänk) => bänk.kord === `${x}-${y}`
+                            );
+                            return {
+                              id: bänkmatch ? JSON.stringify(nyttId) : cell.id,
+                              person: bänkmatch
+                                ? bänkmatch.person
+                                : cell.person,
+                            };
+                          })
+                        )
+                      );
+                      setCols(currentKlassrum.cols);
                       setPlaceringsId(placering.id);
-                      setRows(placering.klassrum.rows);
+                      setRows(currentKlassrum.rows);
                       setPlaceringsnamn(placering.namn);
                     }}
                   >
@@ -524,31 +565,36 @@ const SkapaPlaceringar = () => {
           </ul>
         </div>
       )}
-      
+
       <>
-        {(klassrumsnamn) && (
-          <div className="" ref={content} style={{ zIndex: "100", }}>
+        {klassrumsnamn && (
+          <div className="" ref={content} style={{ zIndex: "100" }}>
             <div className="m-3">
-            <div className={vägg && "m-auto p-5 w-fit fit-content rounded-lg border-black border-8 m-3"}>
-            <Klassrum
-              edit={false}
-              updateSize={updateSize}
-              låstaBänkar={låstaBänkar}
-              setLåstaBänkar={setLåstaBänkar}
-              grid={grid}
-              columns={cols}
-              rows={rows}
-              setGrid={setGrid}
-              klar={klar}
-              reverse={omvänd}
-              setReverse={setOmvänd}
-              names={namn}
-            />{" "}
-          </div>
-          </div>
+              <div
+                className={
+                  vägg &&
+                  "m-auto p-5 w-fit fit-content rounded-lg border-black border-8 m-3"
+                }
+              >
+                <Klassrum
+                  edit={false}
+                  updateSize={updateSize}
+                  låstaBänkar={låstaBänkar}
+                  setLåstaBänkar={setLåstaBänkar}
+                  grid={grid}
+                  columns={cols}
+                  rows={rows}
+                  setGrid={setGrid}
+                  klar={klar}
+                  reverse={omvänd}
+                  setReverse={setOmvänd}
+                  names={namn}
+                />{" "}
+              </div>
+            </div>
           </div>
         )}
-        {(klassnamn && klassrumsnamn) && (
+        {klassnamn && klassrumsnamn && (
           <div className="flex gap-4 w-full flex-wrap justify-center">
             <button
               style={{ padding: "20px" }}
