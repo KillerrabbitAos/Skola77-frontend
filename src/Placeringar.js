@@ -3,6 +3,7 @@ import Klassrum from "./Klassrum";
 import { data as originalData } from "./data";
 import NameList from "./Klasser";
 import "./Animationer.css";
+import Overlay from "./Overlay";
 function generateUniqueId() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0;
@@ -134,7 +135,15 @@ const SkapaPlaceringar = () => {
     setData(nyData);
   }
   useEffect(() => {
-    if (klassmenyRef.current) {
+    setKlassrumsmenykord([
+      klassrumsmenyRef.current.getBoundingClientRect().top,
+      klassrumsmenyRef.current.getBoundingClientRect().right,
+    ]);
+    setKlassmenykord([
+      klassmenyRef.current.getBoundingClientRect().top,
+      klassmenyRef.current.getBoundingClientRect().right,
+    ]);
+    while (!klassmenyRef.current) {
       setKlassrumsmenykord([
         klassrumsmenyRef.current.getBoundingClientRect().top,
         klassrumsmenyRef.current.getBoundingClientRect().right,
@@ -144,54 +153,69 @@ const SkapaPlaceringar = () => {
         klassmenyRef.current.getBoundingClientRect().right,
       ]);
     }
-  }, [visaKlassrumsmeny, visaKlassmeny]);
+  }, [klassmenyRef, klassrumsmenyRef]);
   const content = useRef(null);
   const väljKLassOchKlassrum = (
     <div className="flex flex-wrap justify-center gap-4">
-      <div className="w-fit justify-center items-center flex">
-        <div style={{ height: visaKlassmeny ? "12rem" : "46px" }}>
-          <h2 ref={klassmenyRef} className="text-xl mt-2 font-bold mr-1">
-            Klass:{" "}
-          </h2>
+      <div
+        ref={klassmenyRef}
+        className="w-fit justify-center items-center flex"
+      >
+        <div style={{ height: "46px" }}>
+          <h2 className="text-xl mt-2 font-bold mr-1">Klass: </h2>
         </div>
-        <ul
-          style={{ height: visaKlassmeny ? "12rem" : "46px" }}
-          className="overflow-y-scroll w-52 border border-black"
+        <div
+          style={{
+            position: "relative",
+            width: "180px",
+            height: "46px",
+          }}
+          className="!h-[46px]"
         >
-          {visaKlassmeny ? (
-            data &&
-            data.klasser.map((klass) => {
-              return (
-                <li
-                  key={klass.id}
-                  className="font-bold text-xl p-2 cursor-pointer"
-                  onClick={() => {
-                    setNamn(klass.personer);
-                    setKlassnamn(klass.namn);
-                    setKlassId(klass.id);
-                    setVisaklassmeny(false);
-                  }}
-                >
-                  {klass.namn}
-                </li>
-              );
-            })
-          ) : (
-            <div
-              onClick={() => {
-                setVisaklassmeny(true);
+          <Overlay>
+            <ul
+            
+              style={{
+                height: visaKlassmeny ? "12rem" : "46px",
               }}
-              className="font-bold text-xl p-2 cursor-pointer"
+              className="overflow-y-scroll place-self-start bg-[#f1f1f1] w-52 border border-black"
             >
-              {klassnamn}
-            </div>
-          )}
-        </ul>
+              {visaKlassmeny ? (
+                data &&
+                data.klasser.map((klass) => {
+                  return (
+                    <li
+                      key={klass.id}
+                      className="font-bold text-xl p-2 cursor-pointer"
+                      onClick={() => {
+                        setNamn(klass.personer);
+                        setKlassnamn(klass.namn);
+                        setKlassId(klass.id);
+                        setVisaklassmeny(false);
+                      }}
+                    >
+                      {klass.namn}
+                    </li>
+                  );
+                })
+              ) : (
+                <div
+                  onClick={() => {
+                    setVisaklassmeny(true);
+                  }}
+                  className="font-bold text-xl p-2 cursor-pointer"
+                >
+                  {klassnamn}
+                </div>
+              )}
+            </ul>
+          </Overlay>
+        </div>
       </div>
 
       {
         <div className="w-fit flex justify-center items-center">
-          <div style={{ height: visaKlassmeny ? "12rem" : "46px" }}>
+          <div style={{ height: visaKlassrumsmeny ? "12rem" : "46px" }}>
             <h2 ref={klassrumsmenyRef} className="text-xl mt-2 font-bold mr-1">
               Klassrum:{" "}
             </h2>
