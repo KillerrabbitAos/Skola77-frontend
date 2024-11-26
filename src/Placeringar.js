@@ -149,12 +149,14 @@ const SkapaPlaceringar = () => {
   const väljKLassOchKlassrum = (
     <div className="flex flex-wrap justify-center gap-4">
       <div className="w-fit justify-center items-center flex">
-        <h2 ref={klassmenyRef} className="text-xl mt-2 font-bold mr-1">
-          Klass:{" "}
-        </h2>
+        <div style={{ height: visaKlassmeny ? "12rem" : "46px" }}>
+          <h2 ref={klassmenyRef} className="text-xl mt-2 font-bold mr-1">
+            Klass:{" "}
+          </h2>
+        </div>
         <ul
           style={{ height: visaKlassmeny ? "12rem" : "46px" }}
-          className="overflow-y-scroll w-52 border border-black mt-2"
+          className="overflow-y-scroll w-52 border border-black"
         >
           {visaKlassmeny ? (
             data &&
@@ -189,14 +191,16 @@ const SkapaPlaceringar = () => {
 
       {
         <div className="w-fit flex justify-center items-center">
-          <h2 ref={klassrumsmenyRef} className="text-xl mt-2 font-bold mr-1">
-            Klassrum:{" "}
-          </h2>
+          <div style={{ height: visaKlassmeny ? "12rem" : "46px" }}>
+            <h2 ref={klassrumsmenyRef} className="text-xl mt-2 font-bold mr-1">
+              Klassrum:{" "}
+            </h2>
+          </div>
           <ul
             style={{
               height: visaKlassrumsmeny ? "12rem" : "46px",
             }}
-            className="overflow-y-scroll w-52 border border-black mt-2"
+            className="overflow-y-scroll w-52 border border-black"
           >
             {visaKlassrumsmeny ? (
               data &&
