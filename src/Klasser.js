@@ -13,9 +13,10 @@ function generateUniqueId() {
   });
 }
 
-function divideArray(list, x) {
+function divideArray(lista, x) {
   if (x <= 0) throw new Error("Number of parts must be greater than 0.");
   const result = [];
+  const list = lista.filter(namn => namn !== "")
   const partSize = Math.floor(list.length / x);
   let remainder = list.length % x;
   let start = 0;
