@@ -50,7 +50,7 @@ const Layout = () => {
 
   return (
     <>
-      <div className={!dropdown ? `navbar` : "bg-white h-[70px]"}>
+      <div style={{zIndex: 2000}} className={!dropdown ? `navbar` : "bg-white h-[70px]"}>
         {dropdown ? (
           <div className="">
             <div className="w-full grid grid-cols-3">
