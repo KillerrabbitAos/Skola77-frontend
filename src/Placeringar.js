@@ -434,7 +434,7 @@ const SkapaPlaceringar = () => {
                 setRows(6);
                 setCols(7);
               }}
-              className="w-[10vw] bg-green-500 h-[4vw] place-self-start flex justify-center items-center"
+              className="w-[10vw] bg-green-500 h-[4vw] place-self-start flex justify-center items-center cursor-pointer"
             >
               <img className="h-[4vw]" src="/pil-vänster.png" />
             </div>
@@ -523,7 +523,7 @@ const SkapaPlaceringar = () => {
           </ul>
         </div>
       )}
-      {placeringsId && (
+      {(placeringsId || klassrumsId || klassnamn) && (
         <>
           <div ref={content} style={{ zIndex: "100" }}>
             <Klassrum
