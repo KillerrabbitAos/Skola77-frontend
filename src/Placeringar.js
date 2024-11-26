@@ -569,7 +569,7 @@ const SkapaPlaceringar = () => {
       <>
         {klassrumsnamn && (
           <div className="" ref={content} style={{ zIndex: "100" }}>
-            <div className="">
+            <div className="my-3">
               <div
                 className={
                   vägg &&
