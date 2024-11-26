@@ -367,6 +367,11 @@ const SkapaPlaceringar = () => {
     const nyGrid = [];
     const namnAttSlumpa = [];
     console.log(låstaBänkar);
+    namn.forEach((namn, index) => {
+      if (namn === "") {
+        låstaBänkar.push(index);
+      }
+    });
 
     namn.forEach(
       (namn, index) =>
@@ -415,6 +420,7 @@ const SkapaPlaceringar = () => {
         .sort((a, b) => a.namn.localeCompare(b.namn))
         .slice(1)
         .map((namnObj) => (
+          namnObj.namn !== "" &&
           <div
             key={namnObj.orginalIndex}
             className="text-lg border-solid m-[5px] border-[3px] w-[315px] h-[50px]"
