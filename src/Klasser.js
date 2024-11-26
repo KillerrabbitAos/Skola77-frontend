@@ -30,7 +30,7 @@ function divideArray(list, x) {
   return result;
 }
 
-const Klasser = ({ }) => {
+const Klasser = ({}) => {
   const [namn, setNamn] = useState([""]);
   const textrutaRef = useRef(null);
   const [visaLaddaKlassrum, setVisaLaddaKlassrum] = useState(false);
@@ -82,7 +82,6 @@ const Klasser = ({ }) => {
     console.log("Klasser:", klasser);
   }
 
-
   const handleButtonClick = async () => {
     if (!textareaValue.trim()) {
       alert("Textarea är tom! Skriv in data innan du skickar.");
@@ -108,13 +107,11 @@ const Klasser = ({ }) => {
       console.error("Ett fel inträffade:", error);
       alert("Ett nätverksfel inträffade.");
     }
-  }
+  };
 
   const handleTextareaChange = (e) => {
     setTextareaValue(e.target.value);
   };
-
-
 
   const läggTillNamn = () => {
     const textareaContent = textrutaRef.current.value
@@ -137,8 +134,8 @@ const Klasser = ({ }) => {
     let nyttKlassNamn = nyttNamn
       ? nyttNamn
       : klassId || klassnamntext !== defaultKlass
-        ? klassnamntext
-        : prompt("Vad heter klassen?");
+      ? klassnamntext
+      : prompt("Vad heter klassen?");
     if (klassnamn !== klassnamntext) {
       while (newData.klasser.some((klass) => klass.namn === nyttKlassNamn)) {
         nyttKlassNamn = prompt(
@@ -188,6 +185,7 @@ const Klasser = ({ }) => {
         .map((namn, index) => ({ namn: namn, orginalIndex: index }))
         .sort((a, b) => a.namn.localeCompare(b.namn))
         .slice(1)
+        .filter((namnObj1) => namnObj1.namn !== "")
         .map((namnObj) => (
           <div
             key={namnObj.orginalIndex}
@@ -206,8 +204,9 @@ const Klasser = ({ }) => {
               style={{ color: "white", cursor: "pointer" }}
               onClick={() => {
                 setNamn((prevNamn) => {
-                  const newNamn = [...prevNamn];
-                  newNamn.splice(namnObj.orginalIndex, 1);
+                  const newNamn = prevNamn.map((namn, index) => {
+                    return index === namnObj.orginalIndex ? "" : namn;
+                  });
                   console.log(namnObj.orginalIndex);
                   return newNamn;
                 });
@@ -408,9 +407,7 @@ etc...
         ))}
       </div>
 
-
-      <hr/>
-
+      <hr />
 
       <div id="bossesDevHörna">
         <h1>Bosses devhörna</h1>
@@ -425,7 +422,6 @@ etc...
           Skicka
         </button>
       </div>
-
     </div>
   );
 };
