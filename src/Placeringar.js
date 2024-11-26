@@ -526,7 +526,7 @@ const SkapaPlaceringar = () => {
       
       <>
         {(klassrumsnamn) && (
-          <div ref={content} style={{ zIndex: "100" }}>
+          <div ref={content} style={{ zIndex: "100", }}>
             <Klassrum
               edit={false}
               updateSize={updateSize}
@@ -547,14 +547,14 @@ const SkapaPlaceringar = () => {
           <div className="flex gap-4 w-full flex-wrap justify-center">
             <button
               style={{ padding: "20px" }}
-              className="bg-[#4CAF50] text-white"
+              className="bg-green-500 text-white"
               onClick={slumpa}
             >
               Slumpa
             </button>
             <button
               style={{ padding: "20px" }}
-              className="bg-[#4CAF50] text-white"
+              className="bg-green-500 text-white"
               onClick={async () => {
                 setKlar(true);
                 await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -563,13 +563,13 @@ const SkapaPlaceringar = () => {
                 setKlar(false);
               }}
             >
-              skrivUt
+              Skriv ut
             </button>
             {klassnamn && klassrumsnamn && (
               <div className="w-[130px]">
                 <button
                   style={{ padding: "20px" }}
-                  className="bg-[#4CAF50] rounded-b-none border-solid border-black border  text-white"
+                  className="bg-green-500 rounded-b-none border-solid border-black border  text-white"
                   onClick={() => {
                     sparaKlass(placeringsnamn);
                   }}
@@ -578,7 +578,7 @@ const SkapaPlaceringar = () => {
                 </button>
                 <button
                   style={{ padding: "20px" }}
-                  className="bg-[#4CAF50] border border-t-0 border-black border-solid rounded-t-none text-white"
+                  className="bg-green-500 border border-t-0 border-black border-solid rounded-t-none text-white"
                   onClick={() => {
                     let index = prompt("Vad ska placeringen heta?");
                     while (
@@ -601,7 +601,7 @@ const SkapaPlaceringar = () => {
 
             <button
               style={{ padding: "20px" }}
-              className="bg-[#4CAF50] text-white"
+              className="bg-green-500 text-white"
               onClick={() => {
                 setKlar(!klar);
               }}
@@ -610,7 +610,7 @@ const SkapaPlaceringar = () => {
             </button>
             <button
               style={{ padding: "20px" }}
-              className="bg-[#4CAF50] text-white"
+              className="bg-green-500 text-white"
               onClick={() => {
                 setOmvänd(!omvänd);
               }}
