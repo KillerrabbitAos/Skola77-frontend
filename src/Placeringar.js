@@ -123,6 +123,7 @@ const SkapaPlaceringar = () => {
   const [placeringsnamn, setPlaceringsnamn] = useState(null);
   const [visaKlassmeny, setVisaklassmeny] = useState(true);
   const [visaKlassrumsmeny, setVisaklassrumsmeny] = useState(true);
+  const [vägg, setVägg] = useState(false)
   const klassrumsmenyRef = useRef(null);
   const klassmenyRef = useRef(null);
   const [klassmenykord, setKlassmenykord] = useState([1]);
@@ -526,7 +527,9 @@ const SkapaPlaceringar = () => {
       
       <>
         {(klassrumsnamn) && (
-          <div ref={content} style={{ zIndex: "100", }}>
+          <div className="" ref={content} style={{ zIndex: "100", }}>
+            <div className="m-3">
+            <div className={vägg && "m-auto p-5 w-fit fit-content rounded-lg border-black border-8 m-3"}>
             <Klassrum
               edit={false}
               updateSize={updateSize}
@@ -541,6 +544,8 @@ const SkapaPlaceringar = () => {
               setReverse={setOmvänd}
               names={namn}
             />{" "}
+          </div>
+          </div>
           </div>
         )}
         {(klassnamn && klassrumsnamn) && (
