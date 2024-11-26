@@ -170,7 +170,9 @@ const SkapaPlaceringar = () => {
                         onClick={() => setVisaklassmeny(false)}
                       >
                         <div className="flex justify-center items-center">
-                          <div className="w-[155px] truncate">{klassnamn}</div>
+                          <div className="w-[155px] truncate">
+                            {klassnamn || "Välj klass..."}
+                          </div>
                           <img className="w-[20px]" src="/nerpil.png"></img>
                         </div>
                       </li>
@@ -203,7 +205,9 @@ const SkapaPlaceringar = () => {
                   }}
                 >
                   <div className="flex justify-center items-center">
-                    <div className="w-[155px] truncate">{klassnamn}</div>
+                    <div className="w-[155px] truncate">
+                      {klassnamn || "Välj klass..."}
+                    </div>
                     <img
                       style={{
                         rotate: !visaKlassmeny && "90deg",
@@ -252,8 +256,8 @@ const SkapaPlaceringar = () => {
                           onClick={() => setVisaklassrumsmeny(false)}
                         >
                           <div className="flex justify-center items-center">
-                            <div className="w-[155px] truncate">
-                              {klassrumsnamn}
+                            <div className="w-[155px]">
+                              {klassrumsnamn || "Välj klassrum..."}
                             </div>
                             <img className="w-[20px]" src="/nerpil.png"></img>
                           </div>
@@ -289,7 +293,9 @@ const SkapaPlaceringar = () => {
                     }}
                   >
                     <div className="flex justify-center items-center">
-                      <div className="w-[155px] truncate">{klassrumsnamn}</div>
+                      <div className="w-[155px] truncate">
+                        {klassrumsnamn || "Välj klassrum"}
+                      </div>
                       <img
                         style={{
                           rotate: !visaKlassrumsmeny && "90deg",
@@ -419,45 +425,47 @@ const SkapaPlaceringar = () => {
         .map((namn, index) => ({ namn: namn, orginalIndex: index }))
         .sort((a, b) => a.namn.localeCompare(b.namn))
         .slice(1)
-        .map((namnObj) => (
-          namnObj.namn !== "" &&
-          <div
-            key={namnObj.orginalIndex}
-            className="text-lg border-solid m-[5px] border-[3px] w-[315px] h-[50px]"
-          >
-            <div className="flex justify-between items-center w-full">
-              <div className="truncate">{namnObj.namn}</div>
-              <div>
-                {frånvarande.includes(namnObj.orginalIndex) ? (
-                  <div
-                    onClick={() => {
-                      setFrånvarande((prevFrånvarande) =>
-                        prevFrånvarande.filter(
-                          (namnObj2) => namnObj2 !== namnObj.orginalIndex
-                        )
-                      );
-                    }}
-                    className="bg-red-500 align-middle justify-center flex-row flex items-center text-center h-[45px] text-white w-[175px] rounded-[5px]"
-                  >
-                    frånvarande
+        .map(
+          (namnObj) =>
+            namnObj.namn !== "" && (
+              <div
+                key={namnObj.orginalIndex}
+                className="text-lg border-solid m-[5px] border-[3px] w-[315px] h-[50px]"
+              >
+                <div className="flex justify-between items-center w-full">
+                  <div className="truncate">{namnObj.namn}</div>
+                  <div>
+                    {frånvarande.includes(namnObj.orginalIndex) ? (
+                      <div
+                        onClick={() => {
+                          setFrånvarande((prevFrånvarande) =>
+                            prevFrånvarande.filter(
+                              (namnObj2) => namnObj2 !== namnObj.orginalIndex
+                            )
+                          );
+                        }}
+                        className="bg-red-500 align-middle justify-center flex-row flex items-center text-center h-[45px] text-white w-[175px] rounded-[5px]"
+                      >
+                        frånvarande
+                      </div>
+                    ) : (
+                      <div
+                        onClick={() => {
+                          setFrånvarande((prevFrånvarande) => [
+                            ...prevFrånvarande,
+                            namnObj.orginalIndex,
+                          ]);
+                        }}
+                        className="bg-green-500 align-middle justify-center flex-row flex items-center text-center h-[45px] text-white w-[175px] rounded-[5px]"
+                      >
+                        <span>närvarande</span>
+                      </div>
+                    )}
                   </div>
-                ) : (
-                  <div
-                    onClick={() => {
-                      setFrånvarande((prevFrånvarande) => [
-                        ...prevFrånvarande,
-                        namnObj.orginalIndex,
-                      ]);
-                    }}
-                    className="bg-green-500 align-middle justify-center flex-row flex items-center text-center h-[45px] text-white w-[175px] rounded-[5px]"
-                  >
-                    <span>närvarande</span>
-                  </div>
-                )}
+                </div>
               </div>
-            </div>
-          </div>
-        )),
+            )
+        ),
       Math.floor(window.outerWidth / 320)
     );
   useEffect(() => {
@@ -531,8 +539,7 @@ const SkapaPlaceringar = () => {
                   />
                 </div>
               )}
-
-              {väljKLassOchKlassrum}
+              <div className="mt-1">{väljKLassOchKlassrum}</div>
             </div>
           </div>
         </div>
