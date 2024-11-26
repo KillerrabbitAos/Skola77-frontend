@@ -525,7 +525,7 @@ const SkapaPlaceringar = () => {
       )}
       
       <>
-        {(placeringsId || klassrumsId) && (
+        {(klassrumsnamn) && (
           <div ref={content} style={{ zIndex: "100" }}>
             <Klassrum
               edit={false}
@@ -543,7 +543,7 @@ const SkapaPlaceringar = () => {
             />{" "}
           </div>
         )}
-        {(placeringsId || (klassnamn && klassrumsnamn)) && (
+        {(klassnamn && klassrumsnamn) && (
           <div className="flex gap-4 w-full flex-wrap justify-center">
             <button
               style={{ padding: "20px" }}
