@@ -406,6 +406,13 @@ etc...
           <div>{kolumn}</div>
         ))}
       </div>
+      <div className="text-xl ">{`Antal elever: ${
+        namn
+          .map((namn, index) => ({ namn: namn, orginalIndex: index }))
+          .sort((a, b) => a.namn.localeCompare(b.namn))
+          .slice(1)
+          .filter((namnObj1) => namnObj1.namn !== "").length
+      }`}</div>
 
       <hr />
 
