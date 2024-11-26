@@ -35,3 +35,6 @@ li:hover {
   from {rotate: 90deg}
   to {rotate: 0deg}
 }
+.dropdown-item{
+  font-weight: bold;
+}

@@ -122,7 +122,7 @@ const Layout = () => {
                 <li className="dropdown-item">
                   <NavLink to="/" onClick={toggleDropdown}>
                     <div
-                      style={{ textAlign: "center" }}
+                      style={{ textAlign: "center"}}
                       className="justify-center flex-row flex items-center"
                     >
                       {svg}
@@ -174,7 +174,7 @@ const Layout = () => {
                     <img
                       src="/account.svg"
                       alt="Mitt konto"
-                      className="konto-ikon"
+                      className="konto-ikon m-auto"
                     />
                   </NavLink>
                 </li>
