@@ -467,7 +467,7 @@ const SkapaPlaceringar = () => {
               </div>
             )
         ),
-      Math.floor(window.outerWidth / 320)
+      Math.floor(window.outerWidth / 330)
     );
   useEffect(() => {
     setVisaklassrumsmeny(!klassrumsnamn);
