@@ -134,26 +134,7 @@ const SkapaPlaceringar = () => {
   function sparaData(nyData) {
     setData(nyData);
   }
-  useEffect(() => {
-    setKlassrumsmenykord([
-      klassrumsmenyRef.current.getBoundingClientRect().top,
-      klassrumsmenyRef.current.getBoundingClientRect().right,
-    ]);
-    setKlassmenykord([
-      klassmenyRef.current.getBoundingClientRect().top,
-      klassmenyRef.current.getBoundingClientRect().right,
-    ]);
-    while (!klassmenyRef.current) {
-      setKlassrumsmenykord([
-        klassrumsmenyRef.current.getBoundingClientRect().top,
-        klassrumsmenyRef.current.getBoundingClientRect().right,
-      ]);
-      setKlassmenykord([
-        klassmenyRef.current.getBoundingClientRect().top,
-        klassmenyRef.current.getBoundingClientRect().right,
-      ]);
-    }
-  }, [klassmenyRef, klassrumsmenyRef]);
+ 
   const content = useRef(null);
   const väljKLassOchKlassrum = (
     <div className="flex flex-wrap justify-center gap-4">
