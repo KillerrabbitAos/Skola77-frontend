@@ -201,7 +201,7 @@ const Grid3 = () => {
   const [gridData, setGridData] = useState("");
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [klassrumsId, setKlassrumsId] = useState(null);
-  const [vägg, setVägg] = useState(true)
+  const [vägg, setVägg] = useState(true);
   function sparaData(nyData) {
     setData(nyData);
   }
@@ -318,15 +318,15 @@ const Grid3 = () => {
               </button>
             </div>
           ) : (
-            
-              
-            <input
-              type="number"
-              min="1"
-              value={rows}
-              onChange={(e) => ändraRader(parseInt(e.target.value) - rows)}
-            />
-            
+            <div>
+              <div className="text-center text-2xl">Rader</div>
+              <input
+                type="number"
+                min="1"
+                value={rows}
+                onChange={(e) => ändraRader(parseInt(e.target.value) - rows)}
+              />
+            </div>
           )}
 
           {isTouchDevice ? (
@@ -340,12 +340,15 @@ const Grid3 = () => {
               </button>
             </div>
           ) : (
-            <input
-              type="number"
-              min="1"
-              value={cols}
-              onChange={(e) => ändraKolumner(parseInt(e.target.value) - cols)}
-            />
+            <div>
+              <div className="text-center text-2xl">Kolumner</div>
+              <input
+                type="number"
+                min="1"
+                value={cols}
+                onChange={(e) => ändraKolumner(parseInt(e.target.value) - cols)}
+              />
+            </div>
           )}
         </div>
         <button
