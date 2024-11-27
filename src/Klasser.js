@@ -285,7 +285,7 @@ const Klasser = ({}) => {
             Sparade klasser:{" "}
           </div>
           <div className="border-8 border-t-0 border-[#4CAF50]">
-            <div className="bg-white h-[236px] overflow-y-scroll border-8 border-t-0 border-[#4CAF50]">
+            <div className="bg-white h-[236px] overflow-y-scroll scrollbar-none border-8 border-t-0 border-[#4CAF50]">
               <li
                 key={"nyKlass"}
                 className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
@@ -417,7 +417,7 @@ etc...
 
       <hr />
 
-      <div id="bossesDevHörna">
+      <div className="hidden" id="bossesDevHörna">
         <h1>Bosses devhörna</h1>
         <textarea
           id="nyDataTillServern"

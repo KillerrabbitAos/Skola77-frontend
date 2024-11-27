@@ -496,6 +496,7 @@ const SkapaPlaceringar = () => {
                 setKlassrumsId(null);
                 setKlassrumsnamn(null);
                 setPlaceringsnamn(null);
+                setNyttPlaceringsnamn(null)
                 setPlaceringsId(null);
                 setGrid(
                   Array.from({ length: rows }, () =>
