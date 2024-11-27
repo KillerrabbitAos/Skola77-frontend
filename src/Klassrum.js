@@ -135,7 +135,6 @@ const Klassrum = ({
   return (
     <>
       <DndContext
-      
         onDragEnd={handleDrop}
         onDragStart={(e) => {
           const { active } = e;
@@ -169,16 +168,26 @@ const Klassrum = ({
                     window.outerWidth / 1.1 / columns,
                     window.outerHeight / 1.1 / rows
                   )
+                : rows / columns > 1.1
+                ? Math.min(
+                    window.outerWidth / 1.1 / columns,
+                    window.outerHeight / 1.1 / rows
+                  )
                 : window.outerWidth /
                   (isTablet || window.outerWidth < window.outerHeight
                     ? isMobile && !isTablet
                       ? 1
                       : 1.2
                     : 1.4) /
-                  (columns > 14 || isMobile && !isTablet ? columns : 14)
+                  (columns > 14 || (isMobile && !isTablet) ? columns : 14)
             }px)`,
             gridTemplateRows: `repeat(${rows}, ${
               skrivUt || klar
+                ? Math.min(
+                    window.outerWidth / 1.1 / columns,
+                    window.outerHeight / 1.1 / rows
+                  )
+                : rows / columns > 1.1
                 ? Math.min(
                     window.outerWidth / 1.1 / columns,
                     window.outerHeight / 1.1 / rows
