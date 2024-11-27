@@ -425,7 +425,7 @@ const SkapaPlaceringar = () => {
         .map((namn, index) => ({ namn: namn, orginalIndex: index }))
         .sort((a, b) => a.namn.localeCompare(b.namn))
         .slice(1)
-        .filter(namn => namn.namn !== "")
+        .filter((namn) => namn.namn !== "")
         .map(
           (namnObj) =>
             namnObj.namn !== "" && (
