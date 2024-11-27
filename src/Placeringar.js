@@ -136,7 +136,9 @@ const SkapaPlaceringar = () => {
     setData(nyData);
   }
 
+  const nameDiv = useRef(null);
   const content = useRef(null);
+  
   const väljKLassOchKlassrum = (
     <div className="flex flex-wrap justify-center gap-4">
       <div
@@ -662,8 +664,14 @@ const SkapaPlaceringar = () => {
                     !placeringsId &&
                     !data.placeringar.some(
                       (placering) => placering.klassrum.rows > 10
-                    ) &&
-                    "Psst... alla personer hittar du längst ner på sidan."
+                    ) && (
+                      <span
+                        className="cursor-pointer underline text-black"
+                        onClick={() => nameDiv.current.scrollIntoView({ behavior: "smooth" })}
+                      >
+                        Psst... alla personer hittar du längst ner på sidan.
+                      </span>
+                    )
                   }
                   edit={false}
                   updateSize={updateSize}
@@ -761,9 +769,11 @@ const SkapaPlaceringar = () => {
         {klassnamn && (
           <div
             className="m-auto"
+            ref={nameDiv}
             style={{
               display: "flex",
               justifyContent: "center",
+
             }}
           >
             {namnILista.map((kolumn) => (
