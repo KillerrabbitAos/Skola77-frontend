@@ -20,6 +20,7 @@ const Klassrum = ({
   edit = true,
   reverse,
   setReverse,
+  extra,
   skrivUt = false,
 }) => {
   const [activePerson, setActivePerson] = useState(null);
@@ -151,8 +152,14 @@ const Klassrum = ({
           }
         }}
       >
-        <div className="print">
-          <p id="uppe">{reverse ? "bak" : "tavla"}</p>
+        <div className="print grid grid-cols-3">
+          <div></div>
+          <p className="place-self-center" id="uppe">
+            {reverse ? "bak" : "tavla"}
+          </p>
+          <div className="place-self-center text-xl flex justify-center items-center">
+            {extra}
+          </div>
         </div>
 
         <div

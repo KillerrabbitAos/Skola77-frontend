@@ -645,7 +645,7 @@ const SkapaPlaceringar = () => {
           </ul>
         </div>
       )}
-
+      
       <>
         {klassrumsnamn && (
           <div className="" ref={content} style={{ zIndex: "100" }}>
@@ -657,6 +657,7 @@ const SkapaPlaceringar = () => {
                 }
               >
                 <Klassrum
+                  extra={rows > 10 && !placeringsId && !data.placeringar.some(placering => placering.rows > 10) && "Psst, alla namn hamnar längst ner på sidan."}
                   edit={false}
                   updateSize={updateSize}
                   låstaBänkar={låstaBänkar}
