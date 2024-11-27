@@ -6,7 +6,9 @@
     height: 70px;
   }
 }
-
+img{
+  -webkit-user-drag: none; 
+}
 .krnkn {
 }
 @media print {
