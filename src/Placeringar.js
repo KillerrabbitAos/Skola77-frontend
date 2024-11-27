@@ -187,6 +187,13 @@ const SkapaPlaceringar = () => {
                               setNamn(klass.personer);
                               setKlassnamn(klass.namn);
                               setKlassId(klass.id);
+                              setGrid((prevGrid) =>
+                                prevGrid.map((rad) =>
+                                  rad.map((ruta) => {
+                                    return { id: ruta.id, person: 0 };
+                                  })
+                                )
+                              );
                               setVisaklassmeny(false);
                             }}
                           >
@@ -496,7 +503,7 @@ const SkapaPlaceringar = () => {
                 setKlassrumsId(null);
                 setKlassrumsnamn(null);
                 setPlaceringsnamn(null);
-                setNyttPlaceringsnamn(null)
+                setNyttPlaceringsnamn(null);
                 setPlaceringsId(null);
                 setGrid(
                   Array.from({ length: rows }, () =>
