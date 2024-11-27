@@ -284,9 +284,8 @@ const Grid3 = () => {
       };
       sparaData(newData);
     } else {
-      let nyttNamn = klassrumsnamn
-        ? klassrumsnamn
-        : prompt("Vad heter klassrummet?");
+      let nyttNamn = prompt("Vad heter klassrummet?");
+      setKlassrumsnamn(nyttNamn)
 
       const nyttId = generateUniqueId();
       setKlassrumsId(nyttId);
