@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { data as originalData } from "./data.js";
 import Klassrum from "./Klassrum";
 import "./Grid.css";
+import Overlay from "./Overlay.jsx";
 function generateUniqueId() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0;
@@ -202,6 +203,7 @@ const Grid3 = () => {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [klassrumsId, setKlassrumsId] = useState(null);
   const [vägg, setVägg] = useState(true);
+  const [laddaKlassrum, setLaddaKlassrum] = useState(false);
   function sparaData(nyData) {
     setData(nyData);
   }
@@ -238,7 +240,46 @@ const Grid3 = () => {
     }
     setRows(newRows);
   };
-
+  const laddaMeny = laddaKlassrum && data && (
+    <Overlay style={{ top: "70px" }}>
+      <ul className="overflow-y-scroll scrollbar scrollbar-thin scrollbar-track-white scrollbar-thumb-black w-52 h-48 border bg-white border-black">
+        <li
+          className="font-bold text-xl p-2 cursor-pointer"
+          onClick={() => {
+            setKlassrumsnamn(null);
+            setGrid(
+              Array.from({ length: rows }, () =>
+                Array.from({ length: cols }, () => ({
+                  id: null,
+                  person: 0,
+                }))
+              )
+            );
+          }}
+        >
+          nytt klassrum
+        </li>
+        {data.klassrum.map((klassrum) => {
+          return (
+            <li
+              key={klassrum.id}
+              className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
+              onClick={() => {
+                setGrid(klassrum.grid);
+                setCols(klassrum.cols);
+                setKlassrumsId(klassrum.id);
+                setLaddaKlassrum(false)
+                setRows(klassrum.rows);
+                setKlassrumsnamn(klassrum.namn);
+              }}
+            >
+              {klassrum.namn}
+            </li>
+          );
+        })}
+      </ul>
+    </Overlay>
+  );
   const ändraKolumner = (ändring) => {
     let newCols = Math.max(1, cols + ändring);
     const newGrid = grid.map((row) =>
@@ -285,7 +326,7 @@ const Grid3 = () => {
       sparaData(newData);
     } else {
       let nyttNamn = prompt("Vad heter klassrummet?");
-      setKlassrumsnamn(nyttNamn)
+      setKlassrumsnamn(nyttNamn);
 
       const nyttId = generateUniqueId();
       setKlassrumsId(nyttId);
@@ -299,11 +340,13 @@ const Grid3 = () => {
       sparaData(newData);
     }
   };
+
   useEffect(() => {
     checkLoginStatus();
   }, []);
   return (
     <div>
+      <div className="w-full top-[70px] relative"></div>
       <div className="flex flex-wrap">
         <div className="flex flex-grow flex-wrap">
           {isTouchDevice ? (
@@ -350,12 +393,25 @@ const Grid3 = () => {
             </div>
           )}
         </div>
-        <button
-          onClick={spara}
-          className="bg-green-500 h-10 text-white float-end mr-10 mt-3"
-        >
-          Spara
-        </button>
+        <div className="flex">
+          <div className="relative">
+            <button
+              onClick={() => {
+                setLaddaKlassrum(!laddaKlassrum);
+              }}
+              className="bg-green-500 h-10 text-white w-52 float-end mr-10 mt-3"
+            >
+              Ladda
+            </button>
+            <div className="relative w-52 top-20">{laddaMeny}</div>
+          </div>
+          <button
+            onClick={spara}
+            className="bg-green-500 h-10 text-white float-end mr-10 mt-3"
+          >
+            Spara
+          </button>
+        </div>
       </div>
       <div className="text-center text-3xl">{klassrumsnamn}</div>
       <div
@@ -374,39 +430,6 @@ const Grid3 = () => {
           names={names}
         />
       </div>
-      <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
-        <li
-          className="font-bold text-xl p-2 cursor-pointer"
-          onClick={() => {
-            setKlassrumsnamn(null);
-            setGrid(
-              Array.from({ length: rows }, () =>
-                Array.from({ length: cols }, () => ({ id: null, person: 0 }))
-              )
-            );
-          }}
-        >
-          nytt klassrum
-        </li>
-        {data &&
-          data.klassrum.map((klassrum) => {
-            return (
-              <li
-                key={klassrum.id}
-                className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
-                onClick={() => {
-                  setGrid(klassrum.grid);
-                  setCols(klassrum.cols);
-                  setKlassrumsId(klassrum.id);
-                  setRows(klassrum.rows);
-                  setKlassrumsnamn(klassrum.namn);
-                }}
-              >
-                {klassrum.namn}
-              </li>
-            );
-          })}
-      </ul>
     </div>
   );
 };
