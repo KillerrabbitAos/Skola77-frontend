@@ -138,7 +138,7 @@ const SkapaPlaceringar = () => {
 
   const nameDiv = useRef(null);
   const content = useRef(null);
-  
+
   const väljKLassOchKlassrum = (
     <div className="flex flex-wrap justify-center gap-4">
       <div
@@ -540,10 +540,10 @@ const SkapaPlaceringar = () => {
                     onBlur={() =>
                       nyttPlaceringsnamn ===
                         (klassnamn || "") + " i " + (klassrumsnamn || "") ||
-                      nyttPlaceringsnamn === ""
+                        nyttPlaceringsnamn === ""
                         ? setNyttPlaceringsnamn(
-                            (klassnamn || "") + " i " + (klassrumsnamn || "")
-                          )
+                          (klassnamn || "") + " i " + (klassrumsnamn || "")
+                        )
                         : setPlaceringsnamn(nyttPlaceringsnamn)
                     }
                     className="text-3xl mt-3 flex w-fit justify-center text-center"
@@ -569,6 +569,7 @@ const SkapaPlaceringar = () => {
                 setKlassrumsId(null);
                 setKlassrumsnamn(null);
                 setVisaklassmeny(true);
+                setPlaceringsnamn(null)
                 setVisaklassrumsmeny(true);
                 setPlaceringsId(JSON.parse(JSON.stringify(beng)));
               }}
@@ -635,12 +636,13 @@ const SkapaPlaceringar = () => {
                       setPlaceringsId(placering.id);
                       setRows(currentKlassrum.rows);
                       setPlaceringsnamn(placering.namn);
+                      setNyttPlaceringsnamn(placering.namn || null)
                     }}
                   >
                     {placering.namn ||
                       (placering.klass.namn || "en tom klass") +
-                        " i " +
-                        (placering.klassrum.namn || "ett tomt klassrum")}
+                      " i " +
+                      (placering.klassrum.namn || "ett tomt klassrum")}
                   </li>
                 );
               })}
@@ -659,7 +661,7 @@ const SkapaPlaceringar = () => {
                 }
               >
                 <Klassrum
-                  extra={
+                  extra={!klar &&
                     rows > 10 &&
                     !placeringsId &&
                     !data.placeringar.some(
