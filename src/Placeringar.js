@@ -156,7 +156,7 @@ const SkapaPlaceringar = () => {
           }}
           className="!h-[46px]"
         >
-          <Overlay>
+          <Overlay style={{zIndex: "600"}}>
             <ul
               style={{
                 height: visaKlassmeny ? "12rem" : "46px",
