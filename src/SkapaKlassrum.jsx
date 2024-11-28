@@ -204,6 +204,7 @@ const Grid3 = () => {
   const [klassrumsId, setKlassrumsId] = useState(null);
   const [vägg, setVägg] = useState(true);
   const [laddaKlassrum, setLaddaKlassrum] = useState(false);
+  const [nyttNamn, setNyttNamn] = useState(null);
   function sparaData(nyData) {
     setData(nyData);
   }
@@ -242,11 +243,13 @@ const Grid3 = () => {
   };
   const laddaMeny = laddaKlassrum && data && (
     <Overlay style={{ top: "70px" }}>
-      <ul className="overflow-y-scroll scrollbar scrollbar-thin scrollbar-track-white scrollbar-thumb-black w-52 h-48 border bg-white border-black">
+      <ul className="overflow-y-scroll rounded-[8px] scrollbar overflow-x-hidden scrollbar-thin scrollbar-track-rounded-[8px] scrollbar-track-transparent scrollbar-thumb-black w-52 h-48 border bg-white border-black">
         <li
           className="font-bold text-xl p-2 cursor-pointer"
           onClick={() => {
             setKlassrumsnamn(null);
+            setLaddaKlassrum(false);
+            setNyttNamn(null);
             setGrid(
               Array.from({ length: rows }, () =>
                 Array.from({ length: cols }, () => ({
@@ -268,7 +271,8 @@ const Grid3 = () => {
                 setGrid(klassrum.grid);
                 setCols(klassrum.cols);
                 setKlassrumsId(klassrum.id);
-                setLaddaKlassrum(false)
+                setLaddaKlassrum(false);
+                setNyttNamn(null);
                 setRows(klassrum.rows);
                 setKlassrumsnamn(klassrum.namn);
               }}
@@ -413,7 +417,14 @@ const Grid3 = () => {
           </button>
         </div>
       </div>
-      <div className="text-center text-3xl">{klassrumsnamn}</div>
+
+      <input
+        onChange={(e) => setNyttNamn(e.target.value)}
+        onBlur={() => setKlassrumsnamn(nyttNamn || "Namnlöst klassrum")}
+        className="text-center w-full bg-inherit text-center outline-none text-3xl"
+        value={nyttNamn || klassrumsnamn || "Nytt klassrum"}
+      />
+
       <div
         className={
           vägg &&
