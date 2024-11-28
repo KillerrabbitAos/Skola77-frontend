@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { data as originalData } from "./data.js";
+import { isTablet, isMobile } from "react-device-detect";
 import Klassrum from "./Klassrum";
 import "./Grid.css";
 import Overlay from "./Overlay.jsx";
@@ -202,7 +203,7 @@ const Grid3 = () => {
   const [gridData, setGridData] = useState("");
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [klassrumsId, setKlassrumsId] = useState(null);
-  const [vägg, setVägg] = useState(true);
+  const [vägg, setVägg] = useState(!isMobile || isTablet);
   const [laddaKlassrum, setLaddaKlassrum] = useState(false);
   const [nyttNamn, setNyttNamn] = useState(null);
   function sparaData(nyData) {
@@ -348,6 +349,16 @@ const Grid3 = () => {
   useEffect(() => {
     checkLoginStatus();
   }, []);
+  useEffect(() => {
+    const uppdatera = () => {
+      setVägg(window.outerWidth > 700);
+    };
+    window.addEventListener("resize", uppdatera);
+    return () => {
+      window.removeEventListener("resize", uppdatera);
+    };
+  }, []);
+
   return (
     <div>
       <div className="w-full top-[70px] relative"></div>
