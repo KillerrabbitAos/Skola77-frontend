@@ -540,13 +540,13 @@ const SkapaPlaceringar = () => {
                     onBlur={() =>
                       nyttPlaceringsnamn ===
                         (klassnamn || "") + " i " + (klassrumsnamn || "") ||
-                        nyttPlaceringsnamn === ""
+                      nyttPlaceringsnamn === ""
                         ? setNyttPlaceringsnamn(
-                          (klassnamn || "") + " i " + (klassrumsnamn || "")
-                        )
+                            (klassnamn || "") + " i " + (klassrumsnamn || "")
+                          )
                         : setPlaceringsnamn(nyttPlaceringsnamn)
                     }
-                    className="text-3xl mt-3 flex w-fit justify-center text-center"
+                    className="text-3xl w-fit mt-3 flex justify-center text-center"
                   />
                 </div>
               )}
@@ -569,7 +569,7 @@ const SkapaPlaceringar = () => {
                 setKlassrumsId(null);
                 setKlassrumsnamn(null);
                 setVisaklassmeny(true);
-                setPlaceringsnamn(null)
+                setPlaceringsnamn(null);
                 setVisaklassrumsmeny(true);
                 setPlaceringsId(JSON.parse(JSON.stringify(beng)));
               }}
@@ -636,13 +636,13 @@ const SkapaPlaceringar = () => {
                       setPlaceringsId(placering.id);
                       setRows(currentKlassrum.rows);
                       setPlaceringsnamn(placering.namn);
-                      setNyttPlaceringsnamn(placering.namn || null)
+                      setNyttPlaceringsnamn(placering.namn || null);
                     }}
                   >
                     {placering.namn ||
                       (placering.klass.namn || "en tom klass") +
-                      " i " +
-                      (placering.klassrum.namn || "ett tomt klassrum")}
+                        " i " +
+                        (placering.klassrum.namn || "ett tomt klassrum")}
                   </li>
                 );
               })}
@@ -661,7 +661,8 @@ const SkapaPlaceringar = () => {
                 }
               >
                 <Klassrum
-                  extra={!klar &&
+                  extra={
+                    !klar &&
                     rows > 10 &&
                     !placeringsId &&
                     !data.placeringar.some(
@@ -669,7 +670,9 @@ const SkapaPlaceringar = () => {
                     ) && (
                       <span
                         className="cursor-pointer underline text-black"
-                        onClick={() => nameDiv.current.scrollIntoView({ behavior: "smooth" })}
+                        onClick={() =>
+                          nameDiv.current.scrollIntoView({ behavior: "smooth" })
+                        }
                       >
                         Psst... alla personer hittar du längst ner på sidan.
                       </span>
@@ -775,7 +778,6 @@ const SkapaPlaceringar = () => {
             style={{
               display: "flex",
               justifyContent: "center",
-
             }}
           >
             {namnILista.map((kolumn) => (
