@@ -203,7 +203,9 @@ const Grid3 = () => {
   const [gridData, setGridData] = useState("");
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [klassrumsId, setKlassrumsId] = useState(null);
-  const [vägg, setVägg] = useState(!isMobile || isTablet);
+  const [vägg, setVägg] = useState(
+    window.outerWidth ? window.outerWidth > 700 : !isMobile || isTablet
+  );
   const [laddaKlassrum, setLaddaKlassrum] = useState(false);
   const [nyttNamn, setNyttNamn] = useState(null);
   function sparaData(nyData) {
