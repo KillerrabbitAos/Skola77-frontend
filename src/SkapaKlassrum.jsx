@@ -435,7 +435,13 @@ const Grid3 = () => {
         onChange={(e) => setNyttNamn(e.target.value)}
         onBlur={() => setKlassrumsnamn(nyttNamn || "Namnlöst klassrum")}
         className="text-center margin-auto w-[100vw] bg-inherit mx-0 text-center outline-none text-3xl"
-        value={nyttNamn || klassrumsnamn || "Nytt klassrum"}
+        value={
+          nyttNamn
+            ? nyttNamn
+            : nyttNamn === ""
+            ? ""
+            : klassrumsnamn || "Nytt klassrum"
+        }
       />
 
       <div
