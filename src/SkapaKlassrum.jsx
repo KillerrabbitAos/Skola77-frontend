@@ -410,7 +410,7 @@ const Grid3 = () => {
             </div>
           )}
         </div>
-        <div className="flex">
+        <div className="flex mt-7">
           <div className="relative">
             <button
               onClick={() => {
