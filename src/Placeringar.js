@@ -536,6 +536,22 @@ const SkapaPlaceringar = () => {
             >
               <img className="h-[50%]" src="/pil-vänster.png" />
             </div>
+          ) : window.outerWidth > 850 ? (
+            <div className="text-wrap text-xl scrollbar-none overflow-x-scroll border text-center">
+              <div>
+                {klassnamn && klassrumsnamn
+                  ? "Börja med att välja klass och klassrum"
+                  : data.klassrum.length > 0
+                  ? "Gå till klasser för att skapa en klass"
+                  : data.klasser.length > 0
+                  ? "Gå till klassrum för att skapa ett klassrum"
+                  : `Du behöver skapa en klass och ett klassrum. Se menyn ${
+                      window.outerWidth < window.outerHeight
+                        ? "uppe till höger"
+                        : "ovan"
+                    }.`}
+              </div>
+            </div>
           ) : (
             <div></div>
           )}
@@ -643,7 +659,7 @@ const SkapaPlaceringar = () => {
                 );
               })}
           </ul>
-          <ul className="overflow-y-scroll scrollbar m-auto scrollbar-track-transparent w-[98vw] h-full border border-black mt-2">
+          <ul className="overflow-y-hidden m-auto  w-[98vw] h-full border border-black mt-2">
             <li
               key={"ny placering"}
               className="font-semibold text-2xl p-2 cursor-pointer"
