@@ -118,6 +118,7 @@ const SkapaPlaceringar = () => {
   const [klar, setKlar] = useState(false);
   const [omvänd, setOmvänd] = useState(false);
   const [klassId, setKlassId] = useState(null);
+  const [sparat, setSparat] = useState(true);
   const [klassrumsnamn, setKlassrumsnamn] = useState(null);
   const [placeringsId, setPlaceringsId] = useState(null);
   const [placeringsnamn, setPlaceringsnamn] = useState(null);
@@ -125,6 +126,7 @@ const SkapaPlaceringar = () => {
   const [visaKlassrumsmeny, setVisaklassrumsmeny] = useState(true);
   const [vägg, setVägg] = useState(false);
   const klassrumsmenyRef = useRef(null);
+  const [laddarPlacering, setLaddarPlacering] = useState(false);
   const klassmenyRef = useRef(null);
   const [klassmenykord, setKlassmenykord] = useState([1]);
   const [klassrumsmenykord, setKlassrumsmenykord] = useState([1]);
@@ -337,7 +339,7 @@ const SkapaPlaceringar = () => {
     console.log("Klassrum:", klassrum);
     console.log("Klasser:", klasser);
   }
-  const sparaKlass = (index) => {
+  const sparaPlacering = (index) => {
     let nyData = data;
 
     if (data.placeringar.some((placering) => placering.id === placeringsId)) {
@@ -491,7 +493,11 @@ const SkapaPlaceringar = () => {
       });
     };
   }, []);
-
+  useEffect(() => {
+    if (!laddarPlacering) {
+      setSparat(false);
+    }
+  }, [placeringsnamn, grid, nyttPlaceringsnamn, klassrumsId, klassId]);
   return (
     <div>
       {placeringsId || (data && !data.placeringar[0]) ? (
@@ -499,24 +505,30 @@ const SkapaPlaceringar = () => {
           {placeringsId ? (
             <div
               onClick={() => {
-                setNamn([""]);
-                setKlassnamn(null);
-                setKlassId(null);
-                setKlassrumsId(null);
-                setKlassrumsnamn(null);
-                setPlaceringsnamn(null);
-                setNyttPlaceringsnamn(null);
-                setPlaceringsId(null);
-                setGrid(
-                  Array.from({ length: rows }, () =>
-                    Array.from({ length: cols }, () => ({
-                      id: null,
-                      person: 0,
-                    }))
-                  )
-                );
-                setRows(6);
-                setCols(7);
+                if (sparat) {
+                  setNamn([""]);
+                  setKlassnamn(null);
+                  setKlassId(null);
+                  setKlassrumsId(null);
+                  setKlassrumsnamn(null);
+                  setPlaceringsnamn(null);
+                  setNyttPlaceringsnamn(null);
+                  setPlaceringsId(null);
+                  setGrid(
+                    Array.from({ length: rows }, () =>
+                      Array.from({ length: cols }, () => ({
+                        id: null,
+                        person: 0,
+                      }))
+                    )
+                  );
+                  setRows(6);
+                  setCols(7);
+                } else {
+                  window.confirm(
+                    "Du har osparade ändringar. Vill du gå tillbaka ändå?"
+                  );
+                }
               }}
               className="w-[10vw] bg-green-500 h-[4vw] place-self-start flex justify-center items-center cursor-pointer"
             >
@@ -567,6 +579,7 @@ const SkapaPlaceringar = () => {
                 setKlassnamn(null);
                 setKlassId(null);
                 setKlassrumsId(null);
+                setLaddarPlacering(true);
                 setKlassrumsnamn(null);
                 setVisaklassmeny(true);
                 setPlaceringsnamn(null);
@@ -723,7 +736,8 @@ const SkapaPlaceringar = () => {
                   style={{ padding: "20px" }}
                   className="bg-green-500 rounded-b-none border-solid border-black border  text-white"
                   onClick={() => {
-                    sparaKlass(placeringsnamn);
+                    sparaPlacering(nyttPlaceringsnamn || placeringsnamn);
+                    setSparat(true);
                   }}
                 >
                   spara
@@ -743,7 +757,7 @@ const SkapaPlaceringar = () => {
                       );
                     }
                     setPlaceringsnamn(index);
-                    sparaKlass(index);
+                    sparaPlacering(index);
                   }}
                 >
                   spara som
