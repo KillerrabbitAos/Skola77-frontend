@@ -441,7 +441,7 @@ const Grid3 = () => {
       <div
         className={
           vägg ?
-          "m-auto p-5 px-12 w-fit fit-content rounded-lg border-black border-4 mt-4 m-3" : "m-[none]"
+          "m-auto p-5 px-12 w-fit fit-content rounded-lg border-black border-4 mt-4 m-3" : "m-[none] p-[none]"
         }
       >
         <Klassrum
