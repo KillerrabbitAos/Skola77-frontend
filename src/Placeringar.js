@@ -530,9 +530,9 @@ const SkapaPlaceringar = () => {
                   );
                 }
               }}
-              className="w-[10vw] bg-green-500 h-[4vw] place-self-start flex justify-center items-center cursor-pointer"
+              className="w-[100%] rounded-br-lg bg-green-500 h-[100%] place-self-start flex justify-center items-center cursor-pointer"
             >
-              <img className="h-[4vw]" src="/pil-vänster.png" />
+              <img className="h-[50%]" src="/pil-vänster.png" />
             </div>
           ) : (
             <div></div>
@@ -569,26 +569,7 @@ const SkapaPlaceringar = () => {
       ) : (
         <div className="text-center">
           <h2 className="text-3xl mt-2">Dina placeringar</h2>
-          <ul className="overflow-y-scroll scrollbar scrollbar-track-transparent w-full h-full border border-black mt-2">
-            <li
-              key={"ny placering"}
-              className="font-semibold text-2xl p-2 cursor-pointer"
-              onClick={() => {
-                const beng = generateUniqueId();
-                setNamn([""]);
-                setKlassnamn(null);
-                setKlassId(null);
-                setKlassrumsId(null);
-                setLaddarPlacering(true);
-                setKlassrumsnamn(null);
-                setVisaklassmeny(true);
-                setPlaceringsnamn(null);
-                setVisaklassrumsmeny(true);
-                setPlaceringsId(JSON.parse(JSON.stringify(beng)));
-              }}
-            >
-              ny placering...
-            </li>
+          <ul className="overflow-y-scroll divide-y-2 scrollbar w-[98vw] m-auto scrollbar-none w-full h-full border border-black mt-2">
             {data &&
               data.placeringar.map((placering) => {
                 return (
@@ -659,6 +640,27 @@ const SkapaPlaceringar = () => {
                   </li>
                 );
               })}
+          </ul>
+          <ul className="overflow-y-scroll scrollbar m-auto scrollbar-track-transparent w-[98vw] h-full border border-black mt-2">
+            <li
+              key={"ny placering"}
+              className="font-semibold text-2xl p-2 cursor-pointer"
+              onClick={() => {
+                const beng = generateUniqueId();
+                setNamn([""]);
+                setKlassnamn(null);
+                setKlassId(null);
+                setKlassrumsId(null);
+                setLaddarPlacering(true);
+                setKlassrumsnamn(null);
+                setVisaklassmeny(true);
+                setPlaceringsnamn(null);
+                setVisaklassrumsmeny(true);
+                setPlaceringsId(JSON.parse(JSON.stringify(beng)));
+              }}
+            >
+              Tryck här för att skapa en ny placering...
+            </li>
           </ul>
         </div>
       )}
