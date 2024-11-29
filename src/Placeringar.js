@@ -494,10 +494,10 @@ const SkapaPlaceringar = () => {
     };
   }, []);
   useEffect(() => {
-    if (!laddarPlacering) {
-      setSparat(false);
-    } else {
+    if (laddarPlacering) {
       setLaddarPlacering(false);
+    } else if (!laddarPlacering) {
+      setSparat(false)
     }
   }, [placeringsnamn, grid, nyttPlaceringsnamn, klassrumsId, klassId]);
   return (
@@ -519,6 +519,8 @@ const SkapaPlaceringar = () => {
                   setKlassrumsId(null);
                   setKlassrumsnamn(null);
                   setPlaceringsnamn(null);
+                  setLaddarPlacering(true)
+                  setSparat(true)
                   setNyttPlaceringsnamn(null);
                   setPlaceringsId(null);
                   setGrid(
@@ -629,6 +631,7 @@ const SkapaPlaceringar = () => {
                       setVisaklassrumsmeny(false);
                       setKlassrumsId(placering.klassrum.id);
                       setKlassrumsnamn(currentKlassrum.namn);
+                      setLaddarPlacering(true)
                       setKlassId(placering.klass.id);
                       setGrid(
                         currentKlassrum.grid.map((rad, y) =>
@@ -762,7 +765,7 @@ const SkapaPlaceringar = () => {
                     setSparat(true);
                   }}
                 >
-                  spara
+                  {`spara${!sparat && !laddarPlacering ? "*" : ""}`}
                 </button>
                 <button
                   style={{ padding: "20px" }}
