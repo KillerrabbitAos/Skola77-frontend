@@ -156,7 +156,7 @@ const SkapaPlaceringar = () => {
           }}
           className="!h-[46px]"
         >
-          <Overlay style={{zIndex: "600"}}>
+          <Overlay style={{ zIndex: "600" }}>
             <ul
               style={{
                 height: visaKlassmeny ? "12rem" : "46px",
@@ -555,12 +555,12 @@ const SkapaPlaceringar = () => {
           </div>
         </div>
       ) : (
-        <div className="w-52 m-auto">
-          <h2 className="text-xl mt-2 font-bold">Dina placeringar</h2>
-          <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
+        <div className="text-center">
+          <h2 className="text-3xl mt-2">Dina placeringar</h2>
+          <ul className="overflow-y-scroll scrollbar scrollbar-track-transparent w-full h-full border border-black mt-2">
             <li
               key={"ny placering"}
-              className="font-bold text-xl p-2 cursor-pointer"
+              className="font-semibold text-2xl p-2 cursor-pointer"
               onClick={() => {
                 const beng = generateUniqueId();
                 setNamn([""]);
@@ -581,7 +581,7 @@ const SkapaPlaceringar = () => {
                 return (
                   <li
                     key={placering.id}
-                    className="font-bold text-xl p-2 cursor-pointer"
+                    className="font-semibold text-2xl p-2 cursor-pointer"
                     onClick={() => {
                       const klasserDict = Object.fromEntries(
                         data.klasser.map((klass) => [klass.id, klass])
