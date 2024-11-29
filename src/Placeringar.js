@@ -510,7 +510,7 @@ const SkapaPlaceringar = () => {
                 if (
                   sparat ||
                   window.confirm(
-                    "Du har osparade ändringar. Vill du gå tillbaka ändå?"
+                    "Du har osparade ändringar. Vill du gå tillbaka ändå? Om inte, tryck på avbryt och spara först."
                   )
                 ) {
                   setNamn([""]);
