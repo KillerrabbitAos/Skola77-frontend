@@ -538,13 +538,11 @@ const SkapaPlaceringar = () => {
             >
               <img className="h-[50%]" src="/pil-vänster.png" />
             </div>
-          ) : window.outerWidth > 850 ? (
+          ) : window.outerWidth > 850 && !(klassnamn && klassrumsnamn) ? (
             <div className="text-wrap text-xl scrollbar-none overflow-x-scroll border text-center">
               <div>
                 {data.klasser.length > 0 && data.klassrum.length > 0
-                  ? klassnamn && klassrumsnamn
-                    ? ""
-                    : "Börja med att välja klass och klassrum"
+                  ? "Börja med att välja klass och klassrum"
                   : data.klassrum.length > 0
                   ? "Gå till klasser för att skapa en klass"
                   : data.klasser.length > 0
