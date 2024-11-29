@@ -505,7 +505,12 @@ const SkapaPlaceringar = () => {
           {placeringsId ? (
             <div
               onClick={() => {
-                if (sparat) {
+                if (
+                  sparat ||
+                  window.confirm(
+                    "Du har osparade ändringar. Vill du gå tillbaka ändå?"
+                  )
+                ) {
                   setNamn([""]);
                   setKlassnamn(null);
                   setKlassId(null);
@@ -524,10 +529,7 @@ const SkapaPlaceringar = () => {
                   );
                   setRows(6);
                   setCols(7);
-                } else {
-                  window.confirm(
-                    "Du har osparade ändringar. Vill du gå tillbaka ändå?"
-                  );
+                  setSparat(true);
                 }
               }}
               className="w-[100%] rounded-br-lg bg-green-500 h-[100%] place-self-start flex justify-center items-center cursor-pointer"
