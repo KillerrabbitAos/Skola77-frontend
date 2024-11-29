@@ -14,6 +14,8 @@ function generateUniqueId() {
 const Grid3 = () => {
   const [names, setNames] = useState([""]);
   const [rows, setRows] = useState(6);
+  const [sparat, setSparat] = useState(true);
+  const [laddarKlassrum, setLaddarKlassrum] = useState(false);
   const [cols, setCols] = useState(7);
   const [grid, setGrid] = useState([
     [
@@ -271,13 +273,21 @@ const Grid3 = () => {
               key={klassrum.id}
               className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
               onClick={() => {
-                setGrid(klassrum.grid);
-                setCols(klassrum.cols);
-                setKlassrumsId(klassrum.id);
-                setLaddaKlassrum(false);
-                setNyttNamn(null);
-                setRows(klassrum.rows);
-                setKlassrumsnamn(klassrum.namn);
+                if (
+                  sparat ||
+                  window.confirm(
+                    "Du har osparade ändringar. Vill du fortsätta ändå? Om inte, tryck på avbryt och spara först."
+                  )
+                ) {
+                  setGrid(klassrum.grid);
+                  setCols(klassrum.cols);
+                  setKlassrumsId(klassrum.id);
+                  setLaddaKlassrum(false);
+                  setLaddarKlassrum(true);
+                  setNyttNamn(null);
+                  setRows(klassrum.rows);
+                  setKlassrumsnamn(klassrum.namn);
+                }
               }}
             >
               {klassrum.namn}
@@ -325,16 +335,17 @@ const Grid3 = () => {
         data.klassrum.findIndex((klassrum) => klassrum.id === klassrumsId)
       ] = {
         id: klassrumsId,
-        namn: klassrumsnamn,
+        namn: nyttNamn || klassrumsnamn,
         rows: rows,
         cols: cols,
         grid: grid,
       };
       sparaData(newData);
+      setSparat(true)
     } else {
       let nyttNamn = prompt("Vad heter klassrummet?");
       setKlassrumsnamn(nyttNamn);
-
+      setLaddarKlassrum(true);
       const nyttId = generateUniqueId();
       setKlassrumsId(nyttId);
       newData.klassrum.push({
@@ -345,6 +356,7 @@ const Grid3 = () => {
         grid: grid,
       });
       sparaData(newData);
+      setSparat(true)
     }
   };
 
@@ -360,7 +372,13 @@ const Grid3 = () => {
       window.removeEventListener("resize", uppdatera);
     };
   }, []);
-
+  useEffect(() => {
+    if (!laddarKlassrum) {
+      setSparat(false);
+    } else {
+      setLaddarKlassrum(false);
+    }
+  }, [cols, rows, grid, nyttNamn, klassrumsId]);
   return (
     <div>
       <div className="w-full top-[70px] relative"></div>

@@ -496,6 +496,8 @@ const SkapaPlaceringar = () => {
   useEffect(() => {
     if (!laddarPlacering) {
       setSparat(false);
+    } else {
+      setLaddarPlacering(false);
     }
   }, [placeringsnamn, grid, nyttPlaceringsnamn, klassrumsId, klassId]);
   return (
