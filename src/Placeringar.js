@@ -544,7 +544,7 @@ const SkapaPlaceringar = () => {
             <div className="text-wrap text-xl scrollbar-none overflow-x-scroll border text-center">
               <div>
                 {data.klasser.length > 0 && data.klassrum.length > 0
-                  ? "Börja med att välja klass och klassrum"
+                  ? "Börja med att välja klass och klassrum "
                   : data.klassrum.length > 0
                   ? "Gå till klasser för att skapa en klass"
                   : data.klasser.length > 0
