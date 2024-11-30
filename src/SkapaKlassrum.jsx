@@ -15,6 +15,8 @@ function generateUniqueId() {
 const Grid3 = () => {
   const [names, setNames] = useState([""]);
   const [rows, setRows] = useState(6);
+  const [sparat, setSparat] = useState(true);
+  const [laddarKlassrum, setLaddarKlassrum] = useState(false);
   const [cols, setCols] = useState(7);
   const [grid, setGrid] = useState([
     [
@@ -275,13 +277,21 @@ const Grid3 = () => {
               key={klassrum.id}
               className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
               onClick={() => {
-                setGrid(klassrum.grid);
-                setCols(klassrum.cols);
-                setKlassrumsId(klassrum.id);
-                setLaddaKlassrum(false);
-                setNyttNamn(null);
-                setRows(klassrum.rows);
-                setKlassrumsnamn(klassrum.namn);
+                if (
+                  sparat ||
+                  window.confirm(
+                    "Du har osparade ändringar. Vill du fortsätta ändå? Om inte, tryck på avbryt och spara först."
+                  )
+                ) {
+                  setGrid(klassrum.grid);
+                  setCols(klassrum.cols);
+                  setKlassrumsId(klassrum.id);
+                  setLaddaKlassrum(false);
+                  setLaddarKlassrum(true);
+                  setNyttNamn(null);
+                  setRows(klassrum.rows);
+                  setKlassrumsnamn(klassrum.namn);
+                }
               }}
             >
               {klassrum.namn}
@@ -332,7 +342,7 @@ const Grid3 = () => {
         data.klassrum.findIndex((klassrum) => klassrum.id === klassrumsId)
       ] = {
         id: klassrumsId,
-        namn: klassrumsnamn,
+        namn: nyttNamn || klassrumsnamn,
         rows: rows,
         cols: cols,
         grid: grid,
@@ -340,10 +350,11 @@ const Grid3 = () => {
 
       console.log(newData)
       sparaData(newData);
+      setSparat(true)
     } else {
       let nyttNamn = prompt("Vad heter klassrummet?");
       setKlassrumsnamn(nyttNamn);
-
+      setLaddarKlassrum(true);
       const nyttId = generateUniqueId();
       setKlassrumsId(nyttId);
       newData.klassrum.push({
@@ -355,6 +366,7 @@ const Grid3 = () => {
       });
       console.log(newData + " 1")
       sparaData(newData);
+      setSparat(true)
     }
   };
 
@@ -370,7 +382,13 @@ const Grid3 = () => {
       window.removeEventListener("resize", uppdatera);
     };
   }, []);
-
+  useEffect(() => {
+    if (!laddarKlassrum) {
+      setSparat(false);
+    } else {
+      setLaddarKlassrum(false);
+    }
+  }, [cols, rows, grid, nyttNamn, klassrumsId]);
   return (
     <div>
       <div className="w-full top-[70px] relative"></div>
@@ -420,7 +438,7 @@ const Grid3 = () => {
             </div>
           )}
         </div>
-        <div className="flex">
+        <div className="flex mt-7">
           <div className="relative">
             <button
               onClick={() => {
@@ -444,14 +462,20 @@ const Grid3 = () => {
       <input
         onChange={(e) => setNyttNamn(e.target.value)}
         onBlur={() => setKlassrumsnamn(nyttNamn || "Namnlöst klassrum")}
-        className="text-center margin-auto w-[70%] bg-inherit text-center outline-none text-3xl"
-        value={nyttNamn || klassrumsnamn || "Nytt klassrum"}
+        className="text-center margin-auto w-[100vw] bg-inherit mx-0 text-center outline-none text-3xl"
+        value={
+          nyttNamn
+            ? nyttNamn
+            : nyttNamn === ""
+            ? ""
+            : klassrumsnamn || "Nytt klassrum"
+        }
       />
 
       <div
         className={
-          vägg ?
-          "m-auto p-5 px-12 w-fit fit-content rounded-lg border-black border-4 mt-4 m-3" : "m-[-7px] p-[none]"
+          vägg &&
+          "m-auto p-5 px-12 w-fit fit-content rounded-lg border-black border-4 mt-4 m-3"
         }
       >
         <Klassrum

@@ -118,6 +118,7 @@ const SkapaPlaceringar = () => {
   const [klar, setKlar] = useState(false);
   const [omvänd, setOmvänd] = useState(false);
   const [klassId, setKlassId] = useState(null);
+  const [sparat, setSparat] = useState(true);
   const [klassrumsnamn, setKlassrumsnamn] = useState(null);
   const [placeringsId, setPlaceringsId] = useState(null);
   const [placeringsnamn, setPlaceringsnamn] = useState(null);
@@ -125,6 +126,7 @@ const SkapaPlaceringar = () => {
   const [visaKlassrumsmeny, setVisaklassrumsmeny] = useState(true);
   const [vägg, setVägg] = useState(false);
   const klassrumsmenyRef = useRef(null);
+  const [laddarPlacering, setLaddarPlacering] = useState(false);
   const klassmenyRef = useRef(null);
   const [klassmenykord, setKlassmenykord] = useState([1]);
   const [klassrumsmenykord, setKlassrumsmenykord] = useState([1]);
@@ -156,7 +158,7 @@ const SkapaPlaceringar = () => {
           }}
           className="!h-[46px]"
         >
-          <Overlay style={{zIndex: "600"}}>
+          <Overlay style={{ zIndex: "600" }}>
             <ul
               style={{
                 height: visaKlassmeny ? "12rem" : "46px",
@@ -337,7 +339,7 @@ const SkapaPlaceringar = () => {
     console.log("Klassrum:", klassrum);
     console.log("Klasser:", klasser);
   }
-  const sparaKlass = (index) => {
+  const sparaPlacering = (index) => {
     let nyData = data;
 
     if (data.placeringar.some((placering) => placering.id === placeringsId)) {
@@ -491,7 +493,13 @@ const SkapaPlaceringar = () => {
       });
     };
   }, []);
-
+  useEffect(() => {
+    if (laddarPlacering) {
+      setLaddarPlacering(false);
+    } else if (!laddarPlacering) {
+      setSparat(false)
+    }
+  }, [placeringsnamn, grid, nyttPlaceringsnamn, klassrumsId, klassId]);
   return (
     <div>
       {placeringsId || (data && !data.placeringar[0]) ? (
@@ -499,28 +507,54 @@ const SkapaPlaceringar = () => {
           {placeringsId ? (
             <div
               onClick={() => {
-                setNamn([""]);
-                setKlassnamn(null);
-                setKlassId(null);
-                setKlassrumsId(null);
-                setKlassrumsnamn(null);
-                setPlaceringsnamn(null);
-                setNyttPlaceringsnamn(null);
-                setPlaceringsId(null);
-                setGrid(
-                  Array.from({ length: rows }, () =>
-                    Array.from({ length: cols }, () => ({
-                      id: null,
-                      person: 0,
-                    }))
+                if (
+                  sparat ||
+                  window.confirm(
+                    "Du har osparade ändringar. Vill du gå tillbaka ändå? Om inte, tryck på avbryt och spara först."
                   )
-                );
-                setRows(6);
-                setCols(7);
+                ) {
+                  setNamn([""]);
+                  setKlassnamn(null);
+                  setKlassId(null);
+                  setKlassrumsId(null);
+                  setKlassrumsnamn(null);
+                  setPlaceringsnamn(null);
+                  setLaddarPlacering(true)
+                  setSparat(true)
+                  setNyttPlaceringsnamn(null);
+                  setPlaceringsId(null);
+                  setGrid(
+                    Array.from({ length: rows }, () =>
+                      Array.from({ length: cols }, () => ({
+                        id: null,
+                        person: 0,
+                      }))
+                    )
+                  );
+                  setRows(6);
+                  setCols(7);
+                  setSparat(true);
+                }
               }}
-              className="w-[10vw] bg-green-500 h-[4vw] place-self-start flex justify-center items-center cursor-pointer"
+              className="w-[100%] rounded-br-lg bg-green-500 h-[100%] place-self-start flex justify-center items-center cursor-pointer"
             >
-              <img className="h-[4vw]" src="/pil-vänster.png" />
+              <img className="h-[50%]" src="/pil-vänster.png" />
+            </div>
+          ) : window.outerWidth > 850 && !(klassnamn && klassrumsnamn) ? (
+            <div className="text-wrap text-xl scrollbar-none overflow-x-scroll border text-center">
+              <div>
+                {data.klasser.length > 0 && data.klassrum.length > 0
+                  ? "Börja med att välja klass och klassrum"
+                  : data.klassrum.length > 0
+                  ? "Gå till klasser för att skapa en klass"
+                  : data.klasser.length > 0
+                  ? "Gå till klassrum för att skapa ett klassrum"
+                  : `Du behöver skapa en klass och ett klassrum. Se menyn ${
+                      window.outerWidth < window.outerHeight
+                        ? "uppe till höger"
+                        : "ovan"
+                    }.`}
+              </div>
             </div>
           ) : (
             <div></div>
@@ -555,33 +589,15 @@ const SkapaPlaceringar = () => {
           </div>
         </div>
       ) : (
-        <div className="w-52 m-auto">
-          <h2 className="text-xl mt-2 font-bold">Dina placeringar</h2>
-          <ul className="overflow-y-scroll w-52 h-48 border border-black mt-2">
-            <li
-              key={"ny placering"}
-              className="font-bold text-xl p-2 cursor-pointer"
-              onClick={() => {
-                const beng = generateUniqueId();
-                setNamn([""]);
-                setKlassnamn(null);
-                setKlassId(null);
-                setKlassrumsId(null);
-                setKlassrumsnamn(null);
-                setVisaklassmeny(true);
-                setPlaceringsnamn(null);
-                setVisaklassrumsmeny(true);
-                setPlaceringsId(JSON.parse(JSON.stringify(beng)));
-              }}
-            >
-              ny placering...
-            </li>
+        <div className="text-center">
+          <h2 className="text-3xl mt-2">Dina placeringar</h2>
+          <ul className="overflow-y-scroll divide-y-2 scrollbar w-[98vw] m-auto scrollbar-none w-full h-full border border-black mt-2">
             {data &&
               data.placeringar.map((placering) => {
                 return (
                   <li
                     key={placering.id}
-                    className="font-bold text-xl p-2 cursor-pointer"
+                    className="font-semibold text-2xl p-2 cursor-pointer"
                     onClick={() => {
                       const klasserDict = Object.fromEntries(
                         data.klasser.map((klass) => [klass.id, klass])
@@ -615,6 +631,7 @@ const SkapaPlaceringar = () => {
                       setVisaklassrumsmeny(false);
                       setKlassrumsId(placering.klassrum.id);
                       setKlassrumsnamn(currentKlassrum.namn);
+                      setLaddarPlacering(true)
                       setKlassId(placering.klass.id);
                       setGrid(
                         currentKlassrum.grid.map((rad, y) =>
@@ -646,6 +663,27 @@ const SkapaPlaceringar = () => {
                   </li>
                 );
               })}
+          </ul>
+          <ul className="overflow-y-hidden m-auto  w-[98vw] h-full border border-black mt-2">
+            <li
+              key={"ny placering"}
+              className="font-semibold text-2xl p-2 cursor-pointer"
+              onClick={() => {
+                const beng = generateUniqueId();
+                setNamn([""]);
+                setKlassnamn(null);
+                setKlassId(null);
+                setKlassrumsId(null);
+                setLaddarPlacering(true);
+                setKlassrumsnamn(null);
+                setVisaklassmeny(true);
+                setPlaceringsnamn(null);
+                setVisaklassrumsmeny(true);
+                setPlaceringsId(JSON.parse(JSON.stringify(beng)));
+              }}
+            >
+              Tryck här för att skapa en ny placering...
+            </li>
           </ul>
         </div>
       )}
@@ -723,10 +761,11 @@ const SkapaPlaceringar = () => {
                   style={{ padding: "20px" }}
                   className="bg-green-500 rounded-b-none border-solid border-black border  text-white"
                   onClick={() => {
-                    sparaKlass(placeringsnamn);
+                    sparaPlacering(nyttPlaceringsnamn || placeringsnamn);
+                    setSparat(true);
                   }}
                 >
-                  spara
+                  {`spara${!sparat && !laddarPlacering ? "*" : ""}`}
                 </button>
                 <button
                   style={{ padding: "20px" }}
@@ -743,7 +782,7 @@ const SkapaPlaceringar = () => {
                       );
                     }
                     setPlaceringsnamn(index);
-                    sparaKlass(index);
+                    sparaPlacering(index);
                   }}
                 >
                   spara som
