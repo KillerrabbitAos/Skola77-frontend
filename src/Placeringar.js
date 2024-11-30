@@ -544,7 +544,7 @@ const SkapaPlaceringar = () => {
             <div className="text-wrap text-xl scrollbar-none overflow-x-scroll border text-center">
               <div>
                 {data.klasser.length > 0 && data.klassrum.length > 0
-                  ? "Börja med att välja klass och klassrum"
+                  ? "Börja med att välja klass och klassrum "
                   : data.klassrum.length > 0
                   ? "Gå till klasser för att skapa en klass"
                   : data.klasser.length > 0
@@ -591,7 +591,7 @@ const SkapaPlaceringar = () => {
       ) : (
         <div className="text-center">
           <h2 className="text-3xl mt-2">Dina placeringar</h2>
-          <ul className="overflow-y-scroll divide-y-2 scrollbar w-[98vw] m-auto scrollbar-none w-full h-full border border-black mt-2">
+          <ul className="overflow-y-scroll divide-y-2 scrollbar w-[98vw] m-auto scrollbar-none  h-full border border-black mt-2">
             {data &&
               data.placeringar.map((placering) => {
                 return (
