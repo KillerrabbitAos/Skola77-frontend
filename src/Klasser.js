@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { data as originalData } from "./data";
 import NamnRuta from "./Namn";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import ExcelToTextConverter from "./ExcelToTextConverter";
 import { isMobile, isTablet } from "react-device-detect";
 import { compress } from "lz-string";
@@ -16,7 +17,7 @@ function generateUniqueId() {
 function divideArray(lista, x) {
   if (x <= 0) throw new Error("Number of parts must be greater than 0.");
   const result = [];
-  const list = lista.filter(namn => namn !== "")
+  const list = lista.filter((namn) => namn !== "");
   const partSize = Math.floor(list.length / x);
   let remainder = list.length % x;
   let start = 0;
@@ -47,10 +48,9 @@ const Klasser = ({}) => {
     setData(originalData);
   }
 
-
   function sparaData(nyData) {
     fetch("https://auth.skola77.com/updateData", {
-      credentials: 'include',
+      credentials: "include",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,8 +71,8 @@ const Klasser = ({}) => {
     checkLoginStatus();
   }, []);
   async function checkLoginStatus() {
-    const response = await fetch('https://auth.skola77.com/home', {
-      credentials: 'include'
+    const response = await fetch("https://auth.skola77.com/home", {
+      credentials: "include",
     });
     const result = await response.json();
     const parsedData = JSON.parse(result.data);
@@ -188,12 +188,18 @@ const Klasser = ({}) => {
               }}
               className="bg-red-600 aspect-square h-[100%] flex flex-row items-center justify-center text-white text-center"
             >
-              p
+              <RiDeleteBin6Line />
             </div>
           </div>
         )),
       Math.floor(window.outerWidth / 220)
     );
+  const taBortKlass = (id) => {
+    let nyData = data;
+    nyData.klasser = nyData.klasser.filter((klass) => klass.id !== id);
+    setData(nyData)
+    sparaData(nyData)
+  };
   const namnLista =
     namn &&
     divideArray(
@@ -222,7 +228,7 @@ const Klasser = ({}) => {
               }}
               className="bg-red-600 aspect-square h-[100%] flex flex-row items-center justify-center text-white text-center"
             >
-              p
+              <RiDeleteBin6Line />
             </div>
           </div>
         )),
@@ -389,7 +395,6 @@ etc...
           <div>{kolumn}</div>
         ))}
       </div>
-      
 
       <hr />
     </div>
