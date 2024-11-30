@@ -17,7 +17,7 @@ const Grid3 = () => {
   const [names, setNames] = useState([""]);
   const [rows, setRows] = useState(6);
   const [sparat, setSparat] = useState(true);
-  const [laddarKlassrum, setLaddarKlassrum] = useState(false);
+  const [laddarKlassrum, setLaddarKlassrum] = useState(true);
   const [cols, setCols] = useState(7);
   const [grid, setGrid] = useState([
     [
