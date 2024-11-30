@@ -46,12 +46,10 @@ const Klasser = ({}) => {
   async function checkLoginStatus() {
     setData(originalData);
   }
-  function sparaData(nyData) {
-    setData(nyData);
-  }
 
-  function sparaDta(nyData) {
-    fetch("http://192.168.50.107:3000/api/updateData", {
+
+  function sparaData(nyData) {
+    fetch("https://auth.skola77.com/updateData", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,8 +69,8 @@ const Klasser = ({}) => {
   useEffect(() => {
     checkLoginStatus();
   }, []);
-  async function checLoginStatus() {
-    const response = await fetch("http://192.168.50.107:3000/api/getKlassrum");
+  async function checkLoginStatus() {
+    const response = await fetch("https://auth.skola77.com/home");
     const result = await response.json();
     const parsedData = JSON.parse(result[0].data);
     setData(parsedData);
@@ -418,20 +416,6 @@ etc...
       
 
       <hr />
-
-      <div className="hidden" id="bossesDevHörna">
-        <h1>Bosses devhörna</h1>
-        <textarea
-          id="nyDataTillServern"
-          placeholder="ny data:"
-          style={{ height: 200 }}
-          value={textareaValue}
-          onChange={handleTextareaChange}
-        ></textarea>
-        <button id="iväg" onClick={handleButtonClick}>
-          Skicka
-        </button>
-      </div>
     </div>
   );
 };
