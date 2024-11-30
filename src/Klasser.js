@@ -50,6 +50,7 @@ const Klasser = ({}) => {
 
   function sparaData(nyData) {
     fetch("https://auth.skola77.com/updateData", {
+      credentials: 'include',
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -70,9 +71,11 @@ const Klasser = ({}) => {
     checkLoginStatus();
   }, []);
   async function checkLoginStatus() {
-    const response = await fetch("https://auth.skola77.com/home");
+    const response = await fetch('https://auth.skola77.com/home', {
+      credentials: 'include'
+    });
     const result = await response.json();
-    const parsedData = JSON.parse(result[0].data);
+    const parsedData = JSON.parse(result.data);
     setData(parsedData);
     const klassrum = parsedData.klassrum;
     const klasser = parsedData.klasser;
@@ -80,33 +83,6 @@ const Klasser = ({}) => {
     console.log("Klassrum:", klassrum);
     console.log("Klasser:", klasser);
   }
-
-  const handleButtonClick = async () => {
-    if (!textareaValue.trim()) {
-      alert("Textarea är tom! Skriv in data innan du skickar.");
-      return;
-    }
-
-    try {
-      const response = await fetch("https://auth.skola77.com:3005/updateData", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ data: textareaValue }),
-      });
-
-      if (response.ok) {
-        alert("Data skickades framgångsrikt!");
-        setTextareaValue("");
-      } else {
-        alert("Misslyckades med att skicka data. Kontrollera servern.");
-      }
-    } catch (error) {
-      console.error("Ett fel inträffade:", error);
-      alert("Ett nätverksfel inträffade.");
-    }
-  };
 
   const handleTextareaChange = (e) => {
     setTextareaValue(e.target.value);
