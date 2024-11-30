@@ -591,7 +591,7 @@ const SkapaPlaceringar = () => {
       ) : (
         <div className="text-center">
           <h2 className="text-3xl mt-2">Dina placeringar</h2>
-          <ul className="overflow-y-scroll divide-y-2 scrollbar w-[98vw] m-auto scrollbar-none w-full h-full border border-black mt-2">
+          <ul className="overflow-y-scroll divide-y-2 scrollbar w-[98vw] m-auto scrollbar-none  h-full border border-black mt-2">
             {data &&
               data.placeringar.map((placering) => {
                 return (
