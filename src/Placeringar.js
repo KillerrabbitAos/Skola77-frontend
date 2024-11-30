@@ -28,6 +28,24 @@ function divideArray(list, x) {
   return result;
 }
 
+function sparaData(nyData) {
+  fetch("https://auth.skola77.com/updateData", {
+    credentials: 'include',
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(nyData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.message);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
 const myList = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const dividedLists = divideArray(myList, 3);
 
@@ -131,12 +149,6 @@ const SkapaPlaceringar = () => {
   const [klassmenykord, setKlassmenykord] = useState([1]);
   const [klassrumsmenykord, setKlassrumsmenykord] = useState([1]);
   const [nyttPlaceringsnamn, setNyttPlaceringsnamn] = useState(null);
-  async function checkLoginStatus() {
-    setData(originalData);
-  }
-  function sparaData(nyData) {
-    setData(nyData);
-  }
 
   const nameDiv = useRef(null);
   const content = useRef(null);
@@ -328,10 +340,14 @@ const SkapaPlaceringar = () => {
       }
     </div>
   );
-  async function chekLoginStatus() {
-    const response = await fetch("http://192.168.50.107:3000/api/getKlassrum");
+  async function checkLoginStatus() {
+    const response = await fetch("https://auth.skola77.com/home", {
+
+      credentials: 'include',
+    }
+    );
     const result = await response.json();
-    const parsedData = JSON.parse(result[0].data);
+    const parsedData = JSON.parse(result.data);
     setData(parsedData);
     const klassrum = parsedData.klassrum;
     const klasser = parsedData.klasser;
