@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { data as originalData } from "./data.js";
 import { isTablet, isMobile } from "react-device-detect";
 import Klassrum from "./Klassrum";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import "./Grid.css";
 import Overlay from "./Overlay.jsx";
 
@@ -211,15 +212,15 @@ const Grid3 = () => {
   );
   const [laddaKlassrum, setLaddaKlassrum] = useState(false);
   const [nyttNamn, setNyttNamn] = useState(null);
-  
+
   function sparaData(nyData) {
-    console.log(nyData)
+    console.log(nyData);
     setData(nyData);
     var dataStr = JSON.stringify(nyData);
     console.log(dataStr);
     fetch("https://auth.skola77.com/updateData", {
       method: "POST",
-      credentials: 'include',
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -317,10 +318,25 @@ const Grid3 = () => {
     setGrid(newGrid);
     setCols(newCols);
   };
-
+  const taBortKlassrum = (id) => {
+    let nyData = data;
+    nyData.klassrum = nyData.klassrum.filter((klassrum) => klassrum.id !== id);
+    sparaData(nyData);
+    setKlassrumsnamn(null);
+    setLaddaKlassrum(false);
+    setNyttNamn(null);
+    setGrid(
+      Array.from({ length: rows }, () =>
+        Array.from({ length: cols }, () => ({
+          id: null,
+          person: 0,
+        }))
+      )
+    );
+  };
   async function checkLoginStatus() {
-    const response = await fetch('https://auth.skola77.com/home', {
-      credentials: 'include'
+    const response = await fetch("https://auth.skola77.com/home", {
+      credentials: "include",
     });
     const result = await response.json();
 
@@ -342,15 +358,15 @@ const Grid3 = () => {
         data.klassrum.findIndex((klassrum) => klassrum.id === klassrumsId)
       ] = {
         id: klassrumsId,
-        namn: nyttNamn || klassrumsnamn,
+        namn: nyttNamn || klassrumsnamn || "Namlöst klassrum",
         rows: rows,
         cols: cols,
         grid: grid,
       };
 
-      console.log(newData)
+      console.log(newData);
       sparaData(newData);
-      setSparat(true)
+      setSparat(true);
     } else {
       let nyttNamn = prompt("Vad heter klassrummet?");
       setKlassrumsnamn(nyttNamn);
@@ -364,9 +380,9 @@ const Grid3 = () => {
         cols: cols,
         grid: grid,
       });
-      console.log(newData + " 1")
+      console.log(newData + " 1");
       sparaData(newData);
-      setSparat(true)
+      setSparat(true);
     }
   };
 
@@ -439,16 +455,29 @@ const Grid3 = () => {
           )}
         </div>
         <div className="flex mt-7">
-          <div className="relative">
-            <button
-              onClick={() => {
-                setLaddaKlassrum(!laddaKlassrum);
-              }}
-              className="bg-green-500 h-10 text-white w-52 float-end mr-10 mt-3"
-            >
-              Ladda
-            </button>
-            <div className="relative w-52 top-20">{laddaMeny}</div>
+          <div className="flex">
+            {klassrumsId && (
+              <div
+                className="bg-red-500 flex justify-center items-center text-white aspect-square h-10 rounded-lg mr-2 mt-3"
+                onClick={() => {
+                  taBortKlassrum(klassrumsId);
+                }}
+              >
+                <RiDeleteBin6Line />
+              </div>
+            )}
+            <div className="relative">
+              <button
+                onClick={() => {
+                  setLaddaKlassrum(!laddaKlassrum);
+                }}
+                className="bg-green-500 h-10 text-white w-52 float-end mr-10 mt-3"
+              >
+                Ladda
+              </button>
+
+              <div className="relative w-52 top-20">{laddaMeny}</div>
+            </div>
           </div>
           <button
             onClick={spara}
