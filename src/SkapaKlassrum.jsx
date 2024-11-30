@@ -4,6 +4,7 @@ import { isTablet, isMobile } from "react-device-detect";
 import Klassrum from "./Klassrum";
 import "./Grid.css";
 import Overlay from "./Overlay.jsx";
+
 function generateUniqueId() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0;
@@ -208,17 +209,19 @@ const Grid3 = () => {
   );
   const [laddaKlassrum, setLaddaKlassrum] = useState(false);
   const [nyttNamn, setNyttNamn] = useState(null);
+  
   function sparaData(nyData) {
+    console.log(nyData)
     setData(nyData);
-  }
-  function sparaDat(nyData) {
-    setData(nyData);
-    fetch("http://192.168.50.107:3000/api/updateData", {
+    var dataStr = JSON.stringify(nyData);
+    console.log(dataStr);
+    fetch("https://auth.skola77.com/updateData", {
       method: "POST",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(nyData),
+      body: dataStr,
     })
       .then((response) => response.json())
       .then((data) => {
@@ -228,6 +231,7 @@ const Grid3 = () => {
         console.error("Error:", error);
       });
   }
+
   useEffect(() => {
     setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
   }, []);
@@ -303,13 +307,16 @@ const Grid3 = () => {
     setGrid(newGrid);
     setCols(newCols);
   };
+
   async function checkLoginStatus() {
-    setData(originalData);
-  }
-  async function checLoginStatus() {
-    const response = await fetch("http://192.168.50.107:3000/api/getKlassrum");
+    const response = await fetch('https://auth.skola77.com/home', {
+      credentials: 'include'
+    });
     const result = await response.json();
-    const parsedData = JSON.parse(result[0].data);
+
+    const parsedData = JSON.parse(result.data);
+    console.log(parsedData);
+
     setData(parsedData);
     const klassrum = parsedData.klassrum;
     const klasser = parsedData.klasser;
@@ -330,6 +337,8 @@ const Grid3 = () => {
         cols: cols,
         grid: grid,
       };
+
+      console.log(newData)
       sparaData(newData);
     } else {
       let nyttNamn = prompt("Vad heter klassrummet?");
@@ -344,6 +353,7 @@ const Grid3 = () => {
         cols: cols,
         grid: grid,
       });
+      console.log(newData + " 1")
       sparaData(newData);
     }
   };
