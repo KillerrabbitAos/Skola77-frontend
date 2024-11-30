@@ -428,7 +428,12 @@ const SkapaPlaceringar = () => {
 
     setGrid(nyGrid);
   };
-
+  const taBortPlacering = (id = placeringsId) => {
+    let nyData = data;
+    nyData.placeringar = nyData.placering.filter((placering) => placering.id !== id);
+    setData(nyData)
+    sparaData(nyData)
+  };
   const namnILista =
     namn &&
     divideArray(
