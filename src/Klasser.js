@@ -194,6 +194,12 @@ const Klasser = ({}) => {
         )),
       Math.floor(window.outerWidth / 220)
     );
+  const taBortKlass = (id) => {
+    let nyData = data;
+    nyData.klasser = nyData.klasser.filter((klass) => klass.id !== id);
+    setData(nyData)
+    sparaData(nyData)
+  };
   const namnLista =
     namn &&
     divideArray(
