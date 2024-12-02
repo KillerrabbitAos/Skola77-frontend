@@ -30,7 +30,7 @@ function divideArray(list, x) {
 
 function sparaData(nyData) {
   fetch("https://auth.skola77.com/updateData", {
-    credentials: 'include',
+    credentials: "include",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -85,6 +85,14 @@ async function scaleToFit(content, setUpdateSize, updateSize) {
 
   // Optional: Add margins for better page alignment
   content.style.margin = "0 auto";
+  const centeredRect = content.offsetWidth / 2;
+
+  const left = centeredRect;
+  await new Promise((resolve) => setTimeout(resolve, 200));
+  content.style.top = "0px";
+  content.style.position = "absolute";
+
+  content.style.left = `calc(50% - ${left}px)`;
 
   // Trigger the print dialog
   setUpdateSize(!updateSize);
@@ -92,6 +100,8 @@ async function scaleToFit(content, setUpdateSize, updateSize) {
   window.print();
 
   // Reset styles after printing
+  content.style.left = "";
+  content.style.position = "relative";
   content.style.transform = "";
   content.style.transformOrigin = ""; // Reset to default
   content.style.width = "";
@@ -101,20 +111,21 @@ async function scaleToFit(content, setUpdateSize, updateSize) {
 
 // Function to calculate DPI dynamically
 function calculateDPI() {
-  // Create an element for testing DPI
+  // Create a hidden element to test DPI
   const dpiTest = document.createElement("div");
   dpiTest.style.width = "1in"; // Set width to 1 inch
-  dpiTest.style.position = "absolute"; // Prevent affecting layout
-  dpiTest.style.visibility = "hidden"; // Hide from view
+  dpiTest.style.height = "1in"; // Optional: height to 1 inch for consistency
+  dpiTest.style.position = "absolute"; // Avoid layout interference
+  dpiTest.style.visibility = "hidden"; // Ensure it's not visible
   document.body.appendChild(dpiTest);
 
   // Measure the width in pixels
   const dpi = dpiTest.offsetWidth;
 
-  // Remove the test element
+  // Remove the test element from the DOM
   document.body.removeChild(dpiTest);
 
-  return dpi * window.devicePixelRatio; // Adjust for pixel density
+  return dpi; // Return the raw DPI value
 }
 
 const SkapaPlaceringar = () => {
@@ -342,10 +353,8 @@ const SkapaPlaceringar = () => {
   );
   async function checkLoginStatus() {
     const response = await fetch("https://auth.skola77.com/home", {
-
-      credentials: 'include',
-    }
-    );
+      credentials: "include",
+    });
     const result = await response.json();
     const parsedData = JSON.parse(result.data);
     setData(parsedData);
@@ -446,9 +455,11 @@ const SkapaPlaceringar = () => {
   };
   const taBortPlacering = (id = placeringsId) => {
     let nyData = data;
-    nyData.placeringar = nyData.placering.filter((placering) => placering.id !== id);
-    setData(nyData)
-    sparaData(nyData)
+    nyData.placeringar = nyData.placering.filter(
+      (placering) => placering.id !== id
+    );
+    setData(nyData);
+    sparaData(nyData);
   };
   const namnILista =
     namn &&
@@ -518,7 +529,7 @@ const SkapaPlaceringar = () => {
     if (laddarPlacering) {
       setLaddarPlacering(false);
     } else if (!laddarPlacering) {
-      setSparat(false)
+      setSparat(false);
     }
   }, [placeringsnamn, grid, nyttPlaceringsnamn, klassrumsId, klassId]);
   return (
@@ -540,8 +551,8 @@ const SkapaPlaceringar = () => {
                   setKlassrumsId(null);
                   setKlassrumsnamn(null);
                   setPlaceringsnamn(null);
-                  setLaddarPlacering(true)
-                  setSparat(true)
+                  setLaddarPlacering(true);
+                  setSparat(true);
                   setNyttPlaceringsnamn(null);
                   setPlaceringsId(null);
                   setGrid(
@@ -652,7 +663,7 @@ const SkapaPlaceringar = () => {
                       setVisaklassrumsmeny(false);
                       setKlassrumsId(placering.klassrum.id);
                       setKlassrumsnamn(currentKlassrum.namn);
-                      setLaddarPlacering(true)
+                      setLaddarPlacering(true);
                       setKlassId(placering.klass.id);
                       setGrid(
                         currentKlassrum.grid.map((rad, y) =>

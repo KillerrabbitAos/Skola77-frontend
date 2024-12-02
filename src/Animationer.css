@@ -6,8 +6,8 @@
     height: 70px;
   }
 }
-img{
-  -webkit-user-drag: none; 
+img {
+  -webkit-user-drag: none;
 }
 .krnkn {
 }
@@ -15,10 +15,12 @@ img{
   body * {
     visibility: hidden;
   }
+ 
 
   .print,
   .print * {
     visibility: visible;
+  
   }
 }
 li:hover {
@@ -30,13 +32,21 @@ li:hover {
   }
 }
 @keyframes vridUpp {
-  from {rotate: 0deg}
-  to {rotate: 90deg}
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 90deg;
+  }
 }
 @keyframes vridNer {
-  from {rotate: 90deg}
-  to {rotate: 0deg}
+  from {
+    rotate: 90deg;
+  }
+  to {
+    rotate: 0deg;
+  }
 }
-.dropdown-item{
+.dropdown-item {
   font-weight: bold;
 }
