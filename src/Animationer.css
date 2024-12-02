@@ -14,13 +14,22 @@ img {
 @media print {
   body * {
     visibility: hidden;
+    text-align: center;
   }
- 
+  @page {
+    size: A4 landscape; /* Default to landscape */
+    margin: 1cm; /* Adjust margins as needed */
+  }
+
+  /* Ensure the document height matches A4 */
+  html {
+    max-height: 297mm; /* Adjust for portrait if switched */
+    max-width: 210mm; /* Adjust for portrait if switched */
+  }
 
   .print,
   .print * {
     visibility: visible;
-  
   }
 }
 li:hover {
