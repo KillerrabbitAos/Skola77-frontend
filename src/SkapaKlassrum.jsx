@@ -19,188 +19,14 @@ const Grid3 = () => {
   const [sparat, setSparat] = useState(true);
   const [laddarKlassrum, setLaddarKlassrum] = useState(true);
   const [cols, setCols] = useState(7);
-  const [grid, setGrid] = useState([
-    [
-      {
+  const [grid, setGrid] = useState(
+    Array.from({ length: rows }, () =>
+      Array.from({ length: cols }, () => ({
         id: null,
         person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: "item-1728395558391",
-        person: 0,
-      },
-      {
-        id: "item-1728395558639",
-        person: 0,
-      },
-    ],
-    [
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: "item-1728395560144",
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-    ],
-    [
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: "item-1728395557488",
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-    ],
-    [
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-    ],
-    [
-      {
-        id: "item-1728395563304",
-        person: 0,
-      },
-      {
-        id: "item-1728395562912",
-        person: 0,
-      },
-      {
-        id: "item-1728395557831",
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: "item-1728395562504",
-        person: 0,
-      },
-      {
-        id: "item-1728395559832",
-        person: 0,
-      },
-    ],
-    [
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: "item-1728395561288",
-        person: 0,
-      },
-      {
-        id: "item-1728395560888",
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-      {
-        id: null,
-        person: 0,
-      },
-    ],
-  ]);
+      }))
+    )
+  );
   const [data, setData] = useState(null);
   const [klassrumsnamn, setKlassrumsnamn] = useState(null);
   const [låstaBänkar, setLåstaBänkar] = useState([]);
@@ -259,7 +85,7 @@ const Grid3 = () => {
           onClick={() => {
             setKlassrumsnamn(null);
             setLaddaKlassrum(false);
-            setKlassrumsId(null)
+            setKlassrumsId(null);
             setNyttNamn(null);
             setGrid(
               Array.from({ length: rows }, () =>
@@ -324,6 +150,7 @@ const Grid3 = () => {
     nyData.klassrum = nyData.klassrum.filter((klassrum) => klassrum.id !== id);
     sparaData(nyData);
     setKlassrumsnamn(null);
+    setKlassrumsId(null);
     setLaddaKlassrum(false);
     setNyttNamn(null);
     setGrid(
