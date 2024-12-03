@@ -199,7 +199,15 @@ const SkapaPlaceringar = () => {
                       >
                         <div className="flex justify-center items-center">
                           <div className="w-[155px] truncate">
-                            {klassnamn || "Välj klass..."}
+                            {klassnamn ||
+                              (placeringsId &&
+                                data &&
+                                data.placeringar.length > 0 &&
+                                data.placeringar.find(
+                                  (placering) => (placering.id = placeringsId)
+                                ).klass.namn &&
+                                "borttagen") ||
+                              "Välj klass..."}
                           </div>
                           <img className="w-[20px]" src="/nerpil.png"></img>
                         </div>
@@ -241,7 +249,15 @@ const SkapaPlaceringar = () => {
                 >
                   <div className="flex justify-center items-center">
                     <div className="w-[155px] truncate">
-                      {klassnamn || "Välj klass..."}
+                      {klassnamn ||
+                        (placeringsId &&
+                          data &&
+                          data.placeringar.length > 0 &&
+                          data.placeringar.find(
+                            (placering) => (placering.id = placeringsId)
+                          ).klass.namn &&
+                          "borttagen") ||
+                        "Välj klass..."}
                     </div>
                     <img
                       style={{
@@ -292,7 +308,15 @@ const SkapaPlaceringar = () => {
                         >
                           <div className="flex justify-center items-center">
                             <div className="w-[155px]">
-                              {klassrumsnamn || "Välj klassrum..."}
+                              {klassrumsnamn ||
+                                (placeringsId &&
+                                  data &&
+                                  data.placeringar.length > 0 &&
+                                  data.placeringar.find(
+                                    (placering) => (placering.id = placeringsId)
+                                  ).klassrum.namn &&
+                                  "borttaget") ||
+                                "Välj klassrum..."}
                             </div>
                             <img className="w-[20px]" src="/nerpil.png"></img>
                           </div>
@@ -329,7 +353,15 @@ const SkapaPlaceringar = () => {
                   >
                     <div className="flex justify-center items-center">
                       <div className="w-[155px] truncate">
-                        {klassrumsnamn || "Välj klassrum"}
+                        {klassrumsnamn ||
+                          (placeringsId &&
+                            data &&
+                            data.placeringar.length > 0 &&
+                            data.placeringar.find(
+                              (placering) => (placering.id = placeringsId)
+                            ).klassrum.namn &&
+                            "borttaget") ||
+                          "Välj klassrum..."}
                       </div>
                       <img
                         style={{
@@ -599,18 +631,67 @@ const SkapaPlaceringar = () => {
                   <input
                     value={
                       nyttPlaceringsnamn ||
-                      (nyttPlaceringsnamn === ""
-                        ? nyttPlaceringsnamn
-                        : (klassnamn || "") + " i " + (klassrumsnamn || ""))
+                      (klassnamn ||
+                        (placeringsId &&
+                          data &&
+                          data.placeringar.length > 0 &&
+                          data.placeringar.find(
+                            (placering) => placering.id === placeringsId
+                          ).klass.namn) ||
+                        "") +
+                        " i " +
+                        (klassrumsnamn ||
+                          (placeringsId &&
+                            data &&
+                            data.placeringar.length > 0 &&
+                            data.placeringar.find(
+                              (placering) => placering.id === placeringsId
+                            ).klassrum.namn) ||
+                          "")
                     }
                     onChange={(e) => setNyttPlaceringsnamn(e.target.value)}
                     onBlur={() =>
                       nyttPlaceringsnamn ===
-                        (klassnamn || "") + " i " + (klassrumsnamn || "") ||
-                      nyttPlaceringsnamn === ""
-                        ? setNyttPlaceringsnamn(
-                            (klassnamn || "") + " i " + (klassrumsnamn || "")
-                          )
+                        (klassnamn ||
+                          (placeringsId &&
+                            data &&
+                            data.placeringar.length > 0 &&
+                            data.placeringar.find(
+                              (placering) => placering.id === placeringsId
+                            ).klass.namn) ||
+                          "") +
+                          " i " +
+                          (klassrumsnamn ||
+                            (placeringsId &&
+                              data &&
+                              data.placeringar.length > 0 &&
+                              data.placeringar.find(
+                                (placering) => placering.id === placeringsId
+                              ).klassrum.namn) ||
+                            "") || nyttPlaceringsnamn === ""
+                        ? () => {
+                            setNyttPlaceringsnamn(
+                              (klassnamn ||
+                                (placeringsId &&
+                                  data &&
+                                  data.placeringar.length > 0 &&
+                                  data.placeringar.find(
+                                    (placering) => placering.id === placeringsId
+                                  ).klass.namn) ||
+                                "") +
+                                " i " +
+                                (klassrumsnamn ||
+                                  (placeringsId &&
+                                    data &&
+                                    data.placeringar.length > 0 &&
+                                    data.placeringar.find(
+                                      (placering) =>
+                                        placering.id === placeringsId
+                                    ).klassrum.namn) ||
+                                  "")
+                            );
+                            setPlaceringsnamn(null);
+                          }
                         : setPlaceringsnamn(nyttPlaceringsnamn)
                     }
                     className="text-3xl w-fit mt-3 flex justify-center text-center"
@@ -697,7 +778,7 @@ const SkapaPlaceringar = () => {
                           if (!klasserDict[placering.klass.id]) {
                             klassBorttagen = true;
                           }
-                          if (!klasserDict[placering.klass.id]) {
+                          if (!klassrumDict[placering.klassrum.id]) {
                             klassrumBorttagen = true;
                           }
                           const currentKlass =
@@ -724,15 +805,13 @@ const SkapaPlaceringar = () => {
                           setNamn(currentKlass.personer);
 
                           setKlassnamn(
-                            klassBorttagen ? "borttagen" : currentKlass.namn
+                            klassBorttagen ? null : currentKlass.namn
                           );
                           setVisaklassmeny(false);
                           setVisaklassrumsmeny(false);
                           setKlassrumsId(placering.klassrum.id);
                           setKlassrumsnamn(
-                            klassrumBorttagen
-                              ? "borttaget"
-                              : currentKlassrum.namn
+                            klassrumBorttagen ? null : currentKlassrum.namn
                           );
                           setLaddarPlacering(true);
                           setKlassId(placering.klass.id);
@@ -757,15 +836,16 @@ const SkapaPlaceringar = () => {
                           setCols(currentKlassrum.cols);
                           setPlaceringsId(placering.id);
                           setRows(currentKlassrum.rows);
-                          setPlaceringsnamn(placering.namn);
+                          setPlaceringsnamn(placering.namn || null);
                           setNyttPlaceringsnamn(
-                            placering.namn ||
+                            placering.namn ===
                               (placering.klass.namn &&
                                 placering.klassrum.namn &&
                                 placering.klass.namn +
                                   " i " +
-                                  placering.klassrum.namn) ||
-                              null
+                                  placering.klassrum.namn)
+                              ? null
+                              : placering.namn
                           );
                         }}
                       >
