@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import Klassrum from "./Klassrum";
 import { data as originalData } from "./data";
 import NameList from "./Klasser";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import "./Animationer.css";
 import Overlay from "./Overlay";
 function generateUniqueId() {
@@ -619,83 +620,141 @@ const SkapaPlaceringar = () => {
               <div className="mt-1">{väljKLassOchKlassrum}</div>
             </div>
           </div>
+          {placeringsId && (
+            <div
+              onClick={() => {
+                if (
+                  window.confirm(
+                    "Är du säker på att du vill radera placeringen? Om inte, tryck på avbryt."
+                  )
+                ) {
+                  let nyData = data;
+                  nyData.placeringar = nyData.placeringar.filter(
+                    (placering) => placering.id !== placeringsId
+                  );
+                  setData(nyData);
+                  sparaData(nyData);
+                  setNamn([""]);
+                  setKlassnamn(null);
+                  setKlassId(null);
+                  setKlassrumsId(null);
+                  setKlassrumsnamn(null);
+                  setPlaceringsnamn(null);
+                  setLaddarPlacering(true);
+                  setSparat(true);
+                  setNyttPlaceringsnamn(null);
+                  setPlaceringsId(null);
+                  setGrid(
+                    Array.from({ length: rows }, () =>
+                      Array.from({ length: cols }, () => ({
+                        id: null,
+                        person: 0,
+                      }))
+                    )
+                  );
+                  setRows(6);
+                  setCols(7);
+                  setSparat(true);
+                }
+              }}
+              className="w-[100%] rounded-bl-lg bg-red-500 h-[100%] place-self-start flex justify-center items-center cursor-pointer"
+            >
+              <RiDeleteBin6Line
+                style={{
+                  height: "65%",
+                  width: "65%",
+                  color: "white",
+                  margin: "auto",
+                }}
+              />
+            </div>
+          )}
         </div>
       ) : (
         <div className="text-center">
-          <h2 className="text-3xl mt-2">Dina placeringar</h2>
-          <ul className="overflow-y-scroll divide-y-2 scrollbar w-[98vw] m-auto scrollbar-none  h-full border border-black mt-2">
-            {data &&
-              data.placeringar.map((placering) => {
-                return (
-                  <li
-                    key={placering.id}
-                    className="font-semibold text-2xl p-2 cursor-pointer"
-                    onClick={() => {
-                      const klasserDict = Object.fromEntries(
-                        data.klasser.map((klass) => [klass.id, klass])
-                      );
-                      const klassrumDict = Object.fromEntries(
-                        data.klassrum.map((klassrum) => [klassrum.id, klassrum])
-                      );
+          {data && data.placeringar.length > 0 && (
+            <div>
+              <h2 className="text-3xl mt-2">Dina placeringar</h2>
+              <ul className="overflow-y-scroll divide-y-2 scrollbar w-[98vw] m-auto scrollbar-none  h-full border border-black mt-2">
+                {data &&
+                  data.placeringar.map((placering) => {
+                    return (
+                      <li
+                        key={placering.id}
+                        className="font-semibold text-2xl p-2 cursor-pointer"
+                        onClick={() => {
+                          const klasserDict = Object.fromEntries(
+                            data.klasser.map((klass) => [klass.id, klass])
+                          );
+                          const klassrumDict = Object.fromEntries(
+                            data.klassrum.map((klassrum) => [
+                              klassrum.id,
+                              klassrum,
+                            ])
+                          );
 
-                      const currentKlass = klasserDict[placering.klass.id];
-                      const currentKlassrum =
-                        klassrumDict[placering.klassrum.id];
+                          const currentKlass = klasserDict[placering.klass.id];
+                          const currentKlassrum =
+                            klassrumDict[placering.klassrum.id];
 
-                      if (!currentKlass || !currentKlassrum) {
-                        return;
-                      }
-                      const bänkarMedPersoner = [];
-                      placering.klassrum.grid.map((rad, y) =>
-                        rad.map(
-                          (cell, x) =>
-                            cell.person &&
-                            bänkarMedPersoner.push({
-                              kord: `${x}-${y}`,
-                              person: cell.person,
-                            })
-                        )
-                      );
-                      setNamn(currentKlass.personer);
+                          if (!currentKlass || !currentKlassrum) {
+                            return;
+                          }
+                          const bänkarMedPersoner = [];
+                          placering.klassrum.grid.map((rad, y) =>
+                            rad.map(
+                              (cell, x) =>
+                                cell.person &&
+                                bänkarMedPersoner.push({
+                                  kord: `${x}-${y}`,
+                                  person: cell.person,
+                                })
+                            )
+                          );
+                          setNamn(currentKlass.personer);
 
-                      setKlassnamn(currentKlass.namn);
-                      setVisaklassmeny(false);
-                      setVisaklassrumsmeny(false);
-                      setKlassrumsId(placering.klassrum.id);
-                      setKlassrumsnamn(currentKlassrum.namn);
-                      setLaddarPlacering(true);
-                      setKlassId(placering.klass.id);
-                      setGrid(
-                        currentKlassrum.grid.map((rad, y) =>
-                          rad.map((cell, x) => {
-                            const nyttId = generateUniqueId();
-                            const bänkmatch = bänkarMedPersoner.find(
-                              (bänk) => bänk.kord === `${x}-${y}`
-                            );
-                            return {
-                              id: bänkmatch ? JSON.stringify(nyttId) : cell.id,
-                              person: bänkmatch
-                                ? bänkmatch.person
-                                : cell.person,
-                            };
-                          })
-                        )
-                      );
-                      setCols(currentKlassrum.cols);
-                      setPlaceringsId(placering.id);
-                      setRows(currentKlassrum.rows);
-                      setPlaceringsnamn(placering.namn);
-                      setNyttPlaceringsnamn(placering.namn || null);
-                    }}
-                  >
-                    {placering.namn ||
-                      (placering.klass.namn || "en tom klass") +
-                        " i " +
-                        (placering.klassrum.namn || "ett tomt klassrum")}
-                  </li>
-                );
-              })}
-          </ul>
+                          setKlassnamn(currentKlass.namn);
+                          setVisaklassmeny(false);
+                          setVisaklassrumsmeny(false);
+                          setKlassrumsId(placering.klassrum.id);
+                          setKlassrumsnamn(currentKlassrum.namn);
+                          setLaddarPlacering(true);
+                          setKlassId(placering.klass.id);
+                          setGrid(
+                            currentKlassrum.grid.map((rad, y) =>
+                              rad.map((cell, x) => {
+                                const nyttId = generateUniqueId();
+                                const bänkmatch = bänkarMedPersoner.find(
+                                  (bänk) => bänk.kord === `${x}-${y}`
+                                );
+                                return {
+                                  id: bänkmatch
+                                    ? JSON.stringify(nyttId)
+                                    : cell.id,
+                                  person: bänkmatch
+                                    ? bänkmatch.person
+                                    : cell.person,
+                                };
+                              })
+                            )
+                          );
+                          setCols(currentKlassrum.cols);
+                          setPlaceringsId(placering.id);
+                          setRows(currentKlassrum.rows);
+                          setPlaceringsnamn(placering.namn);
+                          setNyttPlaceringsnamn(placering.namn || null);
+                        }}
+                      >
+                        {placering.namn ||
+                          (placering.klass.namn || "en tom klass") +
+                            " i " +
+                            (placering.klassrum.namn || "ett tomt klassrum")}
+                      </li>
+                    );
+                  })}
+              </ul>
+            </div>
+          )}
           <ul className="overflow-y-hidden m-auto  w-[98vw] h-full border border-black mt-2">
             <li
               key={"ny placering"}
