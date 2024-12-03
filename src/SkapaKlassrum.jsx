@@ -252,13 +252,14 @@ const Grid3 = () => {
     setRows(newRows);
   };
   const laddaMeny = laddaKlassrum && data && (
-    <Overlay style={{ top: "70px" }}>
+    <Overlay style={{ top: "97px" }}>
       <ul className="overflow-y-scroll rounded-[8px] scrollbar overflow-x-hidden scrollbar-thin scrollbar-track-rounded-[8px] scrollbar-track-transparent scrollbar-thumb-black w-52 h-48 border bg-white border-black">
         <li
           className="font-bold text-xl p-2 cursor-pointer"
           onClick={() => {
             setKlassrumsnamn(null);
             setLaddaKlassrum(false);
+            setKlassrumsId(null)
             setNyttNamn(null);
             setGrid(
               Array.from({ length: rows }, () =>
@@ -454,37 +455,45 @@ const Grid3 = () => {
             </div>
           )}
         </div>
-        <div className="flex mt-7">
+        <div className="flex">
           <div className="flex">
             {klassrumsId && (
-              <div
-                className="bg-red-500 flex justify-center items-center text-white aspect-square h-10 rounded-lg mr-2 mt-3"
-                onClick={() => {
-                  taBortKlassrum(klassrumsId);
-                }}
-              >
-                <RiDeleteBin6Line />
+              <div className="h-full flex justify-center items-center">
+                <div
+                  className="bg-red-500 flex justify-center items-center text-white aspect-square h-10 rounded-lg mr-2 "
+                  onClick={() => {
+                    taBortKlassrum(klassrumsId);
+                  }}
+                >
+                  <RiDeleteBin6Line />
+                </div>
               </div>
             )}
-            <div className="relative">
-              <button
-                onClick={() => {
-                  setLaddaKlassrum(!laddaKlassrum);
-                }}
-                className="bg-green-500 h-10 text-white w-52 float-end mr-10 mt-3"
-              >
-                Ladda
-              </button>
+            <div className="relative h-full flex items-center mr-5 justify-center">
+              {data && data.klassrum.length > 0 && (
+                <div>
+                  <button
+                    onClick={() => {
+                      setLaddaKlassrum(!laddaKlassrum);
+                    }}
+                    className="bg-green-500 h-10 rounded-lg text-white w-52"
+                  >
+                    Ladda
+                  </button>
 
-              <div className="relative w-52 top-20">{laddaMeny}</div>
+                  <div className="relative">{laddaMeny}</div>
+                </div>
+              )}
             </div>
           </div>
-          <button
-            onClick={spara}
-            className="bg-green-500 h-10 text-white float-end mr-10 mt-3"
-          >
-            Spara
-          </button>
+          <div className="h-full flex items-center justify-center">
+            <button
+              onClick={spara}
+              className="bg-green-500 rounded-lg h-10 text-white float-end mr-10"
+            >
+              Spara
+            </button>
+          </div>
         </div>
       </div>
 

@@ -197,8 +197,8 @@ const Klasser = ({}) => {
   const taBortKlass = (id) => {
     let nyData = data;
     nyData.klasser = nyData.klasser.filter((klass) => klass.id !== id);
-    setData(nyData)
-    sparaData(nyData)
+    setData(nyData);
+    sparaData(nyData);
   };
   const namnLista =
     namn &&
@@ -250,6 +250,28 @@ const Klasser = ({}) => {
 
   return (
     <div>
+      <div
+        className="fixed bottom-5 cursor-pointer rounded-lg aspect-square right-5 h-20 flex justify-center text-white items-center bg-red-500"
+        onClick={() => {
+          if (
+            window.confirm(
+              "Är du säker på att du vill radera klassen? Om inte, tryck på avbryt."
+            )
+          ) {
+            let nyData = data;
+            nyData.klasser = nyData.klasser.filter(
+              (klass) => klass.id !== klassId
+            );
+            sparaData(nyData);
+            setNamn([""]);
+            setKlassId(null);
+            setKlassnamn(null);
+            setKlassnamntext("ny klass");
+          }
+        }}
+      >
+        <RiDeleteBin6Line style={{ width: "65%", height: "65%" }} />
+      </div>
       <ExcelToTextConverter ref={filRef} names={namn} setNames={setNamn} />
       {visaLaddaKlassrum && (
         <div
