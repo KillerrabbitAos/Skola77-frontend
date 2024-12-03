@@ -26,7 +26,9 @@ img {
     max-height: 297mm; /* Adjust for portrait if switched */
     max-width: 210mm; /* Adjust for portrait if switched */
   }
-
+  .grid-cell{
+    background-color: white !important;
+  }
   .print,
   .print * {
     visibility: visible;
