@@ -816,22 +816,24 @@ const SkapaPlaceringar = () => {
                           setLaddarPlacering(true);
                           setKlassId(placering.klass.id);
                           setGrid(
-                            currentKlassrum.grid.map((rad, y) =>
-                              rad.map((cell, x) => {
-                                const nyttId = generateUniqueId();
-                                const bänkmatch = bänkarMedPersoner.find(
-                                  (bänk) => bänk.kord === `${x}-${y}`
-                                );
-                                return {
-                                  id: bänkmatch
-                                    ? JSON.stringify(nyttId)
-                                    : cell.id,
-                                  person: bänkmatch
-                                    ? bänkmatch.person
-                                    : cell.person,
-                                };
-                              })
-                            )
+                            klassrumBorttagen
+                              ? currentKlassrum.grid
+                              : currentKlassrum.grid.map((rad, y) =>
+                                  rad.map((cell, x) => {
+                                    const nyttId = generateUniqueId();
+                                    const bänkmatch = bänkarMedPersoner.find(
+                                      (bänk) => bänk.kord === `${x}-${y}`
+                                    );
+                                    return {
+                                      id: bänkmatch
+                                        ? JSON.stringify(nyttId)
+                                        : cell.id,
+                                      person: bänkmatch
+                                        ? bänkmatch.person
+                                        : cell.person,
+                                    };
+                                  })
+                                )
                           );
                           setCols(currentKlassrum.cols);
                           setPlaceringsId(placering.id);
