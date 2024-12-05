@@ -28,7 +28,7 @@ const MittKonto = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("https://account.skola77.com:3005/logout", {
+      const response = await fetch("https://auth.skola77.com/logout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -45,7 +45,7 @@ const MittKonto = () => {
   };
 
   const deleteUserAccount = () => {
-    fetch("https://account.skola77.com:3005/deleteUser", {
+    fetch("https://auth.skola77.com/deleteUser", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -114,7 +114,7 @@ const MittKonto = () => {
 
   const checkLoginStatus = async () => {
     try {
-      const response = await fetch("https://account.skola77.com:3005/home", {
+      const response = await fetch("https://auth.skola77.com/home", {
         credentials: "include",
       });
       const result = await response.json();
@@ -139,7 +139,7 @@ const MittKonto = () => {
   const getUsers = async () => {
     try {
       const response = await fetch(
-        "https://account.skola77.com:3005/getUsers",
+        "https://auth.skola77.com/getUsers",
         {
           credentials: "include",
         }
@@ -160,7 +160,7 @@ const MittKonto = () => {
 
   const downloadUserData = async () => {
     try {
-      const response = await fetch("https://account.skola77.com:3005/home", {
+      const response = await fetch("https://auth.skola77.com/home", {
         credentials: "include",
       });
       const data = await response.json();
@@ -198,8 +198,8 @@ const MittKonto = () => {
   const handleUserAction = (actionType) => {
     const url =
       actionType === "ban"
-        ? "https://account.skola77.com:3005/banUser"
-        : "https://account.skola77.com:3005/unBanUser";
+        ? "https://auth.skola77.com/banUser"
+        : "https://auth.skola77.com/unBanUser";
 
     fetch(url, {
       method: "POST",
@@ -278,124 +278,145 @@ const MittKonto = () => {
     }
   }, [userData]);
   return (
-    <div className="mittKonto">
-      <div id="användare">
-        {userData ? (
-          <div id="användardata">
-            <div id="username">
-              <p id="placeholder">Användarnamn:</p>
-              <div className="account-info">
-                <p className="data">{userData.username}</p>
-                <button
-                  id="accountButton"
-                  onClick={() => setShowUsernameModal(true)}
-                >
-                  Ändra
-                </button>
-              </div>
-            </div>
-            <div id="email">
-              <p id="placeholder">E-postadress:</p>
-              <div className="account-info">
-                <p className="data">{userData.email}</p>
-                <button
-                  id="accountButton"
-                  onClick={() => setShowEmailModal(true)}
-                >
-                  Ändra
-                </button>
-              </div>
-            </div>
-            <div id="password">
-              <p id="placeholder">Lösenord:</p>
-              <div className="account-info">
-                <p className="data">************</p>
-                <button
-                  id="accountButton"
-                  onClick={() => setShowPasswordModal(true)}
-                >
-                  Ändra
-                </button>
-              </div>
+ 
+    <div className="flex flex-col items-center bg-white min-h-screen py-10">
+    {/* Mitt konto */}
+    <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6 border border-green-200 mb-6">
+      {userData ? (
+        <div id="användardata">
+          <h1 className="text-3xl font-semibold text-green-700 mb-6">Mitt Konto</h1>
+          <div id="username" className="mb-4">
+            <p className="text-sm text-gray-600">Användarnamn:</p>
+            <div className="flex justify-between items-center border-b pb-2">
+              <p className="text-lg text-green-800">{userData.username}</p>
+              <button
+                className="text-green-600 hover:underline"
+                onClick={() => setShowUsernameModal(true)}
+              >
+                Ändra
+              </button>
             </div>
           </div>
-        ) : (
-          <p className="text">{loginMessage}</p>
-        )}
-
-        <div id="KontoButtons">
-          <button
-            onClick={handleLogout}
-            id="signOut"
-            className="accountActionButtons"
-          >
-            Logga ut
-          </button>
-          <button
-            className="accountActionButtons"
-            onClick={() => setShowDeleteAccountModal(true)}
-          >
-            Ta bort mitt konto
-          </button>
-          <button className="accountActionButtons" onClick={downloadUserData}>
-            Ladda ned min data
-          </button>
+          <div id="email" className="mb-4">
+            <p className="text-sm text-gray-600">E-postadress:</p>
+            <div className="flex justify-between items-center border-b pb-2">
+              <p className="text-lg text-green-800">{userData.email}</p>
+              <button
+                className="text-green-600 hover:underline"
+                onClick={() => setShowEmailModal(true)}
+              >
+                Ändra
+              </button>
+            </div>
+          </div>
+          <div id="password" className="mb-4">
+            <p className="text-sm text-gray-600">Lösenord:</p>
+            <div className="flex justify-between items-center border-b pb-2">
+              <p className="text-lg text-green-800">************</p>
+              <button
+                className="text-green-600 hover:underline"
+                onClick={() => setShowPasswordModal(true)}
+              >
+                Ändra
+              </button>
+            </div>
+          </div>
         </div>
+      ) : (
+        <p className="text-center text-gray-700">{loginMessage}</p>
+      )}
+
+      <div id="KontoButtons" className="mt-6 flex justify-between gap-4">
+        <button
+          onClick={handleLogout}
+          className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-300"
+        >
+          Logga ut
+        </button>
+        <button
+          className="bg-green-100 text-green-700 px-6 py-3 rounded-lg hover:bg-green-200 transition duration-300"
+          onClick={() => setShowDeleteAccountModal(true)}
+        >
+          Ta bort mitt konto
+        </button>
+        <button
+          className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition duration-300"
+          onClick={downloadUserData}
+        >
+          Ladda ned min data
+        </button>
       </div>
-      {userData && userData.admin === 1 && (
-        <div id="adminPanel">
-          <h2>Adminpanel</h2>
+    </div>
 
-          <input
-            type="text"
-            placeholder="Skriv in användarnamn"
-            id="banInput"
-            value={banUsername}
-            onChange={(e) => setBanUsername(e.target.value)}
-          />
-          <div id="adminRulle">
-            <table>
-              <thead>
+    {userData && userData.admin === 1 && (
+      <div id="adminPanel" className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6 border border-green-200">
+        <h2 className="text-2xl font-semibold text-green-700 mb-4">Adminpanel</h2>
+        <input
+          type="text"
+          placeholder="Skriv in användarnamn"
+          className="w-full border border-green-300 rounded p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"
+          value={banUsername}
+          onChange={(e) => setBanUsername(e.target.value)}
+        />
+        <div id="adminRulle" className="overflow-x-auto mb-4">
+          <table className="min-w-full table-auto border-collapse">
+            <thead>
+              <tr>
+                <th className="border-b px-4 py-2 text-left text-green-600">ID</th>
+                <th className="border-b px-4 py-2 text-left text-green-600">Namn</th>
+                <th className="border-b px-4 py-2 text-left text-green-600">Skapad</th>
+                <th className="border-b px-4 py-2 text-left text-green-600">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users !== "unavailable" ? (
+                users
+                  .filter((user) =>
+                    (user.name + user.id)
+                      .toLowerCase()
+                      .includes(banUsername.toLowerCase())
+                  )
+                  .map((user, index) => (
+                    <tr
+                      key={index}
+                      className="hover:bg-green-50 cursor-pointer"
+                      onClick={() => setBanUsername(user.name)}
+                    >
+                      <td className="border-b px-4 py-2">{user.id}</td>
+                      <td className="border-b px-4 py-2">{user.name}</td>
+                      <td className="border-b px-4 py-2">{user.created_at.split("T")[0]}</td>
+                      <td className="border-b px-4 py-2">
+                        {user.spärrat ? <span className="text-red-600 font-bold">spärrad</span> : "Aktiv"}
+                      </td>
+                    </tr>
+                  ))
+              ) : (
                 <tr>
-                  <th>ID</th>
-                  <th>Namn</th>
-                  <th>Skapad</th>
-                  <th>Status</th>
+                  <td colSpan="4" className="text-center py-4">
+                    Laddar...
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {users !== "unavailable" ? (
-                  users
-                    .filter((user) =>
-                      (user.name + user.id)
-                        .toLowerCase()
-                        .includes(banUsername.toLowerCase())
-                    ) // Filtrera användarnamn oberoende av stora/små bokstäver
-                    .map((user, index) => (
-                      <tr key={index} onClick={() => setBanUsername(user.name)}>
-                        <td>{user.id}</td>
-                        <td>{user.name}</td>
-                        <td>{user.created_at.split("T")[0]}</td>
-                        <td>{user.spärrat ? <b>spärrad</b> : ""}</td>
-                      </tr>
-                    ))
-                ) : (
-                  <tr>
-                    <td colSpan="4">Laddar...</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+              )}
+            </tbody>
+          </table>
+        </div>
 
-          <button class="adminButton" onClick={() => handleUserAction("ban")}>
+        <div className="mt-4 flex gap-4">
+          <button
+            className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition duration-300"
+            onClick={() => handleUserAction("ban")}
+          >
             Spärra användare
           </button>
-          <button class="adminButton" onClick={() => handleUserAction("unban")}>
+          <button
+            className="bg-green-400 text-white px-6 py-3 rounded-lg hover:bg-green-500 transition duration-300"
+            onClick={() => handleUserAction("unban")}
+          >
             Avspärra användare
           </button>
         </div>
-      )}
+      </div>
+    )}
 
       {showUsernameModal && (
         <div className={`modal ${showUsernameModal ? "show" : ""}`}>
