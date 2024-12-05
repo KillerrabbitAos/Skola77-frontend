@@ -709,6 +709,10 @@ a .minskaStorlekDiv {
 
 .accountActionButtons {
   width: 160px;
+  height: 50px;
+  margin: 10px;
+  color: white;
+  background-color: rgb(56, 180, 56);
 }
 
 .modal {
