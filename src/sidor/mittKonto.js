@@ -284,7 +284,7 @@ const MittKonto = () => {
     <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6 border border-green-200 mb-6">
       {userData ? (
         <div id="användardata">
-          <h1 className="text-3xl font-semibold text-green-700 mb-6">Mitt Konto</h1>
+          <h1 className="text-3xl font-semibold text-green-700 mb-6 m-auto">Mitt Konto</h1>
           <div id="username" className="mb-4">
             <p className="text-sm text-gray-600">Användarnamn:</p>
             <div className="flex justify-between items-center border-b pb-2">
@@ -311,7 +311,7 @@ const MittKonto = () => {
           </div>
           <div id="password" className="mb-4">
             <p className="text-sm text-gray-600">Lösenord:</p>
-            <div className="flex justify-between items-center border-b pb-2">
+            <div className="flex justify-between items-center">
               <p className="text-lg text-green-800">************</p>
               <button
                 className="text-green-600 hover:underline"
@@ -326,7 +326,7 @@ const MittKonto = () => {
         <p className="text-center text-gray-700">{loginMessage}</p>
       )}
 
-      <div id="KontoButtons" className="mt-6 flex justify-between gap-4">
+      <div id="KontoButtons" className="mt-0 flex justify-between gap-4">
         <button
           onClick={handleLogout}
           className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-300"
@@ -358,7 +358,7 @@ const MittKonto = () => {
           value={banUsername}
           onChange={(e) => setBanUsername(e.target.value)}
         />
-        <div id="adminRulle" className="overflow-x-auto mb-4">
+        <div id="adminRulle" className="overflow-x-auto mb-4 h-">
           <table className="min-w-full table-auto border-collapse">
             <thead>
               <tr>

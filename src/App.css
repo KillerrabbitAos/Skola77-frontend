@@ -654,66 +654,7 @@ a .minskaStorlekDiv {
   font-size: 20px;
 }
 
-#användardata {
-  border: 1px solid gray;
-  width: 100%;
-  position: relative;
-  border-radius: 10px 10px 0px 0px;
-}
 
-#användardata p {
-  margin-left: 20px;
-}
-
-#användardata div {
-  border-bottom: 1px solid gray;
-}
-
-#användardata div:last-child {
-  border-bottom: none;
-}
-
-#username,
-#email,
-#password {
-  margin: 10px 0; /* Lägg till lite avstånd mellan varje avsnitt */
-}
-
-.data {
-  font-size: 18px;
-  margin-right: 10px; /* Lägg till lite avstånd mellan data och knappen */
-}
-
-#placeholder {
-  color: gray;
-}
-
-#accountButton {
-  color: white;
-  background-color: rgb(56, 180, 56);
-  border-style: none;
-  border-color: rgb(173, 169, 169);
-  padding: 10px;
-  margin: 0;
-  border-radius: 5px;
-  width: 90px;
-  margin-right: 15px;
-  cursor: pointer;
-}
-
-.account-info {
-  display: flex;
-  align-items: center; /* Justera elementen vertikalt */
-  justify-content: space-between; /* Skapa utrymme mellan elementen */
-}
-
-.accountActionButtons {
-  width: 160px;
-  height: 50px;
-  margin: 10px;
-  color: white;
-  background-color: rgb(56, 180, 56);
-}
 
 .modal {
   position: fixed;
@@ -785,12 +726,7 @@ a .minskaStorlekDiv {
   background-color: gray; /* Förhindrar hover-effekt när knappen är disabled */
 }
 
-#KontoButtons {
-  border: 1px solid gray;
-  width: 100%;
-  border-top: none;
-  border-radius: 0px 0px 10px 10px;
-}
+
 
 #reset-password-container {
   max-width: 400px;
@@ -843,86 +779,3 @@ h2 {
   background-color: #45a049; /* Mörkare grön vid hover */
 }
 
-#message {
-  margin-top: 20px;
-  text-align: center;
-  font-weight: bold;
-  color: #e53935; /* Röd färg för felmeddelanden */
-}
-
-#banInput {
-  width: 300px;
-  padding: 10px;
-  margin: 10px auto; /* Ändra här */
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  display: block; /* Lägg till denna */
-}
-
-#banInput::placeholder {
-  color: #999;
-}
-#adminRulle {
-  height: 50%;
-  overflow-y: scroll;
-}
-.adminViewName:hover {
-  border: 1px solid gray;
-}
-
-#adminPanel {
-  max-width: 400px;
-  padding: 20px;
-  height: auto;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  margin-left: 10px;
-
-  position: relative;
-}
-
-#adminRulle {
-  border: 1px solid gray;
-  border-radius: 10px;
-  list-style: none;
-}
-
-#adminPanel h2 {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.adminButton {
-  display: inline-block;
-  width: 46%;
-  padding: 10px;
-  font-size: 16px;
-  color: #fff;
-  background-color: #2dd660;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-align: center;
-}
-
-.adminButton:hover {
-  background-color: #00ff04;
-}
-
-.adminButton:active {
-  background-color: #00ff66;
-}
-
-.mittKonto {
-  display: flex;
-  width: 100%;
-  margin-top: 40px;
-  height: 419px;
-}
-#användare {
-  margin-left: 10px;
-  max-width: 705px;
-}
