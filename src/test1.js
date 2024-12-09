@@ -533,83 +533,87 @@ const omvandlaPlaceringar = (data) => {
   }
 
   function placeringsOmvandling(data, id, klassId, klassrumsId) {
-    function generateUniqueId() {
-      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-        /[xy]/g,
-        function (c) {
-          const r = (Math.random() * 16) | 0;
-          const v = c === "x" ? r : (r & 0x3) | 0x8;
-          return v.toString(16);
-        }
-      );
-    }
-
-    let grid = Array.from({ length: data.rows }, () =>
-      Array.from({ length: data.columns }, () => ({ id: null, person: 0 }))
-    );
-
-    if (data.boxNames !== "tom") {
-      data.boxNames = data.boxNames.map((box) => {
-        match = data.keyChange.find((change) => change.key === box.key);
-        if (match) {
-          return { key: match.value, value: box.value };
-        } else {
-          return box;
-        }
-      });
-
-      grid = grid.map((rad, radIndex) =>
-        rad.map((ruta, kolumnIndex) => {
-          var match = data.boxNames.find(
-            (box) =>
-              parseInt(box.key.split("-")[1]) ===
-              radIndex * data.columns + kolumnIndex
-          );
-          if (match) {
-            return { id: generateUniqueId(), person: match.value };
-          } else if (
-            data.filledBoxes.some(
-              (box) =>
-                parseInt(box.split("-")[1]) ===
-                radIndex * data.columns + kolumnIndex
-            )
-          ) {
-            {
-              return {
-                id: generateUniqueId(),
-                person: 0,
-              };
-            }
-          } else {
-            return ruta;
+    if (data) {
+      function generateUniqueId() {
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+          /[xy]/g,
+          function (c) {
+            const r = (Math.random() * 16) | 0;
+            const v = c === "x" ? r : (r & 0x3) | 0x8;
+            return v.toString(16);
           }
-        })
-      );
+        );
+      }
+      let grid = [];
+      if (data) {
+        console.log(data);
+        grid = Array.from({ length: data.rows }, () =>
+          Array.from({ length: data.columns }, () => ({ id: null, person: 0 }))
+        );
+      }
+      if (data.boxNames !== "tom") {
+        data.boxNames = data.boxNames.map((box) => {
+          match = data.keyChange.find((change) => change.key === box.key);
+          if (match) {
+            return { key: match.value, value: box.value };
+          } else {
+            return box;
+          }
+        });
+
+        grid = grid.map((rad, radIndex) =>
+          rad.map((ruta, kolumnIndex) => {
+            var match = data.boxNames.find(
+              (box) =>
+                parseInt(box.key.split("-")[1]) ===
+                radIndex * data.columns + kolumnIndex
+            );
+            if (match) {
+              return { id: generateUniqueId(), person: match.value };
+            } else if (
+              data.filledBoxes.some(
+                (box) =>
+                  parseInt(box.split("-")[1]) ===
+                  radIndex * data.columns + kolumnIndex
+              )
+            ) {
+              {
+                return {
+                  id: generateUniqueId(),
+                  person: 0,
+                };
+              }
+            } else {
+              return ruta;
+            }
+          })
+        );
+      }
+      return {
+        id: generateUniqueId(),
+        namn: id,
+        klassrum: {
+          id: generateUniqueId(),
+          namn: generateUniqueId(),
+          grid: grid,
+          cols: data.columns,
+          rows: data.rows,
+        },
+        klass: {
+          id: generateUniqueId(),
+          namn: generateUniqueId(),
+          personer: data.personer,
+        },
+      };
     }
-    return {
-      id: generateUniqueId(),
-      namn: id,
-      klassrum: {
-        id: generateUniqueId(),
-        namn: generateUniqueId(),
-        grid: grid,
-        cols: data.columns,
-        rows: data.rows,
-      },
-      klass: {
-        id: generateUniqueId(),
-        namn: generateUniqueId(),
-        personer: data.personer,
-      },
-    };
   }
   const klassrum = JSON.parse(data)
-    .filter((spar) => spar.split(",")[0].split("_")[1] === "gridValues")
+    .filter((spar) => spar.split(":")[0].split("_")[1] === "gridValues")
     .map((spar) => {
       return {
-        id: spar.split(",")[0],
+        id: spar.split(":")[0],
         value: JSON.parse(
-          LZString.decompressFromEncodedURIComponent(spar.split(",")[1])
+          LZString.decompressFromEncodedURIComponent(spar.split(":")[1])
         ),
       };
     })
@@ -630,12 +634,12 @@ const omvandlaPlaceringar = (data) => {
     });
 
   const klasser = JSON.parse(data)
-    .filter((spar) => spar.split(",")[0].split("_")[1] === "nameValues")
+    .filter((spar) => spar.split(":")[0].split("_")[1] === "nameValues")
     .map((spar) => {
       return {
-        id: spar.split(",")[0],
+        id: spar.split(":")[0],
         value: JSON.parse(
-          LZString.decompressFromEncodedURIComponent(spar.split(",")[1])
+          LZString.decompressFromEncodedURIComponent(spar.split(":")[1])
         ),
       };
     })
@@ -648,18 +652,18 @@ const omvandlaPlaceringar = (data) => {
     });
 
   const placeringar = JSON.parse(data)
-    .filter((spar) => spar.split(",")[0].split("_")[1] === "values")
+    .filter((spar) => spar.split(":")[0].split("_")[1] === "values")
     .map((spar) => {
       return {
-        id: spar.split(",")[0],
+        id: spar.split(":")[0],
         value: JSON.parse(
-          LZString.decompressFromEncodedURIComponent(spar.split(",")[1])
+          LZString.decompressFromEncodedURIComponent(spar.split(":")[1])
         ),
       };
     })
     .map((spar) =>
       placeringsOmvandling(spar.value, spar.id.split("_values")[0])
     );
-
-  return { klasser: klasser, klassrum: klassrum, placeringar: placeringar };
+    
+  return JSON.stringify({ klasser: klasser, klassrum: klassrum, placeringar: placeringar });
 };
