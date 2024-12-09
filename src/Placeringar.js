@@ -773,20 +773,10 @@ const SkapaPlaceringar = () => {
                               klassrum,
                             ])
                           );
-                          let klassrumBorttagen;
-                          let klassBorttagen;
-                          if (!klasserDict[placering.klass.id]) {
-                            klassBorttagen = true;
-                          }
-                          if (!klassrumDict[placering.klassrum.id]) {
-                            klassrumBorttagen = true;
-                          }
-                          const currentKlass =
-                            klasserDict[placering.klass.id] || placering.klass;
 
+                          const currentKlass = klasserDict[placering.klass.id];
                           const currentKlassrum =
-                            klassrumDict[placering.klassrum.id] ||
-                            placering.klassrum;
+                            klassrumDict[placering.klassrum.id];
 
                           if (!currentKlass || !currentKlassrum) {
                             return;
@@ -804,15 +794,11 @@ const SkapaPlaceringar = () => {
                           );
                           setNamn(currentKlass.personer);
 
-                          setKlassnamn(
-                            klassBorttagen ? null : currentKlass.namn
-                          );
+                          setKlassnamn(currentKlass.namn);
                           setVisaklassmeny(false);
                           setVisaklassrumsmeny(false);
                           setKlassrumsId(placering.klassrum.id);
-                          setKlassrumsnamn(
-                            klassrumBorttagen ? null : currentKlassrum.namn
-                          );
+                          setKlassrumsnamn(currentKlassrum.namn);
                           setLaddarPlacering(true);
                           setKlassId(placering.klass.id);
                           setGrid(
@@ -838,17 +824,8 @@ const SkapaPlaceringar = () => {
                           setCols(currentKlassrum.cols);
                           setPlaceringsId(placering.id);
                           setRows(currentKlassrum.rows);
-                          setPlaceringsnamn(placering.namn || null);
-                          setNyttPlaceringsnamn(
-                            placering.namn ===
-                              (placering.klass.namn &&
-                                placering.klassrum.namn &&
-                                placering.klass.namn +
-                                  " i " +
-                                  placering.klassrum.namn)
-                              ? null
-                              : placering.namn
-                          );
+                          setPlaceringsnamn(placering.namn);
+                          setNyttPlaceringsnamn(placering.namn || null);
                         }}
                       >
                         {placering.namn ||
