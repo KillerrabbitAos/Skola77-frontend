@@ -8,14 +8,15 @@ import Hem from "./sidor/Hem";
 import Editor from "./Editor.js";
 import Support from "./sidor/Support";
 import NoPage from "./sidor/NoPage";
-import Kontakt from './sidor/Kontakt.js';
-import OmOss from './sidor/omOss.js';
 import Policy from './sidor/policy.js';
 import Användarvillkor from './sidor/villkor.js';
 import ResetPassword from './sidor/ResetPassword.js';
 
-
 import MittKonto from './sidor/mittKonto.js';
+import Grid from './Grid.js';
+import Grid3 from './SkapaKlassrum.jsx';
+import SkapaPlaceringar from './Placeringar.js';
+import Klasser from './Klasser.js';
 
 
 export default function App() {
@@ -25,9 +26,10 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Hem />} />
           <Route path="Editor" element={<Editor />} />
+          <Route path='Placeringar' element={<SkapaPlaceringar />}/>
+          <Route path='Klassrum' element={<Grid3 />}/>
+          <Route path="Klasser" element={<Klasser />}/>
           <Route path="Support" element={<Support />} />
-          <Route path="Kontakt" element={<Kontakt />} />
-          <Route path="OmOss" element={<OmOss />} />
           <Route path="policy" element={<Policy />} />
           <Route path="terms-of-service" element={<Användarvillkor />} />
           <Route path="/reset-password" element={<ResetPassword />} />

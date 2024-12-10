@@ -1,0 +1,92 @@
+/* Layout.css */
+@keyframes snurrNer {
+  from {rotate: 0deg}
+  to {rotate: -90deg}
+}
+@keyframes snurrUpp {
+  from {rotate: -90deg}
+  to {rotate: 0deg}
+}
+/* General Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Mobile Dropdown Button */
+  .mobile-nav .dropdown-toggle {
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    
+  }
+  
+  /* Dropdown Menu Styling */
+  .dropdown-menu {
+    position: absolute;
+    top: 55px; /* Adjust to position below the button */
+    width: fit-content;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start;
+  }
+  
+  /* Dropdown Item Styling */
+  .dropdown-item {
+    width: 100%;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  
+  .dropdown-item:last-child {
+    border-bottom: none; /* Remove border on the last item */
+  }
+  
+  .dropdown-item a {
+    text-decoration: none;
+    color: inherit;
+    display: block; /* Make the anchor fill the item */
+    width: 100%;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Logo Styling */
+  .dropdown-logo {
+    width: 50px;
+    height: auto;
+    padding: 10px;
+  }
+  
+
+  .nav-links li:hover, 
+.dropdown-item:hover {
+  background-color: white;
+}
+
+.nav-links li, 
+.dropdown-item, 
+#kebbe, 
+.konto-ikon {
+  user-select: none;
+  -webkit-user-drag: none;
+  cursor: default;
+}

@@ -1,7 +1,10 @@
 import React from "react";
 import * as XLSX from "xlsx";
+import "./styles.css";
+import { data } from "./data";
 
-const ExcelToTextConverter = ({ setNames, names }) => {
+const ExcelToTextConverter = React.forwardRef(({ setNames, names }, filRef) => {
+  const efternamnStårFörst = true;
   const convertExcelToText = async (file) => {
     try {
       const fileReader = new FileReader();
@@ -24,7 +27,21 @@ const ExcelToTextConverter = ({ setNames, names }) => {
           });
 
           const newNames = textData.filter((text) => text !== undefined);
-          const combinedNames = names.concat(newNames);
+          const combinedNames = names
+            .concat(newNames)
+            .filter((namn) => namn && namn !== "")
+            .map((namn) => {
+              let förnamn;
+              let efternamn;
+              if (efternamnStårFörst) {
+                [efternamn, förnamn] = namn.split(" ");
+              } else {
+                [förnamn, efternamn] = namn.split(" ");
+              }
+              return namn.split(" ").length > 1
+                ? `${förnamn} ${efternamn}`
+                : namn;
+            });
           const prevNames = names;
           setNames([...prevNames, ...combinedNames]);
         } catch (error) {
@@ -58,13 +75,13 @@ const ExcelToTextConverter = ({ setNames, names }) => {
   };
 
   return (
-    <div>
-      <div>
-        <p>Importera namn från Excel (.xlsx):</p>
-      </div>
-      <input type="file" onChange={handleFileChange} />
-    </div>
+    <input
+      ref={filRef}
+      id="file-upload"
+      type="file"
+      onChange={handleFileChange}
+    />
   );
-};
+});
 
 export default ExcelToTextConverter;

@@ -1,0 +1,104 @@
+body{
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+
+
+
+.grid-cell {
+  width: 100px;
+  height: 100px;
+  z-index: 0;
+  border: 1px solid #ccc;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* For positioning items inside */
+}
+.grid-cell .content {
+  width: 90%; /* Set content width to 90% of the cell */
+  height: 90%; /* Set content height to 90% of the cell */
+  display: flex; /* Use flexbox to align children */
+  align-items: center; /* Center children vertically */
+  justify-content: center; /* Center children horizontally */
+  background-color: lightblue; /* Background color when filled */
+}
+
+
+.grid-cell {
+  border: 1px solid black; /* This is optional if you want borders around cells */
+  padding: 0; /* No padding */
+  margin: 0; /* No margin */
+  box-sizing: border-box; /* Include border and padding in the element's total width and height */
+}
+
+
+.draggable-item {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+  z-index: 1;
+  cursor: move; /* Change cursor when dragging */
+}
+.removeButton{
+  background-color: red;
+  width: 50%;
+  height: 100%;
+  padding: 0px;
+  margin: 0px !important;
+  left: 0px;
+  position: relative;
+}
+.buttons{
+  z-index: 3;
+  height: 50%;
+  width: 100%;
+}
+
+.container {
+  font-size: clamp(12px, 2vw, 24px); /* Adjust minimum, scaling, and maximum font sizes */
+}
+
+.höjKnapp, .sänkKnapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  width: 60px;
+  height: 50px;
+  margin: 0 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #f3f3f3;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.höjKnapp:hover, .sänkKnapp:hover {
+  background-color: #e0e0e0;
+}
+
+.höjKnapp button, .sänkKnapp button {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 20px;
+  color: #333;
+  cursor: pointer;
+}
+
+#skola77ärbra{
+  width: 100px;
+  text-align: center;
+}
+
+.removeButton{
+  float: inline-start;
+}
+.högerklicksmenyalternativ:hover{
+  background-color: lightgray;
+}
