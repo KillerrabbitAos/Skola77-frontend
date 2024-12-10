@@ -88,6 +88,10 @@ const Grid = ({
 
     setCellSize(cellSize + 10);
     console.log(cellSize);
+
+    setTimeout(() => {
+      fixa();
+    }, 200);
   };
 
   const minskaStorlek = () => {
@@ -98,6 +102,9 @@ const Grid = ({
 
     setCellSize(cellSize - 10);
     console.log(cellSize);
+    setTimeout(() => {
+      fixa();
+    }, 200);
   };
   const handleSaveGrid = async () => {
     const name = prompt("Döp det här klassrummet: ");

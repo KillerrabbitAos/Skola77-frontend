@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoIosLock } from "react-icons/io";
 import { IoIosUnlock } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { Editor } from "./Editor";
 
 const Namn = ({
   name,
@@ -33,7 +34,7 @@ const Namn = ({
     newNames[originalIndex] = editedName; 
     setNames(newNames);
   };
-
+  
   return (
     <li key={originalIndex}>
       <div

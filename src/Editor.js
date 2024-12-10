@@ -5,6 +5,7 @@ import { useCookies } from "react-cookie";
 import { isTablet } from "react-device-detect";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import "./App.css";
+import { io } from 'socket.io-client';
 
 import generateCombinedList from "./CombinedListGenerator.js";
 import ExcelToTextConverter from "./ExcelToTextConverter.js";
@@ -67,6 +68,8 @@ function fitTextToContainer(container, element, maxFontSizePx) {
 
 
 const Editor = () => {
+
+
   const [loading, setLoading] = useState(true);
   const [groupName, setGroupName] = useState("ny...");
   const [keyChange, setKeyChange] = useState("tom");
@@ -680,7 +683,7 @@ const handleRefresh = () => {
         boxNames
       )
     );
-    await new Promise((resolve) => setTimeout(resolve, 10));
+    await new Promise((resolve) => setTimeout(resolve, 200));
   };
 
   const handleMixNames = async () => {
@@ -720,8 +723,10 @@ const handleRefresh = () => {
     }
 
     await firstConstantFunction();
-    fixa();
-  };
+    setTimeout(() => {
+      fixa();
+    }, 500);
+  }
 
   const handleGroupChange = async (event) => {
     const selectedGroup = event.target.value;
@@ -1125,12 +1130,13 @@ const handleRefresh = () => {
             setLåstaNamn={setLåstaNamn}
             namnRader={namnRader}
             setNames={setNames}
+            fixa={fixa}
           ></NameList>
         </div>
       </div>
       <p>
         <a id="mailTag" onClick={() => {setEasterCounter(easterCounter + 1)}}>
-          Version 1.12.3 "kyckling"
+          Version 1.13 "kyckling"
         </a>
       </p>
     </div>
@@ -1138,7 +1144,6 @@ const handleRefresh = () => {
 };
 
 export default Editor;
-
 
 
 
