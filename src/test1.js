@@ -532,7 +532,9 @@ const omvandlaPlaceringar = (data) => {
     });
   }
 
-  function placeringsOmvandling(data, id, klassId, klassrumsId) {
+  function placeringsOmvandling(datan, id, klassId, klassrumsId) {
+    const data1 = LZString.decompressFromEncodedURIComponent(datan);
+    const data = JSON.parse(data1);
     if (data) {
       function generateUniqueId() {
         return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
@@ -547,8 +549,35 @@ const omvandlaPlaceringar = (data) => {
       let grid = [];
       if (data) {
         console.log(data);
+        data.filledBoxes = data.filledBoxes.map((box) => {
+          match = data.keyChange.find((change) => change.key === box.key);
+          if (match) {
+            return { key: match.value, value: box.value };
+          } else {
+            return box;
+          }
+        });
         grid = Array.from({ length: data.rows }, () =>
           Array.from({ length: data.columns }, () => ({ id: null, person: 0 }))
+        ).map((rad, radIndex) =>
+          rad.map((ruta, kolumnIndex) => {
+            if (
+              data.filledBoxes.some(
+                (box) =>
+                  parseInt(box.split("-")[1]) ===
+                  radIndex * data.columns + kolumnIndex
+              )
+            ) {
+              {
+                return {
+                  id: generateUniqueId(),
+                  person: 0,
+                };
+              }
+            } else {
+              return ruta;
+            }
+          })
         );
       }
       if (data.boxNames !== "tom") {
@@ -602,9 +631,11 @@ const omvandlaPlaceringar = (data) => {
         klass: {
           id: generateUniqueId(),
           namn: generateUniqueId(),
-          personer: data.personer,
+          personer: data.names,
         },
       };
+    } else {
+      console.log(datan, klassId, id);
     }
   }
   const klassrum = JSON.parse(data)
@@ -618,12 +649,7 @@ const omvandlaPlaceringar = (data) => {
       };
     })
     .map((spar) => {
-      const grid = Array.from({ length: spar.value.rows }, () =>
-        Array.from({ length: spar.value.columns }, () => ({
-          id: null,
-          person: 0,
-        }))
-      );
+      const grid = placeringsOmvandling(spar.value).klassrum.grid;
       return {
         id: spar.id,
         namn: spar.id.split("_")[0],
@@ -656,14 +682,16 @@ const omvandlaPlaceringar = (data) => {
     .map((spar) => {
       return {
         id: spar.split(":")[0],
-        value: JSON.parse(
-          LZString.decompressFromEncodedURIComponent(spar.split(":")[1])
-        ),
+        value: spar.split(":")[1],
       };
     })
     .map((spar) =>
-      placeringsOmvandling(spar.value, spar.id.split("_values")[0])
+      placeringsOmvandling(spar.value, spar.id.split("_values")[0], spar)
     );
-    
-  return JSON.stringify({ klasser: klasser, klassrum: klassrum, placeringar: placeringar });
+
+  return {
+    klasser: klasser,
+    klassrum: klassrum,
+    placeringar: placeringar,
+  };
 };
