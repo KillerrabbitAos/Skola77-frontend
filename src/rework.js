@@ -1,4 +1,4 @@
-const omvandlaPlaceringar = (data) => {
+const omvandlaData = async (data) => {
   var LZString = (function () {
     // private property
     var f = String.fromCharCode;
@@ -531,172 +531,88 @@ const omvandlaPlaceringar = (data) => {
       return LZString;
     });
   }
-
-  function placeringsOmvandling(datan, id, klassId, klassrumsId) {
-    const data1 = LZString.decompressFromEncodedURIComponent(datan);
-    const data = JSON.parse(data1);
-    if (data) {
-      function generateUniqueId() {
-        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-          /[xy]/g,
-          function (c) {
-            const r = (Math.random() * 16) | 0;
-            const v = c === "x" ? r : (r & 0x3) | 0x8;
-            return v.toString(16);
-          }
-        );
+  function generateUniqueId() {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+      /[xy]/g,
+      function (c) {
+        const r = (Math.random() * 16) | 0;
+        const v = c === "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
       }
-      let grid = [];
-      if (data) {
-        console.log(data);
-        data.filledBoxes = data.filledBoxes.map((box) => {
-          match = data.keyChange.find((change) => change.key === box.key);
-          if (match) {
-            return { key: match.value, value: box.value };
-          } else {
-            return box;
-          }
-        });
-        grid = Array.from({ length: data.rows }, () =>
-          Array.from({ length: data.columns }, () => ({ id: null, person: 0 }))
-        ).map((rad, radIndex) =>
-          rad.map((ruta, kolumnIndex) => {
-            if (
-              data.filledBoxes.some(
-                (box) =>
-                  parseInt(box.split("-")[1]) ===
-                  radIndex * data.columns + kolumnIndex
-              )
-            ) {
-              {
-                return {
-                  id: generateUniqueId(),
-                  person: 0,
-                };
-              }
-            } else {
-              return ruta;
-            }
-          })
-        );
-      }
-      if (data.boxNames !== "tom") {
-        data.boxNames = data.boxNames.map((box) => {
-          match = data.keyChange.find((change) => change.key === box.key);
-          if (match) {
-            return { key: match.value, value: box.value };
-          } else {
-            return box;
-          }
-        });
-
-        grid = grid.map((rad, radIndex) =>
-          rad.map((ruta, kolumnIndex) => {
-            var match = data.boxNames.find(
-              (box) =>
-                parseInt(box.key.split("-")[1]) ===
-                radIndex * data.columns + kolumnIndex
-            );
-            if (match) {
-              return { id: generateUniqueId(), person: match.value };
-            } else if (
-              data.filledBoxes.some(
-                (box) =>
-                  parseInt(box.split("-")[1]) ===
-                  radIndex * data.columns + kolumnIndex
-              )
-            ) {
-              {
-                return {
-                  id: generateUniqueId(),
-                  person: 0,
-                };
-              }
-            } else {
-              return ruta;
-            }
-          })
-        );
-      }
-      return {
-        id: generateUniqueId(),
-        namn: id,
-        klassrum: {
-          id: generateUniqueId(),
-          namn: generateUniqueId(),
-          grid: grid,
-          cols: data.columns,
-          rows: data.rows,
-        },
-        klass: {
-          id: generateUniqueId(),
-          namn: generateUniqueId(),
-          personer: data.names,
-        },
-      };
-    } else {
-      console.log(datan, klassId, id);
-    }
-  }
-  const klassrum = JSON.parse(data)
-    .filter((spar) => spar.split(":")[0].split("_")[1] === "gridValues")
-    .map((spar) => {
-      return {
-        id: spar.split(":")[0],
-        value: JSON.parse(
-          LZString.decompressFromEncodedURIComponent(spar.split(":")[1])
-        ),
-      };
-    })
-    .map((spar) => {
-      const grid = Array.from({ length: spar.value.rows }, () =>
-        Array.from({ length: spar.value.columns }, () => ({
-          id: null,
-          person: 0,
-        }))
-      );
-      return {
-        id: spar.id,
-        namn: spar.id.split("_")[0],
-        grid: ,
-        cols: spar.value.columns,
-        rows: spar.value.rows,
-      };
-    });
-
-  const klasser = JSON.parse(data)
-    .filter((spar) => spar.split(":")[0].split("_")[1] === "nameValues")
-    .map((spar) => {
-      return {
-        id: spar.split(":")[0],
-        value: JSON.parse(
-          LZString.decompressFromEncodedURIComponent(spar.split(":")[1])
-        ),
-      };
-    })
-    .map((spar) => {
-      return {
-        id: spar.id,
-        namn: spar.id.split("_")[0],
-        personer: spar.value.names,
-      };
-    });
-
-  const placeringar = JSON.parse(data)
-    .filter((spar) => spar.split(":")[0].split("_")[1] === "values")
-    .map((spar) => {
-      return {
-        id: spar.split(":")[0],
-        value: spar.split(":")[1],
-      };
-    })
-    .map((spar) =>
-      placeringsOmvandling(spar.value, spar.id.split("_values")[0], spar)
     );
+  }
+  function formateraGrid(gammalData) {
+    const rader = gammalData.rows;
+    const kolumner = gammalData.columns;
+    console.log(gammalData);
+    nyGrid = Array.from({ length: rader }, () =>
+      Array.from({ length: kolumner }, () => ({
+        id: null,
+        person: 0,
+      }))
+    ).map((rad, radIndex) =>
+      rad.map((ruta, kolumnIndex) => {
+        let boxnummer = radIndex * kolumnIndex + kolumnIndex;
+        var box = { id: null, person: 0 };
 
+        if (gammalData.keyChange && Array.isArray(gammalData.keyChange)) {
+          boxnummer = gammalData.keyChange.find(
+            (change) => change.key === boxnummer
+          );
+        }
+
+        if (gammalData.filledBoxes && Array.isArray(gammalData.filledBoxes)) {
+          if (
+            gammalData.filledBoxes.some(
+              (box) => parseInt(box.split("-")[1]) === boxnummer
+            )
+          ) {
+            box.id = generateUniqueId();
+          }
+
+          if (gammalData.boxNames && Array.isArray(gammalData.boxNames)) {
+            const match = gammalData.boxNames.find(
+              (box) => parseInt(box.key.split("-")[1]) === boxnummer
+            );
+            box.person = match ? match.value : 0;
+          }
+        }
+
+        return box;
+      })
+    );
+    return nyGrid;
+  }
+
+  const formateradData = JSON.parse(data).map((spar) => {
+    let id = spar.split(":")[0];
+    value = JSON.parse(
+      LZString.decompressFromEncodedURIComponent(spar.split(":")[1])
+    );
+    return {
+      typ: id.split("_")[1],
+      namn: id.split("_")[0],
+      id: id,
+      value: value,
+    };
+  });
+
+  const klassrum = await Promise.all(
+    formateradData
+      .filter((spar) => spar.typ === "gridValues")
+      .map(async (spar) => {
+        const grid = await formateraGrid(spar.value);
+        return { grid };
+      })
+  );
+
+  const klasser = formateradData
+    .filter((spar) => spar.typ === "nameValues")
+    .map((spar) => {
+      return { id: spar.id, namn: spar.namn, personer: spar.value.names };
+    });
   return {
     klasser: klasser,
     klassrum: klassrum,
-    placeringar: placeringar,
   };
 };
