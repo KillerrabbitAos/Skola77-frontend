@@ -553,13 +553,16 @@ const omvandlaData = async (data) => {
         }))
       ).map((rad, radIndex) =>
         rad.map((ruta, kolumnIndex) => {
-          let boxnummer = radIndex * kolumnIndex + kolumnIndex;
+          let boxnummer = radIndex * kolumner + kolumnIndex;
           var box = { id: null, person: 0 };
 
           if (gammalData.keyChange && Array.isArray(gammalData.keyChange)) {
-            boxnummer =
-              gammalData.keyChange.find((change) => change.key === boxnummer) ||
-              boxnummer;
+            boxnummer = gammalData.keyChange.find(
+              (change) => change.key === boxnummer
+            )
+              ? gammalData.keyChange.find((change) => change.key === boxnummer)
+                  .value
+              : boxnummer;
           }
 
           if (gammalData.filledBoxes && Array.isArray(gammalData.filledBoxes)) {
@@ -607,7 +610,13 @@ const omvandlaData = async (data) => {
       .filter((spar) => spar.typ === "gridValues")
       .map(async (spar) => {
         const grid = await formateraGrid(spar.value);
-        return { grid: grid, id: spar.id, namn: spar.namn };
+        return {
+          grid: grid,
+          id: spar.id,
+          namn: spar.namn,
+          cols: spar.value && spar.value.columns,
+          rows: spar.value && spar.value.rows,
+        };
       })
   );
 
@@ -621,7 +630,11 @@ const omvandlaData = async (data) => {
     formateradData
       .filter((spar) => spar.typ === "values")
       .map(async (spar) => {
-        const grid = await formateraGrid(spar.value);
+        let grid = null;
+        if (spar.value) {
+          grid = await formateraGrid(spar.value);
+        }
+
         let klassnamn = null;
         let klassrumsnamn = null;
 
@@ -631,38 +644,59 @@ const omvandlaData = async (data) => {
         const nyttKlassId = generateUniqueId();
         const nyttKlassrumsId = generateUniqueId();
 
-        if (spar.namn.includes(" i ")) {
+        if (spar.namn.includes(" i ") && spar.value) {
           klassrumsnamn = spar.namn.split(" i ")[1];
           klassrumsmatch = klassrum.find(
             (klassrum) => klassrum.namn === klassrumsnamn
           );
+          if (!klassrumsmatch) {
+            klassrum.push({
+              grid: grid,
+              id: nyttKlassrumsId,
+              namn: klassrumsnamn,
+              cols: grid[0].length,
+              rows: grid.length,
+            });
+          }
 
           klassnamn = spar.namn.split(" i ")[0];
           klassmatch = klasser.find((klass) => klass.namn === klassnamn);
+          if (!klassmatch) {
+            klasser.push({
+              id: nyttKlassId,
+              namn: klassnamn,
+              personer: spar.value.names,
+            });
+          }
+        }
+        if (!spar.value) {
+          grid = klassrumsmatch && klassrumsmatch.grid;
         }
 
-        return {
-          id: spar.id,
-          namn: spar.namn,
-          klass: {
-            id: klassmatch ? klassmatch.id : nyttKlassId,
-            namn: klassnamn || "okänt",
-            personer: spar.value && spar.value.names,
-          },
-          klassrum: {
-            id: klassrumsmatch ? klassrumsmatch.id : nyttKlassrumsId,
-            namn: klassrumsnamn || "okänt",
-            grid: grid,
-            cols: (spar.value && spar.value.columns) || null,
-            rows: (spar.value && spar.value.rows) || null,
-          },
-        };
+        return (
+          grid && {
+            id: spar.id,
+            namn: spar.namn,
+            klass: {
+              id: klassmatch ? klassmatch.id : nyttKlassId,
+              namn: klassnamn || "okänt",
+              personer: spar.value && spar.value.names,
+            },
+            klassrum: {
+              id: klassrumsmatch ? klassrumsmatch.id : nyttKlassrumsId,
+              namn: klassrumsnamn || "okänt",
+              grid: grid,
+              cols: grid[0].length,
+              rows: grid.length,
+            },
+          }
+        );
       })
   );
 
   return {
     klasser: klasser,
     klassrum: klassrum,
-    placeringar: placeringar,
+    placeringar: placeringar.filter((placering) => placering),
   };
 };

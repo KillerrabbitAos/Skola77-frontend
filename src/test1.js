@@ -658,7 +658,7 @@ const omvandlaPlaceringar = (data) => {
       return {
         id: spar.id,
         namn: spar.id.split("_")[0],
-        grid: ,
+        grid: grid,
         cols: spar.value.columns,
         rows: spar.value.rows,
       };
