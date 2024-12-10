@@ -542,67 +542,72 @@ const omvandlaData = async (data) => {
     );
   }
   function formateraGrid(gammalData) {
-    const rader = gammalData.rows;
-    const kolumner = gammalData.columns;
-    console.log(gammalData);
-    nyGrid = Array.from({ length: rader }, () =>
-      Array.from({ length: kolumner }, () => ({
-        id: null,
-        person: 0,
-      }))
-    ).map((rad, radIndex) =>
-      rad.map((ruta, kolumnIndex) => {
-        let boxnummer = radIndex * kolumnIndex + kolumnIndex;
-        var box = { id: null, person: 0 };
+    if (gammalData) {
+      const rader = gammalData.rows;
+      const kolumner = gammalData.columns;
+      console.log(gammalData);
+      nyGrid = Array.from({ length: rader }, () =>
+        Array.from({ length: kolumner }, () => ({
+          id: null,
+          person: 0,
+        }))
+      ).map((rad, radIndex) =>
+        rad.map((ruta, kolumnIndex) => {
+          let boxnummer = radIndex * kolumnIndex + kolumnIndex;
+          var box = { id: null, person: 0 };
 
-        if (gammalData.keyChange && Array.isArray(gammalData.keyChange)) {
-          boxnummer = gammalData.keyChange.find(
-            (change) => change.key === boxnummer
-          );
-        }
-
-        if (gammalData.filledBoxes && Array.isArray(gammalData.filledBoxes)) {
-          if (
-            gammalData.filledBoxes.some(
-              (box) => parseInt(box.split("-")[1]) === boxnummer
-            )
-          ) {
-            box.id = generateUniqueId();
+          if (gammalData.keyChange && Array.isArray(gammalData.keyChange)) {
+            boxnummer =
+              gammalData.keyChange.find((change) => change.key === boxnummer) ||
+              boxnummer;
           }
 
-          if (gammalData.boxNames && Array.isArray(gammalData.boxNames)) {
-            const match = gammalData.boxNames.find(
-              (box) => parseInt(box.key.split("-")[1]) === boxnummer
-            );
-            box.person = match ? match.value : 0;
-          }
-        }
+          if (gammalData.filledBoxes && Array.isArray(gammalData.filledBoxes)) {
+            if (
+              gammalData.filledBoxes.some(
+                (box) => parseInt(box.split("-")[1]) === boxnummer
+              )
+            ) {
+              box.id = generateUniqueId();
+            }
 
-        return box;
-      })
-    );
-    return nyGrid;
+            if (gammalData.boxNames && Array.isArray(gammalData.boxNames)) {
+              const match = gammalData.boxNames.find(
+                (box) => parseInt(box.key.split("-")[1]) === boxnummer
+              );
+              box.person = match ? match.value : 0;
+            }
+          }
+
+          return box;
+        })
+      );
+      return nyGrid;
+    }
   }
-
-  const formateradData = JSON.parse(data).map((spar) => {
-    let id = spar.split(":")[0];
-    value = JSON.parse(
-      LZString.decompressFromEncodedURIComponent(spar.split(":")[1])
-    );
-    return {
-      typ: id.split("_")[1],
-      namn: id.split("_")[0],
-      id: id,
-      value: value,
-    };
-  });
+  parsedData = await JSON.parse(data);
+  const formateradData = await Promise.all(
+    parsedData.map(async (spar) => {
+      let id = spar.split(":")[0];
+      let value = await LZString.decompressFromEncodedURIComponent(
+        spar.split(":")[1]
+      );
+      value = JSON.parse(value);
+      return {
+        typ: id.split("_")[1],
+        namn: id.split("_")[0],
+        id: id,
+        value: value,
+      };
+    })
+  );
 
   const klassrum = await Promise.all(
     formateradData
       .filter((spar) => spar.typ === "gridValues")
       .map(async (spar) => {
         const grid = await formateraGrid(spar.value);
-        return { grid };
+        return { grid: grid, id: spar.id, namn: spar.namn };
       })
   );
 
@@ -611,8 +616,53 @@ const omvandlaData = async (data) => {
     .map((spar) => {
       return { id: spar.id, namn: spar.namn, personer: spar.value.names };
     });
+
+  const placeringar = await Promise.all(
+    formateradData
+      .filter((spar) => spar.typ === "values")
+      .map(async (spar) => {
+        const grid = await formateraGrid(spar.value);
+        let klassnamn = null;
+        let klassrumsnamn = null;
+
+        let klassrumsmatch = null;
+        let klassmatch = null;
+
+        const nyttKlassId = generateUniqueId();
+        const nyttKlassrumsId = generateUniqueId();
+
+        if (spar.namn.includes(" i ")) {
+          klassrumsnamn = spar.namn.split(" i ")[1];
+          klassrumsmatch = klassrum.find(
+            (klassrum) => klassrum.namn === klassrumsnamn
+          );
+
+          klassnamn = spar.namn.split(" i ")[0];
+          klassmatch = klasser.find((klass) => klass.namn === klassnamn);
+        }
+
+        return {
+          id: spar.id,
+          namn: spar.namn,
+          klass: {
+            id: klassmatch ? klassmatch.id : nyttKlassId,
+            namn: klassnamn || "okänt",
+            personer: spar.value && spar.value.names,
+          },
+          klassrum: {
+            id: klassrumsmatch ? klassrumsmatch.id : nyttKlassrumsId,
+            namn: klassrumsnamn || "okänt",
+            grid: grid,
+            cols: (spar.value && spar.value.columns) || null,
+            rows: (spar.value && spar.value.rows) || null,
+          },
+        };
+      })
+  );
+
   return {
     klasser: klasser,
     klassrum: klassrum,
+    placeringar: placeringar,
   };
 };
