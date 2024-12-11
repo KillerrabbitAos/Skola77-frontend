@@ -163,22 +163,29 @@ const Grid3 = () => {
     );
   };
   async function checkLoginStatus() {
-    const response = await fetch("https://auth.skola77.com/home", {
-      credentials: "include",
-    });
-    const result = await response.json();
+    try {
+        const response = await fetch("https://auth.skola77.com/home", {
+            credentials: "include",
+        });
+        const result = await response.json();
 
-    const parsedData = JSON.parse(result.data);
-    console.log(parsedData);
+        try {
+            const parsedData = JSON.parse(result.data);
+            setData(parsedData);
+            const klassrum = parsedData.klassrum;
+            const klasser = parsedData.klasser;
 
-    setData(parsedData);
-    const klassrum = parsedData.klassrum;
-    const klasser = parsedData.klasser;
-
-    console.log("Klassrum:", klassrum);
-    console.log("Klasser:", klasser);
-  }
-
+            console.log("Klassrum:", klassrum);
+            console.log("Klasser:", klasser);
+        } catch (parseError) {
+            console.error("Kunde inte parsa data:", parseError);
+            window.location.href = "https://auth.skola77.com?skola77";
+        }
+    } catch (fetchError) {
+        console.error("Fel vid hämtning av data:", fetchError);
+        window.location.href = "https://auth.skola77.com?skola77";
+    }
+}
   const spara = () => {
     let newData = data;
     if (klassrumsId) {

@@ -5,13 +5,11 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./sidor/Layout.js";
 import Hem from "./sidor/Hem";
-import Editor from "./Editor.js";
 import Support from "./sidor/Support";
 import NoPage from "./sidor/NoPage";
 import Policy from './sidor/policy.js';
 import Användarvillkor from './sidor/villkor.js';
 import ResetPassword from './sidor/ResetPassword.js';
-
 import MittKonto from './sidor/mittKonto.js';
 import Grid from './Grid.js';
 import Grid3 from './SkapaKlassrum.jsx';
@@ -25,7 +23,6 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Hem />} />
-          <Route path="Editor" element={<Editor />} />
           <Route path='Placeringar' element={<SkapaPlaceringar />}/>
           <Route path='Klassrum' element={<Grid3 />}/>
           <Route path="Klasser" element={<Klasser />}/>

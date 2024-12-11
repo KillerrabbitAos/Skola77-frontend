@@ -71,18 +71,29 @@ const Klasser = ({}) => {
     checkLoginStatus();
   }, []);
   async function checkLoginStatus() {
-    const response = await fetch("https://auth.skola77.com/home", {
-      credentials: "include",
-    });
-    const result = await response.json();
-    const parsedData = JSON.parse(result.data);
-    setData(parsedData);
-    const klassrum = parsedData.klassrum;
-    const klasser = parsedData.klasser;
+    try {
+        const response = await fetch("https://auth.skola77.com/home", {
+            credentials: "include",
+        });
+        const result = await response.json();
 
-    console.log("Klassrum:", klassrum);
-    console.log("Klasser:", klasser);
-  }
+        try {
+            const parsedData = JSON.parse(result.data);
+            setData(parsedData);
+            const klassrum = parsedData.klassrum;
+            const klasser = parsedData.klasser;
+
+            console.log("Klassrum:", klassrum);
+            console.log("Klasser:", klasser);
+        } catch (parseError) {
+            console.error("Kunde inte parsa data:", parseError);
+            window.location.href = "https://auth.skola77.com?skola77";
+        }
+    } catch (fetchError) {
+        console.error("Fel vid hämtning av data:", fetchError);
+        window.location.href = "https://auth.skola77.com?skola77";
+    }
+}
 
   const handleTextareaChange = (e) => {
     setTextareaValue(e.target.value);

@@ -35,9 +35,9 @@ const MittKonto = () => {
       });
 
       if (response.ok) {
-        window.location.replace("/editor");
+        window.location.replace("/");
       } else {
-        console.error("Logout failed");
+        console.error("Utloggning misslyckades. Kontakta support");
       }
     } catch (error) {
       console.error("An error occurred:", error);
