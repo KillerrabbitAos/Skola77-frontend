@@ -127,7 +127,7 @@ const MittKonto = () => {
         });
       } else {
         setLoginMessage(result.message);
-        window.location.replace("/login.html");
+        window.location.replace("https://auth.skola77.com");
       }
     } catch (error) {
       console.error(

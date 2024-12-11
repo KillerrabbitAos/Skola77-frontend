@@ -846,7 +846,7 @@ const SkapaPlaceringar = () => {
           </div>
         )}
         {klassnamn && klassrumsnamn && (
-          <div className="flex gap-4 w-full flex-wrap justify-center">
+          <div className="flex gap-4 w-full !rounded-lg flex-wrap justify-center">
             <button
               style={{ padding: "20px" }}
               className="bg-green-500 text-white"
