@@ -858,81 +858,83 @@ const SkapaPlaceringar = () => {
           </div>
         )}
         {klassnamn && klassrumsnamn && (
-          <div className="flex gap-4 w-full !rounded-lg flex-wrap justify-center">
-            <button
-              style={{ padding: "20px" }}
-              className="bg-green-500 text-white"
-              onClick={slumpa}
-            >
-              Slumpa
-            </button>
-            <button
-              style={{ padding: "20px" }}
-              className="bg-green-500 text-white"
-              onClick={async () => {
-                setKlar(true);
-                await new Promise((resolve) => setTimeout(resolve, 1000));
-                await scaleToFit(content.current, setUpdateSize, updateSize);
-                await new Promise((resolve) => setTimeout(resolve, 1000));
-                setKlar(false);
-              }}
-            >
-              Skriv ut
-            </button>
-            {klassnamn && klassrumsnamn && (
-              <div className="w-[130px]">
-                <button
-                  style={{ padding: "20px" }}
-                  className="bg-green-500 rounded-b-none border-solid border-black border  text-white"
-                  onClick={() => {
-                    sparaPlacering(nyttPlaceringsnamn || placeringsnamn);
-                    setSparat(true);
-                  }}
-                >
-                  {`spara${!sparat && !laddarPlacering ? "*" : ""}`}
-                </button>
-                <button
-                  style={{ padding: "20px" }}
-                  className="bg-green-500 border border-t-0 border-black border-solid rounded-t-none text-white"
-                  onClick={() => {
-                    let index = prompt("Vad ska placeringen heta?");
-                    while (
-                      data.placeringar.some(
-                        (placering) => placering.namn === index
-                      )
-                    ) {
-                      index = prompt(
-                        "Du har redan lagt in en placering som heter så. Skriv ett namn som skiljer sig åt."
-                      );
-                    }
-                    setPlaceringsnamn(index);
-                    sparaPlacering(index);
-                  }}
-                >
-                  spara som
-                </button>
-              </div>
-            )}
 
-            <button
-              style={{ padding: "20px" }}
-              className="bg-green-500 text-white"
-              onClick={() => {
-                setKlar(!klar);
-              }}
-            >
-              {!klar ? "Klar" : "Fortsätt redigera"}
-            </button>
-            <button
-              style={{ padding: "20px" }}
-              className="bg-green-500 text-white"
-              onClick={() => {
-                setOmvänd(!omvänd);
-              }}
-            >
-              Byt till {omvänd ? "elevperspektiv" : "lärarperspektiv"}
-            </button>
-          </div>
+
+<div className="flex gap-4 w-full rounded-lg flex-wrap justify-center mb-10">
+<button
+  className="px-5 py-4 bg-green-500 text-white border border-black text-center flex-1 min-w-[120px] max-w-[200px] rounded-lg"
+  onClick={slumpa}
+>
+  Slumpa
+</button>
+<button
+  className="px-5 py-4 bg-green-500 text-white border border-black text-center flex-1 min-w-[120px] max-w-[200px] rounded-lg"
+  onClick={async () => {
+    setKlar(true);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await scaleToFit(content.current, setUpdateSize, updateSize);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setKlar(false);
+  }}
+>
+  Skriv ut
+</button>
+{klassnamn && klassrumsnamn && (
+  <div className="w-[130px]">
+    <button
+      className="px-5 py-4 bg-green-500 text-white border border-black text-center flex-1 min-w-[120px] max-w-[200px] rounded-b-none rounded-lg"
+      onClick={() => {
+        sparaPlacering(nyttPlaceringsnamn || placeringsnamn);
+        setSparat(true);
+      }}
+    >
+      {`spara${!sparat && !laddarPlacering ? "*" : ""}`}
+    </button>
+    <button
+      className="px-5 py-4 bg-green-500 text-white border border-black text-center flex-1 min-w-[120px] max-w-[200px] rounded-t-none rounded-lg"
+      onClick={() => {
+        let index = prompt("Vad ska placeringen heta?");
+        while (
+          data.placeringar.some(
+            (placering) => placering.namn === index
+          )
+        ) {
+          index = prompt(
+            "Du har redan lagt in en placering som heter så. Skriv ett namn som skiljer sig åt."
+          );
+        }
+        setPlaceringsnamn(index);
+        sparaPlacering(index);
+      }}
+    >
+      spara som
+    </button>
+  </div>
+)}
+
+<button
+  className="px-5 py-4 bg-green-500 text-white border border-black text-center flex-1 min-w-[120px] max-w-[200px] rounded-lg"
+  onClick={() => {
+    setKlar(!klar);
+  }}
+>
+  {!klar ? "Klar" : "Fortsätt redigera"}
+</button>
+<button
+  className="px-5 py-4 bg-green-500 text-white border border-black text-center flex-1 min-w-[120px] max-w-[200px] rounded-lg"
+  onClick={() => {
+    setOmvänd(!omvänd);
+  }}
+>
+  Byt till {omvänd ? "elevperspektiv" : "lärarperspektiv"}
+</button>
+</div>
+
+
+
+
+
+         
         )}
         {klassnamn && (
           <div
@@ -949,6 +951,8 @@ const SkapaPlaceringar = () => {
           </div>
         )}
       </>
+
+      <p className="text-center">Skola 77 2.0 Flamingo</p>
     </div>
   );
 };
