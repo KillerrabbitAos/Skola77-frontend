@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSearchParams } from 'react-router-dom'; // För att läsa URL-parametrar
+import { useSearchParams } from 'react-router-dom';
 
 function ResetPassword() {
     const [searchParams] = useSearchParams();
@@ -27,7 +27,6 @@ function ResetPassword() {
         }
 
         const hashedPassword = await hashPassword(newPassword);
-        
 
         const response = await fetch('https://auth.skola77.com/resetPassword', {
             method: 'POST',
@@ -41,7 +40,7 @@ function ResetPassword() {
 
         if (data.success) {
             setMessage('Lösenordet har återställts!');
-            window.location.href = "/login.html";
+            window.location.href = "/";
 
         } else {
             setMessage(data.message);
@@ -49,35 +48,41 @@ function ResetPassword() {
     };
 
     return (
-        <div id="reset-password-container">
-            <h2>Återställ lösenord</h2>
-            <form onSubmit={handleSubmit}>
-                <label className="form-label">
-                    Nytt lösenord:
-                    <input
-                        type="password"
-                        className="form-input"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                        required
-                    />
-                </label>
-                <br />
-                <label className="form-label">
-                    Bekräfta lösenord:
-                    <input
-                        type="password"
-                        className="form-input"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                    />
-                </label>
-                <br />
-                <button id="submit-button" type="submit">Återställ lösenord</button>
-            </form>
-            {message && <p id="message">{message}</p>}
+        <div className="min-h-screen flex items-center justify-center bg-green-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                <h2 className="text-2xl font-bold text-green-600 mb-4">Återställ lösenord</h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                        <label className="block text-gray-700">Nytt lösenord:</label>
+                        <input
+                            type="password"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-400 focus:outline-none form-input"
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-gray-700">Bekräfta lösenord:</label>
+                        <input
+                            type="password"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-400 focus:outline-none form-input"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        className="w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition"
+                    >
+                        Återställ lösenord
+                    </button>
+                </form>
+                {message && <p className="mt-4 text-center text-green-700">{message}</p>}
+            </div>
         </div>
     );
 }
+
 export default ResetPassword;
