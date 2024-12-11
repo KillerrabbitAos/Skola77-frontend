@@ -15,6 +15,7 @@ import Grid from './Grid.js';
 import Grid3 from './SkapaKlassrum.jsx';
 import SkapaPlaceringar from './Placeringar.js';
 import Klasser from './Klasser.js';
+import Editor from './editor.js'
 
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Hem />} />
+          <Route path='Editor' element={<Editor />}/>
           <Route path='Placeringar' element={<SkapaPlaceringar />}/>
           <Route path='Klassrum' element={<Grid3 />}/>
           <Route path="Klasser" element={<Klasser />}/>
