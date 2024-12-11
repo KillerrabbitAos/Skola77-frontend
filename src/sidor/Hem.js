@@ -12,8 +12,8 @@ const Hem = () => {
         height: '100vh', 
         userSelect: 'none'
     }}>
-      <h1>Skola77 2 alfa</h1>{"\n"}
-      <p>20241031</p>
+      <h1>Välkommen till nya Skola 77</h1>
+
 
 
     </div>
