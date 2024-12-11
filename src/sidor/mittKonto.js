@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './Layout.css'
 
 const MittKonto = () => {
   const [userData, setUserData] = useState(null);
@@ -77,7 +78,7 @@ const MittKonto = () => {
       }
 
       const response = await fetch(
-        "https://account.skola77.com:3005/editUser",
+        "https://auth.skola77.com/editUser",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

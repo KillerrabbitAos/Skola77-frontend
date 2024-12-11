@@ -29,7 +29,7 @@ function ResetPassword() {
         const hashedPassword = await hashPassword(newPassword);
         
 
-        const response = await fetch('https://account.skola77.com:3005/resetPassword', {
+        const response = await fetch('https://auth.skola77.com/resetPassword', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

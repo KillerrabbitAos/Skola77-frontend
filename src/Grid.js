@@ -125,7 +125,7 @@ const Grid = ({
       loggedInData = loggedInData.filter(item => item !== null && !item.startsWith(klassAttRadera + ':'))
       loggedInData.push(`${name}_gridValues` + ":" + compressedData)
       const newData = JSON.stringify(loggedInData)
-      const response = await fetch('https://account.skola77.com:3005/updateData', {
+      const response = await fetch('https://auth.skola77.com/updateData', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ newData }),
