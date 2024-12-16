@@ -4,6 +4,7 @@ import { data as originalData } from "./data";
 import NameList from "./Klasser";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import "./Animationer.css";
+import "./print.css";
 import Overlay from "./Overlay";
 function generateUniqueId() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
@@ -52,62 +53,53 @@ const dividedLists = divideArray(myList, 3);
 
 console.log(dividedLists);
 async function scaleToFit(content, setUpdateSize, updateSize) {
-  // A4 or Letter page dimensions in inches
   const pageWidth = 8.27; // A4 width in inches (Letter: 8.5)
   const pageHeight = 11.69; // A4 height in inches (Letter: 11)
 
-  // Dynamically calculate DPI
   const dpi = calculateDPI();
 
-  // Get content dimensions in pixels
   const contentWidth = content.offsetWidth;
   const contentHeight = content.offsetHeight;
 
-  // Convert page dimensions to pixels
   const printableWidth = pageWidth * dpi;
   const printableHeight = pageHeight * dpi;
 
-  // Calculate the required scaling factor
   const scaleX = printableWidth / contentWidth;
   const scaleY = printableHeight / contentHeight;
 
-  // Choose the smaller scaling factor to maintain aspect ratio
   const scale = Math.min(scaleX, scaleY);
 
-  // Apply scaling with CSS
-  content.style.transformOrigin = "top left"; // Set the origin for scaling
+  content.style.transformOrigin = "top left";
+  const originalTransform = content.style.transform;  // Spara det ursprungliga värdet på transform
   content.style.transform = `scale(${scale})`;
 
-  // Adjust layout to prevent clipping
-  const scaledWidth = contentWidth * scale;
-  const scaledHeight = contentHeight * scale;
-  content.style.width = `${scaledWidth}px`;
-  content.style.height = `${scaledHeight}px`;
-
-  // Optional: Add margins for better page alignment
-  content.style.margin = "0 auto";
-  const centeredRect = content.offsetWidth / 2;
-
-  const left = centeredRect;
-  await new Promise((resolve) => setTimeout(resolve, 200));
-  content.style.top = "0px";
+  // Centrera innehållet med transform
   content.style.position = "absolute";
+  content.style.top = "50%";
+  content.style.left = "50%";
+  content.style.transform += " translate(-50%, -50%)";  // Lägg till för att centrera
 
-  content.style.left = `calc(50% - ${left}px)`;
+  await new Promise((resolve) => setTimeout(resolve, 200));
 
-  // Trigger the print dialog
   setUpdateSize(!updateSize);
+
+  // Lägg till event listeners för att hantera utskriftslayouten
+  const handleAfterPrint = () => {
+    // Återställ layout när användaren lämnar utskriftsläge
+    content.style.transform = originalTransform;  // Återställ till ursprungliga transform
+    content.style.position = "relative";
+    // Läs om sidan
+    window.location.reload();
+  };
+
+  window.addEventListener('afterprint', handleAfterPrint);
+
   await new Promise((resolve) => setTimeout(resolve, 500));
+  alert('För att få en korrekt utskrift är det viktigt att du bockar i "Bakgrundsgrafik" i utskriftsinställningarna." ')
   window.print();
 
-  // Reset styles after printing
-  content.style.left = "";
-  content.style.position = "relative";
-  content.style.transform = "";
-  content.style.transformOrigin = ""; // Reset to default
-  content.style.width = "";
-  content.style.height = "";
-  content.style.margin = "";
+  // Ta bort event listener efter utskrift
+  window.removeEventListener('afterprint', handleAfterPrint);
 }
 
 // Function to calculate DPI dynamically
