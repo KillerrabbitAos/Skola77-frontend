@@ -187,7 +187,7 @@ const SkapaPlaceringar = () => {
                                 >
                                     <div className="flex justify-center items-center">
                                         <div className="w-[155px] truncate">
-                                            {klassnamn || engelska ? "Choose class..." : "Välj klass..."}
+                                        {klassnamn || (engelska ? "Choose class..." : "Välj klass...")}
                                         </div>
                                         <img className="w-[20px]" src="/nerpil.png"></img>
                                     </div>
@@ -220,7 +220,7 @@ const SkapaPlaceringar = () => {
                         >
                             <div className="flex justify-center items-center">
                                 <div className="w-[155px] truncate">
-                                    {klassnamn || engelska ? "Choose class..." : "Välj klass..."}
+                                {klassnamn || (engelska ? "Choose class..." : "Välj klass...")}
                                 </div>
                                 <img
                                     style={{
@@ -265,7 +265,7 @@ const SkapaPlaceringar = () => {
                                 >
                                     <div className="flex justify-center items-center">
                                         <div className="w-[155px]">
-                                            {klassrumsnamn || (engelska ? "Choose room..." : "Välj klassrum...")}
+                                        {klassrumsnamn || (engelska ? "Choose room..." : "Välj klassrum...")}
                                         </div>
                                         <img className="w-[20px]" src="/nerpil.png"></img>
                                     </div>
@@ -297,7 +297,9 @@ const SkapaPlaceringar = () => {
                         >
                             <div className="flex justify-center items-center">
                                 <div className="w-[155px] truncate">
-                                    {klassrumsnamn || engelska ? "Choose room..." : "Välj klassrum..."}
+                                    {klassrumsnamn || (engelska ? "Choose room..." : "Välj klassrum...")}
+
+                                    
                                 </div>
                                 <img
                                     style={{

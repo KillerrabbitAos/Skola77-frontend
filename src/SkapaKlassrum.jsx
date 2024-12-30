@@ -310,7 +310,7 @@ const Grid3 = () => {
                     onClick={() => {
                       setLaddaKlassrum(!laddaKlassrum);
                     }}
-                    className="bg-green-500 h-10 rounded-lg text-white w-52"
+                    className="bg-green-500 h-10 rounded-lg text-white w-32"
                   >
                     Ladda
                   </button>
@@ -323,7 +323,7 @@ const Grid3 = () => {
           <div className="h-full flex items-center justify-center">
             <button
               onClick={spara}
-              className="bg-green-500 rounded-lg h-10 text-white float-end mr-10"
+              className="bg-green-500 h-10 rounded-lg text-white w-32 mr-5"
             >
               Spara
             </button>

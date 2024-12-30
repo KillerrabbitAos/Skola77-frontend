@@ -72,28 +72,28 @@ const Klasser = ({}) => {
   }, []);
   async function checkLoginStatus() {
     try {
-        const response = await fetch("https://auth.skola77.com/home", {
-            credentials: "include",
-        });
-        const result = await response.json();
+      const response = await fetch("https://auth.skola77.com/home", {
+        credentials: "include",
+      });
+      const result = await response.json();
 
-        try {
-            const parsedData = JSON.parse(result.data);
-            setData(parsedData);
-            const klassrum = parsedData.klassrum;
-            const klasser = parsedData.klasser;
+      try {
+        const parsedData = JSON.parse(result.data);
+        setData(parsedData);
+        const klassrum = parsedData.klassrum;
+        const klasser = parsedData.klasser;
 
-            console.log("Klassrum:", klassrum);
-            console.log("Klasser:", klasser);
-        } catch (parseError) {
-            console.error("Kunde inte parsa data:", parseError);
-            window.location.href = "https://auth.skola77.com?skola77";
-        }
-    } catch (fetchError) {
-        console.error("Fel vid hämtning av data:", fetchError);
+        console.log("Klassrum:", klassrum);
+        console.log("Klasser:", klasser);
+      } catch (parseError) {
+        console.error("Kunde inte parsa data:", parseError);
         window.location.href = "https://auth.skola77.com?skola77";
+      }
+    } catch (fetchError) {
+      console.error("Fel vid hämtning av data:", fetchError);
+      window.location.href = "https://auth.skola77.com?skola77";
     }
-}
+  }
 
   const handleTextareaChange = (e) => {
     setTextareaValue(e.target.value);
@@ -261,28 +261,31 @@ const Klasser = ({}) => {
 
   return (
     <div>
-      <div
-        className="fixed bottom-5 cursor-pointer rounded-lg aspect-square right-5 h-20 flex justify-center text-white items-center bg-red-500"
-        onClick={() => {
-          if (
-            window.confirm(
-              "Är du säker på att du vill radera klassen? Om inte, tryck på avbryt."
-            )
-          ) {
-            let nyData = data;
-            nyData.klasser = nyData.klasser.filter(
-              (klass) => klass.id !== klassId
-            );
-            sparaData(nyData);
-            setNamn([""]);
-            setKlassId(null);
-            setKlassnamn(null);
-            setKlassnamntext("ny klass");
-          }
-        }}
-      >
-        <RiDeleteBin6Line style={{ width: "65%", height: "65%" }} />
-      </div>
+      {klassnamntext !== "ny klass" && (
+        <div
+          className="fixed bottom-5 cursor-pointer rounded-lg aspect-square right-5 h-20 flex justify-center text-white items-center bg-red-500"
+          onClick={() => {
+            if (
+              window.confirm(
+                "Är du säker på att du vill radera klassen? Om inte, tryck på avbryt."
+              )
+            ) {
+              let nyData = data;
+              nyData.klasser = nyData.klasser.filter(
+                (klass) => klass.id !== klassId
+              );
+              sparaData(nyData);
+              setNamn([""]);
+              setKlassId(null);
+              setKlassnamn(null);
+              setKlassnamntext("ny klass");
+            }
+          }}
+        >
+          <RiDeleteBin6Line style={{ width: "65%", height: "65%" }} />
+        </div>
+      )}
+
       <ExcelToTextConverter ref={filRef} names={namn} setNames={setNamn} />
       {visaLaddaKlassrum && (
         <div
