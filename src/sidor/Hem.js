@@ -85,7 +85,7 @@ const Changelog = () => {
           </div>
         </li>
         <li className="flex items-start">
-          <div className="flex-shrink-0 text-green-600">[2024-12-15]</div>
+          <div className="flex-shrink-0 text-green-600">[2024-12-30]</div>
           <div className="ml-3 text-gray-700">
             <strong>Buggfixar:</strong> Grundläggande funktioner och design uppdaterad.
           </div>
