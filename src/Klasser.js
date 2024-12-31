@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { data as originalData } from "./data";
 import NamnRuta from "./Namn";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
+import { RiCheckLine } from "react-icons/ri";
+import Footer from "./sidor/footer";
 import ExcelToTextConverter from "./ExcelToTextConverter";
 import { isMobile, isTablet } from "react-device-detect";
 import { compress } from "lz-string";
@@ -42,6 +45,30 @@ const Klasser = ({}) => {
   const [klassnamntext, setKlassnamntext] = useState("ny klass");
   const [data, setData] = useState(null);
   const [textareaValue, setTextareaValue] = useState("");
+  const [sidebarWidth, setSidebarWidth] = useState(200);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+
+
+  const sidebarRef = useRef(null);
+  const handleMouseDown = (e) => {
+    const startX = e.clientX;
+    const startWidth = sidebarRef.current.offsetWidth;
+
+    const onMouseMove = (moveEvent) => {
+      const newWidth = startWidth + moveEvent.clientX - startX;
+      setSidebarWidth(Math.max(200, Math.min(newWidth, 400)));
+    };
+
+    const onMouseUp = () => {
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+    };
+
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
+  };
+
 
   const defaultKlass = "ny klass";
   async function checkLoginStatus() {
@@ -115,51 +142,60 @@ const Klasser = ({}) => {
       return updatedNamn;
     });
   };
-  const spara = (nyttNamn) => {
-    let newData = data;
-    let nyttKlassNamn = nyttNamn
-      ? nyttNamn
-      : klassId || klassnamntext !== defaultKlass
-      ? klassnamntext
-      : prompt("Vad heter klassen?");
-    if (klassnamn !== klassnamntext) {
-      while (newData.klasser.some((klass) => klass.namn === nyttKlassNamn)) {
-        nyttKlassNamn = prompt(
-          "Du har redan lagt in en klass som heter så. Skriv ett namn som skiljer sig åt."
-        );
+
+const spara = (nyttNamn) => {
+  setIsSaving(true);
+
+  let newData = data;
+  let nyttKlassNamn = nyttNamn
+    ? nyttNamn
+    : klassId || klassnamntext !== defaultKlass
+    ? klassnamntext
+    : prompt("Vad heter klassen?");
+  if (klassnamn !== klassnamntext) {
+    while (newData.klasser.some((klass) => klass.namn === nyttKlassNamn)) {
+      nyttKlassNamn = prompt(
+        "Du har redan lagt in en klass som heter så. Skriv ett namn som skiljer sig åt."
+      );
+    }
+  }
+  if (!nyttKlassNamn) {
+    setIsSaving(false);
+    return;
+  }
+  if (klassId) {
+    newData.klasser = data.klasser.map((klass) => {
+      if (klass.id === klassId) {
+        return {
+          id: klass.id,
+          namn: nyttKlassNamn,
+          personer: namn,
+        };
+      } else {
+        return klass;
       }
-    }
-    if (!nyttKlassNamn) {
-      return;
-    }
-    if (klassId) {
-      newData.klasser = data.klasser.map((klass) => {
-        if (klass.id === klassId) {
-          return {
-            id: klass.id,
-            namn: nyttKlassNamn,
-            personer: namn,
-          };
-        } else {
-          return klass;
-        }
-      });
-    } else {
-      const nyttId = generateUniqueId();
-      setKlassId(nyttId);
-      newData.klasser.push({
-        id: nyttId,
-        namn: nyttKlassNamn,
-        personer: namn,
-      });
-    }
-    console.log(newData);
+    });
+  } else {
+    const nyttId = generateUniqueId();
+    setKlassId(nyttId);
+    newData.klasser.push({
+      id: nyttId,
+      namn: nyttKlassNamn,
+      personer: namn,
+    });
+  }
+  console.log(newData);
 
-    sparaData(newData);
+  sparaData(newData);
 
-    setKlassnamn(nyttKlassNamn);
-    setKlassnamntext(nyttKlassNamn);
-  };
+  setKlassnamn(nyttKlassNamn);
+  setKlassnamntext(nyttKlassNamn);
+
+  setTimeout(() => {
+    setIsSaving(false);
+  }, 1500);
+};
+
 
   const taBortEfternamn = () => {
     setNamn((förraNamn) => förraNamn.map((namn) => namn.split(" ")[0]));
@@ -260,69 +296,135 @@ const Klasser = ({}) => {
   }, [namn]);
 
   return (
-    <div>
-      {klassnamntext !== "ny klass" && (
+    <div className="min-h-screen bg-gray-100 flex">
+      {isSidebarVisible && (
         <div
-          className="fixed bottom-5 cursor-pointer rounded-lg aspect-square right-5 h-20 flex justify-center text-white items-center bg-red-500"
-          onClick={() => {
-            if (
-              window.confirm(
-                "Är du säker på att du vill radera klassen? Om inte, tryck på avbryt."
-              )
-            ) {
-              let nyData = data;
-              nyData.klasser = nyData.klasser.filter(
-                (klass) => klass.id !== klassId
-              );
-              sparaData(nyData);
-              setNamn([""]);
-              setKlassId(null);
-              setKlassnamn(null);
-              setKlassnamntext("ny klass");
-            }
-          }}
+          ref={sidebarRef}
+          className={`bg-white shadow-lg rounded-lg p-4 flex flex-col gap-4 overflow-hidden relative
+          w-full lg:w-[${sidebarWidth}px]`}
+          style={{ maxWidth: sidebarWidth }}
         >
-          <RiDeleteBin6Line style={{ width: "65%", height: "65%" }} />
+          <button
+            onClick={() => spara()}
+            className="w-full py-2 bg-green-600 text-white font-bold text-lg rounded shadow hover:bg-green-700 flex items-center justify-center"
+          >
+            {isSaving ? (
+              <span className="flex items-center justify-center">
+                <RiCheckLine size={24} className="mr-2" />
+              </span>
+            ) : (
+              "Spara"
+            )}
+          </button>
+  
+          <button
+            onClick={() => setVisaLaddaKlassrum(!visaLaddaKlassrum)}
+            className="w-full py-2 bg-green-600 text-white font-bold text-lg rounded shadow hover:bg-green-700"
+          >
+            Ladda
+          </button>
+          <button
+            className="w-full py-2 bg-purple-600 text-white font-bold rounded shadow hover:bg-purple-700"
+            onClick={() => {
+    filRef.current.click();
+  }}
+>
+  Importera namn från kalkylark
+</button>
+
+<ExcelToTextConverter ref={filRef} names={namn} setNames={setNamn} />
+          <button
+            onClick={taBortEfternamn}
+            className="w-full py-2 bg-purple-600 text-white font-bold rounded shadow hover:bg-purple-700"
+          >
+            Ta bort efternamn
+          </button>
+  
+          <div
+            className="hidden lg:block absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 w-2 cursor-ew-resize h-full"
+            onMouseDown={handleMouseDown}
+          ></div>
         </div>
       )}
-
-      <ExcelToTextConverter ref={filRef} names={namn} setNames={setNamn} />
-      {visaLaddaKlassrum && (
-        <div
-          className="bg-[#4CAF50]"
-          style={{
-            position: "absolute",
-            top: "calc(50vh - 122px)",
-            left: "calc(50vw - 98.905px)",
-            listStyle: "none",
-          }}
-        >
-          <div className="bg-[#4CAF50] text-white font-semibold flex h-8 text-xl justify-center items-center">
-            Sparade klasser:{" "}
+  
+      <button
+        className={`p-2 bg-gray-200 text-gray-600 rounded-full shadow-lg fixed top-4 left-4 lg:hidden
+        ${isSidebarVisible ? "" : "bg-gray-300"}`}
+        onClick={() => setIsSidebarVisible(!isSidebarVisible)}
+      >
+        {isSidebarVisible ? <RiArrowLeftSLine size={24} /> : <RiArrowRightSLine size={24} />}
+      </button>
+  
+      <div className="flex-1 p-4">
+      <div className="text-4xl text-center m-3">
+  <div className="relative group">
+    <input
+      className="truncate w-[90%] bg-inherit outline-none text-center border-b-2 border-transparent focus:border-b-green-600 transition-all duration-300"
+      onChange={(e) => {
+        setKlassnamntext(e.target.value);
+      }}
+      value={klassnamntext}
+      onBlur={() => spara(klassnamntext)}
+      placeholder="Skriv klassnamn här..."
+    />
+    <RiCheckLine
+      size={24}
+      className={`absolute right-[-30px] top-1/2 transform -translate-y-1/2 text-green-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer`}
+      onClick={() => spara(klassnamntext)}
+    />
+  </div>
+</div>
+  
+        {klassnamntext !== "ny klass" && (
+          <div
+            className="fixed bottom-10 right-5 flex items-center justify-center w-16 h-16 bg-red-500 text-white rounded-full shadow-lg hover:bg-red-600 cursor-pointer"
+            onClick={() => {
+              if (
+                window.confirm(
+                  "Är du säker på att du vill radera klassen? Om inte, tryck på avbryt."
+                )
+              ) {
+                let nyData = data;
+                nyData.klasser = nyData.klasser.filter(
+                  (klass) => klass.id !== klassId
+                );
+                sparaData(nyData);
+                setNamn([""]);
+                setKlassId(null);
+                setKlassnamn(null);
+                setKlassnamntext("ny klass");
+              }
+            }}
+          >
+            <RiDeleteBin6Line className="w-8 h-8" />
           </div>
-          <div className="border-8 border-t-0 border-[#4CAF50]">
-            <div className="bg-white h-[236px] overflow-y-scroll scrollbar-none border-8 border-t-0 border-[#4CAF50]">
-              <li
-                key={"nyKlass"}
-                className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
-                onClick={() => {
-                  setNamn([""]);
-                  setKlassId(null);
-                  const nyttNamn = prompt("Vad ska din nya klass heta?");
-                  if (!nyttNamn) {
-                    return;
-                  }
-                  setVisaLaddaKlassrum(false);
-                  spara(nyttNamn);
-                }}
-              >
-                ny klass...
-              </li>
-              {data.klasser.map((klass) => {
-                return (
+        )}
+  
+        {visaLaddaKlassrum && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white rounded-lg shadow-xl w-96">
+              <div className="bg-green-600 text-white text-lg font-bold p-4 rounded-t-lg">
+                Sparade klasser
+              </div>
+              <ul className="p-4 max-h-60 overflow-y-auto">
+                <li
+                  key="nyKlass"
+                  className="p-2 text-lg font-bold hover:bg-gray-100 cursor-pointer"
+                  onClick={() => {
+                    setNamn([""]);
+                    setKlassId(null);
+                    const nyttNamn = prompt("Vad ska din nya klass heta?");
+                    if (!nyttNamn) return;
+                    setVisaLaddaKlassrum(false);
+                    spara(nyttNamn);
+                  }}
+                >
+                  ny klass...
+                </li>
+                {data.klasser.map((klass) => (
                   <li
                     key={klass.id}
-                    className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
+                    className="p-2 text-lg font-bold hover:bg-gray-100 cursor-pointer"
                     onClick={() => {
                       setNamn(klass.personer);
                       setKlassId(klass.id);
@@ -333,108 +435,50 @@ const Klasser = ({}) => {
                   >
                     {klass.namn}
                   </li>
-                );
-              })}
+                ))}
+              </ul>
             </div>
           </div>
-        </div>
-      )}
-      <div className="flex">
-        <div>
-          <div
-            style={{
-              height: window.outerWidth > window.outerHeight ? "7vw" : "13vw",
-            }}
-            className={`bg-[#4CAF50] border-b text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center`}
-            onClick={() => spara()}
-          >
-            Spara
-          </div>
-          <div
-            onClick={() => {
-              setVisaLaddaKlassrum(!visaLaddaKlassrum);
-            }}
-            style={{
-              height: window.outerWidth > window.outerHeight ? "7vw" : "13vw",
-            }}
-            className={`bg-[#4CAF50] border-t  text-white w-[25vw] flex cursor-pointer flex-row text-[5vw] justify-center items-center`}
-          >
-            Ladda
-          </div>
-        </div>
+        )}
+  
         <textarea
           ref={textrutaRef}
-          style={{
-            fontSize:
-              window.outerWidth > window.outerHeight ? "1.8vw" : "2.5vw",
-            height: window.outerWidth > window.outerHeight ? "14vw" : "26vw",
-          }}
-          className={`w-[50vw]`}
-          placeholder={`Ett namn per rad:
-Artur
-Bosse
-Sam 
-etc...
-`}
+          className="w-full p-4 border rounded-lg text-lg shadow resize-none"
+          placeholder={`Ett namn per rad:\nArtur\nBosse\netc...`}
+          style={{ minHeight: "10rem" }}
         ></textarea>
-        <div
-          className={`cursor-pointer border bg-[#4CAF50] text-white w-[25vw] h-[window.outerWidth > window.outerHeight ? "6.25" : "12.5vw"] flex flex-row justify-center items-center text-[5vw]`}
+  
+        <button
           onClick={läggTillNamn}
+          className="w-full py-2 mt-4 bg-green-600 text-white font-bold text-lg rounded shadow hover:bg-green-700"
         >
           Lägg till
+        </button>
+  
+        <div className="mt-4 text-lg font-semibold">
+          {`Antal elever: ${
+            namn
+              .map((namn, index) => ({ namn: namn, orginalIndex: index }))
+              .sort((a, b) => a.namn.localeCompare(b.namn))
+              .slice(1)
+              .filter((namnObj1) => namnObj1.namn !== "").length
+          }`}
+        </div>
+  
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+          {namnILista.map((kolumn, index) => (
+            <span key={index} className="text-lg font-medium">
+              {kolumn}
+            </span>
+          ))}
         </div>
       </div>
-      <div className="grid grid-cols-3 w-full">
-        <div
-          className="text-center items-center border-[#af4cab] mr-0.5 rounded-none flex cursor-pointer justify-center text-white text-[2vw] rounded-[4px] font-semibold border bg-[#af4cab]"
-          onClick={() => {
-            filRef.current.click();
-          }}
-        >
-          importera namn från kalkylark
-        </div>
-        <div
-          className="text-center rounded-[4px] cursor-pointer items-center flex justify-center text-white text-[2vw] font-semibold rounded-none border-[#af4cab] bg-[#af4cab]"
-          onClick={taBortEfternamn}
-        >
-          ta bort efternamn
-        </div>
+      <Footer />
 
-        <div className="text-4xl text-center m-3">
-          {
-            <input
-              className="text-[4vw] h-[6vw] truncate w-[90%] bg-inherit text-center outline-none m-3"
-              onChange={(e) => {
-                setKlassnamntext(e.target.value);
-              }}
-              value={klassnamntext}
-            />
-          }
-        </div>
-      </div>
-
-      <div className="text-xl ">{`Antal elever: ${
-        namn
-          .map((namn, index) => ({ namn: namn, orginalIndex: index }))
-          .sort((a, b) => a.namn.localeCompare(b.namn))
-          .slice(1)
-          .filter((namnObj1) => namnObj1.namn !== "").length
-      }`}</div>
-      <div
-        className="m-auto"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        {namnILista.map((kolumn) => (
-          <div>{kolumn}</div>
-        ))}
-      </div>
-
-      <hr />
     </div>
   );
+  
+  
 };
 
 export default Klasser;
