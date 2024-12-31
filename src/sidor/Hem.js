@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { isMobile, isTablet } from "react-device-detect";
-
 const style = `
   .animate-scrollBg {
     animation: scrollBg 20s linear infinite;
@@ -17,10 +15,8 @@ const Hem = () => {
   };
 
   useEffect(() => {
-    // Blockera scrollning på stora enheter och tillåt på mobilen
-    if (!isMobile) {
-      document.body.style.overflow = "hidden";
-    }
+    // Tillåt scrollning alltid och hantera endast stora enheter om det behövs
+    document.body.style.overflow = "auto";
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -30,7 +26,7 @@ const Hem = () => {
     <>
       <style>{style}</style>
 
-      <div className="relative bg-gradient-to-r from-green-400 to-green-600 h-screen flex flex-col justify-center items-center overflow-auto sm:overflow-hidden">
+      <div className="relative bg-gradient-to-r from-green-400 to-green-600 min-h-screen flex flex-col justify-center items-center overflow-y-auto sm:overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center animate-scrollBg"></div>
 
         {/* Logo */}
