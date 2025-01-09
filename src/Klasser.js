@@ -9,8 +9,9 @@ import ExcelToTextConverter from "./ExcelToTextConverter";
 import { isMobile, isTablet } from "react-device-detect";
 import { compress } from "lz-string";
 import { height } from "@fortawesome/free-solid-svg-icons/fa0";
+import stängKnapp from "./imgs/close-116.svg";
 
-const engelska = false
+const engelska = false;
 function generateUniqueId() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0;
@@ -44,13 +45,14 @@ const Klasser = ({}) => {
   const [kolumner, setKolumner] = useState(10);
   const [klassnamn, setKlassnamn] = useState(null);
   const [klassId, setKlassId] = useState(null);
-  const [klassnamntext, setKlassnamntext] = useState(engelska ? "new class" : "ny klass");
+  const [klassnamntext, setKlassnamntext] = useState(
+    engelska ? "new class" : "ny klass"
+  );
   const [data, setData] = useState(null);
   const [textareaValue, setTextareaValue] = useState("");
   const [sidebarWidth, setSidebarWidth] = useState(200);
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-
 
   const sidebarRef = useRef(null);
   const handleMouseDown = (e) => {
@@ -71,8 +73,7 @@ const Klasser = ({}) => {
     document.addEventListener("mouseup", onMouseUp);
   };
 
-
-  const defaultKlass = engelska ? "new class" : "ny klass"
+  const defaultKlass = engelska ? "new class" : "ny klass";
   async function checkLoginStatus() {
     setData(originalData);
   }
@@ -128,6 +129,33 @@ const Klasser = ({}) => {
     setTextareaValue(e.target.value);
   };
 
+  const nyKlass = () => {
+    const nyttId = generateUniqueId();
+    const nyttNamn = prompt(
+      engelska
+        ? "What should your new class be called?"
+        : "Vad ska din nya klass heta?"
+    );
+
+    if (!nyttNamn) return;
+
+    setNamn([""]);
+    setKlassId(nyttId);
+    setKlassnamntext(nyttNamn);
+    setKlassnamn(nyttNamn);
+
+    const nyData = { ...data };
+    nyData.klasser.push({
+      id: nyttId,
+      namn: nyttNamn,
+      personer: [],
+    });
+
+    setData(nyData);
+    sparaData(nyData);
+    setVisaLaddaKlassrum(false);
+  };
+
   const läggTillNamn = () => {
     const textareaContent = textrutaRef.current.value
       .split("\n")
@@ -145,59 +173,42 @@ const Klasser = ({}) => {
     });
   };
 
-const spara = (nyttNamn) => {
-  setIsSaving(true);
+  const spara = (nyttNamn) => {
+    setIsSaving(true);
 
-  let newData = data;
-  let nyttKlassNamn = nyttNamn
-    ? nyttNamn
-    : klassId || klassnamntext !== defaultKlass
-    ? klassnamntext
-    : prompt("Vad heter klassen?");
-  if (klassnamn !== klassnamntext) {
-    while (newData.klasser.some((klass) => klass.namn === nyttKlassNamn)) {
-      nyttKlassNamn = prompt(
-        "Du har redan lagt in en klass som heter så. Skriv ett namn som skiljer sig åt."
-      );
+    const nyttKlassNamn =
+      nyttNamn || klassnamntext || prompt(engelska ? "What is the class called?" : "Vad heter klassen?");
+    if (!nyttKlassNamn) {
+      setIsSaving(false);
+      return;
     }
-  }
-  if (!nyttKlassNamn) {
-    setIsSaving(false);
-    return;
-  }
-  if (klassId) {
-    newData.klasser = data.klasser.map((klass) => {
-      if (klass.id === klassId) {
-        return {
-          id: klass.id,
-          namn: nyttKlassNamn,
-          personer: namn,
-        };
-      } else {
-        return klass;
-      }
-    });
-  } else {
-    const nyttId = generateUniqueId();
-    setKlassId(nyttId);
-    newData.klasser.push({
-      id: nyttId,
-      namn: nyttKlassNamn,
-      personer: namn,
-    });
-  }
-  console.log(newData);
 
-  sparaData(newData);
+    const nyData = { ...data };
 
-  setKlassnamn(nyttKlassNamn);
-  setKlassnamntext(nyttKlassNamn);
+    if (klassId) {
+      nyData.klasser = nyData.klasser.map((klass) =>
+        klass.id === klassId
+          ? { ...klass, namn: nyttKlassNamn, personer: namn }
+          : klass
+      );
+    } else {
+      const nyttId = generateUniqueId();
+      setKlassId(nyttId);
+      nyData.klasser.push({
+        id: nyttId,
+        namn: nyttKlassNamn,
+        personer: namn,
+      });
+    }
 
-  setTimeout(() => {
-    setIsSaving(false);
-  }, 1500);
-};
+    setData(nyData);
+    sparaData(nyData);
 
+    setKlassnamn(nyttKlassNamn);
+    setKlassnamntext(nyttKlassNamn);
+
+    setTimeout(() => setIsSaving(false), 1500);
+  };
 
   const taBortEfternamn = () => {
     setNamn((förraNamn) => förraNamn.map((namn) => namn.split(" ")[0]));
@@ -314,11 +325,13 @@ const spara = (nyttNamn) => {
               <span className="flex items-center justify-center">
                 <RiCheckLine size={24} className="mr-2" />
               </span>
+            ) : engelska ? (
+              "Save"
             ) : (
-              engelska ? "Save" : "Spara"
+              "Spara"
             )}
           </button>
-  
+
           <button
             onClick={() => setVisaLaddaKlassrum(!visaLaddaKlassrum)}
             className="w-full py-2 bg-green-600 text-white font-bold text-lg rounded shadow hover:bg-green-700"
@@ -328,62 +341,70 @@ const spara = (nyttNamn) => {
           <button
             className="w-full py-2 bg-purple-600 text-white font-bold rounded shadow hover:bg-purple-700"
             onClick={() => {
-    filRef.current.click();
-  }}
->
-  {engelska ? "Import names from excel-sheet" : "Importera namn från kalkylark"}
-</button>
+              filRef.current.click();
+            }}
+          >
+            {engelska
+              ? "Import names from excel-sheet"
+              : "Importera namn från kalkylark"}
+          </button>
 
-<ExcelToTextConverter ref={filRef} names={namn} setNames={setNamn} />
+          <ExcelToTextConverter ref={filRef} names={namn} setNames={setNamn} />
           <button
             onClick={taBortEfternamn}
             className="w-full py-2 bg-purple-600 text-white font-bold rounded shadow hover:bg-purple-700"
           >
             {engelska ? "Remove surnames" : "Ta bort efternamn"}
           </button>
-  
+
           <div
             className="hidden lg:block absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 w-2 cursor-ew-resize h-full"
             onMouseDown={handleMouseDown}
           ></div>
         </div>
       )}
-  
+
       <button
         className={`p-2 bg-gray-200 text-gray-600 rounded-full shadow-lg fixed top-4 left-4 lg:hidden
         ${isSidebarVisible ? "" : "bg-gray-300"}`}
         onClick={() => setIsSidebarVisible(!isSidebarVisible)}
       >
-        {isSidebarVisible ? <RiArrowLeftSLine size={24} /> : <RiArrowRightSLine size={24} />}
+        {isSidebarVisible ? (
+          <RiArrowLeftSLine size={24} />
+        ) : (
+          <RiArrowRightSLine size={24} />
+        )}
       </button>
-  
+
       <div className="flex-1 p-4">
-      <div className="text-4xl text-center m-3">
-  <div className="relative group">
-    <input
-      className="truncate w-[90%] bg-inherit outline-none text-center border-b-2 border-transparent focus:border-b-green-600 transition-all duration-300"
-      onChange={(e) => {
-        setKlassnamntext(e.target.value);
-      }}
-      value={klassnamntext}
-      onBlur={() => spara(klassnamntext)}
-      placeholder="Skriv klassnamn här..."
-    />
-    <RiCheckLine
-      size={24}
-      className={`absolute right-[-30px] top-1/2 transform -translate-y-1/2 text-green-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer`}
-      onClick={() => spara(klassnamntext)}
-    />
-  </div>
-</div>
-  
+        <div className="text-4xl text-center m-3">
+          <div className="relative group">
+            <input
+              className="truncate w-[90%] bg-inherit outline-none text-center border-b-2 border-transparent focus:border-b-green-600 transition-all duration-300"
+              onChange={(e) => {
+                setKlassnamntext(e.target.value);
+              }}
+              value={klassnamntext}
+              onBlur={() => spara(klassnamntext)}
+              placeholder="Skriv klassnamn här..."
+            />
+            <RiCheckLine
+              size={24}
+              className={`absolute right-[-30px] top-1/2 transform -translate-y-1/2 text-green-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer`}
+              onClick={() => spara(klassnamntext)}
+            />
+          </div>
+        </div>
+
         {klassnamntext !== "ny klass" && (
           <div
             className="fixed bottom-10 right-5 flex items-center justify-center w-16 h-16 bg-red-500 text-white rounded-full shadow-lg hover:bg-red-600 cursor-pointer"
             onClick={() => {
               if (
                 window.confirm(
-                  engelska ? "Are you sure you want to delete this class? If not, press cancel." : "Är du säker på att du vill radera klassen? Om inte, tryck på avbryt."
+                  engelska
+                    ? "Are you sure you want to delete this class? If not, press cancel."
+                    : "Är du säker på att du vill radera klassen? Om inte, tryck på avbryt."
                 )
               ) {
                 let nyData = data;
@@ -401,25 +422,24 @@ const spara = (nyttNamn) => {
             <RiDeleteBin6Line className="w-8 h-8" />
           </div>
         )}
-  
+
         {visaLaddaKlassrum && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white rounded-lg shadow-xl w-96">
-              <div className="bg-green-600 text-white text-lg font-bold p-4 rounded-t-lg">
-                {engelska ? "Saved classes" : "Sparade klasser"}
+              <div className="bg-green-600 text-white text-lg font-bold p-4 rounded-t-lg flex items-center justify-between">
+                <span>{engelska ? "Saved classes" : "Sparade klasser"}</span>
+                <img
+                  src={stängKnapp}
+                  style={{ width: "15%", cursor: "pointer" }}
+                  alt="Close"
+                  onClick={() => setVisaLaddaKlassrum(false)}
+                />
               </div>
               <ul className="p-4 max-h-60 overflow-y-auto">
                 <li
                   key="nyKlass"
                   className="p-2 text-lg font-bold hover:bg-gray-100 cursor-pointer"
-                  onClick={() => {
-                    setNamn([""]);
-                    setKlassId(null);
-                    const nyttNamn = prompt("Vad ska din nya klass heta?");
-                    if (!nyttNamn) return;
-                    setVisaLaddaKlassrum(false);
-                    spara(nyttNamn);
-                  }}
+                  onClick={nyKlass}
                 >
                   {engelska ? "new class..." : "ny klass..."}
                 </li>
@@ -439,24 +459,26 @@ const spara = (nyttNamn) => {
                   </li>
                 ))}
               </ul>
-            </div>
+                          </div>
           </div>
         )}
-  
+
         <textarea
           ref={textrutaRef}
           className="w-full p-4 border rounded-lg text-lg shadow resize-none"
-          placeholder={`${engelska ? "One name per row" : "Ett namn per rad"}:\nArtur\nBosse\netc...`}
+          placeholder={`${
+            engelska ? "One name per row" : "Ett namn per rad"
+          }:\nArtur\nBosse\netc...`}
           style={{ minHeight: "10rem" }}
         ></textarea>
-  
+
         <button
           onClick={läggTillNamn}
           className="w-full py-2 mt-4 bg-green-600 text-white font-bold text-lg rounded shadow hover:bg-green-700"
         >
           {engelska ? "Add" : "Lägg till"}
         </button>
-  
+
         <div className="mt-4 text-lg font-semibold">
           {`${engelska ? "Number of students" : "Antal elever"}: ${
             namn
@@ -466,7 +488,7 @@ const spara = (nyttNamn) => {
               .filter((namnObj1) => namnObj1.namn !== "").length
           }`}
         </div>
-  
+
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
           {namnILista.map((kolumn, index) => (
             <span key={index} className="text-lg font-medium">
@@ -476,11 +498,8 @@ const spara = (nyttNamn) => {
         </div>
       </div>
       <Footer />
-
     </div>
   );
-  
-  
 };
 
 export default Klasser;

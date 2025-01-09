@@ -68,28 +68,24 @@ const Changelog = () => {
         Uppdateringar
       </h2>
       <ul className="space-y-4">
-        <li className="flex items-start">
-          <div className="flex-shrink-0 text-green-600">[2024-12-11]</div>
-          <div className="ml-3 text-gray-700">
-            <strong>Ny version:</strong> Lansering av nya Skola 77-2.
-          </div>
-        </li>
-        <li className="flex items-start">
-          <div className="flex-shrink-0 text-green-600">[2024-12-28]</div>
-          <div className="ml-3 text-gray-700">
-            <strong>Design:</strong> Hemskärmsuppdateringar.
-          </div>
-        </li>
-        <li className="flex items-start">
-          <div className="flex-shrink-0 text-green-600">[2024-12-30]</div>
-          <div className="ml-3 text-gray-700">
-            <strong>Buggfixar:</strong> Grundläggande funktioner och design uppdaterad.
-          </div>
-        </li>
+  
+       
         <li className="flex items-start">
           <div className="flex-shrink-0 text-green-600">[2024-12-31]</div>
           <div className="ml-3 text-gray-700">
             <strong>Design:</strong> Klassidan är uppdaterad.
+          </div>
+        </li>
+        <li className="flex items-start">
+          <div className="flex-shrink-0 text-green-600">[2024-01-05]</div>
+          <div className="ml-3 text-gray-700">
+            <strong>Språk:</strong> Överstättning av Skola77.
+          </div>
+        </li>
+        <li className="flex items-start">
+          <div className="flex-shrink-0 text-green-600">[2024-01-09]</div>
+          <div className="ml-3 text-gray-700">
+            <strong>Buggfixar:</strong> Generella buggfixar.
           </div>
         </li>
       </ul>
