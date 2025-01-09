@@ -9,6 +9,8 @@ import ExcelToTextConverter from "./ExcelToTextConverter";
 import { isMobile, isTablet } from "react-device-detect";
 import { compress } from "lz-string";
 import { height } from "@fortawesome/free-solid-svg-icons/fa0";
+
+const engelska = false
 function generateUniqueId() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0;
@@ -42,7 +44,7 @@ const Klasser = ({}) => {
   const [kolumner, setKolumner] = useState(10);
   const [klassnamn, setKlassnamn] = useState(null);
   const [klassId, setKlassId] = useState(null);
-  const [klassnamntext, setKlassnamntext] = useState("ny klass");
+  const [klassnamntext, setKlassnamntext] = useState(engelska ? "new class" : "ny klass");
   const [data, setData] = useState(null);
   const [textareaValue, setTextareaValue] = useState("");
   const [sidebarWidth, setSidebarWidth] = useState(200);
@@ -70,7 +72,7 @@ const Klasser = ({}) => {
   };
 
 
-  const defaultKlass = "ny klass";
+  const defaultKlass = engelska ? "new class" : "ny klass"
   async function checkLoginStatus() {
     setData(originalData);
   }
@@ -313,7 +315,7 @@ const spara = (nyttNamn) => {
                 <RiCheckLine size={24} className="mr-2" />
               </span>
             ) : (
-              "Spara"
+              engelska ? "Save" : "Spara"
             )}
           </button>
   
@@ -321,7 +323,7 @@ const spara = (nyttNamn) => {
             onClick={() => setVisaLaddaKlassrum(!visaLaddaKlassrum)}
             className="w-full py-2 bg-green-600 text-white font-bold text-lg rounded shadow hover:bg-green-700"
           >
-            Ladda
+            {engelska ? "Load" : "Ladda"}
           </button>
           <button
             className="w-full py-2 bg-purple-600 text-white font-bold rounded shadow hover:bg-purple-700"
@@ -329,7 +331,7 @@ const spara = (nyttNamn) => {
     filRef.current.click();
   }}
 >
-  Importera namn från kalkylark
+  {engelska ? "Import names from excel-sheet" : "Importera namn från kalkylark"}
 </button>
 
 <ExcelToTextConverter ref={filRef} names={namn} setNames={setNamn} />
@@ -337,7 +339,7 @@ const spara = (nyttNamn) => {
             onClick={taBortEfternamn}
             className="w-full py-2 bg-purple-600 text-white font-bold rounded shadow hover:bg-purple-700"
           >
-            Ta bort efternamn
+            {engelska ? "Remove surnames" : "Ta bort efternamn"}
           </button>
   
           <div
@@ -381,7 +383,7 @@ const spara = (nyttNamn) => {
             onClick={() => {
               if (
                 window.confirm(
-                  "Är du säker på att du vill radera klassen? Om inte, tryck på avbryt."
+                  engelska ? "Are you sure you want to delete this class? If not, press cancel." : "Är du säker på att du vill radera klassen? Om inte, tryck på avbryt."
                 )
               ) {
                 let nyData = data;
@@ -404,7 +406,7 @@ const spara = (nyttNamn) => {
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white rounded-lg shadow-xl w-96">
               <div className="bg-green-600 text-white text-lg font-bold p-4 rounded-t-lg">
-                Sparade klasser
+                {engelska ? "Saved classes" : "Sparade klasser"}
               </div>
               <ul className="p-4 max-h-60 overflow-y-auto">
                 <li
@@ -419,7 +421,7 @@ const spara = (nyttNamn) => {
                     spara(nyttNamn);
                   }}
                 >
-                  ny klass...
+                  {engelska ? "new class..." : "ny klass..."}
                 </li>
                 {data.klasser.map((klass) => (
                   <li
@@ -444,7 +446,7 @@ const spara = (nyttNamn) => {
         <textarea
           ref={textrutaRef}
           className="w-full p-4 border rounded-lg text-lg shadow resize-none"
-          placeholder={`Ett namn per rad:\nArtur\nBosse\netc...`}
+          placeholder={`${engelska ? "One name per row" : "Ett namn per rad"}:\nArtur\nBosse\netc...`}
           style={{ minHeight: "10rem" }}
         ></textarea>
   
@@ -452,11 +454,11 @@ const spara = (nyttNamn) => {
           onClick={läggTillNamn}
           className="w-full py-2 mt-4 bg-green-600 text-white font-bold text-lg rounded shadow hover:bg-green-700"
         >
-          Lägg till
+          {engelska ? "Add" : "Lägg till"}
         </button>
   
         <div className="mt-4 text-lg font-semibold">
-          {`Antal elever: ${
+          {`${engelska ? "Number of students" : "Antal elever"}: ${
             namn
               .map((namn, index) => ({ namn: namn, orginalIndex: index }))
               .sort((a, b) => a.namn.localeCompare(b.namn))

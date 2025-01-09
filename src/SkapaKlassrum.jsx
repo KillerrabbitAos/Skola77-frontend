@@ -5,7 +5,7 @@ import Klassrum from "./Klassrum";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import "./Grid.css";
 import Overlay from "./Overlay.jsx";
-
+const engelska = false
 function generateUniqueId() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0;
@@ -97,7 +97,7 @@ const Grid3 = () => {
             );
           }}
         >
-          nytt klassrum
+          {engelska ? "new classroom" : "nytt klassrum"}
         </li>
         {data.klassrum.map((klassrum) => {
           return (
@@ -193,7 +193,7 @@ const Grid3 = () => {
         data.klassrum.findIndex((klassrum) => klassrum.id === klassrumsId)
       ] = {
         id: klassrumsId,
-        namn: nyttNamn || klassrumsnamn || "Namlöst klassrum",
+        namn: nyttNamn || klassrumsnamn || (engelska ? "Untitled classroom" : "Namlöst klassrum"),
         rows: rows,
         cols: cols,
         grid: grid,
@@ -203,7 +203,7 @@ const Grid3 = () => {
       sparaData(newData);
       setSparat(true);
     } else {
-      let nyttNamn = prompt("Vad heter klassrummet?");
+      let nyttNamn = prompt(engelska ? "What's the classroom called?" : "Vad heter klassrummet?");
       setKlassrumsnamn(nyttNamn);
       setLaddarKlassrum(true);
       const nyttId = generateUniqueId();
@@ -247,7 +247,7 @@ const Grid3 = () => {
         <div className="flex flex-grow flex-wrap">
           {isTouchDevice ? (
             <div className="flex items-center">
-              <span id="skola77ärbra">Rader</span>
+              <span id="skola77ärbra">{engelska ? "Rows" : "Rader"}</span>
               <button onClick={() => ändraRader(-1)} className="sänkKnapp">
                 -
               </button>
@@ -257,7 +257,7 @@ const Grid3 = () => {
             </div>
           ) : (
             <div>
-              <div className="text-center text-2xl">Rader</div>
+              <div className="text-center text-2xl">{"Rader"}</div>
               <input
                 type="number"
                 min="1"

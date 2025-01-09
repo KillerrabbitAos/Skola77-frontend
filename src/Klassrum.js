@@ -7,6 +7,8 @@ import "./Klassrum.css";
 import GridCell from "./GridCell";
 import { data } from "./data.js";
 
+const engelska = false
+
 const Klassrum = ({
   rows = 5,
   columns = 5,
@@ -155,7 +157,7 @@ const Klassrum = ({
         <div className="print grid grid-cols-3">
           <div></div>
           <p className="place-self-center" id="uppe">
-            {reverse ? "bak" : "tavla"}
+            {reverse ? (engelska ? "back" : "bak") : (engelska ? "board" : "tavla")}
           </p>
           <div className="place-self-center text-xl flex justify-center items-center">
             {extra}
@@ -215,7 +217,7 @@ const Klassrum = ({
       </DndContext>
 
       <div>
-        <p id="nere">{reverse ? "tavla" : "bak"}</p>
+        <p id="nere">{reverse ? (engelska ? "board" : "tavla") : (engelska ? "back" : "bak")}</p>
       </div>
     </>
   );
