@@ -4,5 +4,14 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
+  plugins: [
+    require("tailwind-scrollbar")({ nocompatible: true }),
+    require("tailwindcss/plugin")(({ addComponents, e }) => {
+      addComponents({
+        [`.${e('tooltip')}:hover::after`]: {
+         
+        },
+      });
+    }),
+  ],
 };

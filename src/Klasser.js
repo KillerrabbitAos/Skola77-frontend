@@ -11,7 +11,7 @@ import { compress } from "lz-string";
 import { height } from "@fortawesome/free-solid-svg-icons/fa0";
 import stängKnapp from "./imgs/close-116.svg";
 
-const engelska = false;
+const engelska = true;
 function generateUniqueId() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0;
@@ -331,7 +331,7 @@ const Klasser = ({}) => {
               "Spara"
             )}
           </button>
-
+  
           <button
             onClick={() => setVisaLaddaKlassrum(!visaLaddaKlassrum)}
             className="w-full py-2 bg-green-600 text-white font-bold text-lg rounded shadow hover:bg-green-700"
@@ -345,10 +345,10 @@ const Klasser = ({}) => {
             }}
           >
             {engelska
-              ? "Import names from excel-sheet"
+              ? "Import names from Excel sheet"
               : "Importera namn från kalkylark"}
           </button>
-
+  
           <ExcelToTextConverter ref={filRef} names={namn} setNames={setNamn} />
           <button
             onClick={taBortEfternamn}
@@ -356,14 +356,14 @@ const Klasser = ({}) => {
           >
             {engelska ? "Remove surnames" : "Ta bort efternamn"}
           </button>
-
+  
           <div
             className="hidden lg:block absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 w-2 cursor-ew-resize h-full"
             onMouseDown={handleMouseDown}
           ></div>
         </div>
       )}
-
+  
       <button
         className={`p-2 bg-gray-200 text-gray-600 rounded-full shadow-lg fixed top-4 left-4 lg:hidden
         ${isSidebarVisible ? "" : "bg-gray-300"}`}
@@ -375,7 +375,7 @@ const Klasser = ({}) => {
           <RiArrowRightSLine size={24} />
         )}
       </button>
-
+  
       <div className="flex-1 p-4">
         <div className="text-4xl text-center m-3">
           <div className="relative group">
@@ -386,7 +386,9 @@ const Klasser = ({}) => {
               }}
               value={klassnamntext}
               onBlur={() => spara(klassnamntext)}
-              placeholder="Skriv klassnamn här..."
+              placeholder={
+                engelska ? "Enter class name here..." : "Skriv klassnamn här..."
+              }
             />
             <RiCheckLine
               size={24}
@@ -395,7 +397,7 @@ const Klasser = ({}) => {
             />
           </div>
         </div>
-
+  
         {klassnamntext !== "ny klass" && (
           <div
             className="fixed bottom-10 right-5 flex items-center justify-center w-16 h-16 bg-red-500 text-white rounded-full shadow-lg hover:bg-red-600 cursor-pointer"
@@ -422,7 +424,7 @@ const Klasser = ({}) => {
             <RiDeleteBin6Line className="w-8 h-8" />
           </div>
         )}
-
+  
         {visaLaddaKlassrum && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white rounded-lg shadow-xl w-96">
@@ -441,7 +443,7 @@ const Klasser = ({}) => {
                   className="p-2 text-lg font-bold hover:bg-gray-100 cursor-pointer"
                   onClick={nyKlass}
                 >
-                  {engelska ? "new class..." : "ny klass..."}
+                  {engelska ? "New class..." : "Ny klass..."}
                 </li>
                 {data.klasser.map((klass) => (
                   <li
@@ -459,10 +461,10 @@ const Klasser = ({}) => {
                   </li>
                 ))}
               </ul>
-                          </div>
+            </div>
           </div>
         )}
-
+  
         <textarea
           ref={textrutaRef}
           className="w-full p-4 border rounded-lg text-lg shadow resize-none"
@@ -471,14 +473,14 @@ const Klasser = ({}) => {
           }:\nArtur\nBosse\netc...`}
           style={{ minHeight: "10rem" }}
         ></textarea>
-
+  
         <button
           onClick={läggTillNamn}
           className="w-full py-2 mt-4 bg-green-600 text-white font-bold text-lg rounded shadow hover:bg-green-700"
         >
           {engelska ? "Add" : "Lägg till"}
         </button>
-
+  
         <div className="mt-4 text-lg font-semibold">
           {`${engelska ? "Number of students" : "Antal elever"}: ${
             namn
@@ -488,7 +490,7 @@ const Klasser = ({}) => {
               .filter((namnObj1) => namnObj1.namn !== "").length
           }`}
         </div>
-
+  
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
           {namnILista.map((kolumn, index) => (
             <span key={index} className="text-lg font-medium">
@@ -500,6 +502,7 @@ const Klasser = ({}) => {
       <Footer />
     </div>
   );
+  
 };
 
 export default Klasser;

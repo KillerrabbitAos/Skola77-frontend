@@ -22,6 +22,7 @@ const Klassrum = ({
   edit = true,
   reverse,
   setReverse,
+  engelska,
   extra,
   skrivUt = false,
 }) => {

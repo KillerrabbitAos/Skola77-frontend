@@ -8,7 +8,27 @@ import "./Layout.css";
 const Layout = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropdown, setDropdown] = useState(isMobile && !isTablet);
+  const [engelska, setEngelska] = useState(true)
 
+  async function checkLoginStatus() {
+    try {
+        const response = await fetch("https://auth.skola77.com/home", {
+            credentials: "include",
+        });
+        const result = await response.json();
+
+        try {
+            setEngelska(JSON.parse(result.settings).engelska)
+
+        } catch (parseError) {
+            console.error("Kunde inte parsa data:", parseError);
+            window.location.href = "https://auth.skola77.com?skola77";
+        }
+    } catch (fetchError) {
+        console.error("Fel vid hämtning av data:", fetchError);
+        window.location.href = "https://auth.skola77.com?skola77";
+    }
+}
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -42,7 +62,7 @@ const Layout = () => {
     };
 
     anpassa();
-
+    checkLoginStatus()
     window.addEventListener("resize", anpassa);
 
     return () => window.removeEventListener("resize", anpassa);
@@ -50,7 +70,7 @@ const Layout = () => {
 
   return (
     <>
-      <div style={{zIndex: 2000}} className={!dropdown ? `navbar` : "bg-white h-[70px]"}>
+      <div style={{ zIndex: 2000 }} className={!dropdown ? `navbar` : "bg-white h-[70px]"}>
         {dropdown ? (
           <div className="">
             <div className="w-full grid grid-cols-3">
@@ -72,7 +92,7 @@ const Layout = () => {
                         isActive ? "active-item" : "hidden"
                       }
                     >
-                      Klasser
+                      {engelska ? "Classes" : "Klasser"}
                     </NavLink>
                     <NavLink
                       to="/Placeringar"
@@ -80,7 +100,7 @@ const Layout = () => {
                         isActive ? "active-item" : "hidden"
                       }
                     >
-                      Placeringar
+                      {engelska ? "Seating plans" : "Placeringar"}
                     </NavLink>
                     <NavLink
                       to="/Klassrum"
@@ -88,7 +108,7 @@ const Layout = () => {
                         isActive ? "active-item" : "hidden"
                       }
                     >
-                      Klassrum
+                      {engelska ? "Classrooms" : "Klassrum"}
                     </NavLink>
                     <NavLink
                       to="/Support"
@@ -96,7 +116,7 @@ const Layout = () => {
                         isActive ? "active-item" : "hidden"
                       }
                     >
-                      Hjälp
+                      {engelska ? "Help" : "Hjälp"}
                     </NavLink>
                   </>
                 }
@@ -122,7 +142,7 @@ const Layout = () => {
                 <li className="dropdown-item">
                   <NavLink to="/" onClick={toggleDropdown}>
                     <div
-                      style={{ textAlign: "center"}}
+                      style={{ textAlign: "center" }}
                       className="justify-center flex-row flex items-center"
                     >
                       {svg}
@@ -135,7 +155,7 @@ const Layout = () => {
                       style={{ textAlign: "center" }}
                       className="justify-center flex-row flex items-center"
                     >
-                      Placeringar
+                      {engelska ? "Seating plans" : "Placeringar"}
                     </div>
                   </NavLink>
                 </li>
@@ -145,7 +165,7 @@ const Layout = () => {
                       style={{ textAlign: "center" }}
                       className="justify-center flex-row flex items-center"
                     >
-                      Klassrum
+                      {engelska ? "Classrooms" : "Klassrum"}
                     </div>
                   </NavLink>
                 </li>
@@ -155,7 +175,7 @@ const Layout = () => {
                       style={{ textAlign: "center" }}
                       className="justify-center flex-row flex items-center"
                     >
-                      Klasser
+                      {engelska ? "Classes" : "Klasser"}
                     </div>
                   </NavLink>
                 </li>
@@ -165,7 +185,7 @@ const Layout = () => {
                       style={{ textAlign: "center" }}
                       className="justify-center flex-row flex items-center"
                     >
-                      Hjälp
+                      {engelska ? "Help" : "Hjälp"}
                     </div>
                   </NavLink>
                 </li>
@@ -173,7 +193,7 @@ const Layout = () => {
                   <NavLink to="/mittKonto" onClick={toggleDropdown}>
                     <img
                       src="/account.svg"
-                      alt="Mitt konto"
+                      alt={engelska ? "My Account" : "Mitt konto"}
                       className="konto-ikon m-auto"
                     />
                   </NavLink>
@@ -190,10 +210,9 @@ const Layout = () => {
               <NavLink
                 to="/Placeringar"
                 draggable="false"
-
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                Placeringar
+                {engelska ? "Seating plans" : "Placeringar"}
               </NavLink>
             </li>
             <li className="header">
@@ -202,7 +221,7 @@ const Layout = () => {
                 draggable="false"
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                Klassrum
+                {engelska ? "Classrooms" : "Klassrum"}
               </NavLink>
             </li>
             <li className="header">
@@ -211,7 +230,7 @@ const Layout = () => {
                 draggable="false"
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                Klasser
+                {engelska ? "Classes" : "Klasser"}
               </NavLink>
             </li>
             <li className="header">
@@ -220,7 +239,7 @@ const Layout = () => {
                 draggable="false"
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                Hjälp
+                {engelska ? "Help" : "Hjälp"}
               </NavLink>
             </li>
             <ul className="nav-account">
@@ -233,7 +252,7 @@ const Layout = () => {
                 >
                   <img
                     src="/account.svg"
-                    alt="Mitt konto"
+                    alt={engelska ? "My Account" : "Mitt konto"}
                     draggable="false"
                     className="konto-ikon"
                   />

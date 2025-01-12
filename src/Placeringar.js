@@ -7,7 +7,6 @@ import "./Animationer.css";
 import "./print.css";
 import Overlay from "./Overlay";
 
-const engelska = false
 
 function generateUniqueId() {
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
@@ -55,6 +54,7 @@ const dividedLists = divideArray(myList, 3);
 console.log(dividedLists);
 
 async function scaleToFit(content, setUpdateSize, updateSize) {
+    const engelska = true
     const pageWidth = 8.27; // A4 width in inches (Letter: 8.5)
     const pageHeight = 11.69; // A4 height in inches (Letter: 11)
 
@@ -151,6 +151,7 @@ const SkapaPlaceringar = () => {
     const klassrumsmenyRef = useRef(null);
     const [laddarPlacering, setLaddarPlacering] = useState(false);
     const klassmenyRef = useRef(null);
+    const [engelska, setEngelska] = useState(true)
     const [klassmenykord, setKlassmenykord] = useState([1]);
     const [klassrumsmenykord, setKlassrumsmenykord] = useState([1]);
     const [nyttPlaceringsnamn, setNyttPlaceringsnamn] = useState(null);
@@ -326,6 +327,7 @@ const SkapaPlaceringar = () => {
             const result = await response.json();
 
             try {
+                setEngelska(JSON.parse(result.settings).engelska)
                 const parsedData = JSON.parse(result.data);
                 setData(parsedData);
                 const klassrum = parsedData.klassrum;
@@ -646,6 +648,7 @@ const SkapaPlaceringar = () => {
                         {engelska ? "Psst... the student names appear at the bottom of the page." : "Psst... alla personer hittar du längst ner på sidan."}
                       </span>)}
                             edit={false}
+                            engelska={engelska}
                             updateSize={updateSize}
                             låstaBänkar={låstaBänkar}
                             setLåstaBänkar={setLåstaBänkar}
@@ -739,7 +742,7 @@ const SkapaPlaceringar = () => {
             </div>)}
         </>
 
-        <p className="text-center">Skola 77 2.0 Flamingo</p>
+        <p className="text-center">Skola 77 2 Flamingo</p>
     </div>);
 };
 

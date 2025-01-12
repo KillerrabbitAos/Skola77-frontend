@@ -15,7 +15,8 @@ import Grid from './Grid.js';
 import Grid3 from './SkapaKlassrum.jsx';
 import SkapaPlaceringar from './Placeringar.js';
 import Klasser from './Klasser.js';
-import Editor from './editor.js'
+import Editor from './editor.js';
+import Settings from './sidor/settings.jsx';
 
 
 export default function App() {
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="policy" element={<Policy />} />
           <Route path="terms-of-service" element={<Användarvillkor />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path='/settings' element={<Settings />} />
 
           <Route path="mittKonto" element={<MittKonto />} />
 

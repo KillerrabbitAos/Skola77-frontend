@@ -5,7 +5,7 @@ import Klassrum from "./Klassrum";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import "./Grid.css";
 import Overlay from "./Overlay.jsx";
-const engelska = false
+
 function generateUniqueId() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0;
@@ -30,6 +30,7 @@ const Grid3 = () => {
   const [data, setData] = useState(null);
   const [klassrumsnamn, setKlassrumsnamn] = useState(null);
   const [låstaBänkar, setLåstaBänkar] = useState([]);
+  const [engelska, setEngelska] = useState(true)
   const [gridData, setGridData] = useState("");
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [klassrumsId, setKlassrumsId] = useState(null);
@@ -108,7 +109,7 @@ const Grid3 = () => {
                 if (
                   sparat ||
                   window.confirm(
-                    "Du har osparade ändringar. Vill du fortsätta ändå? Om inte, tryck på avbryt och spara först."
+                    engelska ? "You have unsaved changes. Are you sure you want to continue? If not, press cancel and save first." : "Du har osparade ändringar. Vill du fortsätta ändå? Om inte, tryck på avbryt och spara först."
                   )
                 ) {
                   setGrid(klassrum.grid);
@@ -171,6 +172,7 @@ const Grid3 = () => {
 
         try {
             const parsedData = JSON.parse(result.data);
+            setEngelska(JSON.parse(result.settings).engelska)
             setData(parsedData);
             const klassrum = parsedData.klassrum;
             const klasser = parsedData.klasser;
@@ -257,7 +259,7 @@ const Grid3 = () => {
             </div>
           ) : (
             <div>
-              <div className="text-center text-2xl">{"Rader"}</div>
+              <div className="text-center text-2xl">{engelska ? "Rows" : "Rader"}</div>
               <input
                 type="number"
                 min="1"
@@ -269,7 +271,7 @@ const Grid3 = () => {
 
           {isTouchDevice ? (
             <div className="flex items-center">
-              <span id="skola77ärbra">Kolumner</span>
+              <span id="skola77ärbra">{engelska ? "Columns" : "Kolumner"}</span>
               <button onClick={() => ändraKolumner(-1)} className="sänkKnapp">
                 -
               </button>
@@ -279,7 +281,7 @@ const Grid3 = () => {
             </div>
           ) : (
             <div>
-              <div className="text-center text-2xl">Kolumner</div>
+              <div className="text-center text-2xl">{engelska ? "Columns" : "Kolumner"}</div>
               <input
                 type="number"
                 min="1"
@@ -312,7 +314,7 @@ const Grid3 = () => {
                     }}
                     className="bg-green-500 h-10 rounded-lg text-white w-32"
                   >
-                    Ladda
+                    {engelska ? "Load" : "Ladda"}
                   </button>
 
                   <div className="relative">{laddaMeny}</div>
@@ -325,7 +327,7 @@ const Grid3 = () => {
               onClick={spara}
               className="bg-green-500 h-10 rounded-lg text-white w-32 mr-5"
             >
-              Spara
+              {engelska ? "Save": "Spara"}
             </button>
           </div>
         </div>
@@ -340,7 +342,7 @@ const Grid3 = () => {
             ? nyttNamn
             : nyttNamn === ""
             ? ""
-            : klassrumsnamn || "Nytt klassrum"
+            : klassrumsnamn || (engelska ? "New classroom" : "Nytt klassrum")
         }
       />
 
@@ -358,6 +360,7 @@ const Grid3 = () => {
           grid={grid}
           setGrid={setGrid}
           names={names}
+          engelska={engelska}
         />
       </div>
     </div>

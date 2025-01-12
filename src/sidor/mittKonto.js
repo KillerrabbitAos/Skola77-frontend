@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import './Layout.css'
-
+import "./Layout.css";
+import Kugghjul from "../imgs/kugghjul-removebg-preview.png"
+import "../test.css"
 const MittKonto = () => {
   const [userData, setUserData] = useState(null);
   const [loginMessage, setLoginMessage] = useState("");
@@ -16,6 +17,7 @@ const MittKonto = () => {
   const [banUsername, setBanUsername] = useState("");
   const [users, setUsers] = useState("unavailable");
   const [loading, setLoading] = useState(true);
+  const [engelska, setEngelska] = useState(true);
 
   const hashPassword = async (password) => {
     const msgUint8 = new TextEncoder().encode(password);
@@ -77,15 +79,12 @@ const MittKonto = () => {
         updatedData[field] = value;
       }
 
-      const response = await fetch(
-        "https://auth.skola77.com/editUser",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify(updatedData),
-        }
-      );
+      const response = await fetch("https://auth.skola77.com/editUser", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(updatedData),
+      });
 
       const result = await response.json();
       if (result.success) {
@@ -124,8 +123,10 @@ const MittKonto = () => {
           username: result.username,
           email: result.email,
           data: result.data,
-          admin: result.admin, // Hämta admin-status här
+          admin: result.admin,
+          settings: JSON.parse(result.settings),
         });
+        setEngelska(JSON.parse(result.settings).engelska);
       } else {
         setLoginMessage(result.message);
         window.location.replace("https://auth.skola77.com");
@@ -139,12 +140,9 @@ const MittKonto = () => {
   };
   const getUsers = async () => {
     try {
-      const response = await fetch(
-        "https://auth.skola77.com/getUsers",
-        {
-          credentials: "include",
-        }
-      );
+      const response = await fetch("https://auth.skola77.com/getUsers", {
+        credentials: "include",
+      });
       const result = await response.json();
       if (result) {
         setUsers(result.users);
@@ -279,165 +277,106 @@ const MittKonto = () => {
     }
   }, [userData]);
   return (
- 
     <div className="flex flex-col items-center bg-white min-h-screen py-10">
-    {/* Mitt konto */}
-    <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6 border border-green-200 mb-6">
-      {userData ? (
-        <div id="användardata">
-          <h1 className="text-3xl font-semibold text-green-700 mb-6 m-auto">Mitt Konto</h1>
-          <div id="username" className="mb-4">
-            <p className="text-sm text-gray-600">Användarnamn:</p>
-            <div className="flex justify-between items-center border-b pb-2">
-              <p className="text-lg text-green-800">{userData.username}</p>
-              <button
-                className="text-green-600 hover:underline"
-                onClick={() => setShowUsernameModal(true)}
-              >
-                Ändra
-              </button>
+      {/* Mitt konto */}
+      <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6 border border-green-200 mb-6">
+        {userData ? (
+          <div id="användardata">
+            <div className="flex">
+              <div className="flex flex-grow">
+                <h1 className="text-3xl text-left font-semibold text-green-700 mb-6">
+                  {engelska ? "My Account" : "Mitt Konto"}
+                </h1>
+              </div>
+              <div id="snigel" className="" onClick={() => {window.location.replace("/settings")}}><img id="" className="w-[100px] cursor-pointer kugghjul" src={Kugghjul}></img></div>
+            </div>
+            <div id="username" className="mb-4">
+              <p className="text-sm text-gray-600">
+                {engelska ? "Username:" : "Användarnamn:"}
+              </p>
+              <div className="flex justify-between items-center border-b pb-2">
+                <p className="text-lg text-green-800">{userData.username}</p>
+                <button
+                  className="text-green-600 hover:underline"
+                  onClick={() => setShowUsernameModal(true)}
+                >
+                  {engelska ? "Edit" : "Ändra"}
+                </button>
+              </div>
+            </div>
+            <div id="email" className="mb-4">
+              <p className="text-sm text-gray-600">
+                {engelska ? "Email Address:" : "E-postadress:"}
+              </p>
+              <div className="flex justify-between items-center border-b pb-2">
+                <p className="text-lg text-green-800">{userData.email}</p>
+                <button
+                  className="text-green-600 hover:underline"
+                  onClick={() => setShowEmailModal(true)}
+                >
+                  {engelska ? "Edit" : "Ändra"}
+                </button>
+              </div>
+            </div>
+            <div id="password" className="mb-4">
+              <p className="text-sm text-gray-600">
+                {engelska ? "Password:" : "Lösenord:"}
+              </p>
+              <div className="flex justify-between items-center">
+                <p className="text-lg text-green-800">************</p>
+                <button
+                  className="text-green-600 hover:underline"
+                  onClick={() => setShowPasswordModal(true)}
+                >
+                  {engelska ? "Change" : "Ändra"}
+                </button>
+              </div>
             </div>
           </div>
-          <div id="email" className="mb-4">
-            <p className="text-sm text-gray-600">E-postadress:</p>
-            <div className="flex justify-between items-center border-b pb-2">
-              <p className="text-lg text-green-800">{userData.email}</p>
-              <button
-                className="text-green-600 hover:underline"
-                onClick={() => setShowEmailModal(true)}
-              >
-                Ändra
-              </button>
-            </div>
-          </div>
-          <div id="password" className="mb-4">
-            <p className="text-sm text-gray-600">Lösenord:</p>
-            <div className="flex justify-between items-center">
-              <p className="text-lg text-green-800">************</p>
-              <button
-                className="text-green-600 hover:underline"
-                onClick={() => setShowPasswordModal(true)}
-              >
-                Ändra
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <p className="text-center text-gray-700">{loginMessage}</p>
-      )}
+        ) : (
+          <p className="text-center text-gray-700">{loginMessage}</p>
+        )}
 
-      <div id="KontoButtons" className="mt-0 flex justify-between gap-4">
-        <button
-          onClick={handleLogout}
-          className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-300"
-        >
-          Logga ut
-        </button>
-        <button
-          className="bg-green-100 text-green-700 px-6 py-3 rounded-lg hover:bg-green-200 transition duration-300"
-          onClick={() => setShowDeleteAccountModal(true)}
-        >
-          Ta bort mitt konto
-        </button>
-        <button
-          className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition duration-300"
-          onClick={downloadUserData}
-        >
-          Ladda ned min data
-        </button>
-      </div>
-    </div>
-
-    {userData && userData.admin === 1 && (
-      <div id="adminPanel" className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6 border border-green-200">
-        <h2 className="text-2xl font-semibold text-green-700 mb-4">Adminpanel</h2>
-        <input
-          type="text"
-          placeholder="Skriv in användarnamn"
-          className="w-full border border-green-300 rounded p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"
-          value={banUsername}
-          onChange={(e) => setBanUsername(e.target.value)}
-        />
-        <div id="adminRulle" className="overflow-x-auto mb-4 h-">
-          <table className="min-w-full table-auto border-collapse">
-            <thead>
-              <tr>
-                <th className="border-b px-4 py-2 text-left text-green-600">ID</th>
-                <th className="border-b px-4 py-2 text-left text-green-600">Namn</th>
-                <th className="border-b px-4 py-2 text-left text-green-600">Skapad</th>
-                <th className="border-b px-4 py-2 text-left text-green-600">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users !== "unavailable" ? (
-                users
-                  .filter((user) =>
-                    (user.name + user.id)
-                      .toLowerCase()
-                      .includes(banUsername.toLowerCase())
-                  )
-                  .map((user, index) => (
-                    <tr
-                      key={index}
-                      className="hover:bg-green-50 cursor-pointer"
-                      onClick={() => setBanUsername(user.name)}
-                    >
-                      <td className="border-b px-4 py-2">{user.id}</td>
-                      <td className="border-b px-4 py-2">{user.name}</td>
-                      <td className="border-b px-4 py-2">{user.created_at.split("T")[0]}</td>
-                      <td className="border-b px-4 py-2">
-                        {user.spärrat ? <span className="text-red-600 font-bold">spärrad</span> : "Aktiv"}
-                      </td>
-                    </tr>
-                  ))
-              ) : (
-                <tr>
-                  <td colSpan="4" className="text-center py-4">
-                    Laddar...
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="mt-4 flex gap-4">
+        <div id="KontoButtons" className="mt-0 flex justify-between gap-4">
           <button
-            className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition duration-300"
-            onClick={() => handleUserAction("ban")}
+            onClick={handleLogout}
+            className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-300"
           >
-            Spärra användare
+            {engelska ? "Log Out" : "Logga ut"}
           </button>
           <button
-            className="bg-green-400 text-white px-6 py-3 rounded-lg hover:bg-green-500 transition duration-300"
-            onClick={() => handleUserAction("unban")}
+            className="bg-green-100 text-green-700 px-6 py-3 rounded-lg hover:bg-green-200 transition duration-300"
+            onClick={() => setShowDeleteAccountModal(true)}
           >
-            Avspärra användare
+            {engelska ? "Delete My Account" : "Ta bort mitt konto"}
+          </button>
+          <button
+            className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition duration-300"
+            onClick={downloadUserData}
+          >
+            {engelska ? "Download My Data" : "Ladda ned min data"}
           </button>
         </div>
       </div>
-    )}
-
       {showUsernameModal && (
         <div className={`modal ${showUsernameModal ? "show" : ""}`}>
           <div className="modal-content">
-            <h2>Redigera användarnamn</h2>
+            <h2>{engelska ? "Edit username" : "Redigera användarnamn"}</h2>
             <p id="description">
-              Ändra användarnamnet kopplat till ditt konto.
+              {engelska ? "Change the username connected to your account." : "Ändra användarnamnet kopplat till ditt konto."}
             </p>
             <input
               type="text"
               value={newUsername}
               onChange={(e) => setNewUsername(e.target.value)}
-              placeholder="Nytt användarnamn"
+              placeholder={engelska ? "New username" : "Nytt användarnamn"}
               id="modalTextInput"
             />
             <p id="status">{statusMessage}</p>
-            <button onClick={() => handleUpdateUser("username", newUsername)}>
-              Spara
+            <button className="mr-2" onClick={() => handleUpdateUser("username", newUsername)}>
+              {engelska ? "save" : "Spara"}
             </button>
-            <button onClick={closeModals}>Avbryt</button>
+            <button onClick={closeModals}>{engelska ? "Cancel" : "Avbryt"}</button>
           </div>
         </div>
       )}
@@ -445,9 +384,9 @@ const MittKonto = () => {
       {showEmailModal && (
         <div className={`modal ${showEmailModal ? "show" : ""}`}>
           <div className="modal-content">
-            <h2>Uppdatera e-postadress</h2>
+            <h2>{engelska ? "Update email" : "Uppdatera e-postadress"}</h2>
             <p id="description">
-              Ändra e-postadressen kopplad till ditt konto.
+              {engelska ? "Change the email connected to your account" : "Ändra e-postadressen kopplad till ditt konto."}
             </p>
             <form
               onSubmit={(e) => {
@@ -459,67 +398,43 @@ const MittKonto = () => {
                 type="email"
                 value={newEmail}
                 onChange={(e) => setNewEmail(e.target.value)}
-                placeholder="Ny e-postadress"
+                placeholder={engelska ? "New email" : "Ny e-postadress"}
                 id="modalTextInput"
                 required
               />
               <p id="status">{statusMessage}</p>
-              <button type="submit">Spara</button>
+              <button className="mr-2" type="submit">{engelska ? "Save" : "Spara"}</button>
               <button type="button" onClick={closeModals}>
-                Avbryt
+                {engelska ? "Cancel" : "Avbryt"}
               </button>
             </form>
           </div>
         </div>
       )}
-
-      {showPasswordModal && (
-        <div className={`modal ${showPasswordModal ? "show" : ""}`}>
-          <div className="modal-content">
-            <h2>Ändra lösenord</h2>
-            <p id="description">
-              Ändra lösenordet kopplat till ditt konto.{" "}
-              <u>Vi rekommenderar ett lösenord på minst 6 teckeln.</u>
-            </p>
-            <input
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              placeholder="Nytt lösenord"
-              id="modalTextInput"
-            />
-            <p id="status">{statusMessage}</p>
-            <button onClick={() => handleUpdateUser("password", newPassword)}>
-              Spara
-            </button>
-            <button onClick={closeModals}>Avbryt</button>
-          </div>
-        </div>
-      )}
-
       {showDeleteAccountModal && (
         <div className={`modal ${showDeleteAccountModal ? "show" : ""}`}>
           <div className="modal-content">
-            <h2>Bekräfta borttagning av konto</h2>
+            <h2>{engelska ? "Confirm account deleation" : "Bekräfta borttagning av konto"}</h2>
             <p>
-              För att bekräfta borttagning av ditt konto, skriv "
+              {engelska ? "To confirm the deletion of your account, print" : "För att bekräfta borttagning av ditt konto, skriv"} "
               <b>
                 <u>ja, jag vill ta bort mitt konto</u>
               </b>
               ".
             </p>
             <p>
-              All data kommer tas bort <u>omedelbart!</u>
+              {engelska ? "All data will be removed" : "All data kommer tas bort"} <u>{engelska ? "immediately!" : "omedelbart!"}</u>
             </p>
             <input
               type="text"
               value={confirmationText}
               onChange={(e) => setConfirmationText(e.target.value)}
-              placeholder="Skriv här"
+              placeholder={engelska ? "Write here" : "Skriv här"}
               id="modalTextInput"
             />
             <p id="status">{statusMessage}</p>
             <button
+            className="mr-2"
               id="removeAccountJa"
               onClick={() => {
                 deleteUserAccount();
@@ -527,11 +442,88 @@ const MittKonto = () => {
               }}
               disabled={confirmationText !== "ja, jag vill ta bort mitt konto"}
             >
-              Bekräfta
+              {engelska ? "Confirm" : "Bekräfta"}
             </button>
             <button onClick={closeModals} id="removeAccountNej">
-              Avbryt
+              {engelska ? "Cancel" : "Avbryt"}
             </button>
+          </div>
+        </div>
+      )}
+      {userData && userData.admin === 1 && (
+        <div
+          id="adminPanel"
+          className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6 border border-green-200"
+        >
+          <h2 className="text-2xl font-semibold text-green-700 mb-4">
+            {engelska ? "Admin Panel" : "Adminpanel"}
+          </h2>
+          <input
+            type="text"
+            placeholder={engelska ? "Enter username" : "Skriv in användarnamn"}
+            className="w-full border border-green-300 rounded p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"
+            value={banUsername}
+            onChange={(e) => setBanUsername(e.target.value)}
+          />
+          <div id="adminRulle" className="overflow-x-auto mb-4 h-">
+            <table className="min-w-full table-auto border-collapse">
+              <thead>
+                <tr>
+                  <th className="border-b px-4 py-2 text-left text-green-600">
+                    {engelska ? "ID" : "ID"}
+                  </th>
+                  <th className="border-b px-4 py-2 text-left text-green-600">
+                    {engelska ? "Name" : "Namn"}
+                  </th>
+                  <th className="border-b px-4 py-2 text-left text-green-600">
+                    {engelska ? "Created" : "Skapad"}
+                  </th>
+                  <th className="border-b px-4 py-2 text-left text-green-600">
+                    {engelska ? "Status" : "Status"}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {users !== "unavailable" ? (
+                  users
+                    .filter((user) =>
+                      (user.name + user.id)
+                        .toLowerCase()
+                        .includes(banUsername.toLowerCase())
+                    )
+                    .map((user, index) => (
+                      <tr
+                        key={index}
+                        className="hover:bg-green-50 cursor-pointer"
+                        onClick={() => setBanUsername(user.name)}
+                      >
+                        <td className="border-b px-4 py-2">{user.id}</td>
+                        <td className="border-b px-4 py-2">{user.name}</td>
+                        <td className="border-b px-4 py-2">
+                          {user.created_at.split("T")[0]}
+                        </td>
+                        <td className="border-b px-4 py-2">
+                          {user.spärrat ? (
+                            <span className="text-red-600 font-bold">
+                              {engelska ? "Banned" : "Spärrad"}
+                            </span>
+                          ) : engelska ? (
+                            "Active"
+                          ) : (
+                            "Aktiv"
+                          )}
+                        </td>
+                      </tr>
+                    ))
+                ) : (
+                  <tr>
+                    <td colSpan="4" className="text-center py-4">
+                      {engelska ? "Loading..." : "Laddar..."}
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       )}
