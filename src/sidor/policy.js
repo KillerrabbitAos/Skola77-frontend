@@ -1,84 +1,68 @@
-import React from 'react';
 import './policy.css';
 
+import React, { useEffect, useState } from "react";
+
 const Policy = () => {
-  return (
-    <div className='policy-container'>
-      <h1>Integritetspolicy för Skola77</h1>
-      <p><strong>Senast uppdaterad:</strong> [2024-09-30]</p>
+    const [engelska, setEngelska] = useState(true);
 
-      <p>
-        Vi på <strong>Skola77</strong> värnar om din integritet och strävar efter att skydda dina personuppgifter på ett ansvarsfullt sätt. Denna integritetspolicy beskriver hur vi samlar in, använder och skyddar dina uppgifter när du använder vår tjänst.
-      </p>
+    async function checkLoginStatus() {
+        try {
+            const response = await fetch("https://auth.skola77.com/home", {
+                credentials: "include",
+            });
+            const result = await response.json();
 
-      <h2>1. Vilka uppgifter vi samlar in</h2>
-      <p>
-        När du använder <strong>Skola77</strong> kan vi komma att samla in följande personuppgifter:
-      </p>
-      <ul>
-        <li><strong>E-postadress:</strong> Används för att skapa och underhålla ditt konto, samt för att skicka viktig information.</li>
-        <li><strong>Användarnamn:</strong> Används som identifierare i systemet.</li>
-        <li><strong>Krypterat lösenord:</strong> Ditt lösenord är änd-till-änd-krypterat för att skydda din säkerhet.</li>
-      </ul>
+            try {
+                setEngelska(JSON.parse(result.settings).engelska);
+            } catch (parseError) {
+                console.error("Could not parse data:", parseError);
+                window.location.href = "https://auth.skola77.com?skola77";
+            }
+        } catch (fetchError) {
+            console.error("Error fetching data:", fetchError);
+            window.location.href = "https://auth.skola77.com?skola77";
+        }
+    }
 
-      <h2>2. Hur vi använder dina uppgifter</h2>
-      <p>Vi använder de uppgifter vi samlar in för följande ändamål:</p>
-      <ul>
-        <li><strong>För att tillhandahålla tjänsten:</strong> Vi använder dina uppgifter för att skapa och underhålla ditt konto och möjliggöra användningen av tjänstens funktioner.</li>
-        <li><strong>För kommunikation:</strong> Vi kan komma att använda din e-postadress för att skicka dig uppdateringar, supportinformation eller andra viktiga meddelanden om tjänsten.</li>
-        <li><strong>För att förbättra tjänsten:</strong> Uppgifter kan också användas för att analysera hur vår tjänst används och för att utveckla nya funktioner.</li>
-      </ul>
+    useEffect(() => {
+        checkLoginStatus();
+    }, []);
 
-      <h2>3. Rättslig grund för behandling</h2>
-      <p>
-        Behandlingen av dina personuppgifter grundar sig på ditt <strong>samtycke</strong> när du skapar ett konto hos oss och använder vår tjänst. Du har rätt att när som helst återkalla ditt samtycke genom att kontakta oss eller radera ditt konto.
-      </p>
+    return (
+        <div className='policy-container'>
+            <h1>{engelska ? "Privacy Policy for Skola77" : "Integritetspolicy för Skola77"}</h1>
+            <p><strong>{engelska ? "Last updated:" : "Senast uppdaterad:"}</strong> [2024-09-30]</p>
 
-      <h2>4. Hur vi skyddar dina uppgifter</h2>
-      <p>
-        Vi tar säkerheten för dina personuppgifter på allvar och vidtar lämpliga tekniska och organisatoriska åtgärder för att skydda dem. Dina lösenord lagras i krypterad form och all kommunikation med tjänsten sker via <strong>SSL-kryptering</strong> (HTTPS). Vi begränsar också åtkomst till dina uppgifter till enbart de personer och system som behöver dem för att tillhandahålla tjänsten.
-      </p>
+            <p>
+                {engelska
+                    ? "We at Skola77 care about your privacy and strive to protect your personal data responsibly. This privacy policy describes how we collect, use, and protect your data when you use our service."
+                    : "Vi på Skola77 värnar om din integritet och strävar efter att skydda dina personuppgifter på ett ansvarsfullt sätt. Denna integritetspolicy beskriver hur vi samlar in, använder och skyddar dina uppgifter när du använder vår tjänst."}
+            </p>
 
-      <h2>5. Hur länge vi sparar dina uppgifter</h2>
-      <p>
-        Vi sparar dina personuppgifter så länge ditt konto är aktivt eller så länge det krävs för att kunna tillhandahålla tjänsten. Om du väljer att avsluta ditt konto raderar vi dina uppgifter, såvida vi inte är skyldiga enligt lag att behålla dem under en längre period.
-      </p>
+            <h2>{engelska ? "1. What Data We Collect" : "1. Vilka uppgifter vi samlar in"}</h2>
+            <p>{engelska ? "When using Skola77, we may collect the following personal data:" : "När du använder Skola77 kan vi komma att samla in följande personuppgifter:"}</p>
+            <ul>
+                <li><strong>{engelska ? "Email address:" : "E-postadress:"}</strong> {engelska ? "Used to create and maintain your account, and to send important information." : "Används för att skapa och underhålla ditt konto, samt för att skicka viktig information."}</li>
+                <li><strong>{engelska ? "Username:" : "Användarnamn:"}</strong> {engelska ? "Used as an identifier in the system." : "Används som identifierare i systemet."}</li>
+                <li><strong>{engelska ? "Encrypted password:" : "Krypterat lösenord:"}</strong> {engelska ? "Your password is end-to-end encrypted to ensure your security." : "Ditt lösenord är änd-till-änd-krypterat för att skydda din säkerhet."}</li>
+            </ul>
 
-      <h2>6. Dina rättigheter</h2>
-      <p>Som användare av <strong>Skola77</strong> har du följande rättigheter:</p>
-      <ul>
-        <li><strong>Rätt till tillgång:</strong> Du kan begära en kopia av de personuppgifter vi har om dig.</li>
-        <li><strong>Rätt till rättelse:</strong> Du kan begära att felaktiga eller ofullständiga uppgifter rättas.</li>
-        <li><strong>Rätt till radering:</strong> Du kan begära att vi raderar dina personuppgifter (rätten att bli glömd), såvida vi inte är skyldiga att behålla dem enligt lag.</li>
-        <li><strong>Rätt till dataportabilitet:</strong> Du kan begära att få dina uppgifter i ett strukturerat, allmänt använt och maskinläsbart format.</li>
-        <li><strong>Rätt att återkalla samtycke:</strong> Du kan när som helst återkalla ditt samtycke till behandlingen av dina personuppgifter.</li>
-      </ul>
+            <h2>{engelska ? "2. How We Use Your Data" : "2. Hur vi använder dina uppgifter"}</h2>
+            <p>{engelska ? "We use the data we collect for the following purposes:" : "Vi använder de uppgifter vi samlar in för följande ändamål:"}</p>
+            <ul>
+                <li><strong>{engelska ? "To provide the service:" : "För att tillhandahålla tjänsten:"}</strong> {engelska ? "We use your data to create and maintain your account and enable the use of the service's features." : "Vi använder dina uppgifter för att skapa och underhålla ditt konto och möjliggöra användningen av tjänstens funktioner."}</li>
+                <li><strong>{engelska ? "For communication:" : "För kommunikation:"}</strong> {engelska ? "We may use your email address to send you updates, support information, or other important messages about the service." : "Vi kan komma att använda din e-postadress för att skicka dig uppdateringar, supportinformation eller andra viktiga meddelanden om tjänsten."}</li>
+                <li><strong>{engelska ? "To improve the service:" : "För att förbättra tjänsten:"}</strong> {engelska ? "Data may also be used to analyze how our service is used and to develop new features." : "Uppgifter kan också användas för att analysera hur vår tjänst används och för att utveckla nya funktioner."}</li>
+            </ul>
 
-      <h2>7. Delning av personuppgifter</h2>
-      <p>
-        Vi delar inte dina personuppgifter med tredje part, förutom när det krävs enligt lag eller för att tillhandahålla tjänsten (t.ex. med hosting-leverantörer). I dessa fall säkerställer vi att sådana tredjepartsleverantörer följer GDPR och skyddar dina uppgifter på ett adekvat sätt.
-      </p>
+            <h2>{engelska ? "3. Legal Basis for Processing" : "3. Rättslig grund för behandling"}</h2>
+            <p>{engelska
+                ? "The processing of your personal data is based on your consent when you create an account with us and use our service. You have the right to withdraw your consent at any time by contacting us or deleting your account."
+                : "Behandlingen av dina personuppgifter grundar sig på ditt samtycke när du skapar ett konto hos oss och använder vår tjänst. Du har rätt att när som helst återkalla ditt samtycke genom att kontakta oss eller radera ditt konto."}
+            </p>
 
-      <h2>8. Cookies och spårning</h2>
-      <p>
-        Vi använder cookies för att hålla dig inloggad och för att förbättra din upplevelse. Du kan hantera och blockera cookies via din webbläsares inställningar.
-      </p>
-
-      <h2>9. Ändringar i integritetspolicyn</h2>
-      <p>
-        Vi kan uppdatera denna integritetspolicy från tid till annan. När vi gör betydande ändringar meddelar vi dig via e-post eller genom att publicera en uppdaterad version på vår webbplats. Den senaste versionen finns alltid tillgänglig på vår webbplats.
-      </p>
-
-      <h2>10. Kontaktinformation</h2>
-      <p>
-        Om du har frågor om denna integritetspolicy eller om hur vi behandlar dina personuppgifter, vänligen kontakta oss på:
-      </p>
-      <p>
-        E-post: [<a href='mailto:support@skola77.com'>support@skola77.com</a>] <br />
-
-      </p>
-    </div>
-  );
+        </div>
+    );
 };
 
 export default Policy;
