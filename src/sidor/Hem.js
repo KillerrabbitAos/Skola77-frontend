@@ -61,7 +61,7 @@ const Hem = () => {
 
         <div className="relative text-center p-6 rounded-lg bg-white shadow-xl transform transition-all duration-500 hover:scale-105 z-10 mx-4 sm:mx-6 md:mx-8">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-teal-400 animate-pulse">
-            {engelska ? "Welcome to the new Skola 77" : "Välkommen till nya Skola 77"}
+            {engelska ? "Welcome to Skola 77" : "Välkommen till Skola 77"}
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 mt-4 animate-fadeIn">
             {engelska
