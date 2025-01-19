@@ -16,11 +16,9 @@ const Support = () => {
 
         } catch (parseError) {
             console.error("Kunde inte parsa data:", parseError);
-            window.location.href = "https://auth.skola77.com?skola77";
         }
     } catch (fetchError) {
         console.error("Fel vid hämtning av data:", fetchError);
-        window.location.href = "https://auth.skola77.com?skola77";
     }
   }
 

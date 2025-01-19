@@ -16,11 +16,9 @@ const Policy = () => {
                 setEngelska(JSON.parse(result.settings).engelska);
             } catch (parseError) {
                 console.error("Could not parse data:", parseError);
-                window.location.href = "https://auth.skola77.com?skola77";
             }
         } catch (fetchError) {
             console.error("Error fetching data:", fetchError);
-            window.location.href = "https://auth.skola77.com?skola77";
         }
     }
 
