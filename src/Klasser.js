@@ -11,7 +11,6 @@ import { compress } from "lz-string";
 import { height } from "@fortawesome/free-solid-svg-icons/fa0";
 import stängKnapp from "./imgs/close-116.svg";
 
-const engelska = true;
 function generateUniqueId() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0;
@@ -45,14 +44,17 @@ const Klasser = ({}) => {
   const [kolumner, setKolumner] = useState(10);
   const [klassnamn, setKlassnamn] = useState(null);
   const [klassId, setKlassId] = useState(null);
-  const [klassnamntext, setKlassnamntext] = useState(
-    engelska ? "new class" : "ny klass"
-  );
+  const [engelska, setEngelska] = useState(true)
+ 
   const [data, setData] = useState(null);
   const [textareaValue, setTextareaValue] = useState("");
   const [sidebarWidth, setSidebarWidth] = useState(200);
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [klassnamntext, setKlassnamntext] = useState(
+    engelska ? "new class" : "ny klass"
+  );
+ 
 
   const sidebarRef = useRef(null);
   const handleMouseDown = (e) => {
@@ -109,10 +111,11 @@ const Klasser = ({}) => {
 
       try {
         const parsedData = JSON.parse(result.data);
+        setEngelska(JSON.parse(result.settings).engelska)
         setData(parsedData);
         const klassrum = parsedData.klassrum;
         const klasser = parsedData.klasser;
-
+        
         console.log("Klassrum:", klassrum);
         console.log("Klasser:", klasser);
       } catch (parseError) {
@@ -124,6 +127,11 @@ const Klasser = ({}) => {
       window.location.href = "https://auth.skola77.com?skola77";
     }
   }
+
+  useEffect(() => {
+    setKlassnamntext(engelska ? "new class" : "ny klass");
+  }, [engelska]);
+  
 
   const handleTextareaChange = (e) => {
     setTextareaValue(e.target.value);
