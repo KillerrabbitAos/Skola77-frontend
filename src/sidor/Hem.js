@@ -92,22 +92,24 @@ const Changelog = ({ engelska }) => {
         {engelska ? "Updates" : "Uppdateringar"}
       </h2>
       <ul className="space-y-4">
+        
         <li className="flex items-start">
-          <div className="flex-shrink-0 text-green-600">[2024-12-31]</div>
-          <div className="ml-3 text-gray-700">
-            <strong>{engelska ? "Design:" : "Design:"}</strong> {engelska ? "The class page has been updated." : "Klassidan är uppdaterad."}
-          </div>
-        </li>
-        <li className="flex items-start">
-          <div className="flex-shrink-0 text-green-600">[2024-01-05]</div>
+          <div className="flex-shrink-0 text-green-600">[2025-01-05]</div>
           <div className="ml-3 text-gray-700">
             <strong>{engelska ? "Language:" : "Språk:"}</strong> {engelska ? "Translation of Skola77." : "Överstättning av Skola77."}
           </div>
         </li>
         <li className="flex items-start">
-          <div className="flex-shrink-0 text-green-600">[2024-01-09]</div>
+          <div className="flex-shrink-0 text-green-600">[2025-01-09]</div>
           <div className="ml-3 text-gray-700">
             <strong>{engelska ? "Bug fixes:" : "Buggfixar:"}</strong> {engelska ? "General bug fixes." : "Generella buggfixar."}
+          </div>
+        </li>
+
+        <li className="flex items-start">
+          <div className="flex-shrink-0 text-green-600">[2025-01-20]</div>
+          <div className="ml-3 text-gray-700">
+            <strong>{engelska ? "Bug fixes:" : "Buggfixar:"}</strong> {engelska ? "Patched some general bugs" : "Generella buggar åtgärdade"}
           </div>
         </li>
       </ul>
