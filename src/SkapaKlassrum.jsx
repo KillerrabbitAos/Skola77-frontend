@@ -5,6 +5,9 @@ import Klassrum from "./Klassrum";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import "./Grid.css";
 import Overlay from "./Overlay.jsx";
+import { RiCheckLine, RiSaveLine } from "react-icons/ri";
+
+
 
 function generateUniqueId() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
@@ -39,6 +42,9 @@ const Grid3 = () => {
   );
   const [laddaKlassrum, setLaddaKlassrum] = useState(false);
   const [nyttNamn, setNyttNamn] = useState(null);
+
+  const [isSaved, setIsSaved] = useState(false);
+
 
   function sparaData(nyData) {
     console.log(nyData);
@@ -80,7 +86,7 @@ const Grid3 = () => {
   };
   const laddaMeny = laddaKlassrum && data && (
     <Overlay style={{ top: "97px" }}>
-      <ul className="overflow-y-scroll rounded-[8px] scrollbar overflow-x-hidden scrollbar-thin scrollbar-track-rounded-[8px] scrollbar-track-transparent scrollbar-thumb-black w-52 h-48 border bg-white border-black">
+      <ul className="overflow-y-scroll rounded-[8px] overflow-x-hidden scrollbar-thin scrollbar-track-rounded-[8px] scrollbar-track-transparent scrollbar-thumb-black w-52 h-48 border bg-white border-black">
         <li
           className="font-bold text-xl p-2 cursor-pointer"
           onClick={() => {
@@ -188,40 +194,52 @@ const Grid3 = () => {
         window.location.href = "https://auth.skola77.com?skola77";
     }
 }
-  const spara = () => {
-    let newData = data;
-    if (klassrumsId) {
-      newData.klassrum[
-        data.klassrum.findIndex((klassrum) => klassrum.id === klassrumsId)
-      ] = {
-        id: klassrumsId,
-        namn: nyttNamn || klassrumsnamn || (engelska ? "Untitled classroom" : "Namlöst klassrum"),
-        rows: rows,
-        cols: cols,
-        grid: grid,
-      };
+const spara = () => {
+  let newData = data;
+  if (klassrumsId) {
+    newData.klassrum[
+      data.klassrum.findIndex((klassrum) => klassrum.id === klassrumsId)
+    ] = {
+      id: klassrumsId,
+      namn: nyttNamn || klassrumsnamn || (engelska ? "Untitled classroom" : "Namlöst klassrum"),
+      rows: rows,
+      cols: cols,
+      grid: grid,
+    };
 
-      console.log(newData);
-      sparaData(newData);
-      setSparat(true);
-    } else {
-      let nyttNamn = prompt(engelska ? "What's the classroom called?" : "Vad heter klassrummet?");
-      setKlassrumsnamn(nyttNamn);
-      setLaddarKlassrum(true);
-      const nyttId = generateUniqueId();
-      setKlassrumsId(nyttId);
-      newData.klassrum.push({
-        id: nyttId,
-        namn: nyttNamn,
-        rows: rows,
-        cols: cols,
-        grid: grid,
-      });
-      console.log(newData + " 1");
-      sparaData(newData);
-      setSparat(true);
-    }
-  };
+    console.log(newData);
+    sparaData(newData);
+    setSparat(true);
+    setIsSaved(true);
+
+    setTimeout(() => {
+      setIsSaved(false); 
+    }, 2000);
+  } else {
+    let nyttNamn = prompt(engelska ? "What's the classroom called?" : "Vad heter klassrummet?");
+    setKlassrumsnamn(nyttNamn);
+    setLaddarKlassrum(true);
+    const nyttId = generateUniqueId();
+    setKlassrumsId(nyttId);
+    newData.klassrum.push({
+      id: nyttId,
+      namn: nyttNamn,
+      rows: rows,
+      cols: cols,
+      grid: grid,
+    });
+    console.log(newData + " 1");
+    sparaData(newData);
+    setSparat(true);
+    setIsSaved(true);
+
+    setTimeout(() => {
+      setIsSaved(false);
+    }, 2000);
+  }
+};
+
+
 
   useEffect(() => {
     checkLoginStatus();
@@ -322,21 +340,30 @@ const Grid3 = () => {
               )}
             </div>
           </div>
-          <div className="h-full flex items-center justify-center">
-            <button
-              onClick={spara}
-              className="bg-green-500 h-10 rounded-lg text-white w-32 mr-5"
-            >
-              {engelska ? "Save": "Spara"}
-            </button>
-          </div>
+          <div className="relative h-full flex items-center mr-5 justify-center">
+  <div className="h-full flex items-center justify-center">
+    <button
+      onClick={spara}
+      className={`bg-green-500 h-10 rounded-lg text-white w-32 mr-5 flex items-center justify-center ${isSaved ? "bg-green-700" : ""}`}
+    >
+      {isSaved ? (
+        <RiCheckLine size={20} className="mr-2" />
+      ) : (
+        (engelska ? "Save" : "Spara")
+      )}
+    </button>
+  </div>
+</div>
+
+
+
         </div>
       </div>
 
       <input
         onChange={(e) => setNyttNamn(e.target.value)}
         onBlur={() => setKlassrumsnamn(nyttNamn || "Namnlöst klassrum")}
-        className="text-center margin-auto w-[100vw] bg-inherit mx-0 text-center outline-none text-3xl"
+        className="text-center margin-auto w-[100vw] bg-inherit mx-0 outline-none text-3xl"
         value={
           nyttNamn
             ? nyttNamn
@@ -349,7 +376,7 @@ const Grid3 = () => {
       <div
         className={
           vägg &&
-          "m-auto p-5 px-12 w-fit fit-content rounded-lg border-black border-4 mt-4 m-3"
+          "m-auto p-5 px-12 w-fit fit-content rounded-lg border-black border-4 mt-4"
         }
       >
         <Klassrum
