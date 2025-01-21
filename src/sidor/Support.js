@@ -1,152 +1,182 @@
 import { useState, useEffect } from "react";
 
 const Support = () => {
-
   const [engelska, setEngelska] = useState(true);
 
   async function checkLoginStatus() {
     try {
-        const response = await fetch("https://auth.skola77.com/home", {
-            credentials: "include",
-        });
-        const result = await response.json();
+      const response = await fetch("https://auth.skola77.com/home", {
+        credentials: "include",
+      });
+      const result = await response.json();
 
-        try {
-            setEngelska(JSON.parse(result.settings).engelska)
-
-        } catch (parseError) {
-            console.error("Kunde inte parsa data:", parseError);
-        }
+      try {
+        setEngelska(JSON.parse(result.settings).engelska);
+      } catch (parseError) {
+        console.error("Kunde inte parsa data:", parseError);
+      }
     } catch (fetchError) {
-        console.error("Fel vid hämtning av data:", fetchError);
+      console.error("Fel vid hämtning av data:", fetchError);
     }
   }
 
-    useEffect(() => {
-      checkLoginStatus()
-    }, []);
-  
+  useEffect(() => {
+    checkLoginStatus();
+  }, []);
 
   return (
-    <body>
-      <div className="supportHead">
-        <h1>{engelska ? "Welcome to Support!" : "Välkommen till Support!"}</h1>
-        <p>
-          {engelska
-            ? "Here you will find materials, guides, and information for using Skola77."
-            : "Här finner du material, guider och information för användning av Skola77"}
-        </p>
-      </div>
-
-      <div className="pdfs">
-        <div className="material">
-          <p>{engelska ? "Quick Guide:" : "Snabbguide:"}</p>
-          <a
-            className="pdfLänk"
-            href="/PDFs/Skola77 Snabbguide.pdf"
-            target="_blank"
-          >
-            {engelska ? "Skola77's Quick Guide" : "Skola77:s snabbguide"}
-          </a>
+    <div className="bg-green-200 min-h-screen">
+      <header className="bg-green-600 text-white py-8 shadow-md">
+        <div className="container mx-auto text-center">
+          <h1 className="text-3xl sm:text-4xl font-bold">
+            {engelska ? "Welcome to Support!" : "Välkommen till Support!"}
+          </h1>
+          <p className="mt-2 text-sm sm:text-lg">
+            {engelska
+              ? "Find materials, guides, and info for using Skola77."
+              : "Hitta material, guider och information för användning av Skola77."}
+          </p>
         </div>
+      </header>
 
-        <div className="material">
-          <p>{engelska ? "Terms:" : "Villkor:"}</p>
-          <a className="pdfLänk" href="/terms-of-service" target="_blank">
-            {engelska ? "Skola77's Terms" : "Skola77:s villkor"}
-          </a>
-        </div>
+      <main className="container mx-auto py-10 px-4 space-y-10">
+        <section>
+          <h2 className="text-xl sm:text-2xl font-semibold text-green-700 mb-6">
+            {engelska ? "Resources" : "Resurser"}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-white p-6 shadow-md rounded-lg hover:shadow-lg">
+              <p className="font-medium mb-2">{engelska ? "Quick Guide:" : "Snabbguide:"}</p>
+              <a
+                href="/PDFs/Skola77 Snabbguide.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-green-600 hover:underline"
+              >
+                {engelska ? "Skola77's Quick Guide" : "Skola77:s snabbguide"}
+              </a>
+            </div>
+            <div className="bg-white p-6 shadow-md rounded-lg hover:shadow-lg">
+              <p className="font-medium mb-2">{engelska ? "Terms:" : "Villkor:"}</p>
+              <a
+                href="/terms-of-service"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-green-600 hover:underline"
+              >
+                {engelska ? "Skola77's Terms" : "Skola77:s villkor"}
+              </a>
+            </div>
+            <div className="bg-white p-6 shadow-md rounded-lg hover:shadow-lg">
+              <p className="font-medium mb-2">{engelska ? "Privacy Policy:" : "Integritetspolicy:"}</p>
+              <a
+                href="/policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-green-600 hover:underline"
+              >
+                {engelska ? "Skola77's Privacy Policy" : "Skola77:s policy"}
+              </a>
+            </div>
+            <div className="bg-white p-6 shadow-md rounded-lg hover:shadow-lg">
+              <p className="font-medium mb-2">{engelska ? "Our Forum:" : "Vårat forum:"}</p>
+              <a
+                href="https://forum.skola77.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-green-600 hover:underline"
+              >
+                {engelska ? "Skola77's Forum" : "Skola77:s forum"}
+              </a>
+            </div>
+          </div>
+        </section>
 
-        <div className="material">
-          <p>{engelska ? "Privacy Policy:" : "Integritetspolicy:"}</p>
-          <a className="pdfLänk" href="/policy" target="_blank">
-            {engelska ? "Skola77's Privacy Policy" : "Skola77:s policy"}
-          </a>
-        </div>
+        <section>
+          <h2 className="text-xl sm:text-2xl font-semibold text-green-700 mb-6">
+            {engelska ? "FAQs" : "Vanliga Frågor"}
+          </h2>
+          <div className="space-y-4">
+            <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg">
+              <p className="font-medium">
+                {engelska
+                  ? "Can I save placements without downloading them?"
+                  : "Kan jag spara placeringar utan att ladda ner dem?"}
+              </p>
+              <p className="text-gray-700 text-sm">
+                {engelska
+                  ? "Yes, click the save icon and name your placement."
+                  : "Ja, klicka på sparaikonen och ge placeringen ett namn."}
+              </p>
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg">
+              <p className="font-medium">
+                {engelska
+                  ? "Can I save classrooms and lists separately?"
+                  : "Kan jag spara klassrum och listor separat?"}
+              </p>
+              <p className="text-gray-700 text-sm">
+                {engelska
+                  ? "Yes, use the save boxes at the creator and name list."
+                  : "Ja, använd sparrutorna vid skaparen och namnlistan."}
+              </p>
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg">
+              <p className="font-medium">
+                {engelska
+                  ? "I found an error, what should I do?"
+                  : "Jag hittade ett fel, vad gör jag?"}
+              </p>
+              <p className="text-gray-700 text-sm">
+                {engelska
+                  ? "Contact us at "
+                  : "Kontakta oss på "}
+                <a
+                  href="mailto:feedback@skola77.com"
+                  className="text-green-600 hover:underline"
+                >
+                  feedback@skola77.com
+                </a>
+                {engelska ? "." : "."}
+              </p>
+            </div>
+          </div>
+        </section>
 
-        <div className="material">
-          <p>{engelska ? "Our Forum:" : "Vårat forum:"}</p>
-          <a
-            className="pdfLänk"
-            href="https://forum.skola77.com/"
-            target="_blank"
-          >
-            {engelska ? "Skola77's Forum" : "Skola77:s forum"}
-          </a>
-        </div>
-      </div>
-
-      <hr />
-
-      <div>
-        <h1 id="frågorOchSvarHead">
-          {engelska ? "Frequently Asked Questions:" : "Vanliga frågor och svar:"}
-        </h1>
-
-        <div className="frågorOchSvar">
-          <p id="fråga">
+        <section>
+          <h2 className="text-xl sm:text-2xl font-semibold text-green-700 mb-6">
+            {engelska ? "About Us" : "Om Oss"}
+          </h2>
+          <p className="text-gray-700 text-sm">
             {engelska
-              ? "Can I save my placements without downloading them?"
-              : "Kan jag spara mina placeringar utan att behöva ladda ner dem?"}
+              ? "Skola77 provides tools to create productive classrooms. It’s free to use and ad-free."
+              : "Skola77 erbjuder verktyg för att skapa produktiva klassrum. Det är gratis och utan reklam."}
           </p>
-          <p id="svar">
-            {engelska
-              ? "Yes, you can. Click the save icon at the top of the page and enter a name for the placement."
-              : "Ja, det kan du. Klicka på sparaikonen högt upp på sidan och skriv in ett namn på placeringen."}
-          </p>
+        </section>
 
-          <p id="fråga">
-            {engelska
-              ? "Can I save classrooms and class lists separately?"
-              : "Kan jag spara klassrum och klasslistor separat?"}
-          </p>
-          <p id="svar">
-            {engelska
-              ? "Yes, there are two 'save boxes' placed at the classroom creator and at the name list at the bottom. More info is in the quick guide at points 1 and 2."
-              : "Ja, det finns två \"spararutor\" utplacerade vid klassrumsskaparen och vid namnlistan längst ned. Mer info finns i snabbguiden vid punkt 1 och 2."}
-          </p>
-
-          <p id="fråga">
-            {engelska
-              ? "I found an error in the program, what should I do?"
-              : "Jag har hittat ett fel i programmet, vad ska jag göra?"}
-          </p>
-          <p id="svar">
-            {engelska
-              ? "If you have found an error or issue, do not hesitate to contact us at "
-              : "Om du har hittat ett fel eller problem, tveka inte att kontakta oss på "}
-            <a id="mail" href="mailto:feedback@skola77.com">
+        <section>
+          <h2 className="text-xl sm:text-2xl font-semibold text-green-700 mb-6">
+            {engelska ? "Contact Us" : "Kontakta Oss"}
+          </h2>
+          <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg">
+            <p className="font-medium">{engelska ? "Feedback:" : "Feedback:"}</p>
+            <a
+              href="mailto:feedback@skola77.com"
+              className="text-green-600 hover:underline"
+            >
               feedback@skola77.com
-            </a>{" "}
-            {engelska ? "and we will assist you further." : "så hjälper vi dig vidare därifrån."}
-          </p>
-        </div>
-      </div>
-
-      <div id="omTitle">
-        <h1 id="omOssHead">{engelska ? "About Us" : "Om oss"}</h1>
-      </div>
-
-      <div id="bodyOmOss">
-        <h2>
-          <u>
-            {engelska
-              ? "Skola77 is a seating arrangement program developed by a group of young people. We believe that teachers should have access to well-made and effective tools to create a safe and productive classroom environment. That is why our seating arrangement program is designed with teachers in mind. Moreover, our website is completely free and ad-free."
-              : "Skola77 är ett bordsplaceringsprogram utvecklat av en grupp ungdomar. Vi tycker det är självklart att lärare ska ha tillgång till välgjorda och effektiva verktyg för att kunna skapa trygghet och arbetsro i klassrummen. Det är därför vårt bordsplaceringsprogram är utvecklat med lärare i åtanke. Dessutom är vår hemsida helt gratis och utan reklam."}
-          </u>
-        </h2>
-      </div>
-
-      <div className="mail">
-        <h1 id="mailHead">{engelska ? "Contact via Email:" : "Kontakt via E-post:"}</h1>
-        <p id="mailorm">{engelska ? "For feedback:" : "För feedback:"}</p>
-        <a href="mailto:feedback@skola77.com" id="feedbackMail">
-          feedback@skola77.com
-        </a>
-        <p>{engelska ? "Other:" : "Övrigt:"}</p>
-        <a href="mailto:support@skola77.com">support@skola77.com</a>
-      </div>
-    </body>
+            </a>
+            <p className="font-medium mt-2">{engelska ? "Other Inquiries:" : "Övriga frågor:"}</p>
+            <a
+              href="mailto:support@skola77.com"
+              className="text-green-600 hover:underline"
+            >
+              support@skola77.com
+            </a>
+          </div>
+        </section>
+      </main>
+    </div>
   );
 };
 
