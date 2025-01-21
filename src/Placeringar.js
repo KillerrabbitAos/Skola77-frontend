@@ -637,7 +637,7 @@ const SkapaPlaceringar = () => {
             {klassrumsnamn && (<div className="" ref={content} style={{zIndex: "100"}}>
                 <div className="my-3">
                     <div
-                        className={vägg && "m-auto p-5 w-fit fit-content rounded-lg border-black border-8 m-3"}
+                        className={vägg && "m-auto p-5 w-fit fit-content rounded-lg border-black border-8"}
                     >
                         <Klassrum
                             extra={!klar && rows > 10 && !placeringsId && !data.placeringar.some((placering) => placering.klassrum.rows > 10) && (
@@ -742,7 +742,7 @@ const SkapaPlaceringar = () => {
             </div>)}
         </>
 
-        <p className="text-center">Skola 77 2 Flamingo</p>
+        <p className="text-center mt-5">Skola 77 2 Flamingo</p>
     </div>);
 };
 
