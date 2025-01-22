@@ -370,6 +370,78 @@ const MittKonto = () => {
           </button>
         </div>
       </div>
+
+
+      {userData && userData.admin === 1 && (
+      <div id="adminPanel" className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6 border border-green-200">
+        <h2 className="text-2xl font-semibold text-green-700 mb-4">Adminpanel</h2>
+        <input
+          type="text"
+          placeholder="Skriv in användarnamn"
+          className="w-full border border-green-300 rounded p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"
+          value={banUsername}
+          onChange={(e) => setBanUsername(e.target.value)}
+        />
+        <div id="adminRulle" className="overflow-x-auto mb-4 h-">
+          <table className="min-w-full table-auto border-collapse">
+            <thead>
+              <tr>
+                <th className="border-b px-4 py-2 text-left text-green-600">ID</th>
+                <th className="border-b px-4 py-2 text-left text-green-600">Namn</th>
+                <th className="border-b px-4 py-2 text-left text-green-600">Skapad</th>
+                <th className="border-b px-4 py-2 text-left text-green-600">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users !== "unavailable" ? (
+                users
+                  .filter((user) =>
+                    (user.name + user.id)
+                      .toLowerCase()
+                      .includes(banUsername.toLowerCase())
+                  )
+                  .map((user, index) => (
+                    <tr
+                      key={index}
+                      className="hover:bg-green-50 cursor-pointer"
+                      onClick={() => setBanUsername(user.name)}
+                    >
+                      <td className="border-b px-4 py-2">{user.id}</td>
+                      <td className="border-b px-4 py-2">{user.name}</td>
+                      <td className="border-b px-4 py-2">{user.created_at.split("T")[0]}</td>
+                      <td className="border-b px-4 py-2">
+                        {user.spärrat ? <span className="text-red-600 font-bold">spärrad</span> : "Aktiv"}
+                      </td>
+                    </tr>
+                  ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className="text-center py-4">
+                    Laddar...
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="mt-4 flex gap-4">
+          <button
+            className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition duration-300"
+            onClick={() => handleUserAction("ban")}
+          >
+            Spärra användare
+          </button>
+          <button
+            className="bg-green-400 text-white px-6 py-3 rounded-lg hover:bg-green-500 transition duration-300"
+            onClick={() => handleUserAction("unban")}
+          >
+            Avspärra användare
+          </button>
+        </div>
+      </div>
+    )}
+
       {showUsernameModal && (
         <div className={`modal ${showUsernameModal ? "show" : ""}`}>
           <div className="modal-content">
@@ -516,83 +588,7 @@ const MittKonto = () => {
           </div>
         </div>
       )}
-      {userData && userData.admin === 1 && (
-        <div
-          id="adminPanel"
-          className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6 border border-green-200"
-        >
-          <h2 className="text-2xl font-semibold text-green-700 mb-4">
-            {engelska ? "Admin Panel" : "Adminpanel"}
-          </h2>
-          <input
-            type="text"
-            placeholder={engelska ? "Enter username" : "Skriv in användarnamn"}
-            className="w-full border border-green-300 rounded p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"
-            value={banUsername}
-            onChange={(e) => setBanUsername(e.target.value)}
-          />
-          <div id="adminRulle" className="overflow-x-auto mb-4 h-">
-            <table className="min-w-full table-auto border-collapse">
-              <thead>
-                <tr>
-                  <th className="border-b px-4 py-2 text-left text-green-600">
-                    {engelska ? "ID" : "ID"}
-                  </th>
-                  <th className="border-b px-4 py-2 text-left text-green-600">
-                    {engelska ? "Name" : "Namn"}
-                  </th>
-                  <th className="border-b px-4 py-2 text-left text-green-600">
-                    {engelska ? "Created" : "Skapad"}
-                  </th>
-                  <th className="border-b px-4 py-2 text-left text-green-600">
-                    {engelska ? "Status" : "Status"}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {users !== "unavailable" ? (
-                  users
-                    .filter((user) =>
-                      (user.name + user.id)
-                        .toLowerCase()
-                        .includes(banUsername.toLowerCase())
-                    )
-                    .map((user, index) => (
-                      <tr
-                        key={index}
-                        className="hover:bg-green-50 cursor-pointer"
-                        onClick={() => setBanUsername(user.name)}
-                      >
-                        <td className="border-b px-4 py-2">{user.id}</td>
-                        <td className="border-b px-4 py-2">{user.name}</td>
-                        <td className="border-b px-4 py-2">
-                          {user.created_at.split("T")[0]}
-                        </td>
-                        <td className="border-b px-4 py-2">
-                          {user.spärrat ? (
-                            <span className="text-red-600 font-bold">
-                              {engelska ? "Banned" : "Spärrad"}
-                            </span>
-                          ) : engelska ? (
-                            "Active"
-                          ) : (
-                            "Aktiv"
-                          )}
-                        </td>
-                      </tr>
-                    ))
-                ) : (
-                  <tr>
-                    <td colSpan="4" className="text-center py-4">
-                      {engelska ? "Loading..." : "Laddar..."}
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
+     
     </div>
   );
 };
