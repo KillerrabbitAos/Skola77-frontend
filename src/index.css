@@ -354,7 +354,7 @@ html {
 }
 
 #mittKonto:hover::after {
-  content: "Mitt konto"; /* Texten som visas vid hover */
+  content: "My Account"; /* Texten som visas vid hover */
   position: absolute;
   top: 80px; /* Justerar var tooltipen visas */
   left: 50%;
