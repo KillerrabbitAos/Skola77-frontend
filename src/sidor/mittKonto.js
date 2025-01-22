@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Layout.css";
-import Kugghjul from "../imgs/kugghjul-removebg-preview.png"
-import "../test.css"
+import Kugghjul from "../imgs/kugghjul-removebg-preview.png";
+import "../test.css";
 const MittKonto = () => {
   const [userData, setUserData] = useState(null);
   const [loginMessage, setLoginMessage] = useState("");
@@ -288,7 +288,19 @@ const MittKonto = () => {
                   {engelska ? "My Account" : "Mitt Konto"}
                 </h1>
               </div>
-              <div id="snigel" className="" onClick={() => {window.location.replace("/settings")}}><img id="" className="w-[100px] cursor-pointer kugghjul" src={Kugghjul}></img></div>
+              <div
+                id="snigel"
+                className=""
+                onClick={() => {
+                  window.location.replace("/settings");
+                }}
+              >
+                <img
+                  id=""
+                  className="w-[100px] cursor-pointer kugghjul"
+                  src={Kugghjul}
+                ></img>
+              </div>
             </div>
             <div id="username" className="mb-4">
               <p className="text-sm text-gray-600">
@@ -363,7 +375,9 @@ const MittKonto = () => {
           <div className="modal-content">
             <h2>{engelska ? "Edit username" : "Redigera användarnamn"}</h2>
             <p id="description">
-              {engelska ? "Change the username connected to your account." : "Ändra användarnamnet kopplat till ditt konto."}
+              {engelska
+                ? "Change the username connected to your account."
+                : "Ändra användarnamnet kopplat till ditt konto."}
             </p>
             <input
               type="text"
@@ -373,20 +387,60 @@ const MittKonto = () => {
               id="modalTextInput"
             />
             <p id="status">{statusMessage}</p>
-            <button className="mr-2" onClick={() => handleUpdateUser("username", newUsername)}>
+            <button
+              className="mr-2"
+              onClick={() => handleUpdateUser("username", newUsername)}
+            >
               {engelska ? "save" : "Spara"}
             </button>
-            <button onClick={closeModals}>{engelska ? "Cancel" : "Avbryt"}</button>
+            <button onClick={closeModals}>
+              {engelska ? "Cancel" : "Avbryt"}
+            </button>
           </div>
         </div>
       )}
+
+{showPasswordModal && (
+  <div className={`modal ${showPasswordModal ? "show" : ""}`}>
+    <div className="modal-content">
+      <h2>{engelska ? "Change password" : "Ändra lösenord"}</h2>
+      <p id="description">
+        {engelska
+          ? "Change the password connected to your account. "
+          : "Ändra lösenordet kopplat till ditt konto. "}
+        <u>
+          {engelska
+            ? "We recommend a password with at least 6 characters."
+            : "Vi rekommenderar ett lösenord på minst 6 tecken."}
+        </u>
+      </p>
+      <input
+        type="password"
+        value={newPassword}
+        onChange={(e) => setNewPassword(e.target.value)}
+        placeholder={engelska ? "New password" : "Nytt lösenord"}
+        id="modalTextInput"
+      />
+      <p id="status">{statusMessage}</p>
+      <button className="mr-2" onClick={() => handleUpdateUser("password", newPassword)}>
+        {engelska ? "Save" : "Spara"}
+      </button>
+      <button onClick={closeModals}>
+        {engelska ? "Cancel" : "Avbryt"}
+      </button>
+    </div>
+  </div>
+)}
+
 
       {showEmailModal && (
         <div className={`modal ${showEmailModal ? "show" : ""}`}>
           <div className="modal-content">
             <h2>{engelska ? "Update email" : "Uppdatera e-postadress"}</h2>
             <p id="description">
-              {engelska ? "Change the email connected to your account" : "Ändra e-postadressen kopplad till ditt konto."}
+              {engelska
+                ? "Change the email connected to your account"
+                : "Ändra e-postadressen kopplad till ditt konto."}
             </p>
             <form
               onSubmit={(e) => {
@@ -403,7 +457,9 @@ const MittKonto = () => {
                 required
               />
               <p id="status">{statusMessage}</p>
-              <button className="mr-2" type="submit">{engelska ? "Save" : "Spara"}</button>
+              <button className="mr-2" type="submit">
+                {engelska ? "Save" : "Spara"}
+              </button>
               <button type="button" onClick={closeModals}>
                 {engelska ? "Cancel" : "Avbryt"}
               </button>
@@ -414,16 +470,26 @@ const MittKonto = () => {
       {showDeleteAccountModal && (
         <div className={`modal ${showDeleteAccountModal ? "show" : ""}`}>
           <div className="modal-content">
-            <h2>{engelska ? "Confirm account deleation" : "Bekräfta borttagning av konto"}</h2>
+            <h2>
+              {engelska
+                ? "Confirm account deleation"
+                : "Bekräfta borttagning av konto"}
+            </h2>
             <p>
-              {engelska ? "To confirm the deletion of your account, print" : "För att bekräfta borttagning av ditt konto, skriv"} "
+              {engelska
+                ? "To confirm the deletion of your account, print"
+                : "För att bekräfta borttagning av ditt konto, skriv"}{" "}
+              "
               <b>
                 <u>ja, jag vill ta bort mitt konto</u>
               </b>
               ".
             </p>
             <p>
-              {engelska ? "All data will be removed" : "All data kommer tas bort"} <u>{engelska ? "immediately!" : "omedelbart!"}</u>
+              {engelska
+                ? "All data will be removed"
+                : "All data kommer tas bort"}{" "}
+              <u>{engelska ? "immediately!" : "omedelbart!"}</u>
             </p>
             <input
               type="text"
@@ -434,7 +500,7 @@ const MittKonto = () => {
             />
             <p id="status">{statusMessage}</p>
             <button
-            className="mr-2"
+              className="mr-2"
               id="removeAccountJa"
               onClick={() => {
                 deleteUserAccount();
