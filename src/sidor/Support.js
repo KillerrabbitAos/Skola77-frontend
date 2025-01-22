@@ -143,7 +143,7 @@ const Support = () => {
           </div>
         </section>
 
-        <section>
+        <section className="bg-white p-5 rounded-lg hadow-md hover:shadow-lg">
           <h2 className="text-xl sm:text-2xl font-semibold text-green-700 mb-6">
             {engelska ? "About Us" : "Om Oss"}
           </h2>
