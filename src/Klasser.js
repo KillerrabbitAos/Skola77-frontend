@@ -507,7 +507,7 @@ const Klasser = ({}) => {
           ))}
         </div>
       </div>
-      <Footer />
+      <Footer isFixed={true} />
     </div>
   );
   

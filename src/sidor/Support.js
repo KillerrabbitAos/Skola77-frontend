@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Footer from '../sidor/footer'
 
 const Support = () => {
   const [engelska, setEngelska] = useState(true);
@@ -176,6 +177,7 @@ const Support = () => {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 };

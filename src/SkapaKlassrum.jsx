@@ -6,6 +6,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import "./Grid.css";
 import Overlay from "./Overlay.jsx";
 import { RiCheckLine, RiSaveLine } from "react-icons/ri";
+import Footer from './sidor/footer.jsx';
 
 
 
@@ -414,6 +415,8 @@ const spara = () => {
           engelska={engelska}
         />
       </div>
+      <Footer />
+
     </div>
   );
 };
