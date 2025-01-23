@@ -85,37 +85,59 @@ const Grid3 = () => {
     setRows(newRows);
   };
   const laddaMeny = laddaKlassrum && data && (
-    <Overlay style={{ top: "97px" }}>
-      <ul className="overflow-y-scroll rounded-[8px] overflow-x-hidden scrollbar-thin scrollbar-track-rounded-[8px] scrollbar-track-transparent scrollbar-thumb-black w-52 h-48 border bg-white border-black">
-        <li
-          className="font-bold text-xl p-2 cursor-pointer"
-          onClick={() => {
-            setKlassrumsnamn(null);
-            setLaddaKlassrum(false);
-            setKlassrumsId(null);
-            setNyttNamn(null);
-            setGrid(
-              Array.from({ length: rows }, () =>
-                Array.from({ length: cols }, () => ({
-                  id: null,
-                  person: 0,
-                }))
-              )
-            );
-          }}
-        >
-          {engelska ? "new classroom" : "nytt klassrum"}
-        </li>
-        {data.klassrum.map((klassrum) => {
-          return (
+    <div
+      className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50"
+      onClick={() => setLaddaKlassrum(false)} // Stäng popup när man klickar utanför menyn
+    >
+      <div
+        className="bg-white rounded-lg shadow-lg w-[90%] max-w-md p-4 relative"
+        onClick={(e) => e.stopPropagation()} // Hindra stängning om man klickar på menyn
+      >
+        {/* Grön topp med hel bakgrund */}
+        <div className="bg-green-500 h-16 rounded-t-lg flex justify-between items-center px-4">
+          <h2 className="text-white font-bold text-lg">
+            {engelska ? "Select Classroom" : "Välj Klassrum"}
+          </h2>
+          <button
+            className="text-white text-3xl font-bold"
+            onClick={() => setLaddaKlassrum(false)}
+          >
+            ×
+          </button>
+        </div>
+        
+        {/* Meny-lista */}
+        <ul className="overflow-y-scroll rounded-[8px] scrollbar-thin scrollbar-track-rounded-[8px] scrollbar-track-transparent scrollbar-thumb-black max-h-[70vh] mt-4">
+          <li
+            className="font-bold text-xl p-4 cursor-pointer hover:bg-gray-100"
+            onClick={() => {
+              setKlassrumsnamn(null);
+              setLaddaKlassrum(false);
+              setKlassrumsId(null);
+              setNyttNamn(null);
+              setGrid(
+                Array.from({ length: rows }, () =>
+                  Array.from({ length: cols }, () => ({
+                    id: null,
+                    person: 0,
+                  }))
+                )
+              );
+            }}
+          >
+            {engelska ? "new classroom" : "nytt klassrum"}
+          </li>
+          {data.klassrum.map((klassrum) => (
             <li
               key={klassrum.id}
-              className="font-bold hover:bg-slate-100 text-xl p-2 cursor-pointer"
+              className="font-bold hover:bg-gray-100 text-xl p-4 cursor-pointer"
               onClick={() => {
                 if (
                   sparat ||
                   window.confirm(
-                    engelska ? "You have unsaved changes. Are you sure you want to continue? If not, press cancel and save first." : "Du har osparade ändringar. Vill du fortsätta ändå? Om inte, tryck på avbryt och spara först."
+                    engelska
+                      ? "You have unsaved changes. Are you sure you want to continue? If not, press cancel and save first."
+                      : "Du har osparade ändringar. Vill du fortsätta ändå? Om inte, tryck på avbryt och spara först."
                   )
                 ) {
                   setGrid(klassrum.grid);
@@ -131,11 +153,13 @@ const Grid3 = () => {
             >
               {klassrum.namn}
             </li>
-          );
-        })}
-      </ul>
-    </Overlay>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
+  
+  
   const ändraKolumner = (ändring) => {
     let newCols = Math.max(1, cols + ändring);
     const newGrid = grid.map((row) =>
