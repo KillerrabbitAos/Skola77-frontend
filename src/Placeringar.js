@@ -6,7 +6,7 @@ import {RiDeleteBin6Line} from "react-icons/ri";
 import "./Animationer.css";
 import "./print.css";
 import Overlay from "./Overlay";
-
+import { FaCheck } from 'react-icons/fa';
 
 function generateUniqueId() {
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
@@ -155,6 +155,8 @@ const SkapaPlaceringar = () => {
     const [klassmenykord, setKlassmenykord] = useState([1]);
     const [klassrumsmenykord, setKlassrumsmenykord] = useState([1]);
     const [nyttPlaceringsnamn, setNyttPlaceringsnamn] = useState(null);
+    const [bockVisas, setBockVisas] = useState(false);
+
 
     const nameDiv = useRef(null);
     const content = useRef(null);
@@ -376,6 +378,19 @@ const SkapaPlaceringar = () => {
         setSparat(true)
         sparaData(nyData);
     };
+
+    const hanteraSparaClick = () => {
+        sparaPlacering(nyttPlaceringsnamn || placeringsnamn);
+        setSparat(true);
+        
+        setBockVisas(true);
+        
+        setTimeout(() => {
+            setBockVisas(false);
+        }, 2000);
+    };
+
+
     const slumpa = () => {
         const nyGrid = [];
         const namnAttSlumpa = [];
@@ -688,14 +703,15 @@ const SkapaPlaceringar = () => {
                     </button>
                     {klassnamn && klassrumsnamn && (<div className="w-[130px]">
                         <button
-                            className="px-5 py-4 bg-green-500 text-white border border-black text-center flex-1 min-w-[120px] max-w-[200px] rounded-b-none rounded-lg"
-                            onClick={() => {
-                                sparaPlacering(nyttPlaceringsnamn || placeringsnamn);
-                                setSparat(true);
-                            }}
-                        >
-                            {`${engelska ? "save" : "spara"}${!sparat && !laddarPlacering ? "*" : ""}`}
-                        </button>
+            className="px-5 py-4 bg-green-500 text-white border border-black text-center flex-1 min-w-[120px] max-w-[200px] rounded-b-none rounded-lg flex items-center justify-center"
+            onClick={hanteraSparaClick}
+        >
+            {bockVisas ? (
+                <FaCheck className="text-xl " />
+            ) : (
+                `${engelska ? "save" : "spara"}${!sparat ? "*" : ""}`
+            )}
+        </button>
                         <button
                             className="px-5 py-4 bg-green-500 text-white border border-black text-center flex-1 min-w-[120px] max-w-[200px] rounded-t-none rounded-lg"
                             onClick={() => {
