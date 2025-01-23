@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Layout.css";
 import Kugghjul from "../imgs/kugghjul-removebg-preview.png";
+import Footer from '../sidor/footer'
+
 import "../test.css";
 const MittKonto = () => {
   const [userData, setUserData] = useState(null);
@@ -588,7 +590,7 @@ const MittKonto = () => {
           </div>
         </div>
       )}
-     
+     <Footer isFixed={true}/>
     </div>
   );
 };

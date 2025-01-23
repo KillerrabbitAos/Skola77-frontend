@@ -7,6 +7,7 @@ import "./Animationer.css";
 import "./print.css";
 import Overlay from "./Overlay";
 import { FaCheck } from 'react-icons/fa';
+import Footer from './sidor/footer';
 
 function generateUniqueId() {
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
@@ -758,7 +759,8 @@ const SkapaPlaceringar = () => {
             </div>)}
         </>
 
-        <p className="text-center mt-5">Skola 77 2 Flamingo</p>
+
+                <Footer />
     </div>);
 };
 
