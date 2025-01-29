@@ -441,6 +441,26 @@ const SkapaPlaceringar = () => {
     sparaData(nyData);
   };
 
+  const savePlanAs = (index) => {
+    let nyData = data;
+    const nyttId = generateUniqueId();
+    nyData.placeringar.push({
+      id: nyttId,
+      namn: index,
+      klassrum: {
+        id: klassrumsId,
+        namn: klassrumsnamn,
+        grid: grid,
+        cols: cols,
+        rows: rows,
+      },
+      klass: { id: klassId, namn: klassnamn, personer: namn },
+    });
+    setPlaceringsId(nyttId);
+    setData(nyData);
+    sparaData(nyData);
+  };
+
   const hanteraSparaClick = () => {
     sparaPlacering(nyttPlaceringsnamn || placeringsnamn);
     setSparat(true);
@@ -977,8 +997,7 @@ const SkapaPlaceringar = () => {
                       index = index.trim();
                     }
 
-                    setPlaceringsnamn(index);
-                    sparaPlacering(index);
+                    savePlanAs(index);
                   }}
                 >
                   {engelska ? "save as" : "spara som"}
