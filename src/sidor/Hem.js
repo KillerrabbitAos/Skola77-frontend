@@ -109,7 +109,7 @@ const Changelog = ({ engelska }) => {
         <li className="flex items-start">
           <div className="flex-shrink-0 text-green-600">[2025-01-20]</div>
           <div className="ml-3 text-gray-700">
-            <strong>{engelska ? "Bug fixes:" : "Buggfixar:"}</strong> {engelska ? "Patched some general bugs" : "Generella buggar åtgärdade"}
+            <strong>{engelska ? "Design:" : "Design:"}</strong> {engelska ? "UI-updates" : "Gränssnittsförbättringar"}
           </div>
         </li>
       </ul>
