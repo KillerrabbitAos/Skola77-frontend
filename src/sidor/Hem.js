@@ -92,13 +92,21 @@ const Changelog = ({ engelska }) => {
         {engelska ? "Updates" : "Uppdateringar"}
       </h2>
       <ul className="space-y-4">
-        
-        <li className="flex items-start">
-          <div className="flex-shrink-0 text-green-600">[2025-01-05]</div>
+
+      <li className="flex items-start">
+          <div className="flex-shrink-0 text-green-600">[2025-02-09]</div>
           <div className="ml-3 text-gray-700">
-            <strong>{engelska ? "Language:" : "Språk:"}</strong> {engelska ? "Translation of Skola77." : "Överstättning av Skola77."}
+            <strong>{engelska ? "Design:" : "Design:"}</strong> {engelska ? "UI improvements" : "Gränssnittsförbättringar"}
           </div>
         </li>
+
+      <li className="flex items-start">
+          <div className="flex-shrink-0 text-green-600">[2025-01-20]</div>
+          <div className="ml-3 text-gray-700">
+            <strong>{engelska ? "Design:" : "Design:"}</strong> {engelska ? "UI improvements" : "Gränssnittsförbättringar"}
+          </div>
+        </li>
+
         <li className="flex items-start">
           <div className="flex-shrink-0 text-green-600">[2025-01-09]</div>
           <div className="ml-3 text-gray-700">
@@ -106,12 +114,10 @@ const Changelog = ({ engelska }) => {
           </div>
         </li>
 
-        <li className="flex items-start">
-          <div className="flex-shrink-0 text-green-600">[2025-01-20]</div>
-          <div className="ml-3 text-gray-700">
-            <strong>{engelska ? "Design:" : "Design:"}</strong> {engelska ? "UI-updates" : "Gränssnittsförbättringar"}
-          </div>
-        </li>
+        
+      
+
+        
       </ul>
     </div>
   );
