@@ -7,7 +7,7 @@ import "./Klassrum.css";
 import GridCell from "./GridCell";
 import { data } from "./data.js";
 
-const engelska = false
+const engelska = false;
 
 const Klassrum = ({
   rows = 5,
@@ -138,33 +138,92 @@ const Klassrum = ({
   }, []);
   return (
     <>
-      <DndContext
-        onDragEnd={handleDrop}
-        onDragStart={(e) => {
-          const { active } = e;
-          setDragging(active.id);
-        }}
-        onDragOver={(e) => {
-          const { over } = e;
-          if (over) {
-            setOverId(over.id);
-            setOverPerson(over.Person);
-          } else {
-            setOverId(null);
-            setOverPerson(null);
-          }
-        }}
-      >
-        <div className="print grid grid-cols-3">
-          <div></div>
-          <p className="place-self-center" id="uppe">
-            {reverse ? (engelska ? "back" : "bak") : (engelska ? "board" : "tavla")}
-          </p>
-          <div className="place-self-center text-xl flex justify-center items-center">
-            {extra}
+      {!klar ? (
+        <DndContext
+          onDragEnd={handleDrop}
+          onDragStart={(e) => {
+            const { active } = e;
+            setDragging(active.id);
+          }}
+          onDragOver={(e) => {
+            const { over } = e;
+            if (over) {
+              setOverId(over.id);
+              setOverPerson(over.Person);
+            } else {
+              setOverId(null);
+              setOverPerson(null);
+            }
+          }}
+        >
+          <div className="print grid grid-cols-3">
+            <div></div>
+            <p className="place-self-center" id="uppe">
+              {reverse
+                ? engelska
+                  ? "back"
+                  : "bak"
+                : engelska
+                ? "board"
+                : "tavla"}
+            </p>
+            <div className="place-self-center text-xl flex justify-center items-center">
+              {extra}
+            </div>
           </div>
-        </div>
 
+          <div
+            className="w-fit print m-auto"
+            ref={gridRef}
+            style={{
+              display: "grid",
+              overflow: "hidden",
+              zIndex: "115",
+              gridTemplateColumns: `repeat(${columns}, ${
+                skrivUt || klar
+                  ? Math.min(
+                      window.outerWidth / 1.1 / columns,
+                      window.outerHeight / 1.1 / rows
+                    )
+                  : rows / columns > 1.1
+                  ? Math.min(
+                      window.outerWidth / 1.1 / columns,
+                      window.outerHeight / 1.1 / rows
+                    )
+                  : window.outerWidth /
+                    (isTablet || window.outerWidth < window.outerHeight
+                      ? isMobile && !isTablet
+                        ? 1
+                        : 1.2
+                      : 1.4) /
+                    (columns > 14 || (isMobile && !isTablet) ? columns : 14)
+              }px)`,
+              gridTemplateRows: `repeat(${rows}, ${
+                skrivUt || klar
+                  ? Math.min(
+                      window.outerWidth / 1.1 / columns,
+                      window.outerHeight / 1.1 / rows
+                    )
+                  : rows / columns > 1.1
+                  ? Math.min(
+                      window.outerWidth / 1.1 / columns,
+                      window.outerHeight / 1.1 / rows
+                    )
+                  : window.outerWidth /
+                    (isTablet || window.outerWidth < window.outerHeight
+                      ? isMobile && !isTablet
+                        ? 1
+                        : 1.2
+                      : 1.4) /
+                    (columns > 14 || (isMobile && !isTablet) ? columns : 14)
+              }px )`,
+              justifyItems: "center",
+            }}
+          >
+            {reverse ? rum.reverse().map((row) => row.reverse()) : rum}
+          </div>
+        </DndContext>
+      ) : (
         <div
           className="w-fit print m-auto"
           ref={gridRef}
@@ -215,10 +274,12 @@ const Klassrum = ({
         >
           {reverse ? rum.reverse().map((row) => row.reverse()) : rum}
         </div>
-      </DndContext>
+      )}
 
       <div>
-        <p id="nere">{reverse ? (engelska ? "board" : "tavla") : (engelska ? "back" : "bak")}</p>
+        <p id="nere">
+          {reverse ? (engelska ? "board" : "tavla") : engelska ? "back" : "bak"}
+        </p>
       </div>
     </>
   );

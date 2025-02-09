@@ -182,6 +182,7 @@ const GridCell = ({
   };
 
   const handleCellClick = () => {
+    if (klar) return;
     if (!cell.id) {
       const newGrid = grid.map((row) => row.map((c) => ({ ...c })));
       newGrid[rowIndex][colIndex] = {
@@ -204,7 +205,7 @@ const GridCell = ({
   };
   const removeItem = () => {
     const newGrid = grid.map((row) => row.map((c) => ({ ...c })));
-    newGrid[rowIndex][colIndex] = { id: null, person: 0 }; // Reset cell to empty
+    newGrid[rowIndex][colIndex] = { id: null, person: 0 };
     setGrid(newGrid);
   };
 
