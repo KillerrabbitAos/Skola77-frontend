@@ -1,6 +1,6 @@
 {
   "name": "skola77-frontend",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": false,
   "main": "server.js",
   "dependencies": {
