@@ -18,7 +18,6 @@ import Klasser from './Klasser.js';
 import Editor from './editor.js';
 import Settings from './sidor/settings.jsx';
 
-
 export default function App() {
   return (
     <BrowserRouter>
@@ -34,10 +33,7 @@ export default function App() {
           <Route path="terms-of-service" element={<Användarvillkor />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path='/settings' element={<Settings />} />
-
           <Route path="mittKonto" element={<MittKonto />} />
-
-
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
@@ -52,3 +48,5 @@ root.render(<App />);
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+export { App };

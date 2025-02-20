@@ -1,10 +1,10 @@
-const React = require('react');
-const ReactDOM = require('react-dom/client');
-const { App } = require('./src/index.js');
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './src/index.js';
 
 function initializeApp(containerId) {
   const root = ReactDOM.createRoot(document.getElementById(containerId));
-  root.render(React.createElement(App));
+  root.render(<App />);
 }
 
-module.exports = { initializeApp };
+export { initializeApp };
