@@ -1,6 +1,6 @@
 {
   "name": "skola77-frontend",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "private": false,
   "main": "entry.js",
   "dependencies": {
