@@ -1,6 +1,6 @@
 {
   "name": "skola77",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": false,
   "dependencies": {
     "@ctrl/react-adsense": "^1.7.0",
