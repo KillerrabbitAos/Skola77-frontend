@@ -1,6 +1,6 @@
 {
   "name": "skola77-frontend",
-  "version": "1.0.14",
+  "version": "1.0.13",
   "private": false,
   "main": "dist/bundle.js",
   "dependencies": {
@@ -36,8 +36,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "bundle": "node build.js"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
