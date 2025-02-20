@@ -1,0 +1,74 @@
+{
+  "short_name": "Skola77",
+  "name": "Skola77 (beta)",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "48x48 72x72 96x96 128x128 256x256 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    
+    {
+      "src": "demobilder/klassrum.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "demobilder/bytPerspektiv.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "demobilder/bänkar.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "demobilder/ändraGridstorlek.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "demobilder/sparaKlassrum.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "PDFs/Skola77 vilkor och integritetspolicy.pdf"
+    },
+    {
+      "src": "PDFs/Skola77 Snabbguide.pdf"
+    },
+    {
+      "src" : "/richard.html"
+    },
+    {
+      "src" : "/login.html"
+    },
+    {
+      "src" : "app.css"
+    },
+    {
+      "src" : "/registrera.html"
+    },
+    {
+      "src" : "/sparrat.html"
+    },
+    {
+      "src" : "/kyckling.jpg"
+    },
+    {
+      "src" : "/pil-vänster.png"
+    },
+    {
+      "src" : "/nerpil.png"
+    }
+
+
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

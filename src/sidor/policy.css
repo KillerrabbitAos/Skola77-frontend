@@ -1,0 +1,49 @@
+.policy-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #2f4f2f; /* Mörkare grön för huvudtext */
+  }
+  
+  .policy-container h1 {
+    font-size: 2.5rem;
+    color: #006400; /* Mörkgrön för huvudrubriken */
+    margin-bottom: 20px;
+  }
+  
+  .policy-container h2 {
+    font-size: 1.8rem;
+    color: #228b22; /* Mellangrön för underrubriker */
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+  
+  .policy-container p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .policy-container ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .policy-container ul li {
+    margin-bottom: 10px;
+  }
+  
+  .policy-container strong {
+    color: #2e8b57; /* Skogsgrön för viktig text */
+  }
+  
+  .policy-container a {
+    color: #3cb371; /* Ljusgrön för länkar */
+    text-decoration: none;
+  }
+  
+  .policy-container a:hover {
+    text-decoration: underline;
+  }
+  

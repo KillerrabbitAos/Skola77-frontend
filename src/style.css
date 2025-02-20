@@ -1,0 +1,197 @@
+html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+.header {
+    margin: 0;
+    margin-right: 50px;
+}
+
+nav a{
+    font-size: 34px;
+    color: black;
+    text-decoration: none;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+#bodyTitle {
+    margin-top: 30px;
+    font-size: 24px;
+    text-align: center;
+    color: #333;
+}
+
+.foton {
+    background-color: #4CAF50;
+    width: 80%;
+    margin: auto;
+    border: 5px solid #ddd;
+    border-radius: 10px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 10px;
+}
+
+.foton img {
+    height: 300px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 10px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#betaKnapp {
+    margin-top: 20px;
+    margin-left: 30px;
+    font-size: 18px;
+    text-align: center;
+    background-color: #4CAF50;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+
+#betaKnapp:hover {
+    background-color: #45a049;
+}
+
+#info {
+    text-align: center;
+    margin-top: 40px;
+    color: #555;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .foton {
+        width: 100%;
+    }
+
+    #betaKnapp {
+        width: 100%;
+    }
+}
+
+
+.about h1{
+    margin-top: 80px;
+    text-align: center;
+}
+
+.about ul{
+    font-size: 20px;
+    margin-bottom: 40px;
+
+}
+
+#OBS{
+    font-weight: bold;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 0;
+}
+
+#main{
+    font-weight: bold;
+    border-right: 2px solid black;
+    padding-right: 50px;
+}
+
+.mail{
+    margin-left: 40px;
+    margin-top: 40px;
+}
+
+.mail a{
+    color: black;
+    font-weight: bold;
+
+}
+
+.mail p{
+    font-weight: bold;
+}
+
+
+#mailorm{
+    margin-top: 60px;
+}
+
+.supportHead{
+
+    text-align: center;
+    margin-top: 50px;
+
+}
+
+.material{
+    margin-top: 80px;
+    width: 260px;
+    height: 200px;
+    position: relative;
+    background-color: white;
+    margin-left: 50px;
+    box-shadow: 2px 2px 5px 2px;
+    border-radius: 10px;
+}
+
+
+.material p{
+    font-size: 20px;
+    text-decoration: underline;
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    
+}
+
+.material a{
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    display: block;
+    margin: auto;
+    width: 160px;
+
+}
+
+.material a:hover {
+    background-color: #45a049;
+}
+
+
+.pdfs{
+
+    text-align: center;
+    display: flex;
+
+}
+
+.pdfs div{
+
+
+    margin-right: 50px;
+
+}
+
+

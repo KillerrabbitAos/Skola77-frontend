@@ -1,0 +1,83 @@
+@keyframes myAnimation {
+  0% {
+    height: 228px;
+  }
+  100% {
+    height: 70px;
+  }
+}
+img {
+  -webkit-user-drag: none;
+}
+.krnkn {
+}
+@media print {
+  body * {
+    visibility: hidden;
+    text-align: center;
+  }
+  @page {
+    size: A4 landscape; /* Default to landscape */
+    margin: 1cm; /* Adjust margins as needed */
+  }
+
+  /* Ensure the document height matches A4 */
+  html {
+    max-height: 297mm; /* Adjust for portrait if switched */
+    max-width: 210mm; /* Adjust for portrait if switched */
+  }
+  .grid-cell{
+    background-color: white !important;
+  }
+  .print,
+  .print * {
+    visibility: visible;
+  }
+}
+li:hover {
+  background-color: lightgray;
+}
+@media (-moz-touch-enabled: 1), (pointer: coarse) {
+  li:hover {
+    background-color: #f2f2f2;
+  }
+}
+@keyframes vridUpp {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 90deg;
+  }
+}
+@keyframes vridNer {
+  from {
+    rotate: 90deg;
+  }
+  to {
+    rotate: 0deg;
+  }
+}
+.dropdown-item {
+  font-weight: bold;
+}
+
+
+/* Fade transition mellan sidor */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in-out;
+}

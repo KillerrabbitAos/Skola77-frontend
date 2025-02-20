@@ -1,0 +1,234 @@
+#frågorOchSvarHead{
+  text-align: center;
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+.frågorOchSvar{
+  font-size: 25px;
+  color: white;
+}
+#fråga{
+  margin-left: 40px;
+  width: 800px;
+  background-color: rgb(138, 133, 133);
+  padding: 20px;
+  text-align: center;
+  border-radius: 50px 50px 50px 5px;
+  margin-top: 190px;
+}
+#svar{
+  float: right;
+  margin-right: 40px;
+  width: 800px;
+  background-color: rgb(23, 23, 253);
+  padding: 20px;
+  text-align: center;
+  border-radius: 50px 50px 5px;
+}
+#mail{
+  color: white;
+}
+}
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column; /* Justera för vertikal riktning */
+}
+
+.triangel {
+  font-size: 24px; /* Större storlek för varningstriangel */
+  margin-right: 10px; /* Avstånd mellan triangel och text */
+}
+
+form {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 420px;
+  text-align: left; 
+}
+
+label {
+  display: block; 
+  margin-bottom: 5px;
+  text-align: left; /* Vänsterjusterad text */
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  width: calc(100% - 18px); /* Full bredd minus padding */
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 18px;
+  padding: 8px; /* Mer padding för att göra fälten mer klickvänliga */
+}
+
+button {
+  width: 100%;
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+#message, #registerMessage {
+  margin: 10px;
+  color: rgb(255, 0, 0);
+
+}
+
+h2 {
+  color: #333;
+  text-align: center; 
+}
+
+a {
+  margin-top: 5px;
+  color: black;
+}
+
+#kontofråga {
+  padding-top: 10px;
+  text-align: center; /* Centrera texten för kontofrågan */
+}
+
+#kontofråga p{
+  margin: 0px;
+}
+
+#kontofråga a{
+  color: green;
+  text-decoration: none;
+}
+
+
+#kontofråga a:hover{
+  text-decoration: underline;
+}
+
+#policy{
+  font-size: 12px;
+  color: gray;
+}
+
+#policy a{
+  text-decoration: none;
+  color: gray;
+
+}
+
+
+#policy a:hover{
+  text-decoration: underline;
+}
+
+.recaptcha-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+#logo img{
+  height: 90px;
+}
+
+#logo{
+  text-align: center;
+}
+
+#forgotPassword{
+  color: gray;
+  text-decoration: underline;
+}
+
+/* Modal-styling */
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.modal-content {
+  background-color: white;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; 
+  max-width: 400px;
+  border-radius: 5px;
+  text-align: left;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#sendEmailBtn {
+  width: 100%;
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#sendEmailBtn:hover {
+  background-color: #218838;
+}
+
+#emailMessage {
+  margin-top: 10px;
+  color: rgb(65, 179, 89);
+}
+
+
+.meddelanden {
+  background-color: #c9dbf5; /* Svag gul bakgrund */
+  color: #0f6ab5; /* Mörkare textfärg */
+  padding: 15px;
+  border-radius: 5px;
+  display: flex; /* Flexbox för att centrera innehåll */
+  align-items: center;
+  margin-bottom: 20px; /* Avstånd från formuläret */
+}
+
+.meddelanden a{
+  color: #427ce1;
+}
+
+.meddelanden p{
+  text-align: center;
+  justify-content: center;
+}

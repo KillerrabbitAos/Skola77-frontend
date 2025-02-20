@@ -1,0 +1,205 @@
+/* Layout.css */
+@keyframes snurrNer {
+  from {rotate: 0deg}
+  to {rotate: -90deg}
+}
+@keyframes snurrUpp {
+  from {rotate: -90deg}
+  to {rotate: 0deg}
+}
+/* General Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Mobile Dropdown Button */
+  .mobile-nav .dropdown-toggle {
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    
+  }
+  
+  /* Dropdown Menu Styling */
+  .dropdown-menu {
+    position: absolute;
+    top: 55px; /* Adjust to position below the button */
+    width: fit-content;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start;
+  }
+  
+  /* Dropdown Item Styling */
+  .dropdown-item {
+    width: 100%;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  
+  .dropdown-item:last-child {
+    border-bottom: none; /* Remove border on the last item */
+  }
+  
+  .dropdown-item a {
+    text-decoration: none;
+    color: inherit;
+    display: block; /* Make the anchor fill the item */
+    width: 100%;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Logo Styling */
+  .dropdown-logo {
+    width: 50px;
+    height: auto;
+    padding: 10px;
+  }
+  
+
+  .nav-links li:hover, 
+.dropdown-item:hover {
+  background-color: white;
+}
+
+.nav-links li, 
+.dropdown-item, 
+#kebbe, 
+.konto-ikon {
+  user-select: none;
+  -webkit-user-drag: none;
+  cursor: default;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Stil för modals med grönt tema */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 128, 0, 0.2); /* Halvtransparent grön bakgrund */
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background-color: #fff;
+  border: 1px solid #32cd32; /* Ljusgrön ram */
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-content h2 {
+  font-size: 1.5rem;
+  color: #228b22; /* Mörkgrön färg för rubriker */
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+#modalTextInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #32cd32; /* Ljusgrön kant */
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+#modalTextInput:focus {
+  border-color: #228b22; /* Mörkare grön vid fokus */
+  box-shadow: 0 0 3px #32cd32;
+}
+
+.modal-content button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modal-content button:first-of-type {
+  background-color: #32cd32; /* Ljusgrön bakgrund */
+  color: white;
+}
+
+.modal-content button:first-of-type:hover {
+  background-color: #228b22; /* Mörkare grön vid hover */
+}
+
+.modal-content button:last-of-type {
+  background-color: #dcdcdc; /* Neutral färg för avbryt */
+  color: #333;
+}
+
+.modal-content button:last-of-type:hover {
+  background-color: #c0c0c0; /* Ljusare grå vid hover */
+}
+
+#status {
+  font-size: 0.9rem;
+  color: #228b22; /* Mörkgrön för statusmeddelanden */
+  margin-bottom: 10px;
+}
