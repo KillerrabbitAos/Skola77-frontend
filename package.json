@@ -2,7 +2,7 @@
   "name": "skola77-frontend",
   "version": "1.0.4",
   "private": false,
-  "main": "server.js",
+  "main": "react-scripts start",
   "dependencies": {
     "@ctrl/react-adsense": "^1.7.0",
     "@dnd-kit/core": "^6.1.0",
