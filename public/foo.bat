@@ -1,3 +1,3 @@
 @echo off
-echo Hejsan
+echo Greger.....
 pause
