@@ -120,7 +120,7 @@ const Klasser = ({}) => {
         console.log("Klasser:", klasser);
       } catch (parseError) {
         console.error("Kunde inte parsa data:", parseError);
-        window.location.href = "https://auth.skola77.com?skola77";
+        //window.location.href = "https://auth.skola77.com?skola77";
       }
     } catch (fetchError) {
       console.error("Fel vid hämtning av data:", fetchError);
@@ -344,7 +344,7 @@ const Klasser = ({}) => {
             onClick={() => setVisaLaddaKlassrum(!visaLaddaKlassrum)}
             className="w-full py-2 bg-green-600 text-white font-bold text-lg rounded shadow hover:bg-green-700"
           >
-            {engelska ? "Load" : "Ladda"}
+            {engelska ? "My classes" : "Mina klasser"}
           </button>
           <button
             className="w-full py-2 bg-purple-600 text-white font-bold rounded shadow hover:bg-purple-700"

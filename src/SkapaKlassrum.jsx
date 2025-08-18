@@ -212,7 +212,7 @@ const Grid3 = () => {
             console.log("Klasser:", klasser);
         } catch (parseError) {
             console.error("Kunde inte parsa data:", parseError);
-            window.location.href = "https://auth.skola77.com?skola77";
+            //window.location.href = "https://auth.skola77.com?skola77";
         }
     } catch (fetchError) {
         console.error("Fel vid hämtning av data:", fetchError);
@@ -357,7 +357,7 @@ const spara = () => {
                     }}
                     className="bg-green-500 h-10 rounded-lg text-white w-32"
                   >
-                    {engelska ? "Load" : "Ladda"}
+                    {engelska ? "My classrooms" : "Mina klassrum"}
                   </button>
 
                   <div className="relative">{laddaMeny}</div>
