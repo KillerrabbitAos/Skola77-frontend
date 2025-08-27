@@ -120,7 +120,7 @@ const Klasser = ({}) => {
         console.log("Klasser:", klasser);
       } catch (parseError) {
         console.error("Kunde inte parsa data:", parseError);
-        //window.location.href = "https://auth.skola77.com?skola77";
+        window.location.href = "https://auth.skola77.com?skola77";
       }
     } catch (fetchError) {
       console.error("Fel vid hämtning av data:", fetchError);
