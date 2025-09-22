@@ -383,6 +383,7 @@ const SkapaPlaceringar = () => {
 
           {isShareModalVisible && (
             <ShareModal
+              id={placeringsId}
               onClose={() => setIsShareModalVisible(false)}
               onShare={(usernameOrEmail) => {
                 console.log("Share to:", usernameOrEmail);
