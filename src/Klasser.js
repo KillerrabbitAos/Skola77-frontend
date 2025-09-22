@@ -348,12 +348,12 @@ const Klasser = ({}) => {
               "Spara"
             )}
           </button>
-
+  
           <button
             onClick={() => setVisaLaddaKlassrum(!visaLaddaKlassrum)}
             className="w-full py-2 bg-green-600 text-white font-bold text-lg rounded shadow hover:bg-green-700"
           >
-            {engelska ? "Load" : "Ladda"}
+            {engelska ? "My classes" : "Mina klasser"}
           </button>
           <button
             className="w-full py-2 bg-purple-600 text-white font-bold rounded shadow hover:bg-purple-700"
@@ -365,7 +365,7 @@ const Klasser = ({}) => {
               ? "Import names from Excel sheet"
               : "Importera namn från kalkylark"}
           </button>
-
+  
           <ExcelToTextConverter ref={filRef} names={namn} setNames={setNamn} />
           <button
             onClick={taBortEfternamn}
@@ -373,14 +373,14 @@ const Klasser = ({}) => {
           >
             {engelska ? "Remove surnames" : "Ta bort efternamn"}
           </button>
-
+  
           <div
             className="hidden lg:block absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 w-2 cursor-ew-resize h-full"
             onMouseDown={handleMouseDown}
           ></div>
         </div>
       )}
-
+  
       <button
         className={`p-2 bg-gray-200 text-gray-600 rounded-full shadow-lg fixed top-4 left-4 lg:hidden
         ${isSidebarVisible ? "" : "bg-gray-300"}`}
@@ -392,10 +392,10 @@ const Klasser = ({}) => {
           <RiArrowRightSLine size={24} />
         )}
       </button>
-
+  
       <div className="flex-1 p-4">
         <div className="text-4xl text-center m-3">
-          <div className="relative group flex items-center justify-center">
+          <div className="relative group">
             <input
               className="truncate w-[90%] bg-inherit outline-none text-center border-b-2 border-transparent focus:border-b-green-600 transition-all duration-300"
               onChange={(e) => {
@@ -421,7 +421,7 @@ const Klasser = ({}) => {
             </div>
           </div>
         </div>
-
+  
         {klassnamntext !== "ny klass" && (
           <div
             className="fixed bottom-10 right-5 flex items-center justify-center w-16 h-16 bg-red-500 text-white rounded-full shadow-lg hover:bg-red-600 cursor-pointer"
@@ -463,7 +463,7 @@ const Klasser = ({}) => {
             <RiDeleteBin6Line className="w-8 h-8" />
           </div>
         )}
-
+  
         {visaLaddaKlassrum && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white rounded-lg shadow-xl w-96">

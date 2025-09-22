@@ -127,7 +127,7 @@ const Grid3 = () => {
           {data.klassrum.map((klassrum) => (
             <li
               key={klassrum.id}
-              className="font-bold hover:bg-gray-100 text-xl px-4 h-[60px] cursor-pointer"
+              className="font-bold hover:bg-gray-100 text-xl p-4 cursor-pointer"
               onClick={() => {
                 if (
                   sparat ||
@@ -169,12 +169,12 @@ const Grid3 = () => {
     const newGrid = grid.map((row) =>
       newCols > cols
         ? [
-            ...row,
-            ...Array.from({ length: newCols - cols }, () => ({
-              id: null,
-              person: 0,
-            })),
-          ]
+          ...row,
+          ...Array.from({ length: newCols - cols }, () => ({
+            id: null,
+            person: 0,
+          })),
+        ]
         : row
     );
     setGrid(newGrid);
@@ -330,9 +330,7 @@ const Grid3 = () => {
             </div>
           ) : (
             <div>
-              <div className="text-center text-2xl">
-                {engelska ? "Rows" : "Rader"}
-              </div>
+              <div className="text-center text-2xl">{engelska ? "Rows" : "Rader"}</div>
               <input
                 type="number"
                 min="1"
@@ -354,9 +352,7 @@ const Grid3 = () => {
             </div>
           ) : (
             <div>
-              <div className="text-center text-2xl">
-                {engelska ? "Columns" : "Kolumner"}
-              </div>
+              <div className="text-center text-2xl">{engelska ? "Columns" : "Kolumner"}</div>
               <input
                 type="number"
                 min="1"
@@ -389,7 +385,7 @@ const Grid3 = () => {
                     }}
                     className="bg-green-500 h-10 rounded-lg text-white w-32"
                   >
-                    {engelska ? "Load" : "Ladda"}
+                    {engelska ? "My classrooms" : "Mina klassrum"}
                   </button>
 
                   <div className="relative">{laddaMeny}</div>
@@ -401,53 +397,51 @@ const Grid3 = () => {
             <div className="h-full flex items-center justify-center">
               <button
                 onClick={spara}
-                className={`bg-green-500 h-10 rounded-lg text-white w-32 mr-5 flex items-center justify-center ${
-                  isSaved ? "bg-green-700" : ""
-                }`}
+                className={`bg-green-500 h-10 rounded-lg text-white w-32 mr-5 flex items-center justify-center ${isSaved ? "bg-green-700" : ""}`}
               >
                 {isSaved ? (
                   <RiCheckLine size={20} className="mr-2" />
-                ) : engelska ? (
-                  "Save"
                 ) : (
-                  "Spara"
+                  (engelska ? "Save" : "Spara")
                 )}
               </button>
-
-              <div className="relative flex items-center justify-center group">
-                <img
-                  id="delaKnapp"
-                  src="/person-add.svg"
-                  alt="Dela"
-                  className="ml-2 h-7 transition-transform duration-300 hover:scale-110"
-                  onClick={() => setIsShareModalVisible(true)}
-                />
-                <span className="absolute bottom-[-2rem] left-1/2 transform -translate-x-1/2 bg-gray-700 text-white text-xs rounded py-1 px-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                  Dela
-                </span>
-              </div>
             </div>
           </div>
 
-          {isShareModalVisible && (
-            <ShareModal
-              id={klassrumsId}
-              onClose={() => setIsShareModalVisible(false)}
-              onShare={(usernameOrEmail) => {
-                console.log("Share to:", usernameOrEmail);
-                setIsShareModalVisible(false);
-              }}
-              type="room"
-              placeholderText={
-                engelska
-                  ? "Enter username or email"
-                  : "Ange användarnamn eller e-post"
-              }
-              buttonText={engelska ? "Share Classroom" : "Dela Klassrum"}
+          <div className="relative flex items-center justify-center group">
+            <img
+              id="delaKnapp"
+              src="/person-add.svg"
+              alt="Dela"
+              className="ml-2 h-7 transition-transform duration-300 hover:scale-110"
+              onClick={() => setIsShareModalVisible(true)}
             />
-          )}
+            <span className="absolute bottom-[-2rem] left-1/2 transform -translate-x-1/2 bg-gray-700 text-white text-xs rounded py-1 px-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+              Dela
+            </span>
+          </div>
         </div>
       </div>
+
+      {isShareModalVisible && (
+        <ShareModal
+          id={klassrumsId}
+          onClose={() => setIsShareModalVisible(false)}
+          onShare={(usernameOrEmail) => {
+            console.log("Share to:", usernameOrEmail);
+            setIsShareModalVisible(false);
+          }}
+          type="room"
+          placeholderText={
+            engelska
+              ? "Enter username or email"
+              : "Ange användarnamn eller e-post"
+          }
+          buttonText={engelska ? "Share Classroom" : "Dela Klassrum"}
+        />
+      )}
+    <div>
+      </div >
 
       <input
         onChange={(e) => setNyttNamn(e.target.value)}
@@ -480,7 +474,8 @@ const Grid3 = () => {
         />
       </div>
       <Footer />
-    </div>
+
+    </div >
   );
 };
 

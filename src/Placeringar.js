@@ -860,7 +860,14 @@ const SkapaPlaceringar = () => {
                               klassrum,
                             ])
                           );
-
+                          let klassrumBorttagen;
+                          let klassBorttagen;
+                          if (!klasserDict[placering.klass.id]) {
+                            klassBorttagen = true;
+                          }
+                          if (!klasserDict[placering.klass.id]) {
+                            klassrumBorttagen = true;
+                          }
                           const currentKlass =
                             klasserDict[placering.klass.id] || placering.klass;
 

@@ -82,6 +82,7 @@ button{
   padding: 3px;
   font-size: 20px;
   border-radius: 4px;
+  margin: 10px;
   width: 130px;
   cursor: pointer;
   }
