@@ -67,7 +67,7 @@ const Footer = ({ isFixed = false }) => {
       {showFlamingo && (
         <img
           ref={flamingoRef}
-          src="https://helenelund.org/eggus.jpeg"
+          src="https://arab.helenelund.org/eggus.jpeg"
           alt="Flamingo"
           style={{
             position: "absolute",
